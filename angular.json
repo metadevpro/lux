@@ -118,6 +118,41 @@
           }
         }
       }
+    },
+    "lux": {
+      "projectType": "library",
+      "root": "projects/lux",
+      "sourceRoot": "projects/lux/src",
+      "prefix": "lux",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/lux/tsconfig.lib.json",
+            "project": "projects/lux/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/lux/src/test.ts",
+            "tsConfig": "projects/lux/tsconfig.spec.json",
+            "karmaConfig": "projects/lux/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/lux/tsconfig.lib.json",
+              "projects/lux/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "lux-demo"
 }
