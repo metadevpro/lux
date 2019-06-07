@@ -83,9 +83,12 @@ export class TooltipDirective {
   setPosition() {
     const hostPos = this.el.nativeElement.getBoundingClientRect();
     const tooltipPos = this.tooltip.getBoundingClientRect();
-    const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    let top;
-    let left;
+    const scrollPos = window.pageYOffset ||
+                      document.documentElement.scrollTop ||
+                      document.body.scrollTop ||
+                      0;
+    let top = 0;
+    let left = 0;
 
     switch (this.placement) {
       case Placement.Bottom:
