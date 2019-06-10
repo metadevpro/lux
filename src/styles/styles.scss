@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tooltip';
+
+body {
+  font-family: Arial;
+}
+
+.inline {
+  font-family: Consolas, monospace;
+  font-weight: bold;
+  border: 1px solid #00cdcd;
+  border-radius: 3px;
+  background: #c0f4f4;
+  padding: 0px 3px;
+}
+
+.code {
+  padding: .2em 2em;
+  background: #e0f8f8;
+  font-family: Consolas, monospace;
+  width: 45%;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.sample {
+  width: 49%;
+  display: inline-block;
+}
+.properties li {
+  margin-bottom: 4px;
+}
+
+footer {
+  font-size: .8em;
+  text-align: center;
+}
