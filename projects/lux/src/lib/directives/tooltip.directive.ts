@@ -109,6 +109,8 @@ export class TooltipDirective {
         left = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
         break;
     }
+    top = Math.max(0, top);
+    left = Math.max(0, left);
 
     this.renderer.setStyle(this.tooltip, 'top', `${top + scrollPos}px`);
     this.renderer.setStyle(this.tooltip, 'left', `${left}px`);
