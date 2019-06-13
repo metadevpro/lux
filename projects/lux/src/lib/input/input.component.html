@@ -1,0 +1,38 @@
+<div *ngIf="currency && currency === 'USD'" class="currency">
+    <span>$</span>
+</div>
+<input [luxTooltip]="(type === 'geolocation') ? 'Latitude' : null" placement="top" delay="200"
+    [type]="domain" 
+    [(ngModel)]="value" 
+    [attr.disabled]="disabled"
+    [attr.readonly]="readonly"
+    [attr.min]="min"
+    [attr.max]="max"
+    [attr.step]="step"
+    [placeholder]="placeholder" [formControl]="valueControl">
+<input *ngIf="type === 'geolocation'" luxTooltip="Longitude" placement="top" delay="200" 
+    [type]="domain" 
+    [(ngModel)]="valueLong" 
+    [attr.disabled]="disabled"
+    [attr.readonly]="readonly"
+    [attr.min]="minLong"
+    [attr.max]="maxLong"
+    [attr.step]="step"
+    [placeholder]="placeholder" [formControl]="valueControl">
+<div *ngIf="valueControl.invalid && (valueControl.dirty || valueControl.touched)" class="alert">
+    <div *ngIf="valueControl.errors.required">
+        Value is required
+    </div>
+    <div *ngIf="valueControl.errors.email">
+        Format should be example@example.com
+    </div>
+    <div *ngIf="valueControl.errors.min">
+        Min value is 0.00
+    </div>
+    <div *ngIf="valueControl.errors.max">
+        Max value is 10000.00
+    </div>
+</div>
+<div *ngIf="currency && currency === 'EUR'" class="currency">
+    <span>€</span>
+</div>

@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { LuxComponent } from './lux.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { PaginationComponent } from './pagination/pagination.component';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
   declarations: [
     LuxComponent,
+    InputComponent,
     TooltipDirective,
     PaginationComponent],
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   exports: [
     LuxComponent,
-    TooltipDirective,
+    InputComponent,
+    TooltipDirective
     PaginationComponent
   ]
 })
