@@ -17,7 +17,8 @@ import { PaginationComponent } from './pagination/pagination.component';
   ],
   exports: [
     LuxComponent,
-    TooltipDirective
+    TooltipDirective,
+    PaginationComponent
   ]
 })
 export class LuxModule { }

@@ -7,6 +7,7 @@ import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.componen
 import { MainComponent } from './main/main.component';
 import { LuxModule } from 'projects/lux/src/public-api';
 import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
+import { CoreModule } from './core/core.module';
 
 const appRoutes: Routes = [
   { path: '',       component: MainComponent },
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     PaginationSampleComponent
   ],
   imports: [
+    CoreModule,
     LuxModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes)

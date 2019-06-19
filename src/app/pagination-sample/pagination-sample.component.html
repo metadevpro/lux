@@ -3,19 +3,43 @@
 <h2>Usage samples</h2>
 <div>
 
-  <h3>Tooltip on top</h3>
   <div class="code">
-    <pre>
-&lt;button luxTooltip="Tooltip on top" placement="top" delay="200"&gt;Top&lt;/button&gt;
-    </pre>
+      <pre>
+        &lt;lux-pagination *ngIf="users$ | async" 
+        (goToPage)="goToPage($event)"
+        (pageSizeChange)="reloadPage($event)"
+        [paginationInfo]="paginationInfo"&gt;&lt;/lux-pagination&gt;
+      </pre>
   </div>
-w
-  <div class="sample">
-    <lux-pagination [paginationInfo]="paginationInfo"></lux-pagination>
+  <div class="content">
+    <table class="all-width">
+      <thead>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users$ | async">
+          <td>{{ user.userName }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <lux-pagination *ngIf="users$ | async" 
+      (goToPage)="goToPage($event)"
+      (pageSizeChange)="reloadPage($event)"
+      [paginationInfo]="paginationInfo"></lux-pagination>
   </div>
+
 </div>
 
 <h2>Documentation</h2>
-<h3>Properties</h3>
+<h3>Properties of Pagination Info</h3>
 <ul class="properties">
+  <li><span class="inline">total</span>total of items.</li>
+  <li><span class="inline">limit</span>Number of items that it is show.</li>
+  <li><span class="inline">page</span>Current page</li>
+  <li><span class="inline">pagesToShow</span>Pages to show in the toolbar</li>
 </ul>

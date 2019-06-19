@@ -94,7 +94,7 @@ $lightgrey: grey;
 }
 
 .icon {
-	background-size: 1.5em 1.5em;
+	background-size: 1.3em 1.4em;
 	background-position: center;
 	background-repeat: no-repeat;
 }
@@ -141,36 +141,36 @@ $lightgrey: grey;
 
 @media only screen and (min-width: 500px) and (max-width: 850px){
 	.arrow-right {
-		background-position: .4em;
+		background-position: .3em;
 	}
 	
 	.arrow-left {
-		background-position: .4em;
+		background-position: .3em;
 	}
 	
 	.arrow-right-end {
-		background-position: .1em;
+		background-position: 0em;
 	}
 	
 	.arrow-left-end {
-		background-position: .1em;
+		background-position: 0em;
 	}
 }
 
 @media only screen and (min-width: 900px) {
 	.arrow-right {
-		background-position: .6em;
+		background-position: .2em;
 	}
 	
 	.arrow-left {
-		background-position: .6em;
+		background-position: .2em;
 	}
 	
 	.arrow-right-end {
-		background-position: .4em;
+		background-position: 0em;
 	}
 	
 	.arrow-left-end {
-		background-position: .4em;
+		background-position: 0em;
 	}
 }

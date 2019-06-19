@@ -1,23 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { PaginationInfo } from 'projects/lux/src/lib/core/models/pagination';
+import { UserMockService } from '../core/services-mock/user-mock.service';
 
 @Component({
   selector: 'app-pagination-sample',
-  templateUrl: './pagination-sample.component.html'
+  templateUrl: './pagination-sample.component.html',
+  styleUrls: ['pagination-sample.component.scss']
 })
-export class PaginationSampleComponent implements OnInit {
+export class PaginationSampleComponent implements AfterContentInit {
 
-  paginationInfo: PaginationInfo = {
-    total: 10,
-    page: 1,
-    limit: 2,
-    pagesToShow: 2,
-  };
+  users$: Observable<any[]>;
 
-  constructor() { }
+  paginationInfo: PaginationInfo;
 
-  ngOnInit() {
+  constructor(private userService: UserMockService) { }
+
+  ngAfterContentInit(): void {
+    this.paginationInfo = {
+      total: 0,
+      page: 1,
+      limit: 2,
+      pagesToShow: 2,
+    };
+    this.getTotalItemsCount();
+    this.loadUsers(this.paginationInfo);
+  }
+
+  goToPage(n: number): void {
+    this.paginationInfo.page = n;
+    this.loadUsers(this.paginationInfo);
+  }
+
+  reloadPage(limit: number): void {
+    this.paginationInfo.limit = limit;
+    this.paginationInfo.page = 1;
+    this.loadUsers(this.paginationInfo);
+  }
+
+  loadUsers(pagination: PaginationInfo): void {
+    this.users$ = this.userService.getAll(pagination);
+  }
+
+  getTotalItemsCount(): void {
+    this.userService.getCount().subscribe((res: number) => {
+      this.paginationInfo.total = res;
+    });
   }
 
 }
