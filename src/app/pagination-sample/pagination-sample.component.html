@@ -5,10 +5,23 @@
 
   <div class="code">
       <pre>
-        &lt;lux-pagination *ngIf="users$ | async" 
-        (goToPage)="goToPage($event)"
-        (pageSizeChange)="reloadPage($event)"
-        [paginationInfo]="paginationInfo"&gt;&lt;/lux-pagination&gt;
+// TS / JS Code
+const paginationInfo = {{ '{' }}
+  pageSize: 2,
+  page: 1,
+  pagesToShow: 3,
+  total: 15
+};
+      </pre>
+  </div>
+
+  <div class="code">
+      <pre>
+&lt;lux-pagination *ngIf="users$ | async"
+                (goToPage)="goToPage($event)"
+                (pageSizeChange)="reloadPage($event)"
+                [paginationInfo]="paginationInfo"&gt;
+&lt;/lux-pagination&gt;
       </pre>
   </div>
   <div class="content">
@@ -27,7 +40,7 @@
         </tr>
       </tbody>
     </table>
-    <lux-pagination *ngIf="users$ | async" 
+    <lux-pagination *ngIf="users$ | async"
       (goToPage)="goToPage($event)"
       (pageSizeChange)="reloadPage($event)"
       [paginationInfo]="paginationInfo"></lux-pagination>
@@ -39,7 +52,7 @@
 <h3>Properties of Pagination Info</h3>
 <ul class="properties">
   <li><span class="inline">total</span>total of items.</li>
-  <li><span class="inline">limit</span>Number of items that it is show.</li>
+  <li><span class="inline">pageSize</span>Number of items that it is show.</li>
   <li><span class="inline">page</span>Current page</li>
   <li><span class="inline">pagesToShow</span>Pages to show in the toolbar</li>
 </ul>
