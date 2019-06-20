@@ -66,8 +66,8 @@ export class UserMockService {
     constructor() { }
 
     getAll(pagination: PaginationInfo): Observable<any[]> {
-        const x1 = (pagination.page - 1) * pagination.limit;
-        const x2 = x1 + pagination.limit;
+        const x1 = (pagination.page - 1) * pagination.pageSize;
+        const x2 = x1 + pagination.pageSize;
         return of(this.list.slice(x1, x2));
     }
 

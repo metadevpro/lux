@@ -9,24 +9,24 @@ import { PaginationInfo } from '../core/models/pagination';
 export class PaginationComponent {
 
   /** Current page, total items and items to show per page */
-  public _paginationInfo: PaginationInfo;
+  private paginationInfoValue: PaginationInfo;
   /** Disable or not the previous button */
-  public _hidePrevious: boolean;
+  private hidePreviousValue: boolean;
   /** It is or not the last page */
-  public _lastPage: boolean;
+  private lastPageValue: boolean;
   /** Show or not next ellipsis */
-  public _displayNextEllipsis: boolean;
+  private displayNextEllipsisValue: boolean;
   /** Show or not previous ellipsis */
-  public _displayPreviousEllipsis: boolean;
+  private displayPreviousEllipsisValue: boolean;
   /** Total number of pages */
-  public _totalPages: number;
+  private totalPagesValue: number;
 
   @Input('paginationInfo')
   set paginationInfo(value: PaginationInfo) {
-    this._paginationInfo = value;
+    this.paginationInfoValue = value;
   }
   get paginationInfo(): PaginationInfo {
-    return this._paginationInfo;
+    return this.paginationInfoValue;
   }
 
   @Output() goToPage = new EventEmitter<number>();
@@ -35,34 +35,34 @@ export class PaginationComponent {
   constructor() {}
 
   get hidePrevious(): boolean {
-    this._hidePrevious = (this.paginationInfo.page === 1);
-    return this._hidePrevious;
+    this.hidePreviousValue = (this.paginationInfo.page === 1);
+    return this.hidePreviousValue;
   }
 
   get lastPage(): boolean {
-    this._lastPage = (this.paginationInfo.limit * this.paginationInfo.page >= this.paginationInfo.total);
-    return this._lastPage;
+    this.lastPageValue = (this.paginationInfo.pageSize * this.paginationInfo.page >= this.paginationInfo.total);
+    return this.lastPageValue;
   }
 
   get totalPages(): number {
-    this._totalPages = Math.ceil(this.paginationInfo.total / this.paginationInfo.limit) || 0;
-    return this._totalPages;
+    this.totalPagesValue = Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) || 0;
+    return this.totalPagesValue;
   }
 
   get displayNextEllipsis(): boolean {
     const pagesShowed = this.getPages();
-    this._displayNextEllipsis = pagesShowed.includes(this.totalPages) ? false : true;
-    return this._displayNextEllipsis;
+    this.displayNextEllipsisValue = pagesShowed.includes(this.totalPages) ? false : true;
+    return this.displayNextEllipsisValue;
   }
 
   get displayPreviousEllipsis(): boolean {
     const pagesShowed = this.getPages();
-    this._displayPreviousEllipsis = pagesShowed.includes(1) ? false : true;
-    return this._displayPreviousEllipsis;
+    this.displayPreviousEllipsisValue = pagesShowed.includes(1) ? false : true;
+    return this.displayPreviousEllipsisValue;
   }
 
   pageSizeChanged(pageSize: number) {
-    this.paginationInfo.limit = pageSize;
+    this.paginationInfo.pageSize = pageSize;
     this.pageSizeChange.emit(pageSize);
   }
 
@@ -79,7 +79,7 @@ export class PaginationComponent {
   }
 
   getPages(): number[] {
-    const c = Math.ceil(this.paginationInfo.total / this.paginationInfo.limit);
+    const c = Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize);
     const p = this.paginationInfo.page || 1;
     const pagesToShow = this.paginationInfo.pagesToShow;
     const pages: number[] = [];

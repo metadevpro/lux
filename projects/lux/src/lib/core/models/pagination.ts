@@ -4,7 +4,7 @@ export interface PaginationInfo {
     /** The current page */
     page: number;
     /** How many items we want to show per page */
-    limit: number;
+    pageSize: number;
     /** How many pages between next/prev */
     pagesToShow: number;
 }

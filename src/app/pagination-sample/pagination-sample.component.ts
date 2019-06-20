@@ -21,8 +21,8 @@ export class PaginationSampleComponent implements AfterContentInit {
     this.paginationInfo = {
       total: 0,
       page: 1,
-      limit: 2,
-      pagesToShow: 2,
+      pageSize: 2,
+      pagesToShow: 3,
     };
     this.getTotalItemsCount();
     this.loadUsers(this.paginationInfo);
@@ -34,7 +34,7 @@ export class PaginationSampleComponent implements AfterContentInit {
   }
 
   reloadPage(limit: number): void {
-    this.paginationInfo.limit = limit;
+    this.paginationInfo.pageSize = limit;
     this.paginationInfo.page = 1;
     this.loadUsers(this.paginationInfo);
   }

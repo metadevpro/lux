@@ -5,10 +5,11 @@
 
   <div class="code">
       <pre>
-        &lt;lux-pagination *ngIf="users$ | async" 
-        (goToPage)="goToPage($event)"
-        (pageSizeChange)="reloadPage($event)"
-        [paginationInfo]="paginationInfo"&gt;&lt;/lux-pagination&gt;
+&lt;lux-pagination *ngIf="users$ | async" 
+                    (goToPage)="goToPage($event)"
+                    (pageSizeChange)="reloadPage($event)"
+                    [paginationInfo]="paginationInfo"&gt;
+&lt;/lux-pagination&gt;
       </pre>
   </div>
   <div class="content">
@@ -36,7 +37,7 @@
 </div>
 
 <h2>Documentation</h2>
-<h3>Properties of Pagination Info</h3>
+<h3>Properties</h3>
 <ul class="properties">
   <li><span class="inline">total</span>total of items.</li>
   <li><span class="inline">limit</span>Number of items that it is show.</li>
