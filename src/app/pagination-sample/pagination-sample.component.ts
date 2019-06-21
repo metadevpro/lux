@@ -33,8 +33,8 @@ export class PaginationSampleComponent implements AfterContentInit {
     this.loadUsers(this.paginationInfo);
   }
 
-  reloadPage(limit: number): void {
-    this.paginationInfo.pageSize = limit;
+  reloadPage(pageSize: number): void {
+    this.paginationInfo.pageSize = pageSize;
     this.paginationInfo.page = 1;
     this.loadUsers(this.paginationInfo);
   }
