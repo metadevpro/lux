@@ -1,0 +1,24 @@
+<div class="pagination" *ngIf="paginationInfo.total > 0">
+  <a luxTooltip="First" placement="top" delay="500" (click)="onFirst()" [ngClass]="{
+    'disabledFirstLast': hidePrevious,
+    'enabledFirstLast': !hidePrevious
+  }" class="button-pagination icon arrow-left-end"></a>
+  <a luxTooltip="Previous" placement="top" delay="500" (click)="onPage(paginationInfo.page - 1)" [ngClass]="{
+    'disabledFirstLast': hidePrevious,
+    'enabledFirstLast': !hidePrevious
+  }" class="button-pagination icon arrow-left"></a>
+  <span class="ellipsis" *ngIf="displayPreviousEllipsis">...</span>
+  <a luxTooltip="{{pageNum}}" placement="top" delay="500" [ngClass]="{
+   'disabled': pageNum === paginationInfo.page,
+   'enabled': pageNum !== paginationInfo.page
+  }" class="button-pagination" *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)">{{pageNum}}</a>
+  <span class="ellipsis" *ngIf="displayNextEllipsis">...</span>
+  <a luxTooltip="Next" placement="top" delay="500" (click)="onPage(paginationInfo.page + 1)" [ngClass]="{
+    'disabledFirstLast': lastPage,
+    'enabledFirstLast': !lastPage
+  }" class="button-pagination icon arrow-right"></a>
+  <a luxTooltip="Last" placement="top" delay="500" (click)="onLast()" [ngClass]="{
+    'disabledFirstLast': lastPage,
+    'enabledFirstLast': !lastPage
+  }" class="button-pagination icon arrow-right-end"></a>
+</div>

@@ -7,7 +7,9 @@
     "start": "ng serve",
     "start-heroku": "http-server -p $PORT dist/lux-demo/",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test lux --watch=false",
+    "test:coverage": "ng test lux --watch=false --code-coverage",
+    "tdd": "ng test lux",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
