@@ -10,7 +10,7 @@
   <span class="ellipsis" *ngIf="displayPreviousEllipsis">...</span>
   <a luxTooltip="{{pageNum}}" placement="top" delay="500" [ngClass]="{
    'disabled': pageNum === paginationInfo.page,
-   'enabled': pageNum !== paginationInfo.page 
+   'enabled': pageNum !== paginationInfo.page
   }" class="button-pagination" *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)">{{pageNum}}</a>
   <span class="ellipsis" *ngIf="displayNextEllipsis">...</span>
   <a luxTooltip="Next" placement="top" delay="500" (click)="onPage(paginationInfo.page + 1)" [ngClass]="{
@@ -22,8 +22,3 @@
     'enabledFirstLast': !lastPage
   }" class="button-pagination icon arrow-right-end"></a>
 </div>
-<!-- <select [(ngModel)]="paginationInfo.limit" (change)="pageSizeChanged($event.target.value)">
-  <option value="2">2</option>
-  <option value="5">5</option>
-  <option value="10">10</option>  
-</select> -->
