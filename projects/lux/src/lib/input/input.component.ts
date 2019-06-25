@@ -20,6 +20,7 @@ export class InputComponent {
   public max: number;
   public minLong: number;
   public maxLong: number;
+  public valueLong: number;
 
   @Input() public disabled: boolean;
   @Input() public readonly: boolean;
