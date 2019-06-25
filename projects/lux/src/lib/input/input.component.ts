@@ -96,11 +96,7 @@ export class InputComponent {
   }
 
   updateValidators(validators: ValidatorFn[]): void {
-    if (!this.validators) {
-      this.validators = validators;
-    } else {
-      validators.map(validator => { this.validators.push(validator); });
-    }
+    validators.map(validator => { this.validators.push(validator); });
     this.valueControl.setValidators(this.validators);
     this.valueControl.updateValueAndValidity();
   }
