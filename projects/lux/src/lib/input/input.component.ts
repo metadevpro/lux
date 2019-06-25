@@ -12,6 +12,7 @@ export class InputComponent {
   private _type: string;
   private _placeholder: string;
   private _currency: string;
+  private _required: boolean;
   public domain: string;
   private validators: ValidatorFn[] = [];
   public valueControl = new FormControl(this.value);
@@ -21,6 +22,10 @@ export class InputComponent {
   public minLong: number;
   public maxLong: number;
   public valueLong: number;
+
+  get className(): string {
+    return this.checkClassName();
+  }
 
   @Input() public disabled: boolean;
   @Input() public readonly: boolean;
@@ -43,7 +48,11 @@ export class InputComponent {
 
   @Input()
   set required(v: boolean) {
+    this._required = v;
     this.updateValidators([Validators.required]);
+  }
+  get required(): boolean {
+    return this._required;
   }
 
   @Input()
@@ -67,6 +76,13 @@ export class InputComponent {
   @Output() valueChange = new EventEmitter<string>();
 
   constructor() {}
+
+  checkClassName(): string {
+    if (this.readonly !== undefined) {
+      return 'readonly';
+    }
+    return '';
+  }
 
   checkType(type: string): void {
     switch (type) {

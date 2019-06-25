@@ -33,3 +33,12 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+.readonly {
+    border: none;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}

@@ -9,7 +9,9 @@
     [attr.min]="min"
     [attr.max]="max"
     [attr.step]="step"
-    [placeholder]="placeholder" [formControl]="valueControl">
+    [placeholder]="placeholder" 
+    [formControl]="valueControl"
+    [ngClass]="className" >
 <input *ngIf="type === 'geolocation'" luxTooltip="Longitude" placement="top" delay="200" 
     [type]="domain" 
     [(ngModel)]="valueLong" 
@@ -18,7 +20,8 @@
     [attr.min]="minLong"
     [attr.max]="maxLong"
     [attr.step]="step"
-    [placeholder]="placeholder" [formControl]="valueControl">
+    [placeholder]="placeholder" 
+    [formControl]="valueControl">
 <div *ngIf="valueControl.invalid && (valueControl.dirty || valueControl.touched)" class="alert">
     <div *ngIf="valueControl.errors.required">
         Value is required
