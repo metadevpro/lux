@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     MainComponent,
     AppComponent,
     TooltipSampleComponent,
-    InputSampleComponent
+    InputSampleComponent,
     PaginationSampleComponent
   ],
   imports: [

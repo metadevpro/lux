@@ -12,12 +12,17 @@ import { InputComponent } from './input/input.component';
     LuxComponent,
     InputComponent,
     TooltipDirective,
-    PaginationComponent],
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+    PaginationComponent
+  ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule
+  ],
   exports: [
     LuxComponent,
     InputComponent,
-    TooltipDirective
+    TooltipDirective,
     PaginationComponent
   ]
 })

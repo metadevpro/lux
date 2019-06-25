@@ -27,20 +27,20 @@ describe('InputComponent', () => {
   });
 
   it('When value is changed, it should emit an event', () => {
-    let valueEmitterSpy = spyOn(component.valueChange, 'emit');
+    const valueEmitterSpy = spyOn(component.valueChange, 'emit');
     component.type = 'text';
     component.value = 'Hello World';
     expect(valueEmitterSpy).toHaveBeenCalled();
   });
 
   it('Updated Validators when input is required', () => {
-    let updateSpy = spyOn(component, 'updateValidators');
+    const updateSpy = spyOn(component, 'updateValidators');
     component.required = true;
     expect(updateSpy).toHaveBeenCalled();
   });
 
   it('Updated Validators when type is set to email', () => {
-    let updateSpy = spyOn(component, 'updateValidators');
+    const updateSpy = spyOn(component, 'updateValidators');
     component.type = 'email';
     expect(updateSpy).toHaveBeenCalled();
   });
@@ -53,7 +53,7 @@ describe('InputComponent', () => {
   });
 
   it('When input type is currency, the value should be set to 0 & emit it', () => {
-    let valueEmitterSpy = spyOn(component.valueChange, 'emit');
+    const valueEmitterSpy = spyOn(component.valueChange, 'emit');
     component.type = 'currency';
     expect(valueEmitterSpy).toHaveBeenCalled();
     expect(component.value).toEqual(0);
@@ -76,8 +76,8 @@ describe('InputComponent', () => {
   });
 
   it('When input type is percentage, the update validators should be called', () => {
+    const updateValidatorsSpy = spyOn(component, 'updateValidators');
     component.type = 'percentage';
-    let updateValidatorsSpy = spyOn(component, 'updateValidators');
     expect(updateValidatorsSpy).toHaveBeenCalled();
   });
 
