@@ -41,15 +41,27 @@ export class TooltipDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   @HostListener('mouseenter') onMouseEnter() {
-    if (!this.tooltip) {  if (this.tooltipTitle) { this.show(); } }
+    if (!this.tooltip) {
+      if (this.tooltipTitle) {
+        this.show();
+      }
+    }
   }
 
   @HostListener('mouseleave') onMouseLeave() {
-    if (this.tooltip) { if (this.tooltipTitle) { this.hide(); } }
+    if (this.tooltip) {
+      if (this.tooltipTitle) {
+        this.hide();
+      }
+    }
   }
 
   @HostListener('click') onClick() {
-    if (this.tooltip) { if (this.tooltipTitle) { this.hide(); } }
+    if (this.tooltip) {
+      if (this.tooltipTitle) {
+        this.hide();
+      }
+    }
   }
 
   show() {
