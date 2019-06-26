@@ -22,7 +22,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 0,
             page: 0,
-            limit: 0,
+            pageSize: 0,
             pagesToShow: 0
         };
         fixture.detectChanges();
@@ -36,7 +36,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 10,
             page: 1,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 2
         };
         expect(component.totalPages).toEqual(5);
@@ -46,7 +46,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 10,
             page: 3,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 2
         };
         expect(component.lastPage).toBeFalsy();
@@ -56,7 +56,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 10,
             page: 5,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 2
         };
         expect(component.lastPage).toBeTruthy();
@@ -66,7 +66,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 10,
             page: 1,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 2
         };
         expect(component.hidePrevious).toBeTruthy();
@@ -76,7 +76,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 10,
             page: 1,
-            limit: 3,
+            pageSize: 3,
             pagesToShow: 2
         };
         expect(component.totalPages).toEqual(4);
@@ -86,7 +86,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 20,
             page: 1,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 2
         };
         expect(component.displayNextEllipsis).toBeTruthy();
@@ -96,7 +96,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 20,
             page: 1,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 2
         };
         expect(component.displayPreviousEllipsis).toBeFalsy();
@@ -106,7 +106,7 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 20,
             page: 8,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 5
         };
         expect(component.displayNextEllipsis).toBeFalsy();
@@ -115,7 +115,7 @@ describe('PaginationComponent', () => {
     it('With 20 items, in page 8 and 2 items per page, Previous ellipsis should be displayed', () => {
         component.paginationInfo.total = 20;
         component.paginationInfo.page = 8;
-        component.paginationInfo.limit = 2;
+        component.paginationInfo.pageSize = 2;
         expect(component.displayPreviousEllipsis).toBeTruthy();
     });
 
@@ -136,10 +136,10 @@ describe('PaginationComponent', () => {
         component.paginationInfo = {
             total: 20,
             page: 8,
-            limit: 2,
+            pageSize: 2,
             pagesToShow: 5
         };
-        const lastPage = Math.ceil(component.paginationInfo.total / component.paginationInfo.limit);
+        const lastPage = Math.ceil(component.paginationInfo.total / component.paginationInfo.pageSize);
         component.onLast();
         expect(component.goToPage.emit).toHaveBeenCalledWith(lastPage);
     });

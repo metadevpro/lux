@@ -12,6 +12,15 @@
       "element",
       "lux",
       "kebab-case"
+    ],
+    "variable-name": [
+      true,
+      "allow-leading-underscore"
+    ],
+    "no-console": [
+      true,
+      "log",
+      "error"
     ]
   }
 }
