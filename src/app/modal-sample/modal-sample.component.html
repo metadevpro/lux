@@ -1,0 +1,193 @@
+<h1>Modal</h1>
+
+<h2>Usage samples</h2>
+<div>
+  Example to deploy a basic modal.
+
+  <h3>Modal</h3>
+  <pre class="language-typescript" rel="typescript">
+    <code class="language-typescript">
+  constructor(private modalService: ModalService) &#123; &#125;
+
+  openModal(modal: any): void &#123;
+    this.modalService.open(modal).result.then(result => &#123;
+      console.log(result);
+    &#125;, (reason) => &#123;
+      console.log(reason);
+    &#125;);
+  &#125;</code>
+  </pre>
+  <pre class="language-html" rel="html">
+    <code class="language-html">
+  &lt;button (click)="openModal(modal1)"&gt;Modal&lt;/button&gt;
+  
+  &lt;ng-template #modal1 let-modal&gt;
+    &lt;div class="lux-modal-header"&gt;
+      &lt;h4 class="modal-title" id="modal-basic-title"&gt;Modal Example&lt;/h4&gt;
+      &lt;button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"&gt;
+        &lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="lux-modal-body"&gt;
+      &lt;form&gt;
+        &lt;div class="form-group"&gt;
+          &lt;label for="message"&gt;Say Something&lt;/label&gt;
+          &lt;div class="input-group"&gt;
+            &lt;lux-input #input placeholder="Write something..."&gt;&lt;/lux-input&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;div class="lux-modal-footer"&gt;
+      &lt;button type="button" class="btn btn-outline-dark" (click)="modal.close(input.value)"&gt;Send&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/ng-template&gt;</code>
+  </pre>
+
+  <div class="sample">
+    <button (click)="openModal(modal1)">Modal</button>
+    <ng-template #modal1 let-modal>
+      <div class="lux-modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modal Example</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="lux-modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message">Say Something</label>
+            <div class="input-group">
+              <lux-input #input placeholder="Write something..."></lux-input>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="lux-modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(input.value)">Send</button>
+      </div>
+    </ng-template>
+  </div>
+
+  <h3>Nesting modal</h3>
+  <pre class="language-typescript" rel="typescript">
+    <code class="language-typescript">
+  message: string;
+
+  constructor(private modalService: ModalService) &#123; &#125;
+
+  openModal(modal: any): void &#123;
+    this.modalService.open(modal).result.then(result => &#123;
+      console.log(result);
+    &#125;, (reason) => &#123;
+      console.log(reason);
+    &#125;);
+  &#125;
+
+  openModalWithoutBackdrop(modal: any): void &#123;
+    this.modalService.open(modal, &#123;backdrop: false&#125;)).result.then(result => &#123;
+      console.log(result);
+    &#125;, (reason) => &#123;
+      console.log(reason);
+    &#125;);
+  &#125;</code>
+  </pre>
+  <pre class="language-html" rel="html">
+      <code class="language-html">
+    &lt;button (click)="openModal(modal2)"&gt;Modal&lt;/button&gt;
+    
+    &lt;ng-template #modal2 let-modal&gt;
+      &lt;div class="lux-modal-header"&gt;
+        &lt;h4 class="modal-title" id="modal-basic-title"&gt;Modal nesting example&lt;/h4&gt;
+        &lt;button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"&gt;
+          &lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="lux-modal-body"&gt;
+        &lt;p&gt;Message from Modal 2: &#123; &#123;message&#125; &#125;&lt;/p&gt;
+        &lt;button (click)="openModalWithoutBackdrop(modal3)"&gt;Modal 2&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="lux-modal-footer"&gt;
+        &lt;button type="button" class="btn btn-outline-dark" (click)="modal.close()"&gt;Close&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;
+
+    &lt;ng-template #modal3 let-modal&gt;
+      &lt;div class="lux-modal-header"&gt;
+        &lt;h4 class="modal-title" id="modal-basic-title"&gt;Modal nesting example&lt;/h4&gt;
+        &lt;button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"&gt;
+          &lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="lux-modal-body"&gt;
+        &lt;form&gt;
+          &lt;div class="form-group"&gt;
+            &lt;label for="message"&gt;Say Something&lt;/label&gt;
+            &lt;div class="input-group"&gt;
+              &lt;lux-input #input placeholder="Write something..."&gt;&lt;/lux-input&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;div class="lux-modal-footer"&gt;
+        &lt;button type="button" class="btn btn-outline-dark" (click)="modal.close(input.value)"&gt;Send&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/ng-template&gt;</code>
+    </pre>
+
+  <div class="sample">
+    <button (click)="openModal(modal2)">Modal 1</button>
+    <ng-template #modal2 let-modal>
+      <div class="lux-modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modal nesting example</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="lux-modal-body">
+        <p>Message from Modal 2: {{message}}</p>
+        <button (click)="openModalWithoutBackdrop(modal3)">Modal 2</button>
+      </div>
+      <div class="lux-modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Close</button>
+      </div>
+    </ng-template>
+    <ng-template #modal3 let-modal>
+      <div class="lux-modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modal nesting example</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="lux-modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message">Say Something</label>
+            <div class="input-group">
+              <lux-input #input placeholder="Write something..."></lux-input>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="lux-modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close(input.value)">Send</button>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<h1>Documentation</h1>
+<h2>Modal Service</h2>
+<h3>Description</h3>
+<span>This servcie open modals. To open a modal, you need to use this service</span>
+<h3>Methods</h3>
+<ul class="properties">
+    <li><span class="inline">open(modal: TemplateRef&lt;any&gt;): ModalRef</span>It allow to open a modal component</li>
+</ul>
+<h2>ModalRef</h2>
+<h3>Description</h3>
+<span>This class is a reference of the modal activeted</span>
+<h3>Methods</h3>
+<ul class="properties">
+    <li><span class="inline">result: Promise&lt;any&gt;</span>Modal result. Contains the reason by why it was closed</li>
+</ul>

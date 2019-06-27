@@ -1,9 +1,9 @@
 import { Component, AfterContentInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { PaginationInfo } from 'projects/lux/src/lib/core/models/pagination';
 import { UserMockService } from '../core/services-mock/user-mock.service';
 import { PrismService } from '../core/services/prism-service.service';
+import { PaginationInfo } from 'projects/lux/src/lib/pagination/pagination';
 
 @Component({
   selector: 'app-pagination-sample',

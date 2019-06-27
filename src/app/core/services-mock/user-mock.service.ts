@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
-import { PaginationInfo } from 'projects/lux/src/lib/core/models/pagination';
+import { PaginationInfo } from 'projects/lux/src/lib/pagination/pagination';
 
 const mockUsers: any[] = [
     {
