@@ -1,0 +1,12 @@
+<div class="filter">
+  <label *ngIf="label">{{ label }}</label>
+  <input type="text" [placeholder]="placeholder" [(ngModel)]="searchValue" (keyup)="keyup($event)">
+  <div class="filter-overlay">
+    <i [class.hide]="!searchValue" class="filter-clear icon ion-md-backspace" (click)="clear()"></i>
+    <i *ngIf="searchOnType" class="filter-search icon ion-md-search"></i>
+  </div>
+  <button *ngIf="!searchOnType" (click)="search()">
+      <i class="icon ion-md-search"></i>&nbsp;
+      Search
+  </button>
+</div>
