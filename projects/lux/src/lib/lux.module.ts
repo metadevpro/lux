@@ -6,11 +6,13 @@ import { LuxComponent } from './lux.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { PaginationComponent } from './pagination/pagination.component';
 import { InputComponent } from './input/input.component';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
   declarations: [
-    LuxComponent,
+    FilterComponent,
     InputComponent,
+    LuxComponent,
     TooltipDirective,
     PaginationComponent
   ],
@@ -20,8 +22,9 @@ import { InputComponent } from './input/input.component';
     CommonModule
   ],
   exports: [
-    LuxComponent,
+    FilterComponent,
     InputComponent,
+    LuxComponent,
     TooltipDirective,
     PaginationComponent
   ]
