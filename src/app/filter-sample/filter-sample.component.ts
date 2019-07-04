@@ -12,10 +12,14 @@ import { UserServiceMock } from './user-mock.service';
   providers: [UserServiceMock]
 })
 export class FilterSampleComponent implements OnInit {
-  
   @ViewChild('filter', { static: true }) filter: FilterComponent;
+  @ViewChild('filter2', { static: true }) filter2: FilterComponent;
+  @ViewChild('filter3', { static: true }) filter3: FilterComponent;
   private subs = new SubSink();
   users$: Observable<any[]>;
+  users2$: Observable<any[]>;
+  users3$: Observable<any[]>;
+
   constructor(private userService: UserServiceMock) { }
 
   ngOnInit() {
@@ -23,15 +27,23 @@ export class FilterSampleComponent implements OnInit {
       this.loadGrid(searchString);
     });
     this.loadGrid('');
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.subs.sink = this.filter2.searchValueChange.subscribe(searchString => {
+      this.loadGrid2(searchString);
+    });
+    this.loadGrid2('');
+    this.subs.sink = this.filter3.searchValueChange.subscribe(searchString => {
+      this.loadGrid3(searchString);
+    });
+    this.loadGrid3('');
   }
 
   loadGrid(criteria: string): void {
     this.users$ = this.userService.getAll(criteria);
   }
-
-  
+  loadGrid2(criteria: string): void {
+    this.users2$ = this.userService.getAll(criteria);
+  }
+  loadGrid3(criteria: string): void {
+    this.users3$ = this.userService.getAll(criteria);
+  }
 }
