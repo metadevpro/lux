@@ -1,0 +1,39 @@
+.filter {
+    display: grid;
+    grid-template-columns: 100px auto 60px;
+    grid-template-rows: auto;
+    align-items: baseline;
+  
+    label {
+      grid-row: 1;
+      grid-column: 1;
+      margin-right: 2em;
+    }
+    input {
+      grid-row: 1;
+      grid-column-start: 2;
+      grid-column-end: 4;
+      widows: 100%;
+    }
+    .hide {
+      visibility: collapse;
+    }
+    .filter-overlay {
+      grid-row: 1;
+      grid-column: 3;
+      text-align: right;
+      text-align: right;
+      position: relative;
+      left: -10px;
+    }
+    .filter-clear {
+      width: 20px;
+      height: 20px;
+    }
+    .filter-search {
+      margin-left: 10px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
