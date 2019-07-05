@@ -6,15 +6,13 @@ import { LuxComponent } from './lux.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { PaginationComponent } from './pagination/pagination.component';
 import { InputComponent } from './input/input.component';
-import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
   declarations: [
     LuxComponent,
     InputComponent,
     TooltipDirective,
-    PaginationComponent,
-    FilterComponent
+    PaginationComponent
   ],
   imports: [
     FormsModule,

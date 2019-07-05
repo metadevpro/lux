@@ -4,8 +4,5 @@
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0"
-  },
-  "dependencies": {
-    "subsink": "^1.0.0"
   }
 }
