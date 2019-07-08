@@ -1,0 +1,13 @@
+<div class="switch">
+  <div>
+    <label *ngIf="label">{{ label }}</label>
+  </div>
+  <div *ngIf="!disabled" class="switch-item" (click)="clicked()">
+    <input [name]="name" type="checkbox" [(ngModel)]="value">
+    <div class="slider round" [class.disabled]="disabled"></div>
+  </div>
+  <div>
+    <span class="checkbox-label" *ngIf="value">{{ yesLabel }}</span>
+    <span class="checkbox-label" *ngIf="!value">{{ noLabel }}</span>
+  </div>
+</div>

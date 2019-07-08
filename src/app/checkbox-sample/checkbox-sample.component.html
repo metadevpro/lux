@@ -1,0 +1,54 @@
+<h1>Pagination</h1>
+
+<h2>Usage samples</h2>
+<div>
+  Set checkbox label and change state with the properties value and disabled.
+  <h3>Checkbox with label enabled</h3>
+  <div class="code">
+    <pre>
+&lt;lux-checkbox name="closed" label="Is closed?"&gt;
+&lt;/lux-checkbox&gt;
+&lt;lux-checkbox name="hasCar" label="Has car?" [value]="true"&gt;
+&lt;/lux-checkbox&gt;
+      </pre>
+  </div>
+  <div class="content">
+    <table class="all-width">
+
+    </table>
+    <lux-checkbox name="closed" label="Is closed?">
+    </lux-checkbox>
+    <lux-checkbox name="hasCar" label="Has car?" [value]="true">
+    </lux-checkbox>
+  </div>
+
+  <h3>Checkbox disabled</h3>
+
+  <div class="code">
+    <pre>
+&lt;lux-checkbox name="closed" label="Is closed? [disabled]="true"&gt;
+&lt;/lux-checkbox&gt;
+&lt;lux-checkbox name="hasCar" label="Has car?" [disabled]="true" [value]="true"&gt;
+&lt;/lux-checkbox&gt;
+    </pre>
+  </div>
+  <div class="content">
+
+    <lux-checkbox name="closed" label="Is closed?" [disabled]="true">
+    </lux-checkbox>
+    <lux-checkbox name="hasCar" label="Has car?" [disabled]="true" [value]="true">
+    </lux-checkbox>
+  </div>
+
+</div>
+
+
+<h2>Documentation</h2>
+<h3>Properties</h3>
+<ul class="properties">
+
+  <li><span class="inline">label</span> Optional label for checkbox .</li>
+  <li><span class="inline">disabled</span> If disabled the checkbox is not editable.</li>
+  <li><span class="inline">value</span> Status of checkbox on or off.</li>
+
+</ul>

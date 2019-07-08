@@ -9,9 +9,11 @@ import { LuxModule } from 'projects/lux/src/public-api';
 import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
 import { CoreModule } from './core/core.module';
 import { InputSampleComponent } from './input-sample/input-sample.component';
+import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
 
 const appRoutes: Routes = [
   { path: '',       component: MainComponent },
+  { path: 'checkbox',  component: CheckboxSampleComponent },
   { path: 'index',  component: MainComponent },
   { path: 'input', component: InputSampleComponent },
   { path: 'tooltip',  component: TooltipSampleComponent },
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
     AppComponent,
     TooltipSampleComponent,
     InputSampleComponent,
-    PaginationSampleComponent
+    PaginationSampleComponent,
+    CheckboxSampleComponent
   ],
   imports: [
     CoreModule,
