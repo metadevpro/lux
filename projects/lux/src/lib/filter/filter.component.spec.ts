@@ -10,10 +10,10 @@ describe('FilterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
-      declarations: [ FilterComponent ]
+      imports: [FormsModule],
+      declarations: [FilterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -25,4 +25,16 @@ describe('FilterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show button when searchOntype is false', () => {
+    // Arrange
+    component.searchOnType = false;
+
+    // Act
+    fixture.detectChanges();
+    // Assert
+    const button = fixture.nativeElement.querySelector('.button');
+    expect(button).toBeTruthy;
+  });
+
 });
