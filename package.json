@@ -2,7 +2,7 @@
   "name": "lux-demo",
   "version": "0.0.1",
   "scripts": {
-    "compodoc": "npx compodoc -p projects/lux/tsconfig.lib.json",
+    "compodoc": "compodoc -p projects/lux/tsconfig.lib.json",
     "postinstall": "ng build lux",
     "ng": "ng",
     "start": "ng serve",
