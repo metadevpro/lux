@@ -33,8 +33,19 @@ describe('FilterComponent', () => {
     // Act
     fixture.detectChanges();
     // Assert
-    const button = fixture.nativeElement.querySelector('.button');
-    expect(button).toBeTruthy;
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button).toBeTruthy();
+  });
+
+  it('should not show button when searchOntype is true', () => {
+    // Arrange
+    component.searchOnType = true;
+
+    // Act
+    fixture.detectChanges();
+    // Assert
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button).toBeFalsy();
   });
 
 });
