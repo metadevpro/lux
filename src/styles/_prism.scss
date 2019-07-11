@@ -1,0 +1,35 @@
+.code-toolbar {
+    border-radius: 8px;
+}
+
+pre[class*="language-"] {
+    padding: 0em 1em;
+    border-radius: 8px;
+}
+
+pre[rel]::before {
+    font-family: Rubik,Lato,"Lucida Grande","Lucida Sans Unicode",Tahoma,Sans-Serif;
+    font-weight: 700;
+    font-size: 12px;
+    content: attr(rel);
+    color: #fff;
+    position: absolute;
+    top: .33rem;
+    left: .52rem;
+    width: 100%;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+pre[rel=HTML]::before {
+    color: #4caf50;
+}
+
+pre[rel=CSS]::before, pre[rel=SCSS]::before {
+    color: #ff8a00;
+}
+
+pre[rel=JAVASCRIPT]::before, pre[rel=TYPESCRIPT]::before {
+    color: #3965df;
+}

@@ -9,6 +9,7 @@ import { LuxModule } from 'projects/lux/src/public-api';
 import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
 import { CoreModule } from './core/core.module';
 import { InputSampleComponent } from './input-sample/input-sample.component';
+import { PrismService } from './core/services/prism-service.service';
 
 const appRoutes: Routes = [
   { path: '',       component: MainComponent },
@@ -33,7 +34,9 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    PrismService
+  ],
   bootstrap: [ AppComponent]
 })
 export class AppModule { }

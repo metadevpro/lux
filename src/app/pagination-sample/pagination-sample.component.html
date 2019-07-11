@@ -3,27 +3,24 @@
 <h2>Usage samples</h2>
 <div>
 
-  <div class="code">
-      <pre>
-// TS / JS Code
-const paginationInfo = {{ '{' }}
-  pageSize: 2,
-  page: 1,
-  pagesToShow: 3,
-  total: 15
-};
-      </pre>
-  </div>
+  <pre class="language-typescript" rel="typescript">
+    <code class="language-typescript">
+  const paginationInfo = &#123;
+    pageSize: 2,
+    page: 1,
+    pagesToShow: 3,
+    total: 15
+  &#125;;</code>
+  </pre>
 
-  <div class="code">
-      <pre>
-&lt;lux-pagination *ngIf="users$ | async"
-                (goToPage)="goToPage($event)"
-                (pageSizeChange)="reloadPage($event)"
-                [paginationInfo]="paginationInfo"&gt;
-&lt;/lux-pagination&gt;
-      </pre>
-  </div>
+  <pre class="language-html" rel="html">
+      <code class="language-html">
+  &lt;lux-pagination *ngIf="users$ | async"
+                  (goToPage)="goToPage($event)"
+                  (pageSizeChange)="reloadPage($event)"
+                  [paginationInfo]="paginationInfo"&gt;
+  &lt;/lux-pagination&gt;</code>
+  </pre>
   <div class="content">
     <table class="all-width">
       <thead>
