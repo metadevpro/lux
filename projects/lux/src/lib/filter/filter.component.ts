@@ -1,7 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Component, Input, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SubSink } from 'subsink';
 
 /** Filter component to query for objects. */
 @Component({
@@ -18,47 +17,72 @@ export class FilterComponent implements OnDestroy {
   @Input() searchValue = '';
   /** Search on type: (default true) Autosearch when user types. */
   @Input() searchOnType = true;
+
+  private debounceValue = 300; // 300 ms
   /** Debounce time in milliseconds. (defaults to 300 ms) */
-  @Input() debounce = 300; // 300 ms
+  @Input()
+  set debounce(val: number) {
+    this.debounceValue = val;
+    this.recreateObservable();
+  }
+  get debounce(): number {
+    return this.debounceValue;
+  }
+
   /** Search value changed by user. */
   @Output() searchValueChange = new EventEmitter<string>();
 
   searchValue$: Observable<string>;
 
   private subject = new Subject<string>();
-  private subs = new SubSink();
+  private sub: Subscription;
 
   constructor() {
+    this.recreateObservable();
+  }
+
+  private recreateObservable(): void {
     this.searchValue$ = this.subject
       .asObservable()
       .pipe(
         debounceTime(this.debounce)
       );
 
-    this.subs.sink = this.searchValue$.subscribe(value => {
+    this.freeSubscriptions();
+    this.sub = this.searchValue$.subscribe(value => {
       this.searchValueChange.emit(value);
     });
   }
 
+  freeSubscriptions() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+    this.sub = null;
+  }
+
   ngOnDestroy() {
-    this.subs.unsubscribe();
+    this.freeSubscriptions();
   }
 
   keyup(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      this.search();
+      this.searchNow(this.searchValue);
     } else if (this.searchOnType) {
       this.addEvent();
     }
   }
   clear() {
     this.searchValue = '';
-    this.addEvent();
+    this.search();
   }
   search() {
-    this.addEvent();
+    this.searchValueChange.emit(this.searchValue);
   }
 
+  private searchNow(value: string) {
+    this.searchValueChange.emit(value);
+  }
   private addEvent() {
     this.subject.next(this.searchValue);
   }

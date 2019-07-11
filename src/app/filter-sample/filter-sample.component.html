@@ -8,13 +8,12 @@
 // TS / JS Code
 
 
- @ViewChild('filter', {{ '{ static: true }' }}) filter: FilterComponent;
- private subs = new SubSink();
+@ViewChild('filter', {{ '{ static: true }' }}) filter: FilterComponent;
 
- ngOnInit() {{ '{' }}
-   this.subs.sink = this.filter.searchValueChange.subscribe(searchString => {{ '{' }}
-     this.loadGrid(searchString);
- });
+ngOnInit() {{ '{' }}
+  this.filter.searchValueChange.subscribe(searchString => {{ '{' }}
+    this.loadGrid(searchString);
+  });
   this.loadGrid('');
 }
 
