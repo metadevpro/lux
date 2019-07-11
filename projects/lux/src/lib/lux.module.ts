@@ -7,12 +7,15 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { PaginationComponent } from './pagination/pagination.component';
 import { InputComponent } from './input/input.component';
+import { FilterComponent } from './filter/filter.component';
 
 
 @NgModule({
   declarations: [
+    FilterComponent,
     CheckboxComponent,
     InputComponent,
+    LuxComponent,
     TooltipDirective,
     PaginationComponent
   ],
@@ -22,8 +25,10 @@ import { InputComponent } from './input/input.component';
     CommonModule
   ],
   exports: [
+    FilterComponent,
     CheckboxComponent,
     InputComponent,
+    LuxComponent,
     TooltipDirective,
     PaginationComponent
   ]

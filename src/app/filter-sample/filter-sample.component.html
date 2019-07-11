@@ -1,0 +1,140 @@
+<h1>Filter</h1>
+
+<h2>Usage samples</h2>
+<div>
+
+  <div class="code">
+    <pre>
+// TS / JS Code
+
+
+@ViewChild('filter', {{ '{ static: true }' }}) filter: FilterComponent;
+
+ngOnInit() {{ '{' }}
+  this.filter.searchValueChange.subscribe(searchString => {{ '{' }}
+    this.loadGrid(searchString);
+  });
+  this.loadGrid('');
+}
+
+loadGrid(criteria: string): void  {{ '{' }}
+  this.users$ = this.userService.getAll(criteria);
+}
+
+
+      </pre>
+  </div>
+  <h3>Filter with default placehoder and debounce</h3>
+  <div class="code">
+    <pre>
+  // HTML Code
+
+   &lt;lux-filter #filter placeholder="type to search"&gt;
+   &lt;/lux-filter&gt;
+    </pre>
+  </div>
+
+  <lux-filter #filter placeholder="type to search">
+  </lux-filter>
+
+  <div class="content">
+    <table class="all-width">
+      <thead>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users$ | async">
+          <td>{{ user.userName }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <h3>Filter with different Placehoder, Label and Search on type false</h3>
+  <div class="code">
+    <pre>
+  // HTML Code
+
+  &lt;lux-filter #filter2 placeholder="type to search2" label="Search" 
+  [searchOnType]="false"&gt;
+  &lt;/lux-filter&gt;
+    </pre>
+  </div>
+
+  <div class="code"></div>
+  <lux-filter #filter2 placeholder="type to search2" label="Search" [searchOnType]="false">
+  </lux-filter>
+
+  <div class="content">
+    <table class="all-width">
+      <thead>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users2$ | async">
+          <td>{{ user.userName }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <h3>Filter with different debounce</h3>
+  <div class="code">
+    <pre>
+  // HTML Code
+
+  &lt;lux-filter #filter3 placeholder="type to search3" debounce="500"&gt;
+  &lt;/lux-filter&gt;
+    </pre>
+  </div>
+  <lux-filter #filter3 placeholder="type to search3" debounce="500">
+  </lux-filter>
+
+  <div class="content">
+    <table class="all-width">
+      <thead>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users3$ | async">
+          <td>{{ user.userName }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<h2>Documentation</h2>
+<h3>Properties</h3>
+<ul class="properties">
+  <li><span class="inline">FilterInfo</span> Data structure providing the filter details.
+    <ul>
+      <li><span class="inline">label</span> Label for the filter.</li>
+      <li><span class="inline">placeholder</span> Placeholder default text.</li>
+      <li><span class="inline">searchValue</span> Search value introduced by the user.</li>
+      <li><span class="inline">searchOnType</span> Search on type: (default true) Autosearch when user types.</li>
+      <li><span class="inline">debounce</span> Debounce time in milliseconds. (defaults to 300 ms)</li>
+
+    </ul>
+  </li>
+</ul>
+<h3>Events</h3>
+<ul class="properties">
+  <li><span class="inline">searchValueChange</span> Search value changed by user.</li>
+</ul>
