@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Dosis|PT+Sans+Narrow&display=swap');
+
+@import 'prism';
 @import 'tooltip';
 
 $acent-color: #4F447C;
@@ -74,3 +76,5 @@ footer {
   font-size: .8em;
   text-align: center;
 }
+
+

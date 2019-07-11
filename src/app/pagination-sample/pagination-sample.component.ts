@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { PaginationInfo } from 'projects/lux/src/lib/core/models/pagination';
 import { UserMockService } from '../core/services-mock/user-mock.service';
+import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
   selector: 'app-pagination-sample',
@@ -15,9 +16,11 @@ export class PaginationSampleComponent implements AfterContentInit {
 
   paginationInfo: PaginationInfo;
 
-  constructor(private userService: UserMockService) { }
+  constructor(private userService: UserMockService,
+              private prismService: PrismService) { }
 
   ngAfterContentInit(): void {
+    this.prismService.highlightAll();
     this.paginationInfo = {
       total: 0,
       page: 1,
