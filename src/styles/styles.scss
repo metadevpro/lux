@@ -46,19 +46,6 @@ button {
   padding: 0px 3px;
 }
 
-.code {
-  padding: .2em 2em;
-  background: #e0f8f8;
-  background: linear-gradient(0deg, $acent-color 0%,  #eff0f0 3%, #f0f8f8 64%, #f4f8f8 100%);
-
-  font-family: Inconsolata, Consolas, monospace;
-  font-size: 14px;
-  width: 45%;
-  margin-right: 10px;
-  display: inline-block;
-  word-wrap: break-word;
-}
-
 pre {
   font-family: Inconsolata, Consolas, monospace;
 }
