@@ -34,8 +34,6 @@ const appRoutes: Routes = [
     TooltipSampleComponent,
     InputSampleComponent,
     PaginationSampleComponent
-    
-    
   ],
   imports: [
     CoreModule,

@@ -15,7 +15,6 @@ import { FilterComponent } from './filter/filter.component';
     FilterComponent,
     CheckboxComponent,
     InputComponent,
-    LuxComponent,
     TooltipDirective,
     PaginationComponent
   ],
@@ -28,7 +27,6 @@ import { FilterComponent } from './filter/filter.component';
     FilterComponent,
     CheckboxComponent,
     InputComponent,
-    LuxComponent,
     TooltipDirective,
     PaginationComponent
   ]

@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { FilterComponent } from 'projects/lux/src/lib/filter/filter.component';
 import { SubSink } from 'subsink';
 import { UserServiceMock } from './user-mock.service';
+import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
   selector: 'app-filter-sample',
@@ -11,7 +12,7 @@ import { UserServiceMock } from './user-mock.service';
   styleUrls: ['./filter-sample.component.scss'],
   providers: [UserServiceMock]
 })
-export class FilterSampleComponent implements OnInit {
+export class FilterSampleComponent implements OnInit, AfterContentInit {
   @ViewChild('filter', { static: true }) filter: FilterComponent;
   @ViewChild('filter2', { static: true }) filter2: FilterComponent;
   @ViewChild('filter3', { static: true }) filter3: FilterComponent;
@@ -20,7 +21,8 @@ export class FilterSampleComponent implements OnInit {
   users2$: Observable<any[]>;
   users3$: Observable<any[]>;
 
-  constructor(private userService: UserServiceMock) { }
+  constructor(private userService: UserServiceMock,
+              private prismService: PrismService) { }
 
   ngOnInit() {
     this.subs.sink = this.filter.searchValueChange.subscribe(searchString => {
@@ -35,6 +37,10 @@ export class FilterSampleComponent implements OnInit {
       this.loadGrid3(searchString);
     });
     this.loadGrid3('');
+  }
+
+  ngAfterContentInit(): void {
+    this.prismService.highlightAll();
   }
 
   loadGrid(criteria: string): void {
