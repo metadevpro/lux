@@ -3,36 +3,27 @@
 <h2>Usage samples</h2>
 <div>
 
-  <div class="code">
-    <pre>
-// TS / JS Code
+  <pre class="language-typescript" rel="typescript">
+    <code class="language-typescript">
+  @ViewChild('filter', &#123; static: true &#125;) filter: FilterComponent;
 
+  ngOnInit() &#123;
+    this.filter.searchValueChange.subscribe(searchString => &#123;
+      this.loadGrid(searchString);
+    &#125;);
+    this.loadGrid('');
+  &#125;
 
-@ViewChild('filter', {{ '{ static: true }' }}) filter: FilterComponent;
-
-ngOnInit() {{ '{' }}
-  this.filter.searchValueChange.subscribe(searchString => {{ '{' }}
-    this.loadGrid(searchString);
-  });
-  this.loadGrid('');
-}
-
-loadGrid(criteria: string): void  {{ '{' }}
-  this.users$ = this.userService.getAll(criteria);
-}
-
-
-      </pre>
-  </div>
+  loadGrid(criteria: string): void  &#123;
+    this.users$ = this.userService.getAll(criteria);
+  &#125;</code>
+  </pre>
   <h3>Filter with default placehoder and debounce</h3>
-  <div class="code">
-    <pre>
-  // HTML Code
-
+  <pre class="language-html" rel="html">
+    <code class="language-html">
    &lt;lux-filter #filter placeholder="type to search"&gt;
-   &lt;/lux-filter&gt;
-    </pre>
-  </div>
+   &lt;/lux-filter&gt;</code>
+  </pre>
 
   <lux-filter #filter placeholder="type to search">
   </lux-filter>
@@ -56,15 +47,12 @@ loadGrid(criteria: string): void  {{ '{' }}
 
   </div>
   <h3>Filter with different Placehoder, Label and Search on type false</h3>
-  <div class="code">
-    <pre>
-  // HTML Code
-
+  <pre class="language-html" rel="html">
+    <code class="language-html">
   &lt;lux-filter #filter2 placeholder="type to search2" label="Search" 
   [searchOnType]="false"&gt;
-  &lt;/lux-filter&gt;
-    </pre>
-  </div>
+  &lt;/lux-filter&gt;</code>
+  </pre>
 
   <div class="code"></div>
   <lux-filter #filter2 placeholder="type to search2" label="Search" [searchOnType]="false">
@@ -89,14 +77,11 @@ loadGrid(criteria: string): void  {{ '{' }}
 
   </div>
   <h3>Filter with different debounce</h3>
-  <div class="code">
-    <pre>
-  // HTML Code
-
+  <pre class="language-html" rel="html">
+    <code class="language-html">
   &lt;lux-filter #filter3 placeholder="type to search3" debounce="500"&gt;
-  &lt;/lux-filter&gt;
-    </pre>
-  </div>
+  &lt;/lux-filter&gt;</code>
+  </pre>
   <lux-filter #filter3 placeholder="type to search3" debounce="500">
   </lux-filter>
 
@@ -116,7 +101,6 @@ loadGrid(criteria: string): void  {{ '{' }}
         </tr>
       </tbody>
     </table>
-
   </div>
 </div>
 
