@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Dosis|PT+Sans+Narrow&display=swap');
+
+@import 'prism';
 @import 'tooltip';
 
 $acent-color: #4F447C;
@@ -44,19 +46,6 @@ button {
   padding: 0px 3px;
 }
 
-.code {
-  padding: .2em 2em;
-  background: #e0f8f8;
-  background: linear-gradient(0deg, $acent-color 0%,  #eff0f0 3%, #f0f8f8 64%, #f4f8f8 100%);
-
-  font-family: Inconsolata, Consolas, monospace;
-  font-size: 14px;
-  width: 45%;
-  margin-right: 10px;
-  display: inline-block;
-  word-wrap: break-word;
-}
-
 pre {
   font-family: Inconsolata, Consolas, monospace;
 }
@@ -74,3 +63,5 @@ footer {
   font-size: .8em;
   text-align: center;
 }
+
+
