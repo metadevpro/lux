@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, AfterContentInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 import { FilterComponent } from 'projects/lux/src/lib/filter/filter.component';
-import { SubSink } from 'subsink';
 import { UserServiceMock } from './user-mock.service';
 import { PrismService } from '../core/services/prism-service.service';
 
@@ -12,31 +11,37 @@ import { PrismService } from '../core/services/prism-service.service';
   styleUrls: ['./filter-sample.component.scss'],
   providers: [UserServiceMock]
 })
-export class FilterSampleComponent implements OnInit, AfterContentInit {
+export class FilterSampleComponent implements OnInit, AfterContentInit, OnDestroy {
   @ViewChild('filter', { static: true }) filter: FilterComponent;
   @ViewChild('filter2', { static: true }) filter2: FilterComponent;
   @ViewChild('filter3', { static: true }) filter3: FilterComponent;
-  private subs = new SubSink();
+  private subs: Subscription[] = [];
   users$: Observable<any[]>;
   users2$: Observable<any[]>;
   users3$: Observable<any[]>;
 
-  constructor(private userService: UserServiceMock,
-              private prismService: PrismService) { }
+  constructor(
+    private userService: UserServiceMock,
+    private prismService: PrismService) { }
 
   ngOnInit() {
-    this.subs.sink = this.filter.searchValueChange.subscribe(searchString => {
+    this.subs.push(this.filter.searchValueChange.subscribe(searchString => {
       this.loadGrid(searchString);
-    });
+    }));
     this.loadGrid('');
-    this.subs.sink = this.filter2.searchValueChange.subscribe(searchString => {
+    this.subs.push(this.filter2.searchValueChange.subscribe(searchString => {
       this.loadGrid2(searchString);
-    });
+    }));
     this.loadGrid2('');
-    this.subs.sink = this.filter3.searchValueChange.subscribe(searchString => {
+    this.subs.push(this.filter3.searchValueChange.subscribe(searchString => {
       this.loadGrid3(searchString);
-    });
+    }));
     this.loadGrid3('');
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
+    this.subs = [];
   }
 
   ngAfterContentInit(): void {
