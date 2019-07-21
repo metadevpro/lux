@@ -1,13 +1,14 @@
-import { Component, Input, EventEmitter, Output  } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'lux-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss']
 })
-export class CheckboxComponent  {
+export class CheckboxComponent {
 
   private internalValue: boolean;
+  key = '';
   @Input()
   get value(): boolean {
     return this.internalValue;
@@ -30,8 +31,17 @@ export class CheckboxComponent  {
   }
 
   clicked() {
+    // alert(this.value);
     if (!this.disabled) {
       this.value = !this.value;
+    }
+  }
+  onKey(event) {
+    this.key = event.value;
+    if (event.keyCode === 32) {
+      if (!this.disabled) {
+        this.value = !this.value;
+      }
     }
   }
 
