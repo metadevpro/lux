@@ -38,12 +38,9 @@ export class CheckboxComponent {
     }
   }
   onKey(event: KeyboardEvent): void {
-    if (event.key === KEY_SPACE) {
-      if (!this.disabled) {
-        this.value = !this.value;
-        event.preventDefault();
-      }
+    if (event.key === KEY_SPACE && !this.disabled) {
+      this.value = !this.value;
+      event.preventDefault();
     }
   }
-
 }

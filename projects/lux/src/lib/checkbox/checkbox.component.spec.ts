@@ -135,7 +135,61 @@ describe('CheckboxComponent', () => {
     expect(slider).toBeNull();
   });
 
-  // TODO: Add test for keyboard support
-  // component can receive focus
-  // user can use keyboard to toggle
+  it('should toggle to true when control has focus and space is pressed', () => {
+    // Arrange
+    component.value = true;
+    component.disabled = false;
+    // Act
+    fixture.detectChanges();
+    fixture.nativeElement.focus();
+    fixture.detectChanges();
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
+    fixture.detectChanges();
+    // Assert
+    expect(component.value).toBe(false);
+  });
+
+  it('should toggle to false when control has focus and space is pressed', () => {
+    // Arrange
+    component.value = false;
+    component.disabled = false;
+    // Act
+    fixture.detectChanges();
+    fixture.nativeElement.focus();
+    fixture.detectChanges();
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
+    fixture.detectChanges();
+
+    // Assert
+    expect(component.value).toBe(true);
+  });
+
+  it('should not toggle to true when control is disabled', () => {
+    // Arrange
+    component.value = false;
+    component.disabled = true;
+    // Act
+    fixture.detectChanges();
+    fixture.nativeElement.focus();
+    fixture.detectChanges();
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
+    fixture.detectChanges();
+
+    // Assert
+    expect(component.value).toBe(false);
+  });
+  it('should not toggle to false when control is disabled', () => {
+    // Arrange
+    component.value = true;
+    component.disabled = true;
+    // Act
+    fixture.detectChanges();
+    fixture.nativeElement.focus();
+    fixture.detectChanges();
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
+    fixture.detectChanges();
+
+    // Assert
+    expect(component.value).toBe(true);
+  });
 });
