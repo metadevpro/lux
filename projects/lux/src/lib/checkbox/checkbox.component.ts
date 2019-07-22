@@ -33,7 +33,6 @@ export class CheckboxComponent {
   }
 
   clicked(): void {
-    // alert(this.value);
     if (!this.disabled) {
       this.value = !this.value;
     }
