@@ -9,10 +9,10 @@ describe('CheckboxComponent', () => {
   let fixture: ComponentFixture<CheckboxComponent>;
 
   beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [ FormsModule ],
-        declarations: [ CheckboxComponent ]
-      })
+    TestBed.configureTestingModule({
+      imports: [FormsModule],
+      declarations: [CheckboxComponent]
+    })
       .compileComponents();
   }));
 
@@ -54,32 +54,32 @@ describe('CheckboxComponent', () => {
     expect(fixture.nativeElement.textContent).toContain('Yes');
     const slider = fixture.nativeElement.querySelector('.switch-item');
     expect(slider).toBeTruthy();
- });
+  });
 
   it('should render no slider when disabled', () => {
-     // Arrange
-     component.value = true;
-     component.disabled = true;
-     // Act
-     fixture.detectChanges();
-     // Assert
-     expect(fixture.nativeElement.textContent).toContain('Yes');
-     const slider = fixture.nativeElement.querySelector('.switch-item');
-     expect(slider).toBeNull();
+    // Arrange
+    component.value = true;
+    component.disabled = true;
+    // Act
+    fixture.detectChanges();
+    // Assert
+    expect(fixture.nativeElement.textContent).toContain('Yes');
+    const slider = fixture.nativeElement.querySelector('.switch-item');
+    expect(slider).toBeNull();
   });
 
   it('should render label if pressent', () => {
-      // Arrange
-      component.value = true;
-      component.label = 'Chanell';
-      // Act
-      fixture.detectChanges();
-      // Assert
-      const label = fixture.nativeElement.querySelector('label');
+    // Arrange
+    component.value = true;
+    component.label = 'Chanell';
+    // Act
+    fixture.detectChanges();
+    // Assert
+    const label = fixture.nativeElement.querySelector('label');
 
-      expect(label).toBeTruthy();
-      expect(label.textContent).toContain('Chanell');
-      expect(fixture.nativeElement.textContent).toContain('Yes');
+    expect(label).toBeTruthy();
+    expect(label.textContent).toContain('Chanell');
+    expect(fixture.nativeElement.textContent).toContain('Yes');
   });
 
   it('should render no label if no label property is present', () => {
@@ -135,7 +135,59 @@ describe('CheckboxComponent', () => {
     expect(slider).toBeNull();
   });
 
-  // TODO: Add test for keyboard support
+  it('should toggle to Yes when click and initial state is false', () => {
+    // Arrange
+    component.value = false;
+    component.disabled = false;
+    // Act
+    fixture.detectChanges();
+    const slider = fixture.nativeElement.querySelector('.switch-item');
+    slider.click();
+    fixture.detectChanges();
+
+    // Assert
+    expect(component.value).toBe(true);
+  });
+
+  it('should toggle to Yes when press space and initial state is false', () => {
+    // Arrange
+    component.value = false;
+    component.disabled = false;
+
+    const event = new KeyboardEvent('keyup', {
+      key: ' ',
+    });
+
+    // Act
+    fixture.detectChanges();
+
+    component.onKey(event);
+    fixture.detectChanges();
+
+    // Assert
+    expect(component.value).toBe(true);
+  });
+
+
+  it('should toggle to No when press space and initial state is true', () => {
+    // Arrange
+    component.value = true;
+    component.disabled = false;
+
+    const event = new KeyboardEvent('keyup', {
+      key: ' ',
+    });
+
+    // Act
+    fixture.detectChanges();
+
+    component.onKey(event);
+    fixture.detectChanges();
+
+    // Assert
+    expect(component.value).toBe(false);
+  });
+  // DONE: Add test for keyboard support
   // component can receive focus
   // user can use keyboard to toggle
 });
