@@ -1,5 +1,8 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 
+
+const KEY_SPACE = ' ';
+
 @Component({
   selector: 'lux-checkbox',
   templateUrl: './checkbox.component.html',
@@ -8,7 +11,6 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 export class CheckboxComponent {
 
   private internalValue: boolean;
-  key = '';
   @Input()
   get value(): boolean {
     return this.internalValue;
@@ -30,17 +32,17 @@ export class CheckboxComponent {
   constructor() {
   }
 
-  clicked() {
+  clicked(): void {
     // alert(this.value);
     if (!this.disabled) {
       this.value = !this.value;
     }
   }
-  onKey(event) {
-    this.key = event.value;
-    if (event.keyCode === 32) {
+  onKey(event: KeyboardEvent): void {
+    if (event.key === KEY_SPACE) {
       if (!this.disabled) {
         this.value = !this.value;
+        event.preventDefault();
       }
     }
   }
