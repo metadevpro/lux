@@ -23,6 +23,7 @@ export class CheckboxComponent {
   @Input() label: string = null;
   @Input() name: string = null;
   @Input() disabled = false;
+  @Input() tabindexvalue = null;
 
   yesLabel = 'Yes';
   noLabel = 'No';

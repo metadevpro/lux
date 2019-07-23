@@ -4,7 +4,7 @@
   </div>
   <div *ngIf="!disabled" class="switch-item" (click)="clicked()">
     <input [name]="name" type="checkbox" [(ngModel)]="value">
-    <div class="slider round" [class.disabled]="disabled" tabindex="0" (keyup)="onKey($event)"></div> 
+    <div class="slider round" [class.disabled]="disabled" [tabindex]="tabindexvalue" (keyup)="onKey($event)"></div> 
   </div>
   <div>
     <span class="checkbox-label" *ngIf="value">{{ yesLabel }}</span>
