@@ -20,10 +20,14 @@ export class CheckboxComponent {
     this.valueChange.emit(v);
   }
 
+  get tabindexValue(): string {
+    return this.disabled ? null : '0';
+}
+
   @Input() label: string = null;
   @Input() name: string = null;
   @Input() disabled = false;
-  @Input() tabindexvalue = null;
+
 
   yesLabel = 'Yes';
   noLabel = 'No';
