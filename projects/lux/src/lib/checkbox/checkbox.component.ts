@@ -1,11 +1,14 @@
-import { Component, Input, EventEmitter, Output  } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+
+
+const KEY_SPACE = ' ';
 
 @Component({
   selector: 'lux-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss']
 })
-export class CheckboxComponent  {
+export class CheckboxComponent {
 
   private internalValue: boolean;
   @Input()
@@ -17,9 +20,14 @@ export class CheckboxComponent  {
     this.valueChange.emit(v);
   }
 
+  get tabindexValue(): string {
+    return this.disabled ? null : '0';
+}
+
   @Input() label: string = null;
   @Input() name: string = null;
   @Input() disabled = false;
+
 
   yesLabel = 'Yes';
   noLabel = 'No';
@@ -29,10 +37,15 @@ export class CheckboxComponent  {
   constructor() {
   }
 
-  clicked() {
+  clicked(): void {
     if (!this.disabled) {
       this.value = !this.value;
     }
   }
-
+  onKey(event: KeyboardEvent): void {
+    if (event.key === KEY_SPACE && !this.disabled) {
+      this.value = !this.value;
+      event.preventDefault();
+    }
+  }
 }
