@@ -1,6 +1,8 @@
 import { Injectable, Injector, ComponentRef, ComponentFactoryResolver, ApplicationRef, EmbeddedViewRef, ElementRef } from '@angular/core';
 
 import { PlacementValue, Placement } from './placement';
+import { LuxTooltipContext } from './tooltip-context';
+import { TooltipComponent } from './tooltip.component';
 
 @Injectable()
 export class TooltipService {
@@ -11,9 +13,10 @@ export class TooltipService {
                 private _crf: ComponentFactoryResolver,
                 private _applicationRef: ApplicationRef) { }
 
-    appendComponentToBody(component: any, elHost: ElementRef, placement: PlacementValue) {
+    appendComponentToBody(component: any, elHost: ElementRef, placement: PlacementValue, context?: LuxTooltipContext) {
         this.componentRef = this._crf.resolveComponentFactory(component)
                             .create(this._injector);
+        this.componentRef.instance.context = context;
         this._applicationRef.attachView(this.componentRef.hostView);
         let domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
                         .rootNodes[0];
@@ -40,6 +43,7 @@ export class TooltipService {
 
     private setPosition(domElem: HTMLElement, elHost: ElementRef, placement: PlacementValue): HTMLElement {
         const hostPos = elHost.nativeElement.getBoundingClientRect();
+        const tooltipPos = domElem.getBoundingClientRect();
         const scrollPos = window.pageYOffset ||
                           document.documentElement.scrollTop ||
                           document.body.scrollTop ||
@@ -51,20 +55,20 @@ export class TooltipService {
         switch (placement) {
           case Placement.Bottom:
             top = hostPos.bottom + offset;
-            left = hostPos.left + (hostPos.width - domElem.offsetWidth) / 2;
+            left = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
             break;
           case Placement.Left:
-            top = hostPos.top + (hostPos.height - domElem.offsetHeight) / 2;
-            left = hostPos.left - domElem.offsetWidth - offset;
+            top = hostPos.top + (hostPos.height - tooltipPos.height) / 2;
+            left = hostPos.left - tooltipPos.width - offset;
             break;
           case Placement.Rigth:
-            top = hostPos.top + (hostPos.height - domElem.offsetHeight) / 2;
+            top = hostPos.top + (hostPos.height - tooltipPos.height) / 2;
             left = hostPos.right + offset;
             break;
           case Placement.Top:
           default:
-            top = hostPos.top - domElem.offsetHeight - offset;
-            left = hostPos.left + (hostPos.width - domElem.offsetWidth) / 2;
+            top = hostPos.top - tooltipPos.height - offset;
+            left = hostPos.left;
             break;
         }
         top = Math.max(0, top);

@@ -3,6 +3,7 @@ import { HostListener, Input, Directive, ComponentRef, ElementRef } from '@angul
 import { TooltipComponent } from './tooltip.component';
 import { TooltipService } from './tooltip.service';
 import { PlacementValue } from './placement';
+import { LuxTooltipContext } from './tooltip-context';
 
 @Directive({
     selector: '[luxTooltipDirective]'
@@ -13,6 +14,9 @@ export class LuxTooltipDirective {
     /** Tooltip title */
     @Input('luxTooltipDirective') tooltipTitle: string;
 
+    /** Component or TemplateRef */
+    @Input() content: any;
+
     /** Placement */
     @Input() placement: PlacementValue;
 
@@ -21,7 +25,8 @@ export class LuxTooltipDirective {
 
     @HostListener('mouseenter') onMouseEnter() {
         if (!this.tooltipComponentRef) {
-            this.tooltipComponentRef = this.show(TooltipComponent, this.elHost, this.placement);
+            this.tooltipComponentRef = this.content ? this.show(this.content, this.elHost, this.placement) :
+                                                 this.show(TooltipComponent, this.elHost, this.placement, { message: this.tooltipTitle });
         }
     }
 
@@ -32,8 +37,8 @@ export class LuxTooltipDirective {
         }
     }
 
-    show(component: any, elHost: ElementRef, placement: PlacementValue): ComponentRef<any> {
-        return this.tooltipService.appendComponentToBody(component, elHost, placement);
+    show(component: any, elHost: ElementRef, placement: PlacementValue, context?: LuxTooltipContext): ComponentRef<any> {
+        return this.tooltipService.appendComponentToBody(component, elHost, placement, context);
     }
 
     remove(): void {
