@@ -21,6 +21,7 @@ export class TooltipService {
         let domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
                         .rootNodes[0];
         document.body.appendChild(domElem);
+        this.componentRef.changeDetectorRef.detectChanges();
         domElem = this.setStyle(domElem, placement);
         domElem = this.setPosition(domElem, elHost, placement);
         return this.componentRef;
@@ -68,7 +69,7 @@ export class TooltipService {
           case Placement.Top:
           default:
             top = hostPos.top - tooltipPos.height - offset;
-            left = hostPos.left;
+            left = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
             break;
         }
         top = Math.max(0, top);
