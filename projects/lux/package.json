@@ -1,6 +1,11 @@
 {
   "name": "@metadev/lux",
   "version": "0.0.1",
+  "author": {
+    "name": "Metadev S.L.",
+    "url": "https://metadev.pro"
+  },
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0"
