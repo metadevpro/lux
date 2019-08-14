@@ -1,5 +1,10 @@
 {
   "name": "lux-demo",
+  "author": {
+    "name": "Metadev S.L.",
+    "url": "https://metadev.pro"
+  },
+  "license": "MIT",
   "version": "0.0.1",
   "scripts": {
     "compodoc": "compodoc -p projects/lux/tsconfig.lib.json",
