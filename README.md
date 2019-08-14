@@ -1,6 +1,8 @@
 # LuxDemo
 
 [![Build Status](https://travis-ci.org/metadevpro/lux.svg?branch=devel)](https://travis-ci.org/metadevpro/lux)
+[![Dependencies Status](https://david-dm.org/metadevpro/lux/status.svg)](https://david-dm.org/metadevpro/lux)
+[![Known Vulnerabilities](https://snyk.io//test/github/metadevpro/lux/badge.svg?targetFile=projects/lux/package.json)](https://snyk.io//test/github/metadevpro/lux?targetFile=projects/lux/package.json)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
 
