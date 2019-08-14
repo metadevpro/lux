@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginationComponent } from './pagination.component';
 import { FormsModule } from '@angular/forms';
-import { TooltipDirective } from '../directives/tooltip.directive';
+import { LuxTooltipDirective } from '../directives/tooltip.directive';
 
 describe('PaginationComponent', () => {
     let fixture: ComponentFixture<PaginationComponent>;
@@ -11,7 +11,7 @@ describe('PaginationComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule],
-            declarations: [ PaginationComponent, TooltipDirective ]
+            declarations: [ PaginationComponent, LuxTooltipDirective ]
         })
         .compileComponents();
     }));

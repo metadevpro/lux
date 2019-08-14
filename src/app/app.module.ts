@@ -12,6 +12,7 @@ import { CoreModule } from './core/core.module';
 import { InputSampleComponent } from './input-sample/input-sample.component';
 import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
 import { PrismService } from './core/services/prism-service.service';
+import { TooltipComponent } from './tooltip-sample/tooltip';
 
 
 const appRoutes: Routes = [
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     FilterSampleComponent,
     TooltipSampleComponent,
     InputSampleComponent,
-    PaginationSampleComponent
+    PaginationSampleComponent,
+    TooltipComponent
   ],
   imports: [
     CoreModule,
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
+  entryComponents: [TooltipComponent],
   providers: [
     PrismService
   ],

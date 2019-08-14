@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputComponent } from './input.component';
-import { TooltipDirective } from '../directives/tooltip.directive';
+import { LuxTooltipDirective } from '../directives/tooltip.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TooltipService } from '../directives/tooltip.service';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -11,7 +12,8 @@ describe('InputComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, ReactiveFormsModule],
-      declarations: [ InputComponent, TooltipDirective ]
+      declarations: [ InputComponent, LuxTooltipDirective ],
+      providers: [ TooltipService ]
     })
     .compileComponents();
   }));

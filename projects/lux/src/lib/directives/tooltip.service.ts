@@ -1,45 +1,91 @@
-import { Injectable, Injector, ComponentRef, ComponentFactoryResolver, ApplicationRef, EmbeddedViewRef, ElementRef } from '@angular/core';
+import { Injectable, Injector, ComponentRef, ComponentFactoryResolver,
+         ApplicationRef, EmbeddedViewRef, ElementRef, TemplateRef } from '@angular/core';
 
 import { PlacementValue, Placement } from './placement';
 import { LuxTooltipContext } from './tooltip-context';
 import { TooltipComponent } from './tooltip.component';
+import { TooltipContentRef } from './tooltop-content';
 
 @Injectable()
 export class TooltipService {
-
-    private componentRef: ComponentRef<any>;
 
     constructor(private _injector: Injector,
                 private _crf: ComponentFactoryResolver,
                 private _applicationRef: ApplicationRef) { }
 
-    appendComponentToBody(component: any, elHost: ElementRef, placement: PlacementValue, context?: LuxTooltipContext) {
-        this.componentRef = this._crf.resolveComponentFactory(component)
-                            .create(this._injector);
-        this.componentRef.instance.context = context;
-        this._applicationRef.attachView(this.componentRef.hostView);
-        let domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
-                        .rootNodes[0];
-        document.body.appendChild(domElem);
-        this.componentRef.changeDetectorRef.detectChanges();
-        domElem = this.setStyle(domElem, placement);
-        domElem = this.setPosition(domElem, elHost, placement);
-        return this.componentRef;
+    appendComponentToBody(content: any, elHost: ElementRef, placement: PlacementValue, context?: LuxTooltipContext): TooltipContentRef {
+      const tooltipContentRef = this.getTooltipContentRef(content, context);
+      let domElem = (tooltipContentRef.viewRef as EmbeddedViewRef<any>)
+                      .rootNodes[0];
+      document.body.appendChild(domElem);
+      if (tooltipContentRef.componentRef) {
+        tooltipContentRef.componentRef.changeDetectorRef.detectChanges();
+      }
+      domElem = this.setStyle(domElem, placement);
+      domElem = this.setPosition(domElem, elHost, placement);
+      return tooltipContentRef;
     }
 
-    removeComponentFromBody() {
-        this._applicationRef.detachView(this.componentRef.hostView);
-        this.componentRef.destroy();
+    removeComponentFromBody(tooltipContentRef: TooltipContentRef) {
+        this._applicationRef.detachView(tooltipContentRef.viewRef);
+        if (tooltipContentRef.componentRef) {
+          tooltipContentRef.componentRef.destroy();
+        }
+    }
+
+    private getTooltipContentRef(content: any, context?: LuxTooltipContext): TooltipContentRef {
+      if (!content) {
+        return this.createFromComponent(TooltipComponent, context);
+      } else if (content instanceof TemplateRef) {
+        return this.createFromTemplateRef(content);
+      } else {
+        return this.createFromComponent(content, context);
+      }
+    }
+
+    private createFromTemplateRef(content: TemplateRef<any>): TooltipContentRef {
+      const viewRef = content.createEmbeddedView({});
+      this._applicationRef.attachView(viewRef);
+      return new TooltipContentRef(viewRef);
+    }
+
+    private createFromComponent(component: any, context?: LuxTooltipContext): TooltipContentRef {
+      const componentRef: ComponentRef<any> = this._crf.resolveComponentFactory(component)
+                          .create(this._injector);
+      if (context) {
+        componentRef.instance.context = context;
+      }
+      this._applicationRef.attachView(componentRef.hostView);
+      return new TooltipContentRef(componentRef.hostView, componentRef);
     }
 
     private setStyle(domElem: HTMLElement, placement: PlacementValue): HTMLElement {
         domElem.style.position = 'absolute';
         domElem.style.minWidth = 'min-content';
         domElem.style.minHeight = 'min-content';
-        const tooltipElement = Array.from(domElem.children).filter(child => child.getElementsByClassName('ng-tooltip'))[0];
+        const tooltipElement = this.getTooltipElementFromHTMLElemnt(domElem);
+        // const tooltipElement = Array.from(domElem.children).filter(child => child.getElementsByClassName('ng-tooltip'))[0];
+        placement = placement !== undefined ? placement : 'top';  // 'Top' is the default value of placement
         tooltipElement.classList.add(`ng-tooltip-${placement}`);
         tooltipElement.classList.add(`ng-tooltip-show`);
         return domElem;
+    }
+
+    private getTooltipElementFromHTMLElemnt(domElem: HTMLElement): any {
+      const elementsArray = Array.from(domElem.classList).filter(className => className === 'ng-tooltip');
+      if (elementsArray.length !== 0) {
+        return domElem;
+      } else if (domElem.hasChildNodes()) {
+        const childrenArray = Array.from(domElem.children)
+                                    .filter(child => this.getTooltipElementFromHTMLElemnt(child as HTMLElement) !== null);
+        if (childrenArray.length !== 0) {
+          return this.getTooltipElementFromHTMLElemnt(childrenArray[0] as HTMLElement);
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
     }
 
     private setPosition(domElem: HTMLElement, elHost: ElementRef, placement: PlacementValue): HTMLElement {
