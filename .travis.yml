@@ -6,8 +6,7 @@ addons:
   chrome: stable
 
 script:
-  - npm i
-  - npm test
+#  - npm test
   - npm run build
 
 sudo: false
