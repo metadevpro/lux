@@ -1,5 +1,7 @@
 # LuxDemo
 
+[![Build Status](https://travis-ci.org/metadevpro/lux.svg?branch=devel)](https://travis-ci.org/metadevpro/lux)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
 
 ## Development server
