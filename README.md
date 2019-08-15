@@ -1,31 +1,35 @@
-# LuxDemo
+# Lux Demo
 
 [![Build Status](https://travis-ci.org/metadevpro/lux.svg?branch=devel)](https://travis-ci.org/metadevpro/lux)
 [![Dependencies Status](https://david-dm.org/metadevpro/lux/status.svg)](https://david-dm.org/metadevpro/lux)
 [![Known Vulnerabilities](https://snyk.io//test/github/metadevpro/lux/badge.svg?targetFile=projects/lux/package.json)](https://snyk.io//test/github/metadevpro/lux?targetFile=projects/lux/package.json)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+Lux is an Angular library with User Interface components.
 
-## Development server
+## Install
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+`npm i @metadev/lux`
 
-## Code scaffolding
+## Documentation and samples
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+See [online documentation](https://metadev-lux.herokuapp.com/).
 
-## Build
+## Local setup
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Clone this repo and then:
 
-## Running unit tests
+```bash
+npm i
+npm test
+ng serve
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Code organization
 
-## Running end-to-end tests
+1. Library source code is under 'projects/lux/' folder.
+2. Sample project documenting the library under 'src' folder.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Copyright and License
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- Created and mantained by [Metadev](https://metadev.pro).
+- Distributed under [MIT license](LICENSE).
