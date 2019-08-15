@@ -1,11 +1,28 @@
 {
   "name": "lux-demo",
+  "description": "Lux Library and documentation. User Interface components for Angular.",
+  "license": "MIT",
+  "version": "0.0.1",
   "author": {
     "name": "Metadev S.L.",
     "url": "https://metadev.pro"
   },
-  "license": "MIT",
-  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:metadevpro/lux.git"
+  },
+  "bugs": {
+    "url": "https://github.com/metadevpro/lux/issues"
+  },
+  "homepage": "https://github.com/metadevpro/lux",
+  "keywords": [
+    "lux",
+    "metadev",
+    "components",
+    "user-interface",
+    "angular",
+    "typescript"
+  ],
   "scripts": {
     "compodoc": "npx compodoc -p projects/lux/tsconfig.lib.json",
     "postinstall": "ng build lux",

@@ -1,10 +1,27 @@
 {
   "name": "@metadev/lux",
+  "description": "Lux: Libary with User Interface components for Angular.",
   "version": "0.0.1",
   "author": {
     "name": "Metadev S.L.",
     "url": "https://metadev.pro"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:metadevpro/lux.git"
+  },
+  "bugs": {
+    "url": "https://github.com/metadevpro/lux/issues"
+  },
+  "homepage": "https://github.com/metadevpro/lux",
+  "keywords": [
+    "lux",
+    "metadev",
+    "components",
+    "user-interface",
+    "angular",
+    "typescript"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
