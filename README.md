@@ -1,12 +1,16 @@
 # Lux Demo
 
+[![npm version](https://badge.fury.io/js/%40metadev%2Flux.svg)](https://badge.fury.io/js/%40metadev%2Flux)
 [![Build Status](https://travis-ci.org/metadevpro/lux.svg?branch=devel)](https://travis-ci.org/metadevpro/lux)
 [![Dependencies Status](https://david-dm.org/metadevpro/lux/status.svg)](https://david-dm.org/metadevpro/lux)
-[![Known Vulnerabilities](https://snyk.io//test/github/metadevpro/lux/badge.svg?targetFile=projects/lux/package.json)](https://snyk.io//test/github/metadevpro/lux?targetFile=projects/lux/package.json)
+[![codecov](https://codecov.io/gh/metadevpro/lux/branch/devel/graph/badge.svg)](https://codecov.io/gh/metadevpro/lux)
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 Lux is an Angular library with User Interface components.
 
 ## Install
+
+From npmjs: [@metadev/lux](https://www.npmjs.com/package/@metadev/lux)
 
 `npm i @metadev/lux`
 

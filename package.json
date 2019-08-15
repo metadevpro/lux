@@ -32,14 +32,14 @@
     "build-start": "npm run build:lux && ng serve",
     "build": "ng build",
     "test": "ng test lux --watch=false",
-    "test:coverage": "ng test lux --watch=false --code-coverage",
+    "test:coverage": "ng test lux --watch=false --code-coverage --browsers ChromeHeadless",
     "test:travis": "ng test lux --watch=false --browsers ChromeHeadless",
     "tdd": "ng test lux",
     "build:lux": "ng build lux",
     "lint": "ng lint",
     "lint:lux": "ng lint lux",
     "e2e": "ng e2e",
-    "publish": "npm run lint:lux && npm run test && ng build lux && cd dist/lux && npm publish"
+    "publish": "npm run lint:lux && npm run test:coverage && ng build lux && npm publish --access public dist/lux"
   },
   "private": true,
   "dependencies": {

@@ -6,7 +6,11 @@ addons:
   chrome: stable
 
 script:
+  - npm install codecov -g
   - npm run test:travis
   - npm run build
+
+after_success:
+  - codecov -f coverage/lux/lcov.json
 
 sudo: false
