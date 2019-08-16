@@ -13,8 +13,8 @@ export class TooltipService {
                 private _crf: ComponentFactoryResolver,
                 private _applicationRef: ApplicationRef) { }
 
-    appendComponentToBody(content: any, elHost: ElementRef, placement: PlacementValue, context?: LuxTooltipContext): TooltipContentRef {
-      const tooltipContentRef = this.getTooltipContentRef(content, context);
+    appendComponentToBody(content: any, elHost: ElementRef, placement: PlacementValue): TooltipContentRef {
+      const tooltipContentRef = this.getTooltipContentRef(content);
       let domElem = (tooltipContentRef.viewRef as EmbeddedViewRef<any>)
                       .rootNodes[0];
       document.body.appendChild(domElem);
@@ -33,13 +33,15 @@ export class TooltipService {
         }
     }
 
-    private getTooltipContentRef(content: any, context?: LuxTooltipContext): TooltipContentRef {
+    private getTooltipContentRef(content: any): TooltipContentRef {
       if (!content) {
-        return this.createFromComponent(TooltipComponent, context);
+        return this.createFromComponent(TooltipComponent, { message: 'Tooltip' });
       } else if (content instanceof TemplateRef) {
         return this.createFromTemplateRef(content);
+      } else if (typeof(content) === 'string') {
+        return this.createFromComponent(TooltipComponent, { message: content });
       } else {
-        return this.createFromComponent(content, context);
+        return this.createFromComponent(content);
       }
     }
 
@@ -64,15 +66,15 @@ export class TooltipService {
         domElem.style.minWidth = 'min-content';
         domElem.style.minHeight = 'min-content';
         const tooltipElement = this.getTooltipElementFromHTMLElemnt(domElem);
-        // const tooltipElement = Array.from(domElem.children).filter(child => child.getElementsByClassName('ng-tooltip'))[0];
-        placement = placement !== undefined ? placement : 'top';  // 'Top' is the default value of placement
-        tooltipElement.classList.add(`ng-tooltip-${placement}`);
-        tooltipElement.classList.add(`ng-tooltip-show`);
+        placement = placement !== undefined ?
+                              placement.toLocaleLowerCase() as PlacementValue : 'top';  // 'Top' is the default value of placement
+        tooltipElement.classList.add(`lux-tooltip-${placement}`);
+        tooltipElement.classList.add(`lux-tooltip-show`);
         return domElem;
     }
 
     private getTooltipElementFromHTMLElemnt(domElem: HTMLElement): any {
-      const elementsArray = Array.from(domElem.classList).filter(className => className === 'ng-tooltip');
+      const elementsArray = Array.from(domElem.classList).filter(className => className === 'lux-tooltip');
       if (elementsArray.length !== 0) {
         return domElem;
       } else if (domElem.hasChildNodes()) {

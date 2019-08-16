@@ -1,56 +1,87 @@
 <h1>Tooltip</h1>
 
+<h2>Documentation</h2>
+<h3>Properties</h3>
+<ul class="properties">
+  <li>
+      <span class="inline">luxTooltip</span>:<span class="text-acent">Directive</span>
+      <p>Provides the tooltip to be shown.</p> 
+  </li>
+  <li>
+    <span class="inline">content?</span>: <span class="text-acent">String | Component | TemplateRef</span>
+    <p>Tooltip content. It can be a custom component, a custom TemplateRef or String. If it is a String, 
+      it display a default component and the content property is the message to show.
+      If you want display a custom component or custom TemplateRef, the tooltip that you want display must have 
+      <span class="text-acent">lux-tooltip</span> class.
+    </p>
+    <p><span class="text-acent">Default:</span> 'Tooltip'</p> 
+</li>
+  <li>
+      <span class="inline">placement?</span>:<span class="text-acent">String</span>
+      <p>Tooltip position</p>
+      <p><span class="text-acent">Values:</span> Top, Bottom, Left or Right</p>
+      <p><span class="text-acent">Default:</span> Top</p> 
+  </li>
+</ul>
+
 <h2>Usage samples</h2>
 <div>
-  Use it as a directive. Set tooltip text, placement and delay.
+  Use it as a directive. Set tooltip text and placement.
 
-  <h3>Default Tooltip on top</h3>
+  <h3>Default Tooltip</h3>
+
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;button luxTooltip="Top" placement="top"&gt;Top&lt;/button&gt;</code>
+  &lt;button luxTooltip&gt;Tooltip&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
-    <button luxTooltip="Top" placement="top">Top New</button>
+    <button luxTooltip>Tooltip</button>
   </div>
 
-  <h3>Default Tooltip on bottom</h3>
+  <pre class="language-html" rel="html">
+    <code class="language-html">
+  &lt;button luxTooltip content="Top" placement="top"&gt;Top&lt;/button&gt;</code>
+  </pre>
+
+  <div class="sample">
+    <button luxTooltip content="Top" placement="top">Top New</button>
+  </div>
+
   <pre class="language-html" rel="html">
       <code class="language-html">
-  &lt;button luxTooltip="Bottom" placement="bottom"&gt;Bottom&lt;/button&gt;</code>
+  &lt;button luxTooltip content="Bottom" placement="bottom"&gt;Bottom&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
-    <button luxTooltip="Bottom" placement="bottom">Bottom New</button>
+    <button luxTooltip content="Bottom" placement="bottom">Bottom New</button>
   </div>
 
-  <h3>Default Tooltip on the left</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;button luxTooltip="Left" placement="left"&gt;Left&lt;/button&gt;</code>
+  &lt;button luxTooltip content="Left" placement="left"&gt;Left&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
-    <button luxTooltip="Left" placement="left">Left New</button>
+    <button luxTooltip content="Left" placement="left">Left New</button>
   </div>
 
-  <h3>Default Tooltip on the right</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;button luxTooltip="Right" placement="right"&gt;Right&lt;/button&gt;</code>
+  &lt;button luxTooltip content="Right" placement="right"&gt;Right&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
-    <button luxTooltip="Right" placement="right">Right New</button>
+    <button luxTooltip content="Right" placement="right">Right New</button>
   </div>
 
-  <h3>Tooltip from Component on Top</h3>
+  <h3>Tooltip from Component</h3>
   <pre class="language-javascript" rel="javascript">
     <code class="language-javascript">
   import &#123; Component } from '@angular/core';
   @Component(&#123;
       template: `
-        &lt;span class="ng-tooltip" style="transition: opacity 200ms"&gt;Top Component&lt;/span&gt;
+        &lt;span class="lux-tooltip" style="transition: opacity 200ms"&gt;Top Component&lt;/span&gt;
       `
   })
   export class TooltipComponent &#123;
@@ -72,85 +103,65 @@
     <button luxTooltip [content]="getComponentTooltip()" placement="top">Top Component</button>
   </div>
 
-  <h3>Tooltip from TemplateRef on Top</h3>
+  <h3>Tooltip from TemplateRef</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
   &lt;ng-template #contentTop&gt;
-    &lt;span class="ng-tooltip" style="transition: opacity 200ms"&gt;Top TemplateRef&lt;/span&gt;
+    &lt;span class="lux-tooltip" style="transition: opacity 200ms"&gt;Top TemplateRef&lt;/span&gt;
   &lt;/ng-template&gt;
   &lt;button luxTooltip [content]="contentTop" placement="top"&gt;Top TemplateRef&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
     <ng-template #contentTop>
-      <span class="ng-tooltip" style="transition: opacity 200ms">Top TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms">Top TemplateRef</span>
     </ng-template>
     <button luxTooltip [content]="contentTop" placement="top">Top TemplateRef</button>
   </div>
 
-  <h3>Tooltip from TemplateRef on Bottom</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
   &lt;ng-template #contentBottom&gt;
-    &lt;span class="ng-tooltip" style="transition: opacity 200ms"&gt;Bottom TemplateRef&lt;/span&gt;
+    &lt;span class="lux-tooltip" style="transition: opacity 200ms"&gt;Bottom TemplateRef&lt;/span&gt;
   &lt;/ng-template&gt;
   &lt;button luxTooltip [content]="contentBottom" placement="bottom"&gt;Bottom TemplateRef&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
     <ng-template #contentBottom>
-      <span class="ng-tooltip" style="transition: opacity 200ms">Bottom TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms">Bottom TemplateRef</span>
     </ng-template>
     <button luxTooltip [content]="contentBottom" placement="bottom">Bottom TemplateRef</button>
   </div>
 
-  <h3>Tooltip from TemplateRef on Left</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
   &lt;ng-template #contentLeft&gt;
-    &lt;span class="ng-tooltip" style="transition: opacity 200ms"&gt;Left TemplateRef&lt;/span&gt;
+    &lt;span class="lux-tooltip" style="transition: opacity 200ms"&gt;Left TemplateRef&lt;/span&gt;
   &lt;/ng-template&gt;
   &lt;button luxTooltip [content]="contentLeft" placement="left"&gt;Left TemplateRef&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
     <ng-template #contentLeft>
-      <span class="ng-tooltip" style="transition: opacity 200ms">Left TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms">Left TemplateRef</span>
     </ng-template>
     <button luxTooltip [content]="contentLeft" placement="left">Left TemplateRef</button>
   </div>
 
-  <h3>Tooltip from TemplateRef on Right</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
   &lt;ng-template #contentRight&gt;
-    &lt;span class="ng-tooltip" style="transition: opacity 200ms"&gt;Right TemplateRef&lt;/span&gt;
+    &lt;span class="lux-tooltip" style="transition: opacity 200ms"&gt;Right TemplateRef&lt;/span&gt;
   &lt;/ng-template&gt;
   &lt;button luxTooltip [content]="contentRight" placement="right"&gt;Right TemplateRef&lt;/button&gt;</code>
   </pre>
 
   <div class="sample">
     <ng-template #contentRight>
-      <span class="ng-tooltip" style="transition: opacity 200ms">Right TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms">Right TemplateRef</span>
     </ng-template>
     <button luxTooltip [content]="contentRight" placement="right">Right TemplateRef</button>
   </div>
 
 </div>
-
-<h2>Documentation</h2>
-<h3>Properties</h3>
-<ul class="properties">
-  <li>
-      <span class="inline">luxTooltip</span>
-      Provides the tooltip to be shown.
-  </li>
-  <li>
-      <span class="inline">placement</span>
-      Placement allowed values are:
-      <span class="inline">top</span> (default),
-      <span class="inline">bottom</span>,
-      <span class="inline">left</span>, and
-      <span class="inline">right</span>.
-  </li>
-</ul>
