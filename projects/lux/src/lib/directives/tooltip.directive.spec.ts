@@ -3,14 +3,16 @@ import { Component, DebugElement, NgModule } from '@angular/core';
 
 import { LuxTooltipDirective } from './tooltip.directive';
 import { TooltipService } from './tooltip.service';
-import { By } from '@angular/platform-browser';
 import { TooltipComponent } from './tooltip.component';
 
-@Component({selector: 'lux-test-cmp', template: '<p>Hello</p>'})
+@Component({
+    selector: 'lux-test-cmp',
+    template: '<p>Hello</p>'
+})
 export class TestComponent {
 }
 
-export function createTestComponent(html: string): ComponentFixture<TestComponent> {
+function createTestComponent(html: string): ComponentFixture<TestComponent> {
     const fixture = TestBed.overrideComponent(TestComponent, {
         set: {
             template: html
@@ -26,7 +28,7 @@ export function createTestComponent(html: string): ComponentFixture<TestComponen
 })
 class TooltipTestModule {}
 
-fdescribe('TooltipDirective', () => {
+describe('TooltipDirective', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -40,19 +42,17 @@ fdescribe('TooltipDirective', () => {
         expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it('it should display default tooltip', async () => {
-        const fixture = createTestComponent('<button luxTooltip>Button with Tooltip</button>');
-        // const button: DebugElement = fixture.debugElement.nativeElement.querySelector('button');
-        const directive: DebugElement = fixture.debugElement.query(By.directive(LuxTooltipDirective));
-        // button.dispatchEvent(new Event('mouseenter'));
-        /* button.triggerEventHandler('mouseenter', (res) => {
-            console.log(res);
-        }); */
+    it('it should display default tooltip', () => {
+        const fixture = createTestComponent('<button luxTooltip="Tooltip ABC">Button with Tooltip</button>');
+        const button = fixture.debugElement.nativeElement.querySelector('button');
+
         const evt = document.createEvent('Event');
         evt.initEvent('mouseenter', true, false);
-        directive.nativeElement.dispatchEvent(evt);
+        button.dispatchEvent(evt);
         fixture.detectChanges();
-        console.log(fixture);
+
+        const tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
+        expect(tooltip.innerHTML).toContain('Tooltip ABC');
     });
 
 });
