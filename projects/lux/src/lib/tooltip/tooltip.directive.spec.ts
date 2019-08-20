@@ -83,6 +83,28 @@ describe('TooltipDirective', () => {
         expect(tooltip.innerHTML).toContain('Tooltip');
     });
 
+    it('it should display default tooltip and close with mouseleave event', () => {
+        const fixture = createTestComponent('<button luxTooltip>Button Default</button>');
+        const button = fixture.debugElement.nativeElement.querySelector('button');
+
+        const evt = document.createEvent('Event');
+        evt.initEvent('mouseenter', true, false);
+        button.dispatchEvent(evt);
+        fixture.detectChanges();
+
+        tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
+        expect(tooltip).toBeDefined();
+        expect(tooltip.innerHTML).toContain('Tooltip');
+
+        const evtLeave = document.createEvent('Event');
+        evtLeave.initEvent('mouseleave', true, false);
+        button.dispatchEvent(evtLeave);
+        fixture.detectChanges();
+
+        tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
+        expect(tooltip).toBeNull();
+    });
+
     it('it should display default tooltip with top placement like default value', () => {
         const fixture = createTestComponent('<button luxTooltip>Button Default</button>');
         const button = fixture.debugElement.nativeElement.querySelector('button');
@@ -115,7 +137,7 @@ describe('TooltipDirective', () => {
     it('it should display tooltip in the left', () => {
         const placement = 'Left';
         const content = 'Custom Tooltip';
-        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement}">
+        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -127,13 +149,13 @@ describe('TooltipDirective', () => {
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip in the right', () => {
         const placement = 'Right';
         const content = 'Custom Tooltip';
-        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement}">
+        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -145,13 +167,13 @@ describe('TooltipDirective', () => {
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip in the top', () => {
         const placement = 'Top';
         const content = 'Custom Tooltip';
-        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement}">
+        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -163,13 +185,13 @@ describe('TooltipDirective', () => {
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip in the bottom', () => {
         const placement = 'Bottom';
         const content = 'Custom Tooltip';
-        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement}">
+        const fixture = createTestComponent(`<button luxTooltip content="${content}" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -181,7 +203,7 @@ describe('TooltipDirective', () => {
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip from TemplateRef', () => {
@@ -212,7 +234,7 @@ describe('TooltipDirective', () => {
         <ng-template #contentTemplate>
             <span class="lux-tooltip lux-template" style="transition: opacity 200ms">${content}</span>
         </ng-template>
-        <button luxTooltip [content]="contentTemplate" placement="${placement}">Button with Tooltip</button>
+        <button luxTooltip [content]="contentTemplate" placement="${placement.toLowerCase()}">Button with Tooltip</button>
         `);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -225,7 +247,7 @@ describe('TooltipDirective', () => {
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
         expect(tooltip.classList).toContain(`lux-template`);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip from TemplateRef with Right placement', () => {
@@ -235,7 +257,7 @@ describe('TooltipDirective', () => {
         <ng-template #contentTemplate>
             <span class="lux-tooltip lux-template" style="transition: opacity 200ms">${content}</span>
         </ng-template>
-        <button luxTooltip [content]="contentTemplate" placement="${placement}">Button with Tooltip</button>
+        <button luxTooltip [content]="contentTemplate" placement="${placement.toLowerCase()}">Button with Tooltip</button>
         `);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -248,7 +270,7 @@ describe('TooltipDirective', () => {
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
         expect(tooltip.classList).toContain(`lux-template`);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip from TemplateRef with Bottom placement', () => {
@@ -258,7 +280,7 @@ describe('TooltipDirective', () => {
         <ng-template #contentTemplate>
             <span class="lux-tooltip lux-template" style="transition: opacity 200ms">${content}</span>
         </ng-template>
-        <button luxTooltip [content]="contentTemplate" placement="${placement}">Button with Tooltip</button>
+        <button luxTooltip [content]="contentTemplate" placement="${placement.toLowerCase()}">Button with Tooltip</button>
         `);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -271,7 +293,7 @@ describe('TooltipDirective', () => {
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
         expect(tooltip.classList).toContain(`lux-template`);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip from TemplateRef with Top placement', () => {
@@ -281,7 +303,7 @@ describe('TooltipDirective', () => {
         <ng-template #contentTemplate>
             <span class="lux-tooltip lux-template" style="transition: opacity 200ms">${content}</span>
         </ng-template>
-        <button luxTooltip [content]="contentTemplate" placement="${placement}">Button with Tooltip</button>
+        <button luxTooltip [content]="contentTemplate" placement="${placement.toLowerCase()}">Button with Tooltip</button>
         `);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -294,7 +316,7 @@ describe('TooltipDirective', () => {
         expect(tooltip).toBeDefined();
         expect(tooltip.innerHTML).toContain(content);
         expect(tooltip.classList).toContain(`lux-template`);
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
     });
 
     it('it should display tooltip from Component', () => {
@@ -327,11 +349,35 @@ describe('TooltipDirective', () => {
         expect(tooltip).toBeDefined();
         expect(tooltip.classList).toContain(`lux-tooltip-top`);
         expect(tooltip.innerHTML).toContain('Tooltip Component');
+    });
+
+    it('it should display tooltip from Component and close with mouseleave event', () => {
+        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()">
+                                            Button with Tooltip</button>`);
+        const button = fixture.debugElement.nativeElement.querySelector('button');
+
+        const evt = document.createEvent('Event');
+        evt.initEvent('mouseenter', true, false);
+        button.dispatchEvent(evt);
+        fixture.detectChanges();
+
+        tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
+        expect(tooltip).toBeDefined();
+        expect(tooltip.classList).toContain(`lux-tooltip-top`);
+        expect(tooltip.innerHTML).toContain('Tooltip Component');
+
+        const evtLeave = document.createEvent('Event');
+        evtLeave.initEvent('mouseleave', true, false);
+        button.dispatchEvent(evtLeave);
+        fixture.detectChanges();
+
+        tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
+        expect(tooltip).toBeNull();
     });
 
     it('it should display tooltip from Component with left placement', () => {
         const placement = 'Left';
-        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()" placement="${placement}">
+        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -342,13 +388,14 @@ describe('TooltipDirective', () => {
 
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
         expect(tooltip.innerHTML).toContain('Tooltip Component');
     });
 
     it('it should display tooltip from Component with right placement', () => {
         const placement = 'Right';
-        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()" placement="${placement}">
+        const fixture = createTestComponent(`
+            <button luxTooltip [content]="getTooltipTestComponent()" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -359,13 +406,14 @@ describe('TooltipDirective', () => {
 
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        console.log(placement.toLowerCase());
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
         expect(tooltip.innerHTML).toContain('Tooltip Component');
     });
 
     it('it should display tooltip from Component with bottom placement', () => {
         const placement = 'Bottom';
-        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()" placement="${placement}">
+        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -376,8 +424,16 @@ describe('TooltipDirective', () => {
 
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
-        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLocaleLowerCase()}`);
+        expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
         expect(tooltip.innerHTML).toContain('Tooltip Component');
+
+        const evtLeave = document.createEvent('Event');
+        evtLeave.initEvent('mouseleave', true, false);
+        button.dispatchEvent(evtLeave);
+        fixture.detectChanges();
+
+        tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
+        expect(tooltip).toBeNull();
     });
 
 });

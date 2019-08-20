@@ -101,6 +101,8 @@ export class TooltipService {
         let left = 0;
         const offset = 10;
 
+        console.log(`Custom placement: ${placement}, Placement Top class: ${Placement.Bottom}`);
+
         switch (placement) {
           case Placement.Bottom:
             top = hostPos.bottom + offset;

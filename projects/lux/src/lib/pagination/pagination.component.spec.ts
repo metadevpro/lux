@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginationComponent } from './pagination.component';
 import { FormsModule } from '@angular/forms';
-import { LuxTooltipDirective } from '../directives/tooltip.directive';
+import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 
 describe('PaginationComponent', () => {
     let fixture: ComponentFixture<PaginationComponent>;

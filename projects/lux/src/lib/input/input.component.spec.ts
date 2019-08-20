@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputComponent } from './input.component';
-import { LuxTooltipDirective } from '../directives/tooltip.directive';
+import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TooltipService } from '../directives/tooltip.service';
+import { TooltipService } from '../tooltip/tooltip.service';
 
 describe('InputComponent', () => {
   let component: InputComponent;
