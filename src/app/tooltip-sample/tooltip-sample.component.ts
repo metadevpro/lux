@@ -1,5 +1,6 @@
 import { Component, AfterContentInit } from '@angular/core';
 import { PrismService } from '../core/services/prism-service.service';
+import { TooltipComponent } from './tooltip';
 
 @Component({
   selector: 'app-tooltip-sample',
@@ -11,5 +12,9 @@ export class TooltipSampleComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
+  }
+
+  getComponentTooltip(): TooltipComponent {
+    return TooltipComponent;
   }
 }
