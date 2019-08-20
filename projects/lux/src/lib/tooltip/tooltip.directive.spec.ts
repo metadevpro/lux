@@ -9,7 +9,7 @@ import { TooltipComponent } from './tooltip.component';
     selector: 'lux-test-cmp',
     template: ''
 })
-export class TestComponent {
+class TestComponent {
 
     constructor() {}
 
@@ -24,7 +24,7 @@ export class TestComponent {
         <span class="lux-tooltip" style="transition: opacity 200ms">Tooltip Component</span>
     `
 })
-export class TooltipTestComponent {
+class TooltipTestComponent {
 
     constructor()  { }
 
