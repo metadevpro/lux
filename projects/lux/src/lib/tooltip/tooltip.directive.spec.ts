@@ -377,7 +377,8 @@ describe('TooltipDirective', () => {
 
     it('it should display tooltip from Component with left placement', () => {
         const placement = 'Left';
-        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()" placement="${placement.toLowerCase()}">
+        const fixture = createTestComponent(`
+        <button luxTooltip [content]="getTooltipTestComponent()" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -406,14 +407,14 @@ describe('TooltipDirective', () => {
 
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
-        console.log(placement.toLowerCase());
         expect(tooltip.classList).toContain(`lux-tooltip-${placement.toLowerCase()}`);
         expect(tooltip.innerHTML).toContain('Tooltip Component');
     });
 
     it('it should display tooltip from Component with bottom placement', () => {
         const placement = 'Bottom';
-        const fixture = createTestComponent(`<button luxTooltip [content]="getTooltipTestComponent()" placement="${placement.toLowerCase()}">
+        const fixture = createTestComponent(`
+        <button luxTooltip [content]="getTooltipTestComponent()" placement="${placement.toLowerCase()}">
                                             Button with Tooltip</button>`);
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
