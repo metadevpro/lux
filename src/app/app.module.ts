@@ -2,21 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { FilterSampleComponent } from './filter-sample/filter-sample.component';
-import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
-import { MainComponent } from './main/main.component';
 import { LuxModule } from 'projects/lux/src/public-api';
-import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
-import { CoreModule } from './core/core.module';
-import { InputSampleComponent } from './input-sample/input-sample.component';
+import { AppComponent } from './app.component';
+import { BreadcrumbSampleComponent } from './breadcrumb-sample/breadcrumb-sample.component';
 import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
+import { InputSampleComponent } from './input-sample/input-sample.component';
+import { FilterSampleComponent } from './filter-sample/filter-sample.component';
+import { MainComponent } from './main/main.component';
+import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
+import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
+import { CoreModule } from './core/core.module';
 import { PrismService } from './core/services/prism-service.service';
 import { TooltipComponent } from './tooltip-sample/tooltip';
 
-
 const appRoutes: Routes = [
   { path: '',       component: MainComponent },
+  { path: 'breadcrumb',  component: BreadcrumbSampleComponent },
   { path: 'checkbox',  component: CheckboxSampleComponent },
   { path: 'index',  component: MainComponent },
   { path: 'filter', component: FilterSampleComponent },
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     TooltipSampleComponent,
     InputSampleComponent,
     PaginationSampleComponent,
-    TooltipComponent
+    TooltipComponent,
+    BreadcrumbSampleComponent
   ],
   imports: [
     CoreModule,
@@ -47,6 +49,6 @@ const appRoutes: Routes = [
   providers: [
     PrismService
   ],
-  bootstrap: [ AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
