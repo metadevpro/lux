@@ -34,7 +34,7 @@ function createTestComponent(): ComponentFixture<TestComponent> {
   return fixture;
 }
 
-fdescribe('LuxBreadcrumbComponent', () => {
+describe('LuxBreadcrumbComponent', () => {
   let component: LuxBreadcrumbComponent;
   let fixture: ComponentFixture<LuxBreadcrumbComponent>;
 

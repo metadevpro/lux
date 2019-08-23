@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 interface BreadcrumbItem {
   label: string;
@@ -14,7 +14,7 @@ interface BreadcrumbItem {
 })
 export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
   public breadcrumbs: BreadcrumbItem[];
-  private subs = new SubSink();
+  private subs: Subscription[] = [];
   public imagePath = '../assets/img/arrow-forward.svg';
 
   constructor(
@@ -22,16 +22,17 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
     private activedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.subs.sink = this.route.events.pipe(
+    this.subs.push(this.route.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(_ => {
       this.breadcrumbs = [];
       this.addBreadcrumbs(this.activedRoute.snapshot.root, true, null);
-    });
+    }));
   }
 
   ngOnDestroy() {
-    this.subs.unsubscribe();
+    this.subs.forEach(s => s.unsubscribe());
+    this.subs = [];
   }
 
   private addBreadcrumbs(activedRouteSnapshot: ActivatedRouteSnapshot, isRoot: boolean, urlPrefix: string): void {
