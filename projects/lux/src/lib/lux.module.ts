@@ -10,6 +10,8 @@ import { InputComponent } from './input/input.component';
 import { FilterComponent } from './filter/filter.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipService } from './tooltip/tooltip.service';
+import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -19,12 +21,14 @@ import { TooltipService } from './tooltip/tooltip.service';
     InputComponent,
     LuxTooltipDirective,
     TooltipComponent,
-    PaginationComponent
+    PaginationComponent,
+    LuxBreadcrumbComponent
   ],
   providers: [TooltipService],
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
     CommonModule
   ],
   entryComponents: [TooltipComponent],
@@ -33,7 +37,8 @@ import { TooltipService } from './tooltip/tooltip.service';
     CheckboxComponent,
     InputComponent,
     LuxTooltipDirective,
-    PaginationComponent
+    PaginationComponent,
+    LuxBreadcrumbComponent
   ]
 })
 export class LuxModule { }

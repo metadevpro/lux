@@ -1,0 +1,7 @@
+<ul class="lux-breadcrumb">
+  <li *ngFor="let breadcrumb of breadcrumbs; last as isLast; first as isFirst"
+      class="lux-breadcrumb-item">
+    <a [class.first]="isFirst" routerLink="{{ breadcrumb.url }}">{{ breadcrumb.label }}</a>
+    <div *ngIf="!isLast" class="lux-breadcrumb-separator"></div>
+  </li>
+</ul>

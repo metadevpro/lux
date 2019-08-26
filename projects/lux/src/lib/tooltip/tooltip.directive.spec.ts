@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 
 import { LuxTooltipDirective } from './tooltip.directive';
 import { TooltipService } from './tooltip.service';
