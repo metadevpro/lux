@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     InputSampleComponent,
     PaginationSampleComponent,
     TooltipComponent,
-    BreadcrumbSampleComponent
+    BreadcrumbSampleComponent,
     ModalSampleComponent
   ],
   imports: [

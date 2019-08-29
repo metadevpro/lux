@@ -1,6 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { LuxTooltipDirective } from './tooltip/tooltip.directive';
@@ -10,7 +11,6 @@ import { FilterComponent } from './filter/filter.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipService } from './tooltip/tooltip.service';
 import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { RouterModule } from '@angular/router';
 import { ModalService } from './modal/modal.service';
 import { LuxModalWindowComponent } from './modal/modal-window';
 import { LuxModalBackdropComponent } from './modal/modal-backdrop';
@@ -25,19 +25,17 @@ import { LuxModalBackdropComponent } from './modal/modal-backdrop';
     TooltipComponent,
     PaginationComponent,
     LuxModalWindowComponent,
-    LuxModalBackdropComponent
+    LuxModalBackdropComponent,
     LuxBreadcrumbComponent
   ],
-  entryComponents: [LuxModalWindowComponent, LuxModalBackdropComponent],
-  providers: [ModalService],
-  providers: [TooltipService],
+  entryComponents: [LuxModalWindowComponent, LuxModalBackdropComponent, TooltipComponent],
+  providers: [ModalService, TooltipService],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
     CommonModule
   ],
-  entryComponents: [TooltipComponent],
   exports: [
     FilterComponent,
     CheckboxComponent,
