@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { ModalService } from '../modal/modal.service';
 
 @Component({
   selector: 'lux-input',
@@ -75,7 +76,11 @@ export class InputComponent {
   }
   @Output() valueChange = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private modalService: ModalService) {}
+
+  isGeolocation(): boolean {
+    return this.type === 'geolocation' ? true : false;
+  }
 
   checkClassName(): string {
     if (this.readonly !== undefined) {

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { PaginationInfo } from '../core/models/pagination';
+import { PaginationInfo } from './pagination';
 
 @Component({
   selector: 'lux-pagination',

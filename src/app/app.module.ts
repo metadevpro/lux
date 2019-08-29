@@ -13,6 +13,7 @@ import { PaginationSampleComponent } from './pagination-sample/pagination-sample
 import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
 import { CoreModule } from './core/core.module';
 import { PrismService } from './core/services/prism-service.service';
+import { ModalSampleComponent } from './modal-sample/modal-sample.component';
 import { TooltipComponent } from './tooltip-sample/tooltip';
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'input', component: InputSampleComponent },
   { path: 'tooltip',  component: TooltipSampleComponent },
   { path: 'pagination', component: PaginationSampleComponent },
+  { path: 'modal', component: ModalSampleComponent },
   { path: '**', component: MainComponent }
 ];
 
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
     InputSampleComponent,
     PaginationSampleComponent,
     TooltipComponent,
-    BreadcrumbSampleComponent
+    BreadcrumbSampleComponent,
+    ModalSampleComponent
   ],
   imports: [
     CoreModule,

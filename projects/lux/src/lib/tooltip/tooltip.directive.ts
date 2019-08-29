@@ -3,6 +3,7 @@ import { HostListener, Input, Directive, ElementRef } from '@angular/core';
 import { TooltipService } from './tooltip.service';
 import { PlacementValue } from './placement';
 import { TooltipContentRef } from './tooltop-content';
+import { TouchSequence } from 'selenium-webdriver';
 
 /**
  * Tooltip directive
@@ -32,6 +33,13 @@ export class LuxTooltipDirective {
     }
 
     @HostListener('mouseleave') onmouseleave() {
+        if (this.tooltipRef) {
+            this.remove(this.tooltipRef);
+            this.tooltipRef = null;
+        }
+    }
+
+    @HostListener('click') onclick() {
         if (this.tooltipRef) {
             this.remove(this.tooltipRef);
             this.tooltipRef = null;

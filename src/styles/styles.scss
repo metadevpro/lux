@@ -4,8 +4,9 @@
 
 @import 'prism';
 @import 'tooltip';
+@import 'modal';
 
-$acent-color: #4F447C;
+$accent-color: #4F447C;
 $second-color: #CEA1EE;
 
 body {
@@ -19,14 +20,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 hr {
-  border: 0px solid $acent-color;
+  border: 0px solid $accent-color;
   height: 3px;
-  background: $acent-color;
-  background: linear-gradient(90deg, $acent-color 0%, $acent-color 64%, $second-color 97%);
+  background: $accent-color;
+  background: linear-gradient(90deg, $accent-color 0%, $accent-color 64%, $second-color 97%);
 }
 
 a {
-  color: $acent-color;
+  color: $accent-color;
 }
 a:hover {
   color: $second-color;
@@ -38,7 +39,7 @@ button {
 }
 
 .text-acent {
-  color: $acent-color;
+  color: $accent-color;
 }
 
 .inline {
