@@ -34,7 +34,7 @@
     "build:lux": "ng build lux",
     "test": "ng test lux --watch=false",
     "test:coverage": "ng test lux --watch=false --code-coverage --browsers ChromeHeadless",
-    "test:travis": "ng test lux --watch=false --browsers ChromeHeadless",
+    "test:travis": "ng test lux --watch=false --code-coverage --browsers ChromeHeadless",
     "tdd": "ng test lux",
     "lint": "ng lint",
     "lint:lux": "ng lint lux",
