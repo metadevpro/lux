@@ -17,6 +17,7 @@ import { PrismService } from './core/services/prism-service.service';
 import { ModalSampleComponent } from './modal-sample/modal-sample.component';
 import { TooltipComponent } from './tooltip-sample/tooltip';
 import { RadiogroupSampleComponent } from './radiogroup-sample/radiogroup-sample.component';
+import { VoicerecognitionSampleComponent } from './voicerecognition-sample/voicerecognition-sample.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
@@ -26,11 +27,12 @@ const appRoutes: Routes = [
   { path: 'index', component: MainComponent },
   { path: 'filter', component: FilterSampleComponent },
   { path: 'input', component: InputSampleComponent },
-  { path: 'tooltip', component: TooltipSampleComponent },
   { path: 'pagination', component: PaginationSampleComponent },
   { path: 'modal', component: ModalSampleComponent },
+  { path: 'tooltip', component: TooltipSampleComponent },
   { path: 'radiogroup', component: RadiogroupSampleComponent },
-  { path: '**', component: MainComponent },
+  { path: 'voicerecognition', component: VoicerecognitionSampleComponent },
+  { path: '**', component: MainComponent }
 ];
 
 @NgModule({
@@ -47,6 +49,7 @@ const appRoutes: Routes = [
     BreadcrumbSampleComponent,
     ModalSampleComponent,
     RadiogroupSampleComponent,
+    VoicerecognitionSampleComponent
   ],
   imports: [
     CoreModule,

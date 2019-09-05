@@ -3,20 +3,22 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
-import { LuxTooltipDirective } from './tooltip/tooltip.directive';
-import { PaginationComponent } from './pagination/pagination.component';
 import { InputComponent } from './input/input.component';
 import { FilterComponent } from './filter/filter.component';
-import { TooltipComponent } from './tooltip/tooltip.component';
-import { TooltipService } from './tooltip/tooltip.service';
+import { LuxTooltipDirective } from './tooltip/tooltip.directive';
 import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { ModalService } from './modal/modal.service';
 import { LuxModalWindowComponent } from './modal/modal-window';
 import { LuxModalBackdropComponent } from './modal/modal-backdrop';
+import { ModalService } from './modal/modal.service';
+import { PaginationComponent } from './pagination/pagination.component';
 import { RadiogroupComponent } from './radiogroup/radiogroup.component';
+import { TooltipComponent } from './tooltip/tooltip.component';
+import { TooltipService } from './tooltip/tooltip.service';
+import { VoiceRecognitionComponent } from './voice-recognition/voice-recognition.component';
 import { WINDOW_PROVIDERS } from './window/window.service';
-import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     LuxBreadcrumbComponent,
     TooltipComponent,
     PaginationComponent,
-    RadiogroupComponent
+    RadiogroupComponent,
+    VoiceRecognitionComponent
   ],
   entryComponents: [LuxModalWindowComponent, LuxModalBackdropComponent, TooltipComponent],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
@@ -47,8 +50,10 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     InputComponent,
     LuxTooltipDirective,
     LuxBreadcrumbComponent,
+    LuxBreadcrumbComponent,
     PaginationComponent,
-    RadiogroupComponent
+    RadiogroupComponent,
+    VoiceRecognitionComponent
   ]
 })
 export class LuxModule { }
