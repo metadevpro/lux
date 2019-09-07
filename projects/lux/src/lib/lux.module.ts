@@ -14,6 +14,7 @@ import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ModalService } from './modal/modal.service';
 import { LuxModalWindowComponent } from './modal/modal-window';
 import { LuxModalBackdropComponent } from './modal/modal-backdrop';
+import { WINDOW_PROVIDERS } from './window/window.service';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { LuxModalBackdropComponent } from './modal/modal-backdrop';
     LuxBreadcrumbComponent
   ],
   entryComponents: [LuxModalWindowComponent, LuxModalBackdropComponent, TooltipComponent],
-  providers: [ModalService, TooltipService],
+  providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
   imports: [
     FormsModule,
     ReactiveFormsModule,
