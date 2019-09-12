@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+
+import { WINDOW } from '../window/window.service';
 
 /**
  * This services encapsulates all the access to Browser Voice Recognition
@@ -8,7 +10,7 @@ export class VoiceRecognitionService {
     private speechService: any;
     public transcript: string;
 
-    constructor(window: Window) {
+    constructor(@Inject(WINDOW) private window: Window) {
         const speechServiceClass = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
         if (speechServiceClass) {
             this.speechService = new speechServiceClass();
