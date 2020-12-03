@@ -2,7 +2,7 @@
   "name": "lux-demo",
   "description": "Lux Library and documentation. User Interface components for Angular.",
   "license": "MIT",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "Metadev S.L.",
     "url": "https://metadev.pro"
@@ -51,36 +51,36 @@
     "@angular/platform-browser": "~11.0.3",
     "@angular/platform-browser-dynamic": "~11.0.3",
     "@angular/router": "~11.0.3",
-    "http-server": "^0.11.1",
-    "prismjs": "^1.17.1",
+    "http-server": "^0.12.3",
+    "prismjs": "^1.22.0",
     "rxjs": "~6.6.3",
-    "tslib": "^2.0.0",
+    "tslib": "^2.0.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.3",
-    "@angular-devkit/build-ng-packagr": "~0.1100.3",
+    "@angular-devkit/build-ng-packagr": "~0.1002.0",
     "@angular/cli": "~11.0.3",
     "@angular/compiler-cli": "~11.0.3",
     "@angular/language-service": "~11.0.3",
-    "@types/jasmine": "~3.4.0",
-    "@types/jasminewd2": "~2.0.6",
-    "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
-    "jasmine-core": "~3.4.0",
-    "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~5.1.1",
+    "@types/jasmine": "~3.6.2",
+    "@types/jasminewd2": "~2.0.8",
+    "@types/node": "^14.14.10",
+    "codelyzer": "^6.0.1",
+    "jasmine-core": "~3.6.0",
+    "jasmine-spec-reporter": "~6.0.0",
+    "karma": "~5.2.3",
     "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~2.1.0",
-    "karma-jasmine": "~2.0.1",
-    "karma-jasmine-html-reporter": "^1.4.2",
-    "ng-packagr": "^11.0.0",
+    "karma-coverage-istanbul-reporter": "~3.0.3",
+    "karma-jasmine": "~4.0.1",
+    "karma-jasmine-html-reporter": "^1.5.4",
+    "ng-packagr": "^11.0.3",
     "protractor": "~7.0.0",
-    "ts-node": "~8.3.0",
+    "ts-node": "~9.1.0",
     "tslint": "~6.1.3",
     "typescript": "~4.0.5"
   },
   "engines": {
-    "node": "10.x"
+    "node": "14.x"
   }
 }
