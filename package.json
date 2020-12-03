@@ -41,7 +41,7 @@
     "e2e": "ng e2e",
     "publish": "npm run lint:lux && npm run test:coverage && ng build lux && npm publish --access public dist/lux"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~11.0.3",
     "@angular/common": "~11.0.3",
