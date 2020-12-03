@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginationComponent } from './pagination.component';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ describe('PaginationComponent', () => {
     let fixture: ComponentFixture<PaginationComponent>;
     let component: PaginationComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [ PaginationComponent, LuxTooltipDirective ]

@@ -31,7 +31,8 @@
               "node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
               "src/styles/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -46,7 +47,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -55,6 +55,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -132,6 +136,11 @@
           "options": {
             "tsConfig": "projects/lux/tsconfig.lib.json",
             "project": "projects/lux/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/lux/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {

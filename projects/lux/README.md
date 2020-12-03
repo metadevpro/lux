@@ -7,7 +7,7 @@
 [![Known Vulnerabilities](https://snyk.io//test/github/metadevpro/lux/badge.svg?targetFile=projects/lux/package.json)](https://snyk.io//test/github/metadevpro/lux?targetFile=projects/lux/package.json)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-Lux is an Angular 8 library of visual rich componets to help creating apps.
+Lux is an Angular 11 library of visual rich componets to help creating apps.
 
 ## Instalation
 

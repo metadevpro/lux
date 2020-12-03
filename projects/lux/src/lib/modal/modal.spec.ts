@@ -1,7 +1,7 @@
 import { Component, ViewChild, NgModule } from '@angular/core';
 import { ModalService } from './modal.service';
 import { ModalRef } from './modal-ref';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
 import { LuxModalWindowComponent } from './modal-window';
 import { LuxModalBackdropComponent } from './modal-backdrop';
 
@@ -23,7 +23,7 @@ import { LuxModalBackdropComponent } from './modal-backdrop';
         </ng-template>
     `
 })
-export class TestComponent {
+class TestComponent {
 
     @ViewChild('modal1', { static: false }) modal1: any;
 
@@ -45,7 +45,7 @@ describe('Modal Tests', () => {
     let component: TestComponent;
     let fixture: ComponentFixture<TestComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
           imports: [ModalTestModule]
         })

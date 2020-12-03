@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { FilterComponent } from './filter.component';
@@ -16,7 +16,7 @@ describe('FilterComponent', () => {
   let component: FilterComponent;
   let fixture: ComponentFixture<FilterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
       declarations: [FilterComponent]
@@ -50,7 +50,7 @@ describe('FilterComponent', () => {
     expect(button).toBeFalsy();
   });
 
-  it('it should launch search after keypress + debounce time', async(() => {
+  it('it should launch search after keypress + debounce time', waitForAsync(() => {
     // Arrange
     component.searchOnType = true;
     component.debounce = 520; // ms
@@ -75,7 +75,7 @@ describe('FilterComponent', () => {
     fixture.detectChanges();
 
   }));
-  it('by default debounce time is 300 ms', async(() => {
+  it('by default debounce time is 300 ms', waitForAsync(() => {
     // Arrange
     component.searchOnType = true;
     const input = fixture.nativeElement.querySelector('input');
@@ -99,7 +99,7 @@ describe('FilterComponent', () => {
 
   }));
 
-  it('enter should trigger search inmediatly', async(() => {
+  it('enter should trigger search inmediatly', waitForAsync(() => {
     // Arrange
     component.searchOnType = true;
     const input = fixture.nativeElement.querySelector('input');
@@ -122,7 +122,7 @@ describe('FilterComponent', () => {
     fixture.detectChanges();
 
   }));
-  it('clear() should trigger search inmediatly', async(() => {
+  it('clear() should trigger search inmediatly', waitForAsync(() => {
     // Arrange
     component.searchOnType = true;
     component.searchValue = 'ABC';
@@ -144,8 +144,6 @@ describe('FilterComponent', () => {
     fixture.detectChanges();
     component.clear();
     fixture.detectChanges();
-
   }));
-
 
 });
