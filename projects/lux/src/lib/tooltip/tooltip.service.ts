@@ -15,15 +15,17 @@ export class TooltipService {
 
     appendComponentToBody(content: any, elHost: ElementRef, placement: PlacementValue): TooltipContentRef {
       const tooltipContentRef = this.getTooltipContentRef(content);
-      let domElem = (tooltipContentRef.viewRef as EmbeddedViewRef<any>)
-                      .rootNodes[0];
-      document.body.appendChild(domElem);
-      if (tooltipContentRef.componentRef) {
+      if (tooltipContentRef) {
+        let domElem = (tooltipContentRef.viewRef as EmbeddedViewRef<any>).rootNodes[0];
+        document.body.appendChild(domElem);
+        if (tooltipContentRef.componentRef) {
         tooltipContentRef.componentRef.changeDetectorRef.detectChanges();
+        }
+        domElem = this.setStyle(domElem, placement);
+        domElem = this.setPosition(domElem, elHost, placement);
+        return tooltipContentRef;
       }
-      domElem = this.setStyle(domElem, placement);
-      domElem = this.setPosition(domElem, elHost, placement);
-      return tooltipContentRef;
+      return null;
     }
 
     removeComponentFromBody(tooltipContentRef: TooltipContentRef) {
