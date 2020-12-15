@@ -35,7 +35,7 @@ export class TooltipService {
 
     private getTooltipContentRef(content: any): TooltipContentRef {
       if (!content) {
-        return this.createFromComponent(TooltipComponent, { message: 'Tooltip' });
+        // nothing to show
       } else if (content instanceof TemplateRef) {
         return this.createFromTemplateRef(content);
       } else if (typeof(content) === 'string') {
