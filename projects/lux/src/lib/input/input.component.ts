@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { ModalService } from '../modal/modal.service';
 
 @Component({
@@ -16,20 +16,21 @@ export class InputComponent {
   private _required: boolean;
   public domain: string;
   private validators: ValidatorFn[] = [];
-  public valueControl = new FormControl(this.value);
   public step: number;
   public min: number;
   public max: number;
   public minLong: number;
   public maxLong: number;
-  public valueLong: number;
+  public valueLong: number  = null;
+  public formControl = new FormControl(this.value);
+  public formControl2 = new FormControl(this.valueLong);
 
   get className(): string {
     return this.checkClassName();
   }
 
-  @Input() public disabled: boolean;
-  @Input() public readonly: boolean;
+  @Input() public disabled: boolean | null = null;
+  @Input() public readonly: boolean | null = null;
 
   @Input()
   set currency(v: string) {
@@ -78,12 +79,19 @@ export class InputComponent {
 
   constructor(private modalService: ModalService) {}
 
+  onKeyupPrimary(newValue: string): void {
+    this.formControl.setValue(newValue);
+  }
+  onKeyupSecondary(newValue: string): void {
+    this.formControl2.setValue(newValue);
+  }
+
   isGeolocation(): boolean {
     return this.type === 'geolocation' ? true : false;
   }
 
   checkClassName(): string {
-    if (this.readonly !== undefined) {
+    if (this.readonly === true) {
       return 'readonly';
     }
     return '';
@@ -119,8 +127,8 @@ export class InputComponent {
 
   updateValidators(validators: ValidatorFn[]): void {
     validators.map(validator => { this.validators.push(validator); });
-    this.valueControl.setValidators(this.validators);
-    this.valueControl.updateValueAndValidity();
+    this.formControl.setValidators(this.validators);
+    this.formControl.updateValueAndValidity();
   }
 
   setEmailPatterns(): void {

@@ -23,13 +23,18 @@ pre[rel]::before {
 }
 
 pre[rel=HTML]::before {
-    color: #4caf50;
+  color: #4caf50;
+  position: relative;
 }
 
-pre[rel=CSS]::before, pre[rel=SCSS]::before {
-    color: #ff8a00;
+pre[rel=CSS]::before,
+pre[rel=SCSS]::before {
+  color: #ff8a00;
+  position: relative;
 }
 
-pre[rel=JAVASCRIPT]::before, pre[rel=TYPESCRIPT]::before {
-    color: #3965df;
+pre[rel=JAVASCRIPT]::before,
+pre[rel=TYPESCRIPT]::before {
+  color: #afbde2;
+  position: relative;
 }

@@ -34,6 +34,10 @@ export class PaginationComponent {
 
   constructor() {}
 
+  get showPagination(): boolean {
+    return this.paginationInfo.total > this.paginationInfo.pageSize;
+  }
+
   get hidePrevious(): boolean {
     this.hidePreviousValue = (this.paginationInfo.page === 1);
     return this.hidePreviousValue;

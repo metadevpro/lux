@@ -1,4 +1,4 @@
-<div class="pagination" *ngIf="paginationInfo.total > 0">
+<div class="pagination" *ngIf="showPagination">
   <a luxTooltip content="First" placement="top" delay="500" (click)="onFirst()" [ngClass]="{
     'disabledFirstLast': hidePrevious,
     'enabledFirstLast': !hidePrevious

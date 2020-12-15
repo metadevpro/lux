@@ -8,7 +8,8 @@ import { PrismService } from '../core/services/prism-service.service';
 })
 export class InputSampleComponent implements OnInit, AfterContentInit {
 
-  value = 'Prueba';
+  value = 'Test';
+  value1 = 'Test value';
   disabled = true;
   readonly = true;
 

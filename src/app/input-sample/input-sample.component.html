@@ -4,8 +4,16 @@
 
 <div>
 
-    <h3>Disabled</h3>
+    <h3>value</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+        &lt;lux-input [(value)]="value"&gt;&lt;/lux-input&gt;</code>
+    </pre>
+    <div class="sample">
+        <lux-input [(value)]="value1"></lux-input> <span>Bind value: {{ value1 }}</span>
+    </div>
 
+    <h3>Disabled</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
     &lt;lux-input [(value)]="value" <span class="text-underlined">disabled</span>&gt;&lt;/lux-input&gt;</code>
@@ -13,21 +21,14 @@
     <div class="sample">
         <lux-input [(value)]="value" disabled></lux-input>
     </div>
-    <pre class="language-html" rel="html">
-        <code class="language-html">
-    &lt;lux-input [(value)]="value"&gt;&lt;/lux-input&gt;</code>
-    </pre>
-    <div class="sample">
-        <lux-input [(value)]="value"></lux-input>
-    </div>
 
     <h3>Readonly</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input [(value)]="value" <span class="text-underlined">readonly</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input [(value)]="value" <span class="text-underlined">[readonly]="true"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input [(value)]="value" readonly></lux-input>
+        <lux-input [(value)]="value" [readonly]="true"></lux-input>
     </div>
 
     <h3>Placeholder</h3>

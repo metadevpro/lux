@@ -1,40 +1,44 @@
 <div *ngIf="currency && currency === 'USD'" class="currency">
     <span>$</span>
 </div>
-<input [luxTooltip]="isGeolocation() ? 'Latitude' : null" placement="top" delay="200"
+<input #i1 [luxTooltip]="isGeolocation() ? 'Latitude' : null" placement="top" delay="200"
     [type]="domain"
     [(ngModel)]="value"
     [attr.disabled]="disabled"
-    [attr.readonly]="readonly ? true : null"
+    [attr.readonly]="readonly"
     [attr.min]="min"
     [attr.max]="max"
     [attr.step]="step"
     [placeholder]="placeholder"
-    [formControl]="valueControl"
-    [ngClass]="className" >
-<input *ngIf="isGeolocation()" luxTooltip="Longitude" placement="top" delay="200"
+    [formControl]="formControl"
+    [ngClass]="className"
+    (keyup)="onKeyupPrimary(i1.value)"
+    >
+<input #i2 *ngIf="isGeolocation()" luxTooltip="Longitude" placement="top" delay="200"
     [type]="domain"
     [(ngModel)]="valueLong"
     [attr.disabled]="disabled"
-    [attr.readonly]="readonly ? true : null"
+    [attr.readonly]="readonly"
     [attr.min]="minLong"
     [attr.max]="maxLong"
     [attr.step]="step"
     [placeholder]="placeholder"
-    [formControl]="valueControl">
+    [formControl]="formControl2"
+    (keyup)="onKeyupSecondary(i2.value)"
+    >
 <button *ngIf="isGeolocation()">Geo</button>
 
-<div *ngIf="valueControl.invalid && (valueControl.dirty || valueControl.touched)" class="alert">
-    <div *ngIf="valueControl.errors.required">
+<div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="alert">
+    <div *ngIf="formControl.errors.required">
         Value is required
     </div>
-    <div *ngIf="valueControl.errors.email">
+    <div *ngIf="formControl.errors.email">
         Format should be example@example.com
     </div>
-    <div *ngIf="valueControl.errors.min">
+    <div *ngIf="formControl.errors.min">
         Min value is 0.00
     </div>
-    <div *ngIf="valueControl.errors.max">
+    <div *ngIf="formControl.errors.max">
         Max value is 10000.00
     </div>
 </div>
