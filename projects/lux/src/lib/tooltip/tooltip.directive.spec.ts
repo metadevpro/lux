@@ -69,7 +69,7 @@ describe('TooltipDirective', () => {
         expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it('it should display default tooltip', () => {
+    it('it should display no tooltip (label not defined)', () => {
         const fixture = createTestComponent('<button luxTooltip>Button Default</button>');
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
@@ -79,26 +79,16 @@ describe('TooltipDirective', () => {
         fixture.detectChanges();
 
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
-        expect(tooltip).toBeDefined();
-        expect(tooltip.innerHTML).toContain('Tooltip');
+        expect(tooltip).toBeNull();
     });
 
-    it('it should display default tooltip and close with mouseleave event', () => {
+    it('it should display no default tooltip', () => {
         const fixture = createTestComponent('<button luxTooltip>Button Default</button>');
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
         const evt = document.createEvent('Event');
         evt.initEvent('mouseenter', true, false);
         button.dispatchEvent(evt);
-        fixture.detectChanges();
-
-        tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
-        expect(tooltip).toBeDefined();
-        expect(tooltip.innerHTML).toContain('Tooltip');
-
-        const evtLeave = document.createEvent('Event');
-        evtLeave.initEvent('mouseleave', true, false);
-        button.dispatchEvent(evtLeave);
         fixture.detectChanges();
 
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
@@ -106,7 +96,7 @@ describe('TooltipDirective', () => {
     });
 
     it('it should display default tooltip with top placement like default value', () => {
-        const fixture = createTestComponent('<button luxTooltip>Button Default</button>');
+        const fixture = createTestComponent('<button luxTooltip content="A">Button Default</button>');
         const button = fixture.debugElement.nativeElement.querySelector('button');
 
         const evt = document.createEvent('Event');
@@ -116,7 +106,7 @@ describe('TooltipDirective', () => {
 
         tooltip = fixture.nativeElement.parentElement.querySelector('span.lux-tooltip');
         expect(tooltip).toBeDefined();
-        expect(tooltip.innerHTML).toContain('Tooltip');
+        expect(tooltip.innerHTML).toContain('A');
         expect(tooltip.classList).toContain(`lux-tooltip-top`);
     });
 
