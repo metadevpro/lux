@@ -39,7 +39,7 @@
     "lint": "ng lint",
     "lint:lux": "ng lint lux",
     "e2e": "ng e2e",
-    "publish": "npm run lint:lux && npm run test:coverage && ng build lux && npm publish --access public dist/lux"
+    "npm-publish": "npm run lint:lux && npm run test:coverage && ng build lux && npm publish --access public dist/lux"
   },
   "private": false,
   "dependencies": {
