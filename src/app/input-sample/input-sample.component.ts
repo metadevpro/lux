@@ -14,12 +14,9 @@ export class InputSampleComponent implements OnInit, AfterContentInit {
   readonly = true;
 
   constructor(private prismService: PrismService) { }
-
   ngOnInit() {
   }
-
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
-
 }
