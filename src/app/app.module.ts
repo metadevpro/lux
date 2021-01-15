@@ -15,18 +15,20 @@ import { CoreModule } from './core/core.module';
 import { PrismService } from './core/services/prism-service.service';
 import { ModalSampleComponent } from './modal-sample/modal-sample.component';
 import { TooltipComponent } from './tooltip-sample/tooltip';
+import { RadiogroupSampleComponent } from './radiogroup-sample/radiogroup-sample.component';
 
 const appRoutes: Routes = [
-  { path: '',       component: MainComponent },
-  { path: 'breadcrumb',  component: BreadcrumbSampleComponent },
-  { path: 'checkbox',  component: CheckboxSampleComponent },
-  { path: 'index',  component: MainComponent },
+  { path: '', component: MainComponent },
+  { path: 'breadcrumb', component: BreadcrumbSampleComponent },
+  { path: 'checkbox', component: CheckboxSampleComponent },
+  { path: 'index', component: MainComponent },
   { path: 'filter', component: FilterSampleComponent },
   { path: 'input', component: InputSampleComponent },
-  { path: 'tooltip',  component: TooltipSampleComponent },
+  { path: 'tooltip', component: TooltipSampleComponent },
   { path: 'pagination', component: PaginationSampleComponent },
   { path: 'modal', component: ModalSampleComponent },
-  { path: '**', component: MainComponent }
+  { path: 'radiogroup', component: RadiogroupSampleComponent },
+  { path: '**', component: MainComponent },
 ];
 
 @NgModule({
@@ -40,18 +42,17 @@ const appRoutes: Routes = [
     PaginationSampleComponent,
     TooltipComponent,
     BreadcrumbSampleComponent,
-    ModalSampleComponent
+    ModalSampleComponent,
+    RadiogroupSampleComponent,
   ],
   imports: [
     CoreModule,
     LuxModule,
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
   entryComponents: [TooltipComponent],
-  providers: [
-    PrismService
-  ],
-  bootstrap: [AppComponent]
+  providers: [PrismService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

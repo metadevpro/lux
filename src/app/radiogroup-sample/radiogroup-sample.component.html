@@ -1,0 +1,64 @@
+<h1>Radiogroup</h1>
+
+<h2>Usage samples</h2>
+<div>
+  <p>
+    A radio group where user should pick one value.
+  </p>
+
+  <h3>Sample</h3>
+
+  <pre class="language-typescript" rel="typescript">
+    <code class="typescript">
+  carBrands: RadioItem[] = [&#123;
+    name: 'radioHonda',
+    label: 'Honda',
+    value: 'HON'
+  &#125;, &#123;
+    label: 'Mazda',
+    value: 'MZD'
+  &#125;, &#123;
+    label: 'Mitsubishi',
+    value: 'MIT'
+  &#125;, &#123;
+    label: 'Lamborghini',
+    value: 'LAM'
+  &#125;];
+    </code>
+  </pre>
+
+  <pre class="language-html" rel="html">
+    <code class="language-html">
+  &lt;lux-radiogroup name="brand" [items]="carBrands"&gt;
+    </code>
+  </pre>
+
+  <div class="content">
+    <label for="brand">Car brand:</label>
+    <lux-radiogroup name="brand" [items]="carBrands">
+    </lux-radiogroup>
+  </div>
+
+  <h3>Disabled or Readonly</h3>
+  <pre class="language-html" rel="html">
+    <code class="language-html">
+  &lt;lux-radiogroup name="brand2" [items]="carBrands" value="LAM" disabled="true"&gt;
+    </code>
+  </pre>
+
+  <div class="content">
+    <label for="brand2">Car brand disabled:</label>
+    <lux-radiogroup name="brand2" [items]="carBrands" value="LAM" disabled="true">
+    </lux-radiogroup>
+  </div>
+
+</div>
+
+<h2>Documentation</h2>
+<h3>Properties</h3>
+<ul class="properties">
+  <li><span class="inline">items</span>The options for the radio group.</li>
+  <li><span class="inline">readonly</span> If read-only is set the component is not editable.</li>
+  <li><span class="inline">disabled</span> If disabled the component is not editable.</li>
+  <li><span class="inline">value</span> Currrent value.</li>
+</ul>

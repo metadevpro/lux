@@ -14,8 +14,8 @@ import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ModalService } from './modal/modal.service';
 import { LuxModalWindowComponent } from './modal/modal-window';
 import { LuxModalBackdropComponent } from './modal/modal-backdrop';
+import { RadiogroupComponent } from './radiogroup/radiogroup.component';
 import { WINDOW_PROVIDERS } from './window/window.service';
-
 
 @NgModule({
   declarations: [
@@ -23,11 +23,12 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     CheckboxComponent,
     InputComponent,
     LuxTooltipDirective,
-    TooltipComponent,
-    PaginationComponent,
     LuxModalWindowComponent,
     LuxModalBackdropComponent,
-    LuxBreadcrumbComponent
+    LuxBreadcrumbComponent,
+    TooltipComponent,
+    PaginationComponent,
+    RadiogroupComponent
   ],
   entryComponents: [LuxModalWindowComponent, LuxModalBackdropComponent, TooltipComponent],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
@@ -42,8 +43,9 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     CheckboxComponent,
     InputComponent,
     LuxTooltipDirective,
+    LuxBreadcrumbComponent,
     PaginationComponent,
-    LuxBreadcrumbComponent
+    RadiogroupComponent
   ]
 })
 export class LuxModule { }
