@@ -17,9 +17,11 @@
           class="lux-completion-item"
           [class.selected]="focusItem && item.key === focusItem.key"
           (click)="complete(item)"
-          >{{ item.label }}
+          >
+          <span>{{ item.labelPrefix }}</span>
+          <span class="bold">{{ item.labelMatch }}</span>
+          <span>{{ item.labelPostfix }}</span>
       </li>
     </ul>
   </div>
 </div>
-FocusItem: {{ focusItem | json }}  Label: {{ label }}  Value: {{ value }}

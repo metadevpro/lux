@@ -9,12 +9,22 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { subscribeOn } from 'rxjs/operators';
 
 export interface DataSourceItem<K, L> {
   key: K;
   label: L;
 }
 export type DataSource<K, L> = DataSourceItem<K, L>[];
+
+interface DecoratedDataSourceItem {
+  key: any;
+  label: string;
+  labelPrefix: string;
+  labelMatch: string;
+  labelPostfix: string;
+}
+type DecoratedDataSource = DecoratedDataSourceItem[];
 
 @Component({
   selector: 'lux-autocomplete',
@@ -30,7 +40,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   private _placeholder: string;
   private _value: any;
 
-  completionList: DataSource<any, string> = [];
+  completionList: DecoratedDataSource = [];
   showCompletion = false;
   focusItem: DataSourceItem<any, string>;
 
@@ -206,10 +216,28 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
       this.completionList.length > 0 ? this.completionList[0] : null;
     this.showCompletion = true;
   }
-  private computeCompletionList(text: string): DataSource<any, string> {
+  private computeCompletionList(text: string): DecoratedDataSource {
     const substring = (text || '').toLowerCase();
-    return (this.dataSource || [])
+    const ds = (this.dataSource || [])
       .filter((it) => it.label.toLowerCase().includes(substring))
       .sort((a, b) => a.label.localeCompare(b.label));
+
+    return this.decorateDataSource(ds, substring);
+  }
+  private decorateDataSource(dataSource: DataSource<any, string>, subString: string): DecoratedDataSource {
+    return dataSource.map(it => this.decorateItem(it, subString));
+  }
+  private decorateItem(item: DataSourceItem<any, string>, tx: string): DecoratedDataSourceItem {
+    const index = item.label.toLowerCase().indexOf(tx.toLowerCase());
+    const labelPrefix = (index === -1) ? item.label : item.label.substr(0, index);
+    const labelMatch = (index === -1) ? '' : item.label.substr(index, tx.length);
+    const labelPostfix= (index === -1) ? '' : item.label.substr(index + tx.length);
+    const newItem: DecoratedDataSourceItem = {
+      ...item,
+      labelPrefix,
+      labelMatch,
+      labelPostfix
+    };
+    return newItem;
   }
 }
