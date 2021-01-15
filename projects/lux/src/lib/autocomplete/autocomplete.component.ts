@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-export interface DataSourceItem<K, V> {
+export interface DataSourceItem<K, L> {
   key: K;
-  value: V;
+  label: L;
 }
-export type DataSource<K, V> = DataSourceItem<K, V>[];
+export type DataSource<K, L> = DataSourceItem<K, L>[];
+
+const MAX_ITEMS_TO_SUGGEST = 10;
 
 @Component({
   selector: 'lux-autocomplete',
@@ -12,35 +14,41 @@ export type DataSource<K, V> = DataSourceItem<K, V>[];
   styleUrls: ['./autocomplete.component.scss'],
 })
 export class AutocompleteComponent {
-  private _dataSource: DataSource<string, object>;
+  private _dataSource: DataSource<any, string>;
   private _required: boolean;
   private _placeholder: string;
-  private _value: string;
+  private _value: any;
 
-  @Output() valueChange = new EventEmitter<string>();
-  @Output() dataSourceChange = new EventEmitter<DataSource<string, object>>();
+  completionList: DataSource<any, string> = [];
+
+  @Output() valueChange = new EventEmitter<any>();
+  @Output() dataSourceChange = new EventEmitter<DataSource<any, string>>();
 
   @Input() public disabled: boolean | null = null;
   @Input() public readonly: boolean | null = null;
 
+  @Input() label = '';
+
   @Input()
-  get value(): string
+  get value(): any
   {
     return this._value;
   }
-  set value(v: string)
+  set value(v: any)
   {
-    this.value = v;
+    this._value = v;
     this.valueChange.emit(v);
+    const found = (this.dataSource || []).find(i => i.key === v);
+    this.label = found ? found.label : '';
   }
   @Input()
-  get dataSource(): DataSource<string, object>
+  get dataSource(): DataSource<any, string>
   {
     return this._dataSource;
   }
-  set dataSource(v: DataSource<string, object>)
+  set dataSource(v: DataSource<any, string>)
   {
-    this.dataSource = v;
+    this._dataSource = v;
     this.dataSourceChange.emit(v);
   }
   @Input()
@@ -56,5 +64,28 @@ export class AutocompleteComponent {
   }
   get placeholder(): string {
     return this._placeholder ? this._placeholder : '';
+  }
+
+  onKeypress(event: KeyboardEvent, label: string) {
+  }
+  onKeyup(event: KeyboardEvent, label: string) {
+    this.showCompletionList(label);
+  }
+  onLostFocus(label: string): void {
+    const found = (this.dataSource || []).find(it => it.label === label);
+    if (found && found.key !== this.value) {
+      this.value = found.key;
+    }
+  }
+  showCompletionList(text: string): void {
+    const substring = (text || '').toLowerCase();
+    this.completionList = (this.dataSource || [])
+      .filter(it => it.label.toLowerCase().includes(substring))
+      .sort((a, b) => (a.label.localeCompare(b.label)))
+      .slice(0, MAX_ITEMS_TO_SUGGEST);
+  }
+  complete(item: DataSourceItem<object, string>): void {
+    this.value = item.key;
+    this.label = item.label;
   }
 }

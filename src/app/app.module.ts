@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LuxModule } from 'projects/lux/src/public-api';
+import { AutoCompleteSampleComponent } from './autocomplete-sample/autocomplete-sample.component';
 import { AppComponent } from './app.component';
 import { BreadcrumbSampleComponent } from './breadcrumb-sample/breadcrumb-sample.component';
 import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
@@ -19,6 +20,7 @@ import { RadiogroupSampleComponent } from './radiogroup-sample/radiogroup-sample
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
+  { path: 'autocomplete', component: AutoCompleteSampleComponent },
   { path: 'breadcrumb', component: BreadcrumbSampleComponent },
   { path: 'checkbox', component: CheckboxSampleComponent },
   { path: 'index', component: MainComponent },
@@ -33,6 +35,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    AutoCompleteSampleComponent,
     MainComponent,
     AppComponent,
     CheckboxSampleComponent,

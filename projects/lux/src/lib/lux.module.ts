@@ -16,9 +16,11 @@ import { LuxModalWindowComponent } from './modal/modal-window';
 import { LuxModalBackdropComponent } from './modal/modal-backdrop';
 import { RadiogroupComponent } from './radiogroup/radiogroup.component';
 import { WINDOW_PROVIDERS } from './window/window.service';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 
 @NgModule({
   declarations: [
+    AutocompleteComponent,
     FilterComponent,
     CheckboxComponent,
     InputComponent,
@@ -39,6 +41,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     CommonModule
   ],
   exports: [
+    AutocompleteComponent,
     FilterComponent,
     CheckboxComponent,
     InputComponent,

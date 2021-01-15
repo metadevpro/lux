@@ -1,0 +1,44 @@
+<h1>Autocomplete</h1>
+
+<h2>Usage samples</h2>
+<div>
+  <p>
+    Autocompletion editor. Provides suggestions for completion as the user types.
+  </p>
+
+  <h3>Sample</h3>
+  <pre class="language-typescript" rel="typescript">
+    <code class="typescript">
+  import &#123; DataSource &#125; from '@lux';
+
+  countries: DataSource&lt;string, string&gt; = [
+    &#123; key: 'ES', label: 'Spain' &#125;,
+    &#123; key: 'IT', label: 'Italy' &#125;,
+    // ...
+    &#123; key: 'FR', label: 'France' &#125;
+  ];
+    </code>
+  </pre>
+
+  <pre class="language-html" rel="html">
+    <code class="language-html">
+&lt;lux-autocomplete name="country" [(value)]="value" [dataSource]="countries"&gt;
+&lt;/lux-autocomplete&gt;
+    </code>
+  </pre>
+  <div class="content">
+    <lux-autocomplete name="country" [(value)]="value" [dataSource]="countries">
+    </lux-autocomplete>
+    Current value is: {{ value }} - {{ getLabel(value) }}.
+  </div>
+
+</div>
+
+
+<h2>Documentation</h2>
+<h3>Properties</h3>
+<ul class="properties">
+  <li><span class="inline">datasource</span>A key-value list of data to be used as datasource.</li>
+  <li><span class="inline">disabled</span> If disabled the checkbox is not editable.</li>
+  <li><span class="inline">value</span> Status of checkbox on or off.</li>
+</ul>

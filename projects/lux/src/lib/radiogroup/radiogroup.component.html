@@ -8,7 +8,12 @@
          [class.selected]="item.value === value"
          (click)="setValue($event, item)"
       >
-      <input [id]="item.name" [name]="name" type="radio" [value]="item.value">
+      <input [id]="item.name"
+             type="radio"
+             [name]="name"
+             [attr.disabled]="disabled || null"
+             [attr.readonly]="readonly || null"
+             [value]="item.value">
       <label [for]="item.name">{{ item.label }}</label>
   </div>
 </ng-container>
