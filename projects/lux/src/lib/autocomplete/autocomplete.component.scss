@@ -1,3 +1,43 @@
 .lux-autocomplete {
   display: inline;
+  input {
+    padding: .1em .5em;
+  }
+}
+.lux-completion-list {
+  visibility: collapse;
+  position: absolute;
+  border: 1px solid #ccc;
+  margin: 0em;
+  padding: 0em;
+  max-height: 10em;
+  overflow: auto;
+
+  ul {
+    list-style: none;
+    margin: 0em;
+    padding: 0em;
+  }
+}
+.showCompletion {
+  visibility: visible;
+}
+
+.lux-completion-item {
+  background-color:  white;
+  color: black;
+  padding: .1em .5em;
+  cursor: pointer;
+}
+.selected {
+  background-color: rgb(46, 46, 172);
+  color: white;
+}
+.disabled {
+  background-color:  #f0f0f0;
+  color: #444;
+  .selected {
+    background-color:  rgb(152, 152, 236);
+    color: white;
+  }
 }

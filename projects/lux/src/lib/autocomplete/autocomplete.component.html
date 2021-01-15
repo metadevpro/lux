@@ -1,19 +1,25 @@
-<div class="lux-autocomplete">
+<div class="lux-autocomplete" (blur)="toogleCompletion(false, i0.value)">
   <input #i0
-    [(value)]="label"
+    [(ngModel)]="label"
     [placeholder]="placeholder"
     [attr.disabled]="disabled || null"
     [attr.readonly]="readonly || null"
+    (keydown)="onKeydown($event, i0.value)"
     (keypress)="onKeypress($event, i0.value)"
     (keyup)="onKeyup($event, i0.value)"
     (blur)="onLostFocus(i0.value)"
+    (focus)="toogleCompletion(true, i0.value)"
+    (click)="toogleCompletion(true, i0.value)"
   />
-  <div>
-    <ul *ngIf="completionList">
+  <div #completeDiv [class.showCompletion]="showCompletion" class="lux-completion-list">
+    <ul>
       <li *ngFor="let item of completionList"
+          class="lux-completion-item"
+          [class.selected]="focusItem && item.key === focusItem.key"
           (click)="complete(item)"
           >{{ item.label }}
       </li>
     </ul>
   </div>
 </div>
+FocusItem: {{ focusItem | json }}  Label: {{ label }}  Value: {{ value }}
