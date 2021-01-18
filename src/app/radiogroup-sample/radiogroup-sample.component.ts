@@ -23,6 +23,9 @@ export class RadiogroupSampleComponent implements AfterContentInit {
     value: 'LAM'
   }];
 
+  selectedValue: string;
+  selectedValue2 = 'LAM';
+
   constructor(private prismService: PrismService) { }
 
   ngAfterContentInit(): void {

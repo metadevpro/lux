@@ -29,29 +29,31 @@
 
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;lux-radiogroup name="brand" [items]="carBrands"&gt;
+  &lt;lux-radiogroup name="brand" [(value)]="selectedValue" [items]="carBrands"&gt;
   &lt;/lux-radiogroup&gt;
     </code>
   </pre>
 
   <div class="content">
     <label for="brand">Car brand:</label>
-    <lux-radiogroup name="brand" [items]="carBrands">
+    <lux-radiogroup name="brand" [(value)]="selectedValue" [items]="carBrands">
     </lux-radiogroup>
+    <p>Selected value: {{ selectedValue }}</p>
   </div>
 
   <h3>Disabled or Readonly</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;lux-radiogroup name="brand2" [items]="carBrands" value="LAM" disabled="true"&gt;
+  &lt;lux-radiogroup name="brand2" [items]="carBrands" [(value)]="selectedValue2" disabled="true"&gt;
   &lt;/lux-radiogroup&gt;
     </code>
   </pre>
 
   <div class="content">
     <label for="brand2">Car brand disabled:</label>
-    <lux-radiogroup name="brand2" [items]="carBrands" value="LAM" disabled="true">
+    <lux-radiogroup name="brand2" [items]="carBrands" [(value)]="selectedValue2" disabled="true">
     </lux-radiogroup>
+    <p>Selected value: {{ selectedValue2 }}</p>
   </div>
 
 </div>
