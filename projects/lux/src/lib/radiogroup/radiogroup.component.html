@@ -14,7 +14,9 @@
              [attr.disabled]="disabled || null"
              [attr.readonly]="readonly || null"
              [value]="item.value">
-      <label [for]="item.name">{{ item.label }}</label>
+      <label [for]="item.name"
+             class="unselectable"
+             >{{ item.label }}</label>
   </div>
 </ng-container>
 </div>
