@@ -49,13 +49,17 @@ export class ModalRef {
      */
     close(result?: any): void {
       if (this._windowCmptRef) {
-        this._resolve(result);
+        if (this._resolve) {
+          this._resolve(result);
+        }
         this._removeModalElements();
       }
     }
 
     private _dismiss(reason?: any) {
-      this._reject(reason);
+      if (this._reject) {
+        this._reject(reason);
+      }
       this._removeModalElements();
     }
 
