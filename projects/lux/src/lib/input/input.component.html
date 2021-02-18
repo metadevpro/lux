@@ -2,6 +2,7 @@
     <span>$</span>
 </div>
 <input #i1 [luxTooltip]="isGeolocation() ? 'Latitude' : null" placement="top" delay="200"
+    [id]="id"
     [type]="domain"
     [(ngModel)]="value"
     [attr.disabled]="disabled || null"
@@ -15,6 +16,7 @@
     (keyup)="onKeyupPrimary(i1.value)"
     >
 <input #i2 *ngIf="isGeolocation()" luxTooltip="Longitude" placement="top" delay="200"
+    [id]="id"
     [type]="domain"
     [(ngModel)]="valueLong"
     [attr.disabled]="disabled || null"

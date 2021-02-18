@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { ModalService } from '../modal/modal.service';
 
@@ -7,7 +7,8 @@ import { ModalService } from '../modal/modal.service';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })
-export class InputComponent {
+export class InputComponent implements OnInit {
+  static idCounter = 0;
 
   private _value: any;
   private _type: string;
@@ -29,6 +30,7 @@ export class InputComponent {
     return this.checkClassName();
   }
 
+  @Input() public id: string;
   @Input() public disabled: boolean | null = null;
   @Input() public readonly: boolean | null = null;
 
@@ -78,6 +80,10 @@ export class InputComponent {
   @Output() valueChange = new EventEmitter<string>();
 
   constructor(private modalService: ModalService) {}
+
+  ngOnInit() {
+    this.id = this.id ? this.id : `$${InputComponent.idCounter++}`;
+  }
 
   onKeyupPrimary(newValue: string): void {
     this.formControl.setValue(newValue);
