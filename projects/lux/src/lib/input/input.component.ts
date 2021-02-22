@@ -82,7 +82,7 @@ export class InputComponent implements OnInit {
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
-    this.id = this.id ? this.id : `$${InputComponent.idCounter++}`;
+    this.id = this.id ? this.id : `${this.type}$${InputComponent.idCounter++}`;
   }
 
   onKeyupPrimary(newValue: string): void {
