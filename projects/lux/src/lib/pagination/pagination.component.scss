@@ -1,4 +1,5 @@
 $lightgrey: grey;
+$blue: #325C81;
 
 :host {
 	flex: 0 0 30px;
@@ -14,18 +15,18 @@ $lightgrey: grey;
 		flex-direction: row;
 		align-items: center;
 	}
-	
+
 }
 
 .disabled {
 	cursor: not-allowed;
-	border: 1px solid rgb(70, 129, 180);
+	border: 1px solid $blue;
     border-radius: 10%;
     padding: 1% 1%;
     color: white;
     margin: 0 .7%;
     font-family: sans-serif;
-    background-color: rgb(70, 129, 180);
+    background-color: $blue;
 	text-decoration: none;
 	pointer-events: none;
 }
@@ -34,7 +35,7 @@ $lightgrey: grey;
 	border: 1px solid rgb(207, 207, 207);
     border-radius: 10%;
     padding: 1% 1%;
-    color: rgb(70, 129, 180);
+    color: $blue;
     margin: 0 .7%;
     font-family: sans-serif;
 	width: min-content;
@@ -51,7 +52,7 @@ $lightgrey: grey;
 	opacity: .5;
 	text-decoration: none;
 	pointer-events: none;
-	
+
 	&:first-child {
 		margin-left: auto;
 	}
@@ -65,7 +66,7 @@ $lightgrey: grey;
 	border: 1px solid rgb(207, 207, 207);
     border-radius: 10%;
     padding: 1% 1%;
-    color: rgb(70, 129, 180);
+    color: $blue;
 	margin: 0 .7%;
 	width: min-content;
 	cursor: pointer;
@@ -81,7 +82,7 @@ $lightgrey: grey;
 
 .ellipsis {
 	padding: 1% 1%;
-    color: #4681b4;
+    color: $blue;
 	margin: 0 .7%;
 	width: min-content;
 }
@@ -125,15 +126,15 @@ $lightgrey: grey;
 	.arrow-right {
 		background-position: .2em;
 	}
-	
+
 	.arrow-left {
 		background-position: .2em;
 	}
-	
+
 	.arrow-right-end {
 		background-position: 0em;
 	}
-	
+
 	.arrow-left-end {
 		background-position: 0em;
 	}
@@ -143,15 +144,15 @@ $lightgrey: grey;
 	.arrow-right {
 		background-position: .3em;
 	}
-	
+
 	.arrow-left {
 		background-position: .3em;
 	}
-	
+
 	.arrow-right-end {
 		background-position: 0em;
 	}
-	
+
 	.arrow-left-end {
 		background-position: 0em;
 	}
@@ -161,15 +162,15 @@ $lightgrey: grey;
 	.arrow-right {
 		background-position: .2em;
 	}
-	
+
 	.arrow-left {
 		background-position: .2em;
 	}
-	
+
 	.arrow-right-end {
 		background-position: 0em;
 	}
-	
+
 	.arrow-left-end {
 		background-position: 0em;
 	}

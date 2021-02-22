@@ -10,6 +10,7 @@ export class InputSampleComponent implements OnInit, AfterContentInit {
 
   value = 'Test';
   value1 = 'Test value';
+  name = 'Lux';
   disabled = true;
   readonly = true;
 
