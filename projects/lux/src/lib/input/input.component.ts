@@ -72,6 +72,7 @@ export class InputComponent implements OnInit {
   @Input()
   set value(v: any) {
     this._value = v;
+    this.formControl.setValue(v);
     this.valueChange.emit(v);
   }
   get value(): any {
