@@ -72,6 +72,7 @@ export class InputComponent implements OnInit {
   @Input()
   set value(v: any) {
     this._value = v;
+    this.formControl.setValue(v);
     this.valueChange.emit(v);
   }
   get value(): any {
@@ -86,7 +87,7 @@ export class InputComponent implements OnInit {
   }
 
   onKeyupPrimary(newValue: string): void {
-    this.formControl.setValue(newValue);
+    this.value = newValue;
   }
   onKeyupSecondary(newValue: string): void {
     this.formControl2.setValue(newValue);
