@@ -15,7 +15,7 @@ import 'prismjs/components/prism-sass';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-json';
 
-declare var Prism: any;
+declare const Prism: any;
 
 @Injectable({ providedIn: 'root' })
 export class PrismService {

@@ -31,12 +31,12 @@ const FOCUSABLE_ELEMENTS_SELECTOR = [
 /**
  * Returns first and last focusable elements inside of a given element based on specific CSS selector
  */
-export function getFocusableBoundaryElements(element: HTMLElement): HTMLElement[] {
+export const getFocusableBoundaryElements = (element: HTMLElement): HTMLElement[] => {
     const list: HTMLElement[] =
         Array.from(element.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR) as NodeListOf<HTMLElement>)
             .filter(el => el.tabIndex !== -1);
     return [list[0], list[list.length - 1]];
-}
+};
 
 /**
  * Function that enforces browser focus to be trapped inside a DOM element.
@@ -58,9 +58,9 @@ export const focusTrap = (element: HTMLElement, stopFocusTrap$: Observable<any>,
     fromEvent<KeyboardEvent>(element, 'keydown')
         .pipe(
             takeUntil(stopFocusTrap$),
-            // tslint:disable:deprecation
+            /* eslint-disable import/no-deprecated */
             filter(e => e.which === Key.Tab),
-            // tslint:enable:deprecation
+            /* eslint-enable import/no-deprecated */
             withLatestFrom(lastFocusedElement$))
         .subscribe(([tabEvent, focusedElement]) => {
           const[first, last] = getFocusableBoundaryElements(element);

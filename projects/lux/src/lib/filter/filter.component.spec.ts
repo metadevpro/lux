@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { FilterComponent } from './filter.component';
 
 
-function inputKey(el: HTMLElement, keyPressed: string) {
+const inputKey = (el: HTMLElement, keyPressed: string) => {
   const event = new KeyboardEvent('keyup', {
       key: keyPressed
   });
   el.focus();
   el.dispatchEvent(event);
-}
+};
 
 describe('FilterComponent', () => {
   let component: FilterComponent;

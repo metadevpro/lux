@@ -80,7 +80,9 @@ export class ModalStack {
     private createFromTemplateRef(content: TemplateRef<any>, activeModal: ActiveModal): ContentRef {
         const context = {
             $implicit: activeModal,
+            // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
             close(result) { activeModal.close(result); },
+            // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
             dismiss(reason) { activeModal.dismiss(reason); }
         };
         const viewRef = content.createEmbeddedView(context);

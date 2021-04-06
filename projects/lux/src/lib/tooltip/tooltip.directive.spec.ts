@@ -31,14 +31,14 @@ class TooltipTestComponent {
 }
 
 
-function createTestComponent(html: string): ComponentFixture<TestComponent> {
+const createTestComponent = (html: string): ComponentFixture<TestComponent> => {
     const fixture = TestBed.overrideComponent(TestComponent, {
         set: {
             template: html
         }}).createComponent(TestComponent);
     fixture.detectChanges();
     return fixture as ComponentFixture<TestComponent>;
-}
+};
 
 @NgModule({
     declarations: [ LuxTooltipDirective, TestComponent, TooltipComponent, TooltipTestComponent ],
