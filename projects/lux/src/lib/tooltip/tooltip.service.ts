@@ -112,7 +112,7 @@ export class TooltipService {
             top = hostPos.top + (hostPos.height - tooltipPos.height) / 2;
             left = hostPos.left - tooltipPos.width - offset;
             break;
-          case Placement.Rigth:
+          case Placement.Right:
             top = hostPos.top + (hostPos.height - tooltipPos.height) / 2;
             left = hostPos.right + offset;
             break;

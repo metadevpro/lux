@@ -27,11 +27,11 @@ const testRoutes: Routes = [
 })
 class TestModule {}
 
-function createTestComponent(): ComponentFixture<TestComponent> {
+const createTestComponent = (): ComponentFixture<TestComponent> => {
   const fixture = TestBed.createComponent(TestComponent);
   fixture.detectChanges();
   return fixture;
-}
+};
 
 describe('LuxBreadcrumbComponent', () => {
   let component: LuxBreadcrumbComponent;

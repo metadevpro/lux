@@ -4,9 +4,11 @@ import { PaginationInfo } from './pagination';
 @Component({
   selector: 'lux-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss']
+  styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent {
+  @Output() goToPage = new EventEmitter<number>();
+  @Output() pageSizeChange = new EventEmitter<number>();
 
   /** Current page, total items and items to show per page */
   private paginationInfoValue: PaginationInfo;
@@ -21,16 +23,13 @@ export class PaginationComponent {
   /** Total number of pages */
   private totalPagesValue: number;
 
-  @Input('paginationInfo')
+  @Input()
   set paginationInfo(value: PaginationInfo) {
     this.paginationInfoValue = value;
   }
   get paginationInfo(): PaginationInfo {
     return this.paginationInfoValue;
   }
-
-  @Output() goToPage = new EventEmitter<number>();
-  @Output() pageSizeChange = new EventEmitter<number>();
 
   constructor() {}
 
@@ -39,23 +38,28 @@ export class PaginationComponent {
   }
 
   get hidePrevious(): boolean {
-    this.hidePreviousValue = (this.paginationInfo.page === 1);
+    this.hidePreviousValue = this.paginationInfo.page === 1;
     return this.hidePreviousValue;
   }
 
   get lastPage(): boolean {
-    this.lastPageValue = (this.paginationInfo.pageSize * this.paginationInfo.page >= this.paginationInfo.total);
+    this.lastPageValue =
+      this.paginationInfo.pageSize * this.paginationInfo.page >=
+      this.paginationInfo.total;
     return this.lastPageValue;
   }
 
   get totalPages(): number {
-    this.totalPagesValue = Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) || 0;
+    this.totalPagesValue =
+      Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) || 0;
     return this.totalPagesValue;
   }
 
   get displayNextEllipsis(): boolean {
     const pagesShowed = this.getPages();
-    this.displayNextEllipsisValue = pagesShowed.includes(this.totalPages) ? false : true;
+    this.displayNextEllipsisValue = pagesShowed.includes(this.totalPages)
+      ? false
+      : true;
     return this.displayNextEllipsisValue;
   }
 
@@ -83,7 +87,9 @@ export class PaginationComponent {
   }
 
   getPages(): number[] {
-    const c = Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize);
+    const c = Math.ceil(
+      this.paginationInfo.total / this.paginationInfo.pageSize
+    );
     const p = this.paginationInfo.page || 1;
     const pagesToShow = this.paginationInfo.pagesToShow;
     const pages: number[] = [];
@@ -104,5 +110,4 @@ export class PaginationComponent {
     pages.sort((a, b) => a - b);
     return pages;
   }
-
 }

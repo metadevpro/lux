@@ -9,7 +9,6 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { subscribeOn } from 'rxjs/operators';
 
 export interface DataSourceItem<K, L> {
   key: K;
@@ -168,7 +167,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
       this.toogleCompletion(false, null);
     }, 200);
   }
-  complete(item: DataSourceItem<object, string>): void {
+  complete(item: DataSourceItem<Record<string, unknown>, string>): void {
     if (item !== null) {
       this.value = item.key;
       this.label = item.label;

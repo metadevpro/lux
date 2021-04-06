@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
 
 import { PrismService } from '../core/services/prism-service.service';
 @Component({
@@ -6,7 +6,7 @@ import { PrismService } from '../core/services/prism-service.service';
   styleUrls: ['input-sample.component.scss'],
   templateUrl: './input-sample.component.html'
 })
-export class InputSampleComponent implements OnInit, AfterContentInit {
+export class InputSampleComponent implements AfterContentInit {
 
   value = 'Test';
   value1 = 'Test value';
@@ -15,8 +15,7 @@ export class InputSampleComponent implements OnInit, AfterContentInit {
   readonly = true;
 
   constructor(private prismService: PrismService) { }
-  ngOnInit() {
-  }
+
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }

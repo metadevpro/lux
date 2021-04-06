@@ -3,7 +3,6 @@ import { HostListener, Input, Directive, ElementRef } from '@angular/core';
 import { TooltipService } from './tooltip.service';
 import { PlacementValue } from './placement';
 import { TooltipContentRef } from './tooltop-content';
-import { TouchSequence } from 'selenium-webdriver';
 
 /**
  * Tooltip directive
@@ -13,7 +12,6 @@ import { TouchSequence } from 'selenium-webdriver';
 })
 export class LuxTooltipDirective {
 
-    tooltipRef: TooltipContentRef;
     /** Tooltip title */
     @Input() luxTooltip: any;
 
@@ -22,6 +20,8 @@ export class LuxTooltipDirective {
 
     /** Placement */
     @Input() placement: PlacementValue;
+
+    tooltipRef: TooltipContentRef;
 
     constructor(private elHost: ElementRef,
                 private tooltipService: TooltipService) { }

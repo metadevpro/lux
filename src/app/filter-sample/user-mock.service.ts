@@ -80,7 +80,7 @@ export class UserServiceMock {
     }
   }
 }
-function filterByCriteria(item: User, criteria: string): boolean {
+const filterByCriteria = (item: User, criteria: string): boolean => {
   if (!item) {
     return false;
   }
@@ -95,4 +95,4 @@ function filterByCriteria(item: User, criteria: string): boolean {
     (item.enabled ? 'yes' : 'no').toLowerCase().includes(subString) ||
     (item.id || '').toLowerCase().includes(subString)
   );
-}
+};

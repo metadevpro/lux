@@ -7,8 +7,8 @@ import { WINDOW } from '../window/window.service';
  */
 @Injectable({ providedIn: 'root' })
 export class VoiceRecognitionService {
-    private speechService: any;
     public transcript: string;
+    private speechService: any;
 
     constructor(@Inject(WINDOW) private window: Window) {
         const speechServiceClass = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;

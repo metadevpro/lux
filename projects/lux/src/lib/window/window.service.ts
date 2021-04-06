@@ -9,7 +9,7 @@ export const WINDOW = new InjectionToken('WindowToken');
 /* Define abstract class for obtaining reference to the global window object. */
 export abstract class WindowRef {
 
-  // tslint:disable-next-line: ban-types
+  // eslint-disable-next-line @typescript-eslint/ban-types
   get nativeWindow(): Window | Object {
     throw new Error('Not implemented.');
   }
@@ -23,7 +23,7 @@ export class BrowserWindowRef extends WindowRef {
     super();
   }
 
-  // tslint:disable-next-line: ban-types
+  // eslint-disable-next-line @typescript-eslint/ban-types
   get nativeWindow(): Window | Object {
     return window;
   }
@@ -31,13 +31,13 @@ export class BrowserWindowRef extends WindowRef {
 }
 
 /* Create an factory function that returns the native window object. */
-// tslint:disable-next-line: ban-types
-export function windowFactory(browserWindowRef: BrowserWindowRef, platformId: Object): Window | Object {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const windowFactory = (browserWindowRef: BrowserWindowRef, platformId: Object): Window | Object => {
   if (isPlatformBrowser(platformId)) {
     return browserWindowRef.nativeWindow;
   }
   return new Object();
-}
+};
 
 /* Create a injectable provider for the WindowRef token that uses the BrowserWindowRef class. */
 const browserWindowProvider: ClassProvider = {
