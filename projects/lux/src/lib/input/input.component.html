@@ -45,3 +45,6 @@
 <div *ngIf="currency && currency === 'EUR'" class="currency">
     <span>€</span>
 </div>
+<div *ngIf="isPercentage()" class="currency">
+    <span>%</span>
+</div>

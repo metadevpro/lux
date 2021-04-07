@@ -97,6 +97,10 @@ export class InputComponent implements OnInit {
     return this.type === 'geolocation' ? true : false;
   }
 
+  isPercentage(): boolean {
+    return this.type === 'percentage' ? true : false;
+  }
+
   checkClassName(): string {
     if (this.readonly === true) {
       return 'readonly';
