@@ -1,4 +1,4 @@
-<div *ngIf="currency && currency === 'USD'" class="currency">
+<div *ngIf="currency && currency === 'USD'" class="prefix">
     <span>$</span>
 </div>
 <input #i1 [luxTooltip]="isGeolocation() ? 'Latitude' : null" placement="top" delay="200"
@@ -42,9 +42,9 @@
         Max value is 10000.00
     </div>
 </div>
-<div *ngIf="currency && currency === 'EUR'" class="currency">
+<div *ngIf="currency && currency === 'EUR'" class="postfix">
     <span>€</span>
 </div>
-<div *ngIf="isPercentage()" class="currency">
+<div *ngIf="isPercentage()" class="postfix">
     <span>%</span>
 </div>
