@@ -84,4 +84,26 @@ describe('InputComponent', () => {
     expect(updateValidatorsSpy).toHaveBeenCalled();
   });
 
+  it('When input type is permillage, the min should be 0 and the max should be 1000', () => {
+    component.type = 'permillage';
+    expect(component.max).toEqual(1000);
+    expect(component.min).toEqual(0);
+  });
+
+  it('When input type is permillage, the placeholder should be 0.00', () => {
+    component.type = 'permillage';
+    expect(component.placeholder).toEqual('0.00');
+  });
+
+  it('When input type is permillage, the domain should be number', () => {
+    component.type = 'permillage';
+    expect(component.domain).toEqual('number');
+  });
+
+  it('When input type is permillage, the update validators should be called', () => {
+    const updateValidatorsSpy = spyOn(component, 'updateValidators');
+    component.type = 'permillage';
+    expect(updateValidatorsSpy).toHaveBeenCalled();
+  });
+
 });
