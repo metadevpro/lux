@@ -16,7 +16,7 @@
     display: inline-block;
 }
 
-.currency {
+.symbol {
     display: inline-block;
     align-items: center;
     padding: .375rem .75rem;
@@ -30,8 +30,18 @@
     background-color: #e9ecef;
     border: 1px solid #ced4da;
     border-radius: .25rem;
+}
+
+.prefix {
+    @extend .symbol;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+.postfix {
+    @extend .symbol;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .readonly {

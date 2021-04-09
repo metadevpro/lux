@@ -97,6 +97,14 @@ export class InputComponent implements OnInit {
     return this.type === 'geolocation' ? true : false;
   }
 
+  isPercentage(): boolean {
+    return this.type === 'percentage' ? true : false;
+  }
+
+  isPermillage(): boolean {
+    return this.type === 'permillage' ? true : false;
+  }
+
   checkClassName(): string {
     if (this.readonly === true) {
       return 'readonly';
@@ -123,6 +131,9 @@ export class InputComponent implements OnInit {
         break;
       case 'percentage':
         this.setPercentagePatterns();
+        break;
+      case 'permillage':
+        this.setPermillagePatterns();
         break;
       case 'geolocation':
         this.setGeolocationPatterns();
@@ -180,6 +191,19 @@ export class InputComponent implements OnInit {
     const validatorsCurrency = [
       Validators.min(0.00),
       Validators.max(100.00)
+    ];
+    this.updateValidators(validatorsCurrency);
+  }
+
+  setPermillagePatterns(): void {
+    this.domain = 'number';
+    this.step = 0.01;
+    this.min = 0.00;
+    this.max = 1000.00;
+    this.placeholder = '0.00';
+    const validatorsCurrency = [
+      Validators.min(0.00),
+      Validators.max(1000.00)
     ];
     this.updateValidators(validatorsCurrency);
   }
