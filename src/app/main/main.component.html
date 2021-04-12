@@ -3,23 +3,25 @@
   Lux is a UI Component library for Angular created by <a href="https://metadev.pro">Metadev</a>.
 </p>
 <p>
-  Add <code>@metadev/lux</code> to the module:
- </p>
-<pre class="language-typescript" rel="typescript">
- <code class="language-typescript">
-import &#123;LuxModule} from '@metadev/lux';
-</code>
-</pre>
-
+  Add the <strong>LuxModule</strong> from <code>@metadev/lux</code> to your application module:
+</p>
 <pre class="language-typescript" rel="typescript">
   <code class="language-typescript">
+import &#123; LuxModule } from '@metadev/lux';
+
 @NgModule(&#123;
-
- imports: [
-   LuxModule
- ]
- ...
-
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    LuxModule
+  ],
+  providers: [],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule &#123; }
 </code>
 </pre>
 
