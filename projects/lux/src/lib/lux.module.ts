@@ -16,7 +16,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { RadiogroupComponent } from './radiogroup/radiogroup.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipService } from './tooltip/tooltip.service';
-import { VoiceRecognitionComponent } from './voice-recognition/voice-recognition.component';
+import { VoiceRecognitionDirective } from './voice-recognition/voice-recognition.directive';
 import { WINDOW_PROVIDERS } from './window/window.service';
 
 
@@ -33,7 +33,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     TooltipComponent,
     PaginationComponent,
     RadiogroupComponent,
-    VoiceRecognitionComponent
+    VoiceRecognitionDirective
   ],
   entryComponents: [LuxModalWindowComponent, LuxModalBackdropComponent, TooltipComponent],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
@@ -53,7 +53,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     LuxBreadcrumbComponent,
     PaginationComponent,
     RadiogroupComponent,
-    VoiceRecognitionComponent
+    VoiceRecognitionDirective
   ]
 })
 export class LuxModule { }

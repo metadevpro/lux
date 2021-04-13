@@ -76,3 +76,30 @@ kbd {
   border-radius: 5px;
   padding: .1em .3em;
 }
+
+
+/* Voice recognition */
+.lux-microphone {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  position: relative;
+  display: inline-block;
+  top: 4px;
+  left: -22px;
+  background-image: url(../assets/img/microphone.svg);
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+}
+.lux-recording {
+  width: 18px;
+  height: 18px;
+  border-radius: 7px;
+  position: relative;
+  display: inline-block;
+  top: 4px;
+  left: -22px;
+  background-image: url(../assets/img/mic-recording.svg);
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+}

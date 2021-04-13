@@ -1,124 +1,24 @@
 <h1>Voice Recognition</h1>
 
 <h2>Usage samples</h2>
+<p>VoiceRecongnition is implemented as a directive. Therefore it can extend any input or textarea to allow voice input whenever text is accepted.</p>
+<p>To use it click on the mic icon and talk.</p>
+<p>Laguage must be configured to improve recognition accuracy.</p>
 <div>
 
-  <pre class="language-typescript" rel="typescript">
-    <code class="language-typescript">
-  @ViewChild('filter', &#123; static: true &#125;) filter: FilterComponent;
-
-  ngOnInit() &#123;
-    this.filter.searchValueChange.subscribe(searchString => &#123;
-      this.loadGrid(searchString);
-    &#125;);
-    this.loadGrid('');
-  &#125;
-
-  loadGrid(criteria: string): void  &#123;
-    this.users$ = this.userService.getAll(criteria);
-  &#125;</code>
-  </pre>
-  <h3>Filter with default placehoder and debounce</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
-   &lt;lux-filter #filter placeholder="type to search"&gt;
-   &lt;/lux-filter&gt;</code>
+      &lt;label for="searchField"&gt;Click to talk:&lt;/label&gt;
+      &lt;input id="searchField" luxVoiceRecognition language="es-ES"&gt;
+    </code>
   </pre>
 
-  <lux-voice-recognition>
-  </lux-voice-recognition>
-
-  <div class="content">
-    <table class="all-width">
-      <thead>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users$ | async">
-          <td>{{ user.userName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-  <h3>Filter with different Placehoder, Label and Search on type false</h3>
-  <pre class="language-html" rel="html">
-    <code class="language-html">
-  &lt;lux-filter #filter2 placeholder="type to search2" label="Search" 
-  [searchOnType]="false"&gt;
-  &lt;/lux-filter&gt;</code>
-  </pre>
-
-  <div class="code"></div>
-  <lux-filter #filter2 placeholder="type to search2" label="Search" [searchOnType]="false">
-  </lux-filter>
-
-  <div class="content">
-    <table class="all-width">
-      <thead>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users2$ | async">
-          <td>{{ user.userName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-  <h3>Filter with different debounce</h3>
-  <pre class="language-html" rel="html">
-    <code class="language-html">
-  &lt;lux-filter #filter3 placeholder="type to search3" debounce="500"&gt;
-  &lt;/lux-filter&gt;</code>
-  </pre>
-  <lux-filter #filter3 placeholder="type to search3" debounce="500">
-  </lux-filter>
-
-  <div class="content">
-    <table class="all-width">
-      <thead>
-        <th>Username</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users3$ | async">
-          <td>{{ user.userName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <label for="searchField">Click to talk:</label>
+  <input id="searchField" size="100" luxVoiceRecognition language="es-ES">
 </div>
 
 <h2>Documentation</h2>
 <h3>Properties</h3>
 <ul class="properties">
-  <li><span class="inline">FilterInfo</span> Data structure providing the filter details.
-    <ul>
-      <li><span class="inline">label</span> Label for the filter.</li>
-      <li><span class="inline">placeholder</span> Placeholder default text.</li>
-      <li><span class="inline">searchValue</span> Search value introduced by the user.</li>
-      <li><span class="inline">searchOnType</span> Search on type: (default true) Autosearch when user types.</li>
-      <li><span class="inline">debounce</span> Debounce time in milliseconds. (defaults to 300 ms)</li>
-
-    </ul>
-  </li>
-</ul>
-<h3>Events</h3>
-<ul class="properties">
-  <li><span class="inline">searchValueChange</span> Search value changed by user.</li>
+  <li>Language to recognize: ISO-code.</li>
 </ul>
