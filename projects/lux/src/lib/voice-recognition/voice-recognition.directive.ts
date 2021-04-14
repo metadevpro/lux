@@ -4,7 +4,7 @@ import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
   selector: '[luxVoiceRecognition]',
 })
 export class VoiceRecognitionDirective implements OnInit {
-  @Input() language = 'en-US';
+  @Input() language: string;
   // See API at: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
   private recognition: any;
   private isRecognizing = false;
@@ -23,7 +23,7 @@ export class VoiceRecognitionDirective implements OnInit {
   ngOnInit() {
     if (this.recognition) {
       // API is available
-      this.recognition.lang = this.language;
+      this.recognition.lang = this.language || window.navigator.language;
       this.recognition.interimResults = false;
       this.recognition.maxAlternatives = 1;
 
