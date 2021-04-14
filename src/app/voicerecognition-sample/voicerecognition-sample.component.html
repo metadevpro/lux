@@ -1,20 +1,40 @@
 <h1>Voice Recognition</h1>
 
 <h2>Usage samples</h2>
-<p>VoiceRecongnition is implemented as a directive. Therefore it can extend any input or textarea to allow voice input whenever text is accepted.</p>
+<p>Voice Recognition is implemented as a directive. Therefore, it can extend any input or textarea to allow voice input whenever text is accepted.</p>
 <p>To use it click on the mic icon and talk.</p>
-<p>Laguage must be configured to improve recognition accuracy.</p>
+<p>Language must be configured to improve recognition accuracy.</p>
 <div>
 
   <pre class="language-html" rel="html">
     <code class="language-html">
-      &lt;label for="searchField"&gt;Click to talk:&lt;/label&gt;
+      &lt;label for="searchField"&gt;Click the mic to talk:&lt;/label&gt;
       &lt;input id="searchField" luxVoiceRecognition language="es-ES"&gt;
     </code>
   </pre>
 
-  <label for="searchField">Click to talk:</label>
-  <input id="searchField" size="100" luxVoiceRecognition language="es-ES">
+  <br/>
+  <br/>
+
+  <label for="lang">Pick a language for voice recognition:</label>
+  <select id="lang" [(ngModel)]="langValue">
+    <option value="en-US">English (US)</option>
+    <option value="en-UK">English (UK)</option>
+    <option value="es-ES">Español (España)</option>
+    <option value="es-MX">Español (Mexico)</option>
+    <option value="fr-FR">French (France)</option>
+    <option value="fr-CA">French (Canada)</option>
+    <option value="it-IT">Italian (Italy)</option>
+    <option value="pt-PT">Portuguese (Portugal)</option>
+    <option value="pt-BR">Portuguese (Brazil)</option>
+    <option value="de-DE">German (Germany)</option>
+    <option value="jp-JP">Japanise (Japan)</option>
+    <option value="cn-CMN">Mandarin (China)</option>
+  </select>
+  <br/>
+
+  <label for="searchField">Click the mic to talk:</label>
+  <input id="searchField" size="100" luxVoiceRecognition [language]="langValue">
 </div>
 
 <h2>Documentation</h2>
