@@ -33,10 +33,6 @@ ng serve
 1. Library source code is under 'projects/lux/' folder.
 2. Sample project documenting the library under 'src' folder.
 
-## Changelog
-
-[See changelog](changelog.md).
-
 ## Copyright and License
 
 - Created and mantained by [Metadev](https://metadev.pro).

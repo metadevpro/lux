@@ -21,6 +21,10 @@ npm i @metadev/lux
 
 [Library and component catalog documentation](https://metadev-lux.herokuapp.com).
 
+## Changelog
+
+[See changelog](changelog.md).
+
 ## Copyright and License
 
 - Created and mantained by [Metadev](https://metadev.pro).
