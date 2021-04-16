@@ -1,28 +1,24 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InputComponent } from './input.component';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { TooltipService } from '../tooltip/tooltip.service';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 
 describe('InputComponent', () => {
   let component: InputComponent;
-  let fixture: ComponentFixture<InputComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule],
-      declarations: [ InputComponent, LuxTooltipDirective ],
-      providers: [ TooltipService ]
-    })
-    .compileComponents();
-  }));
+  let spectator: Spectator<InputComponent>;
+  const createComponent = createComponentFactory({
+    component: InputComponent,
+    imports: [ FormsModule, ReactiveFormsModule ],
+    declarations: [ LuxTooltipDirective ],
+    providers: [ TooltipService ]
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('Component created', () => {
