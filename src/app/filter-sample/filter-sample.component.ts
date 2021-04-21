@@ -15,10 +15,12 @@ export class FilterSampleComponent implements OnInit, AfterContentInit, OnDestro
   @ViewChild('filter', { static: true }) filter: FilterComponent;
   @ViewChild('filter2', { static: true }) filter2: FilterComponent;
   @ViewChild('filter3', { static: true }) filter3: FilterComponent;
+  @ViewChild('filter4', { static: true }) filter4: FilterComponent;
   private subs: Subscription[] = [];
   users$: Observable<any[]>;
   users2$: Observable<any[]>;
   users3$: Observable<any[]>;
+  users4$: Observable<any[]>;
 
   constructor(
     private userService: UserServiceMock,
@@ -37,6 +39,10 @@ export class FilterSampleComponent implements OnInit, AfterContentInit, OnDestro
       this.loadGrid3(searchString);
     }));
     this.loadGrid3('');
+    this.subs.push(this.filter4.searchValueChange.subscribe(searchString => {
+      this.loadGrid4(searchString);
+    }));
+    this.loadGrid4('');
   }
 
   ngOnDestroy(): void {
@@ -56,5 +62,8 @@ export class FilterSampleComponent implements OnInit, AfterContentInit, OnDestro
   }
   loadGrid3(criteria: string): void {
     this.users3$ = this.userService.getAll(criteria);
+  }
+  loadGrid4(criteria: string): void {
+    this.users4$ = this.userService.getAll(criteria);
   }
 }
