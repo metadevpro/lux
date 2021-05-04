@@ -34,19 +34,19 @@ obj = &#123;
   </pre>
   <div class="content-2col">
     <div class="control">
-      <label for="countries">Countries using free entry:</label>
+      <label for="countriesaddNew">Countries using free entry:</label>
       <lux-select id="countries" [(value)]="obj.countries" [unique]="unique" [multiple]="multiple"  [disabled]="disabled" [placeholder]="placeholder">
       </lux-select>
     </div>
     <div class="configuration">
       <strong>Configuration:</strong>
       <br/>
-      <label for="unique"><input type="checkbox" name="unique" [(ngModel)]="unique"> Unique</label>
-      <label for="multiple"><input type="checkbox" name="multiple" [(ngModel)]="multiple"> Multiple</label>
-      <label for="disabled"><input type="checkbox" name="disabled" [(ngModel)]="disabled"> Disabled</label>
+      <label for="unique"><input type="checkbox" id="unique" name="unique" [(ngModel)]="unique"> Unique</label>
+      <label for="multiple"><input type="checkbox" id="multiple" name="multiple" [(ngModel)]="multiple"> Multiple</label>
+      <label for="disabled"><input type="checkbox" id="disabled" name="disabled" [(ngModel)]="disabled"> Disabled</label>
       <br/>
       <label for="placeholder">Placeholder: </label>
-      <input type="string" name="placeholder" [(ngModel)]="placeholder">
+      <input type="string" id="placeholder" name="placeholder" [(ngModel)]="placeholder">
     </div>
     <div class="debug">
       Current value is: {{ obj.countries | json }}.
