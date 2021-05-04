@@ -49,6 +49,16 @@ button {
   border-radius: 3px;
   background: #c0f4f4;
   padding: 0px 3px;
+  margin-right: 1em;
+}
+.content-2col {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.control {
+  border-top: 2px solid #777;
+  border-bottom: 2px solid #777;
+  margin-right: 2em;
 }
 
 pre {
@@ -77,6 +87,19 @@ kbd {
   padding: .1em .3em;
 }
 
+
+.configuration {
+  border: 1px solid #777;
+  border-radius: 8px;
+  padding: 1em;
+  margin-bottom: 1em;
+  label {
+    margin-right: 2em;
+    input[type='checkbox'] {
+      margin-right: 1em;
+    }
+  }
+}
 
 /* Voice recognition */
 .lux-microphone {

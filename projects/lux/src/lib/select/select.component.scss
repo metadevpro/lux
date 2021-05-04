@@ -1,0 +1,18 @@
+.lux-select .list {
+  margin: 1em;
+  padding-bottom: .2em;
+  display: grid;
+  grid-template-columns: auto auto;
+
+  span {
+    margin-bottom: .3em;
+  }
+}
+.remove {
+  margin-left: 2em;
+  font-size: 0.85em;
+}
+.error {
+  margin: .5em 0em;
+  color: firebrick;
+}

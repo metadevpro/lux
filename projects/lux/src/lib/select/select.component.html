@@ -1,0 +1,27 @@
+<div class="lux-select" [id]="id">
+  <div class="list">
+    <ng-container *ngFor="let item of value; let i = index">
+      <span>{{ item }}</span>
+      <span>
+        <a *ngIf="!disabled" class="remove" (click)="remove(i)">Remove</a>
+      </span>
+    </ng-container>
+    <ng-container *ngIf="!disabled">
+      <lux-input
+        id="{{ id + 'addNew' }}"
+        type="string"
+        [placeholder]="placeholder"
+        [disabled]="disabled"
+        [(value)]="newEntry"
+        (valueChange)="onChangeNewEntry($event)"
+      >
+      </lux-input>
+      <div *ngIf="canAdd">
+        <button *ngIf="isValidNewEntry" (click)="add(newEntry)">Add</button>
+      </div>
+      <div class="error">
+        {{ error }}
+      </div>
+    </ng-container>
+  </div>
+</div>
