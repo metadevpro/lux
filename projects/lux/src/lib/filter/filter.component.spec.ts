@@ -1,33 +1,20 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { FilterComponent } from './filter.component';
 
-
-const inputKey = (el: HTMLElement, keyPressed: string) => {
-  const event = new KeyboardEvent('keyup', {
-      key: keyPressed
-  });
-  el.focus();
-  el.dispatchEvent(event);
-};
-
 describe('FilterComponent', () => {
   let component: FilterComponent;
-  let fixture: ComponentFixture<FilterComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [FormsModule],
-      declarations: [FilterComponent]
-    })
-      .compileComponents();
-  }));
+  let spectator: Spectator<FilterComponent>;
+  const createComponent = createComponentFactory({
+    component: FilterComponent,
+    imports: [FormsModule]
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {
@@ -37,16 +24,16 @@ describe('FilterComponent', () => {
   it('should show button when searchOntype is false', () => {
     component.searchOnType = false;
 
-    fixture.detectChanges();
-    const button = fixture.nativeElement.querySelector('button');
+    spectator.detectChanges();
+    const button = spectator.query('button');
     expect(button).toBeTruthy();
   });
 
   it('should not show button when searchOntype is true', () => {
     component.searchOnType = true;
 
-    fixture.detectChanges();
-    const button = fixture.nativeElement.querySelector('button');
+    spectator.detectChanges();
+    const button = spectator.query('button');
     expect(button).toBeFalsy();
   });
 
@@ -54,9 +41,9 @@ describe('FilterComponent', () => {
     // Arrange
     component.searchOnType = true;
     component.debounce = 520; // ms
-    fixture.detectChanges();
+    spectator.detectChanges();
 
-    const input = fixture.nativeElement.querySelector('input');
+    const input = spectator.query('input');
     const t0 = Date.now();
     let t1 = null;
 
@@ -71,14 +58,14 @@ describe('FilterComponent', () => {
     });
 
     // Act
-    inputKey(input, 'A');
-    fixture.detectChanges();
+    spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
+    spectator.detectChanges();
 
   }));
   it('by default debounce time is 300 ms', waitForAsync(() => {
     // Arrange
     component.searchOnType = true;
-    const input = fixture.nativeElement.querySelector('input');
+    const input = spectator.query('input');
     const t0 = Date.now();
     let t1 = null;
 
@@ -93,16 +80,16 @@ describe('FilterComponent', () => {
     });
 
     // Act
-    fixture.detectChanges();
-    inputKey(input, 'A');
-    fixture.detectChanges();
+    spectator.detectChanges();
+    spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
+    spectator.detectChanges();
 
   }));
 
-  it('enter should trigger search inmediatly', waitForAsync(() => {
+  it('enter should trigger search immediately', waitForAsync(() => {
     // Arrange
     component.searchOnType = true;
-    const input = fixture.nativeElement.querySelector('input');
+    const input = spectator.query('input');
     const t0 = Date.now();
     let t1 = null;
 
@@ -117,16 +104,16 @@ describe('FilterComponent', () => {
     });
 
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     component.keyup(new KeyboardEvent('keyup', { key: 'Enter' }));
-    fixture.detectChanges();
+    spectator.detectChanges();
 
   }));
   it('clear() should trigger search inmediatly', waitForAsync(() => {
     // Arrange
     component.searchOnType = true;
     component.searchValue = 'ABC';
-    const input = fixture.nativeElement.querySelector('input');
+    const input = spectator.query('input');
     const t0 = Date.now();
     let t1 = null;
 
@@ -141,9 +128,9 @@ describe('FilterComponent', () => {
     });
 
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     component.clear();
-    fixture.detectChanges();
+    spectator.detectChanges();
   }));
 
 });

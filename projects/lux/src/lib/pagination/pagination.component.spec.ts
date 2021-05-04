@@ -1,31 +1,29 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PaginationComponent } from './pagination.component';
 import { FormsModule } from '@angular/forms';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 describe('PaginationComponent', () => {
-    let fixture: ComponentFixture<PaginationComponent>;
+    let spectator: Spectator<PaginationComponent>;
     let component: PaginationComponent;
-
-    beforeEach(waitForAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [FormsModule],
-            declarations: [ PaginationComponent, LuxTooltipDirective ]
-        })
-        .compileComponents();
-    }));
+    const createComponent = createComponentFactory({
+      component: PaginationComponent,
+      imports: [FormsModule],
+      declarations: [ PaginationComponent, LuxTooltipDirective ]
+    });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PaginationComponent);
-        component = fixture.componentInstance;
-        component.paginationInfo = {
-            total: 0,
-            page: 0,
-            pageSize: 0,
-            pagesToShow: 0
-        };
-        fixture.detectChanges();
+        spectator = createComponent({
+          props: {
+            paginationInfo: {
+              total: 0,
+              page: 0,
+              pageSize: 0,
+              pagesToShow: 0
+            }
+          }
+        });
+        component = spectator.component;
     });
 
     it('Component created', () => {
