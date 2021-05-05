@@ -12,7 +12,8 @@
     [placeholder]="placeholder"
     [formControl]="formControl"
     [ngClass]="className"
-    (keyup)="onKeyupPrimary(i1.value)"
+    (keyup)="onKeyUpPrimary(i1.value)"
+    (keypress)="onKeyPressPrimary($event)"
     >
 <input #i2 *ngIf="isGeolocation()" luxTooltip="Longitude" placement="top" delay="200"
     [id]="id"
@@ -24,7 +25,7 @@
     [attr.step]="step || null"
     [placeholder]="placeholder"
     [formControl]="formControl2"
-    (keyup)="onKeyupSecondary(i2.value)"
+    (keyup)="onKeyUpSecondary(i2.value)"
     >
 <button *ngIf="isGeolocation()">Geo</button>
 

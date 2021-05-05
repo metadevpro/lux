@@ -9,10 +9,10 @@ export class SelectSampleComponent implements AfterContentInit {
   multiple = true;
   unique = true;
   disabled = false;
-  placeholder = 'Add new';
+  placeholder = 'Add new country';
 
   obj = {
-    countries: []
+    countries: [ 'Spain', 'Italy', 'Costa Rica', 'Philippines' ]
   };
   constructor(private prismService: PrismService) { }
 

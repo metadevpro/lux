@@ -79,6 +79,7 @@ export class InputComponent implements OnInit {
     return this._value;
   }
   @Output() valueChange = new EventEmitter<string>();
+  @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
   constructor(private modalService: ModalService) {}
 
@@ -86,10 +87,13 @@ export class InputComponent implements OnInit {
     this.id = this.id ? this.id : `${this.type}$${InputComponent.idCounter++}`;
   }
 
-  onKeyupPrimary(newValue: string): void {
+  onKeyUpPrimary(newValue: string): void {
     this.value = newValue;
   }
-  onKeyupSecondary(newValue: string): void {
+  onKeyPressPrimary(event: KeyboardEvent): void {
+    this.keyPress.emit(event);
+  }
+  onKeyUpSecondary(newValue: string): void {
     this.formControl2.setValue(newValue);
   }
 

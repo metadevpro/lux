@@ -16,7 +16,7 @@
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
 obj = &#123;
-  countries: []
+  countries: [  'Spain', 'Italy', 'Costa Rica', 'Philippines' ]
 &#125;
     </code>
   </pre>
@@ -49,7 +49,8 @@ obj = &#123;
       <input type="string" id="placeholder" name="placeholder" [(ngModel)]="placeholder">
     </div>
     <div class="debug">
-      Current value is: {{ obj.countries | json }}.
+      Current value is:
+      <pre>{{ obj.countries | json }}</pre>
     </div>
   </div>
 

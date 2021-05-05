@@ -35,6 +35,12 @@ export class SelectComponent {
       this.value.splice(index, 1);
     }
   }
+  onKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !this.error && this.newEntry !== '') {
+      // Add on pressing Enter/Return
+      this.add(this.newEntry);
+    }
+  }
   onChangeNewEntry(newValue: string): void {
     if (!newValue) {
       this.isValidNewEntry = false;

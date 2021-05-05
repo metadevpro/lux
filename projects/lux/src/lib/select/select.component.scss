@@ -1,16 +1,24 @@
-.lux-select .list {
+.lux-select {
+  margin-bottom: .5em;
+
+ .list {
   margin: 1em;
   padding-bottom: .2em;
-  display: grid;
-  grid-template-columns: auto auto;
+  list-style-type: square;
 
-  span {
-    margin-bottom: .3em;
+    span {
+      margin-bottom: .3em;
+    }
   }
 }
 .remove {
   margin-left: 2em;
   font-size: 0.85em;
+}
+.add-new-item {
+  display: inline-flex;
+  margin-left: 2.2em;
+  height: 1.6em;
 }
 .error {
   margin: .5em 0em;
