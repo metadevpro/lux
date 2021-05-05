@@ -13,7 +13,10 @@
 }
 .remove {
   margin-left: 2em;
-  font-size: 0.85em;
+  font-size: 0.65em;
+  color: firebrick;
+  background: transparent;
+  border: 2px solid #BBB;
 }
 .add-new-item {
   display: inline-flex;

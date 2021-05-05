@@ -1,13 +1,12 @@
 <div class="lux-select" aria-role="listitem">
   <ul class="list">
-    <li *ngFor="let item of value; let i = index">
+    <li *ngFor="let item of value; let i = index" tabindex="0">
       <span>{{ item }}</span>
-      <a *ngIf="!disabled"
+      <button *ngIf="!disabled"
             class="remove"
             (click)="remove(i)"
-            tabindex="0"
             [attr.aria-label]="'Remove ' + item"
-            >Remove</a>
+            >Remove</button>
     </li>
   </ul>
   <div class="add-new-item" *ngIf="!disabled">
