@@ -18,9 +18,10 @@
     this.users$ = this.userService.getAll(criteria);
   &#125;</code>
   </pre>
-  <h3>Filter with default placehoder and debounce</h3>
+  <h3>Filter with default placeholder and debounce</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
+   &lt;label for="filter"&gt;Filter&lt;/label&gt;
    &lt;lux-filter inputId="filter" #filter placeholder="type to search"&gt;
    &lt;/lux-filter&gt;</code>
   </pre>
@@ -48,10 +49,11 @@
     </table>
 
   </div>
-  <h3>Filter with different Placehoder and Search on type false</h3>
+  <h3>Filter with different Placeholder and Search on type false</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;lux-filter #filter2 inputId="filter" placeholder="type to search2"
+  &lt;label for="filter2"&gt;Filter&lt;/label&gt;
+  &lt;lux-filter #filter2 inputId="filter2" placeholder="type to search2"
   [searchOnType]="false"&gt;
   &lt;/lux-filter&gt;</code>
   </pre>
@@ -83,6 +85,7 @@
   <h3>Filter with different debounce</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
+  &lt;label for="filter3"&gt;Filter&lt;/label&gt;
   &lt;lux-filter #filter3 inputId="filter3" placeholder="type to search3" debounce="500"&gt;
   &lt;/lux-filter&gt;</code>
   </pre>
