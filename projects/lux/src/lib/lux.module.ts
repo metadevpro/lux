@@ -14,11 +14,11 @@ import { LuxModalBackdropComponent } from './modal/modal-backdrop';
 import { ModalService } from './modal/modal.service';
 import { PaginationComponent } from './pagination/pagination.component';
 import { RadiogroupComponent } from './radiogroup/radiogroup.component';
+import { SelectComponent } from './select/select.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipService } from './tooltip/tooltip.service';
 import { VoiceRecognitionDirective } from './voice-recognition/voice-recognition.directive';
 import { WINDOW_PROVIDERS } from './window/window.service';
-
 
 @NgModule({
   declarations: [
@@ -30,19 +30,19 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     LuxModalWindowComponent,
     LuxModalBackdropComponent,
     LuxBreadcrumbComponent,
+    SelectComponent,
     TooltipComponent,
     PaginationComponent,
     RadiogroupComponent,
-    VoiceRecognitionDirective
+    VoiceRecognitionDirective,
   ],
-  entryComponents: [LuxModalWindowComponent, LuxModalBackdropComponent, TooltipComponent],
+  entryComponents: [
+    LuxModalWindowComponent,
+    LuxModalBackdropComponent,
+    TooltipComponent,
+  ],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    CommonModule
-  ],
+  imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule],
   exports: [
     AutocompleteComponent,
     FilterComponent,
@@ -51,9 +51,10 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     LuxTooltipDirective,
     LuxBreadcrumbComponent,
     LuxBreadcrumbComponent,
+    SelectComponent,
     PaginationComponent,
     RadiogroupComponent,
-    VoiceRecognitionDirective
-  ]
+    VoiceRecognitionDirective,
+  ],
 })
-export class LuxModule { }
+export class LuxModule {}

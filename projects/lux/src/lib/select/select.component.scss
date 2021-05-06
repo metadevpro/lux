@@ -1,0 +1,29 @@
+.lux-select {
+  margin-bottom: .5em;
+
+ .list {
+  margin: 1em;
+  padding-bottom: .2em;
+  list-style-type: square;
+
+    span {
+      margin-bottom: .3em;
+    }
+  }
+}
+.remove {
+  margin-left: 2em;
+  font-size: 0.65em;
+  color: firebrick;
+  background: transparent;
+  border: 2px solid #BBB;
+}
+.add-new-item {
+  display: inline-flex;
+  margin-left: 2.2em;
+  height: 1.6em;
+}
+.error {
+  margin: .5em 0em;
+  color: firebrick;
+}
