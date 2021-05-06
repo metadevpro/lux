@@ -1,6 +1,6 @@
-<div class="lux-select" aria-role="listitem">
+<div class="lux-select">
   <ul class="list">
-    <li *ngFor="let item of value; let i = index" tabindex="0">
+    <li *ngFor="let item of value; let i = index">
       <span>{{ item }}</span>
       <button *ngIf="!disabled"
             class="remove"
