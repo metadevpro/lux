@@ -10,6 +10,7 @@ import { ModalService } from '../modal/modal.service';
 export class InputComponent implements OnInit {
   static idCounter = 0;
 
+  private _disabled: string | boolean;
   private _value: any;
   private _type: string;
   private _placeholder: string;
@@ -30,9 +31,18 @@ export class InputComponent implements OnInit {
     return this.checkClassName();
   }
 
-  @Input() public id: string;
-  @Input() public disabled: boolean | null = null;
+  @Input() public inputId: string;
+  @Input('aria-label') public ariaLabel: string;
   @Input() public readonly: boolean | null = null;
+
+  @Input()
+  set disabled(v: string | boolean) {
+    v = typeof v === 'string' ? true : v;
+    this._disabled = v;
+  }
+  get disabled(): string | boolean {
+    return this._disabled;
+  }
 
   @Input()
   set currency(v: string) {
@@ -84,7 +94,7 @@ export class InputComponent implements OnInit {
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
-    this.id = this.id ? this.id : `${this.type}$${InputComponent.idCounter++}`;
+    this.inputId = this.inputId ? this.inputId : `${this.type}$${InputComponent.idCounter++}`;
   }
 
   onKeyUpPrimary(newValue: string): void {

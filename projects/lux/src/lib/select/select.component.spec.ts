@@ -1,6 +1,7 @@
 import { SelectComponent } from './select.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { FormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('SelectComponent', () => {
   let spectator: Spectator<SelectComponent>;
@@ -8,6 +9,7 @@ describe('SelectComponent', () => {
   const createComponent = createComponentFactory({
     component: SelectComponent,
     imports: [FormsModule],
+    schemas: [NO_ERRORS_SCHEMA]
   });
 
   beforeEach(() => {

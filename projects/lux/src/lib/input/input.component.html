@@ -2,7 +2,8 @@
     <span>$</span>
 </div>
 <input #i1 [luxTooltip]="isGeolocation() ? 'Latitude' : null" placement="top" delay="200"
-    [id]="id"
+    [id]="inputId"
+    [attr.aria-label]="ariaLabel"
     [type]="domain"
     [attr.disabled]="disabled || null"
     [attr.readonly]="readonly || null"
@@ -16,7 +17,8 @@
     (keypress)="onKeyPressPrimary($event)"
     >
 <input #i2 *ngIf="isGeolocation()" luxTooltip="Longitude" placement="top" delay="200"
-    [id]="id"
+    [id]="inputId"
+    [attr.aria-label]="ariaLabel"
     [type]="domain"
     [attr.disabled]="disabled || null"
     [attr.readonly]="readonly || null"
