@@ -9,6 +9,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 
 export interface DataSourceItem<K, L> {
   key: K;
@@ -48,7 +50,6 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
 
   @Input() public disabled: boolean | null = null;
   @Input() public readonly: boolean | null = null;
-
   @Input() label = '';
 
   @Input()
@@ -58,8 +59,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   set value(v: any) {
     this._value = v;
     this.valueChange.emit(v);
-    const found = (this.dataSource || []).find((i) => i.key === v);
-    this.label = found ? found.label : '';
+    this.completeLabel();
   }
   @Input()
   get dataSource(): DataSource<any, string> {
@@ -84,14 +84,36 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     return this._placeholder ? this._placeholder : '';
   }
 
+  @Input() resolveLabelsFunction?: (instance: any, keys: any[]) => Observable<DataSource<any, string>> = undefined;
+  @Input() populateFunction?: (instance: any, search: string) => Observable<DataSource<any, string>> = undefined;
+  @Input() instance: any;
+
   constructor(
     private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    const found = this.dataSource.find((it) => it.key === this.value);
-    this.label = found ? found.label : '';
+    this.completeLabel();
   }
+
+  clear(): void {
+    this.value = null;
+  }
+
+  private completeLabel(): void {
+    if (this.value) {
+      if (this.dataSource) {
+        this.label = findLabelForId(this.dataSource, this.value) || '';
+      } else if (this.instance && this.resolveLabelsFunction) {
+        this.resolveLabelsFunction(this.instance, this.value).pipe(first()).subscribe(data => {
+          this.label = findLabelForId(data, this.value) || '';
+        });
+      }
+    } else {
+      this.label = '';
+    }
+  }
+
   ngAfterViewInit(): void {
     const width = this.i0.nativeElement.getBoundingClientRect().width;
     this.completeDiv.nativeElement.style.width = `${width}px`;
@@ -204,39 +226,60 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
       return;
     }
     this.completionList = [];
-    const suggestions = this.computeCompletionList(source);
-    this.complete(
-      suggestions && suggestions.length > 0 ? suggestions[0] : null
-    );
+    this.computeCompletionList(source).subscribe(suggestions => {
+      this.complete(
+        suggestions && suggestions.length > 0 ? suggestions[0] : null
+      );
+    });
   }
   private showCompletionList(text: string): void {
-    this.completionList = this.computeCompletionList(text);
-    this.focusItem =
-      this.completionList.length > 0 ? this.completionList[0] : null;
-    this.showCompletion = true;
+    this.computeCompletionList(text).subscribe(cl => {
+      this.completionList = cl;
+      this.focusItem =
+        this.completionList.length > 0 ? this.completionList[0] : null;
+      this.showCompletion = true;
+    });
   }
-  private computeCompletionList(text: string): DecoratedDataSource {
-    const substring = (text || '').toLowerCase();
-    const ds = (this.dataSource || [])
-      .filter((it) => it.label.toLowerCase().includes(substring))
-      .sort((a, b) => a.label.localeCompare(b.label));
-
-    return this.decorateDataSource(ds, substring);
-  }
-  private decorateDataSource(dataSource: DataSource<any, string>, subString: string): DecoratedDataSource {
-    return dataSource.map(it => this.decorateItem(it, subString));
-  }
-  private decorateItem(item: DataSourceItem<any, string>, tx: string): DecoratedDataSourceItem {
-    const index = item.label.toLowerCase().indexOf(tx.toLowerCase());
-    const labelPrefix = (index === -1) ? item.label : item.label.substr(0, index);
-    const labelMatch = (index === -1) ? '' : item.label.substr(index, tx.length);
-    const labelPostfix= (index === -1) ? '' : item.label.substr(index + tx.length);
-    const newItem: DecoratedDataSourceItem = {
-      ...item,
-      labelPrefix,
-      labelMatch,
-      labelPostfix
-    };
-    return newItem;
+  private computeCompletionList(text: string): Observable<DecoratedDataSource> {
+    const searchText = (text || '').toLowerCase();
+    if (this.dataSource) {
+      const ds = (this.dataSource || [])
+        .filter((it) => it.label.toLowerCase().includes(searchText))
+        .sort((a, b) => a.label.localeCompare(b.label));
+      return of(decorateDataSource(ds, searchText));
+    } else if (this.instance && this.populateFunction) {
+      return this.populateFunction(this.instance, searchText).pipe(
+        first(),
+        map(ds => {
+          ds.filter((it) => it.label.toLowerCase().includes(searchText))
+            .sort((a, b) => a.label.localeCompare(b.label));
+          return decorateDataSource(ds, searchText);
+        })
+      );
+    } else {
+      return of([]);
+    }
   }
 }
+
+const decorateDataSource = (dataSource: DataSource<any, string>, subString: string): DecoratedDataSource =>
+  dataSource.map(it => decorateItem(it, subString));
+
+const decorateItem = (item: DataSourceItem<any, string>, tx: string): DecoratedDataSourceItem => {
+  const index = item.label.toLowerCase().indexOf(tx.toLowerCase());
+  const labelPrefix = (index === -1) ? item.label : item.label.substr(0, index);
+  const labelMatch = (index === -1) ? '' : item.label.substr(index, tx.length);
+  const labelPostfix= (index === -1) ? '' : item.label.substr(index + tx.length);
+  const newItem: DecoratedDataSourceItem = {
+    ...item,
+    labelPrefix,
+    labelMatch,
+    labelPostfix
+  };
+  return newItem;
+};
+
+const findLabelForId = (data: DataSource<any, string>, id: any): string => {
+  const found = data.find(it => it.key === id);
+  return found ? found.label : null;
+};

@@ -11,6 +11,9 @@
     (focus)="toogleCompletion(true, i0.value)"
     (click)="toogleCompletion(true, i0.value)"
   />
+  <div class="autocomplete-overlay">
+    <button *ngIf="value" class="icon-clear" aria-label="Clear" (click)="clear()"></button>
+  </div>
   <div #completeDiv [class.showCompletion]="showCompletion" class="lux-completion-list">
     <ul>
       <li *ngFor="let item of completionList"

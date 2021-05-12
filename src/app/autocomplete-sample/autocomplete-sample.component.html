@@ -20,7 +20,10 @@
     <li>Bold substring in candidates.</li>
   </ul>
 
-  <h3>Sample</h3>
+  <h3>Static Datasource Sample</h3>
+  <p>
+    In this sample, the data is pick from the static datasource: countries.
+  </p>
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
   import &#123; DataSource &#125; from '@lux';
@@ -41,9 +44,63 @@
     </code>
   </pre>
   <div class="content">
+    <label>Direct Datasource sample for Countries:</label>
     <lux-autocomplete name="country" [(value)]="value" [dataSource]="countries">
     </lux-autocomplete>
     Current value is: {{ value }} - {{ getLabel(value) }}.
+  </div>
+
+  <h3>API Wired Sample</h3>
+  <p>
+    This sample uses a couple of functions to wire an API to retrieve items and complete the labels when needed.
+    Observables are used to support async operations.
+    The search string is passed in lowercase to make it easy insensive matching.a
+    Note the instance property must be set to avoid this dereferencing when calling the functions.
+  </p>
+  <pre class="language-typescript" rel="typescript">
+    <code class="typescript">
+  import &#123; DataSource &#125; from '@lux';
+
+  export AComponent &#123;
+    get self(): AComponent &#123;
+      return this;
+      &#125;
+    &#125;
+    getLabels(instance: any, keys: any[]): Observable&lt;DataSource&lt;any, string>> &#123;
+      return of(instance.countries.filter((c: DataSourceItem&lt;string, string>) =>
+        keys.includes(c.key)));
+    &#125;
+    getData(instance: any, search: string): Observable&lt;DataSource&lt;any, string>> &#123;
+      return of(instance.countries.filter((c: DataSourceItem&lt;string, string>) =>
+        c.label.toLowerCase().includes(search)));
+    &#125;
+    ...
+  &#125;
+
+    </code>
+  </pre>
+
+  <pre class="language-html" rel="html">
+    <code class="language-html">
+&lt;lux-autocomplete
+    name="country"
+    [(value)]="value2"
+    [instance]="self"
+    [resolveLabelsFunction]="getLabels"
+    [populateFunction]="getData"&gt;
+&lt;/lux-autocomplete&gt;
+    </code>
+  </pre>
+  <div class="content">
+    <label>API Wired Sample for Countries:</label>
+    <lux-autocomplete
+      name="country"
+      [(value)]="value2"
+      [instance]="self"
+      [resolveLabelsFunction]="getLabels"
+      [populateFunction]="getData">
+    </lux-autocomplete>
+    Current value is: {{ value2 }} - {{ getLabel(value2) }}.
   </div>
 
 </div>

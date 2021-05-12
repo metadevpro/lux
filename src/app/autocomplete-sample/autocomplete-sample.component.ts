@@ -1,6 +1,7 @@
-import { Icu } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, AfterContentInit } from '@angular/core';
+import { DataSourceItem } from 'lux/public-api';
 import { DataSource } from 'projects/lux/src/lib/autocomplete/autocomplete.component';
+import { Observable, of } from 'rxjs';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { PrismService } from '../core/services/prism-service.service';
 })
 export class AutoCompleteSampleComponent implements AfterContentInit {
   value = 'ES';
+  value2 = 'JP';
 
   countries: DataSource<string, string> = [
     { key: 'ES', label: 'Spain' },
@@ -40,5 +42,17 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
   getLabel(isoCode: string): string {
     const found = this.countries.find(c => c.key === isoCode);
     return found ? found.label : null;
+  }
+
+  get self(): AutoCompleteSampleComponent {
+    return this;
+  }
+  getLabels(instance: any, keys: any[]): Observable<DataSource<any, string>> {
+    return of(instance.countries.filter((c: DataSourceItem<string, string>) =>
+      keys.includes(c.key)));
+  }
+  getData(instance: any, search: string): Observable<DataSource<any, string>> {
+    return of(instance.countries.filter((c: DataSourceItem<string, string>) =>
+      c.label.toLowerCase().includes(search)));
   }
 }
