@@ -140,6 +140,9 @@ export class InputComponent implements OnInit {
       case 'password':
         this.setPasswordPatterns();
         break;
+      case 'number':
+        this.setNumberPatterns();
+        break;
       case 'currency':
         this.setCurrencyPatterns();
         break;
@@ -180,6 +183,11 @@ export class InputComponent implements OnInit {
 
   setPasswordPatterns(): void {
     // ToDo
+  }
+
+  setNumberPatterns(): void {
+    this.domain = 'number';
+    this.placeholder = '0';
   }
 
   setCurrencyPatterns(): void {
