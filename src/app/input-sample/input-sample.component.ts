@@ -13,6 +13,19 @@ export class InputSampleComponent implements AfterContentInit {
   name = 'Lux';
   disabled = true;
   readonly = true;
+  valueEmail: string = null;
+  valueDate: string = null;
+  valueTime: string = null;
+  valuePassword = '';
+  valueNumber = 7;
+  valueCurrencyUsd = 97.01;
+  valueCurrencyEur = 123.45;
+  valuePercentage = 75.24;
+  valuePermillage = 923.34;
+  valueGeolocation = {
+    type: 'Point',
+    coordinates: [-5.97, 37.99]
+  };
 
   constructor(private prismService: PrismService) { }
 
