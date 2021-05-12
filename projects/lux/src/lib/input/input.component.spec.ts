@@ -45,6 +45,16 @@ describe('InputComponent', () => {
       expect(updateSpy).toHaveBeenCalled();
     });
 
+    it('When input type is number, domain should be number', () => {
+      component.type = 'number';
+      expect(component.domain).toEqual('number');
+    });
+
+    it('When input type is number, the placeholder should be 0', () => {
+      component.type = 'number';
+      expect(component.placeholder).toEqual('0');
+    });
+
     it('When input type is currency, domain should be number, min should be 0 and max should be 10000.00 by default', () => {
       component.type = 'currency';
       expect(component.domain).toEqual('number');
