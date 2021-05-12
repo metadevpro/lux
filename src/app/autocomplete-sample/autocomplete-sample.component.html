@@ -102,9 +102,7 @@
     </lux-autocomplete>
     Current value is: {{ value2 }} - {{ getLabel(value2) }}.
   </div>
-
 </div>
-
 
 <h2>Documentation</h2>
 <h3>Properties</h3>
@@ -112,4 +110,7 @@
   <li><span class="inline">datasource</span>A key-value list of data to be used as datasource.</li>
   <li><span class="inline">disabled</span> If disabled the checkbox is not editable.</li>
   <li><span class="inline">value</span> Status of checkbox on or off.</li>
+  <li><span class="inline">instance</span> Reference to the object implementing resolveLabels & populate functions.</li>
+  <li><span class="inline">resolveLabelsFunction</span> Function to resolve labels from keys. Returns an observable of a DataSource.</li>
+  <li><span class="inline">populateFunction</span> Function to retrieve data based on a substring query. Returns an observable of a DataSource.</li>
 </ul>
