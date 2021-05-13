@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { AutocompleteListComponent } from './autocomplete-list/autocomplete-list.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { InputComponent } from './input/input.component';
 import { FilterComponent } from './filter/filter.component';
@@ -23,6 +24,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
 @NgModule({
   declarations: [
     AutocompleteComponent,
+    AutocompleteListComponent,
     FilterComponent,
     CheckboxComponent,
     InputComponent,
@@ -45,6 +47,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
   imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule],
   exports: [
     AutocompleteComponent,
+    AutocompleteListComponent,
     FilterComponent,
     CheckboxComponent,
     InputComponent,

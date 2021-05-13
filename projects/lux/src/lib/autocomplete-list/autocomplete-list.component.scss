@@ -1,0 +1,23 @@
+.new-entry {
+  margin-left: 1.5em;
+}
+.remove-item {
+  margin-left: .5em;
+  border: none;
+  background: url(/assets/img/delete.svg) no-repeat 3px 3px;
+  height: 1.2em;
+  width: 1.3em;
+  position: relative;
+  top: .2em;
+  background-size: 16px 16px;
+}
+.add-item {
+  border: none;
+  background: url(/assets/img/create.png) no-repeat 3px 2px;
+  background-size: 20px;
+  height: 23px;
+  width: 27px;
+  margin-left: -12px;
+  position: relative;
+  top: 6px;
+}

@@ -1,0 +1,21 @@
+<div>
+  <ul>
+    <li *ngFor="let label of labels; let index = index">
+      <span>{{ label }}</span>
+      <button *ngIf="!disabled"
+              class="remove-item"
+              (click)="removeAt(index)"
+              attr.aria-label="Eliminar {{ label }}"></button>
+    </li>
+  </ul>
+  <div *ngIf="!disabled" class="new-entry">
+    <lux-autocomplete #auto
+      [dataSource]="internalDataSource"
+      [placeholder]="placeholder"
+      [(value)]="newEntry"
+      (valueChange)="onValueChange()"
+      (keypress)="onNewEntryChange($event, auto)">
+    </lux-autocomplete>
+    <button *ngIf="canAdd" class="add-item" attr.aria-label="Add" (click)="addNew(auto)"></button>
+  </div>
+</div>
