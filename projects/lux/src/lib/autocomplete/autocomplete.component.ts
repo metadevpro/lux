@@ -33,6 +33,8 @@ type DecoratedDataSource = DecoratedDataSourceItem[];
   styleUrls: ['./autocomplete.component.scss'],
 })
 export class AutocompleteComponent implements OnInit, AfterViewInit {
+  static idCounter = 0;
+
   @ViewChild('i0', { static: true }) i0: ElementRef;
   @ViewChild('completeDiv', { static: true }) completeDiv: ElementRef;
 
@@ -48,6 +50,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   @Output() valueChange = new EventEmitter<any>();
   @Output() dataSourceChange = new EventEmitter<DataSource<any, string>>();
 
+  @Input() public inputId: string;
   @Input() public disabled: boolean | null = null;
   @Input() public readonly: boolean | null = null;
   @Input() label = '';
@@ -93,6 +96,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    this.inputId = this.inputId ? this.inputId : `autocompletelist${AutocompleteComponent.idCounter++}`;
     this.completeLabel();
   }
 
@@ -209,8 +213,12 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     this.cd.markForCheck();
   }
 
-  get currentActive(): string {
-    return this.focusItem ? `hijo${this.completionList.findIndex(i => i.key === this.focusItem.key)}` : null;
+  get selectedOption(): string {
+    const index = this.completionList.findIndex(i => i.key === this.focusItem.key);
+    if (index === -1 || !this.focusItem) {
+      return null;
+    }
+    return `${this.inputId}_${index}`;
   }
 
   private ensureItemVisible(index: number): void {

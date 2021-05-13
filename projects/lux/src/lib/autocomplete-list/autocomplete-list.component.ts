@@ -9,6 +9,8 @@ import { AutocompleteComponent, DataSource } from '../autocomplete/autocomplete.
   styleUrls: ['./autocomplete-list.component.scss'],
 })
 export class AutocompleteListComponent implements OnInit {
+  static idCounter = 0;
+
   @ViewChild('auto') auto!: AutocompleteListComponent;
 
   public internalDataSource: DataSource<any, string> = [];
@@ -28,6 +30,7 @@ export class AutocompleteListComponent implements OnInit {
   newEntry: any;
   canAdd = false;
 
+  @Input() inputId: string;
   @Input() dataSource: DataSource<any, any> = [];
   @Input() placeholder = 'new item';
   @Input() disabled = false;
@@ -42,8 +45,9 @@ export class AutocompleteListComponent implements OnInit {
 
 
   ngOnInit() {
-     this.autoPopulate = !!this.resolveLabelsFunction && !!this.populateFunction && this.instance;
-     this.ensureLabelsForIds();
+    this.inputId = this.inputId ? this.inputId : `autocompletelist${AutocompleteListComponent.idCounter++}`;
+    this.autoPopulate = !!this.resolveLabelsFunction && !!this.populateFunction && this.instance;
+    this.ensureLabelsForIds();
   }
   ensureLabelsForIds(): void {
     if (this.autoPopulate && this.resolveLabelsFunction) {

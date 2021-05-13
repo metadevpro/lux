@@ -1,5 +1,6 @@
 <div class="lux-autocomplete" (blur)="toogleCompletion(false, i0.value)">
   <input #i0
+    [id]="inputId"
     [(ngModel)]="label"
     [placeholder]="placeholder"
     [attr.disabled]="disabled || null"
@@ -13,16 +14,16 @@
     role="combobox"
     aria-autocomplete="list"
     aria-haspopup="true"
-    aria-owns="listahijo"
-    [attr.aria-activedescendant]="currentActive"
+    attr.aria-owns="{{ inputId + '_list' }}"
+    [attr.aria-activedescendant]="selectedOption"
   />
   <div class="autocomplete-overlay">
     <button *ngIf="!disabled && value" class="icon-clear" aria-label="Clear" (click)="clear()"></button>
   </div>
-  <div #completeDiv [class.showCompletion]="showCompletion" class="lux-completion-list" id="listahijo">
+  <div #completeDiv [class.showCompletion]="showCompletion" class="lux-completion-list" id="{{ inputId + '_list'}}">
     <ul>
       <li *ngFor="let item of completionList; let index = index"
-          id="{{ 'hijo' + index}}"
+          id="{{ inputId + '_' + index }}"
           class="lux-completion-item"
           [class.selected]="focusItem && item.key === focusItem.key"
           (click)="complete(item)"
