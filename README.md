@@ -30,8 +30,16 @@ ng serve
 
 ## Code organization
 
-1. Library source code is under 'projects/lux/' folder.
-2. Sample project documenting the library under 'src' folder.
+1. Library source code is under `projects/lux/` folder.
+2. Sample project documenting the library under `src/` folder.
+
+## Contributors
+
+- [Channel Salas](https://github.com/Chanell13)
+- [Jesus Rodríguez](https://github.com/foxandxss)
+- [Hector Rivas](https://github.com/hector23rp)
+- [Javier Centeno](https://github.com/JavierCenteno)
+- [Pedro J. Molina](https://github.com/pjmolina)
 
 ## Copyright and License
 
