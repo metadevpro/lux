@@ -5,7 +5,7 @@
       <button *ngIf="!disabled"
               class="remove-item"
               (click)="removeAt(index)"
-              attr.aria-label="Eliminar {{ label }}"></button>
+              attr.aria-label="{{ getdeleteMessage(label) }}"></button>
     </li>
   </ul>
   <div *ngIf="!disabled" class="new-entry">

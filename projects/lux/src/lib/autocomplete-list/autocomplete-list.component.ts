@@ -31,6 +31,7 @@ export class AutocompleteListComponent implements OnInit {
   @Input() dataSource: DataSource<any, any> = [];
   @Input() placeholder = 'new item';
   @Input() disabled = false;
+  @Input() deleteLabelTemplate = 'Delete <<label>>';
 
   @Input() resolveLabelsFunction?: (instance: any, ids: any[]) => Observable<DataSource<any, string>> = undefined;
   @Input() populateFunction?: (instance: any, search: string) => Observable<DataSource<any, string>> = undefined;
@@ -115,5 +116,9 @@ export class AutocompleteListComponent implements OnInit {
     this.ensureLabelsForIds();
     this.newEntry = '';
     this.internalDataSource = this.internalDataSource.filter(it => !this._value.includes(it.key));
+  }
+
+  getDeleteMessage(label: string): string {
+    return this.deleteLabelTemplate.replace('<<label>>', label);
   }
 }
