@@ -1,7 +1,23 @@
 .lux-autocomplete {
-  display: inline;
+  display: inline-block;
+
   input {
     padding: .1em .5em;
+  }
+  .autocomplete-overlay {
+    display: inline;
+    position: relative;
+    left: -1em;
+    top: .1em;
+
+    .icon-clear {
+      width: .8em;
+      height: .8em;
+      border: none;
+      background-color: transparent;
+      background: url(/assets/img/filter-clear.png) no-repeat center;
+      background-size: .5em .5em;
+    }
   }
 }
 .lux-completion-list {
@@ -12,6 +28,7 @@
   padding: 0em;
   max-height: 10em;
   overflow: auto;
+  z-index: 1;
 
   ul {
     list-style: none;

@@ -4,6 +4,7 @@
 
 export * from './lib/lux.module';
 export * from './lib/autocomplete/autocomplete.component';
+export * from './lib/autocomplete-list/autocomplete-list.component';
 export * from './lib/breadcrumb/breadcrumb.component';
 export * from './lib/checkbox/checkbox.component';
 export * from './lib/filter/filter.component';

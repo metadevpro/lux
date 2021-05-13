@@ -1,15 +1,16 @@
-<h1>Autocomplete</h1>
+<h1>AutocompleteList</h1>
 
 <h2>Usage samples</h2>
 <div>
   <p>
-    Autocompletion editor. Provides suggestions for completion as the user types.
+    Autocompletion List editor. Provides suggestions for completion as the user types.
+    Allows to build a selection of objects.
   </p>
   <p>
     Main features:
   </p>
   <ul>
-    <li>Separation between key (programatic value used) and label (shown on user interface).</li>
+    <li>Separation between key (programatic value used) and label (shown on user interface) (relies on Autocomplete component).</li>
     <li>Good support for keyboard shorcuts:
       <ul>
         Support for <kbd>Page Down</kbd>, <kbd>Page Up</kbd>, <kbd>Arrow Up</kbd>, <kbd>Arrow Down</kbd>,
@@ -34,28 +35,29 @@
     // ...
     &#123; key: 'FR', label: 'France' &#125;
   ];
+  myPlaces = [ 'ES', 'IT', 'CR' ];
     </code>
   </pre>
 
   <pre class="language-html" rel="html">
     <code class="language-html">
-&lt;lux-autocomplete name="country" [(value)]="value" [dataSource]="countries"&gt;
-&lt;/lux-autocomplete&gt;
+&lt;lux-autocomplete-list name="countries" [(value)]="myPlaces" [dataSource]="countries"&gt;
+&lt;/lux-autocomplete-list&gt;
     </code>
   </pre>
   <div class="content">
-    <label for="country">Direct Datasource sample for Countries:</label>
-    <lux-autocomplete
-      inputId="country"
-      [(value)]="value"
+    <label for="countries">Direct Datasource sample for Countries:</label>
+    <lux-autocomplete-list
+      inputId="countries"
+      [(value)]="myPlaces"
       [dataSource]="countries"
       [disabled]="disabled1">
-    </lux-autocomplete>
+    </lux-autocomplete-list>
     <p>
-      Current value is: {{ value }} - {{ getLabel(value) }}.
+      Current value is: {{ myPlaces | json }}.
     </p>
     <label>
-      <input type="checkbox" [(ngModel)]="disabled1"> Disabled: {{ disabled1 }}
+      <input type="checkbox" [(ngModel)]="disabled1"> Disabled:  {{ disabled1 }}
     </label>
   </div>
 
@@ -71,6 +73,14 @@
   import &#123; DataSource &#125; from '@lux';
 
   export AComponent &#123;
+    countries: DataSource&lt;string, string&gt; = [
+      &#123; key: 'ES', label: 'Spain' &#125;,
+      &#123; key: 'IT', label: 'Italy' &#125;,
+      // ...
+      &#123; key: 'FR', label: 'France' &#125;
+    ];
+    myPlaces2 = [ 'AM', 'DZ', 'JP' ];
+
     get self(): AComponent &#123;
       return this;
       &#125;
@@ -93,8 +103,7 @@
   <pre class="language-html" rel="html">
     <code class="language-html">
 &lt;lux-autocomplete
-    name="country"
-    [(value)]="value2"
+    [(value)]="myPlaces2"
     [instance]="self"
     [resolveLabelsFunction]="getLabels"
     [populateFunction]="getData"&gt;
@@ -102,22 +111,21 @@
     </code>
   </pre>
   <div class="content">
-    <label for="country2">API Wired Sample for Countries:</label>
-    <lux-autocomplete
-      inputId="country2"
-      [(value)]="value2"
+    <label for="countries2">API Wired Sample for Countries:</label>
+    <lux-autocomplete-list
+      inputId="countries2"
+      [(value)]="myPlaces2"
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
       [disabled]="disabled2">
-    </lux-autocomplete>
+    </lux-autocomplete-list>
     <p>
-      Current value is: {{ value2 }} - {{ getLabel(value2) }}.
+      Current value is: {{ myPlaces2 |json }}.
     </p>
     <label>
-      <input type="checkbox" [(ngModel)]="disabled2"> Disabled:  {{ disabled2 }}
+      <input type="checkbox" [(ngModel)]="disabled2"> Disabled: {{ disabled2 }}
     </label>
-
   </div>
 </div>
 
@@ -125,9 +133,11 @@
 <h3>Properties</h3>
 <ul class="properties">
   <li><span class="inline">datasource</span>A key-value list of data to be used as datasource.</li>
-  <li><span class="inline">disabled</span> When disabled, the checkbox is not editable.</li>
+  <li><span class="inline">disabled</span> If disabled the checkbox is not editable.</li>
   <li><span class="inline">value</span> Status of checkbox on or off.</li>
   <li><span class="inline">instance</span> Reference to the object implementing resolveLabels & populate functions.</li>
   <li><span class="inline">resolveLabelsFunction</span> Function to resolve labels from keys. Returns an observable of a DataSource.</li>
   <li><span class="inline">populateFunction</span> Function to retrieve data based on a substring query. Returns an observable of a DataSource.</li>
+  <li><span class="inline">deleteLabelTemplate</span> Template for the aria-label for the delete button.</li>
+  <li><span class="inline">addMessage</span> Add Message aria-label.</li>
 </ul>

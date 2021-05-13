@@ -1,5 +1,6 @@
 <div class="lux-autocomplete" (blur)="toogleCompletion(false, i0.value)">
   <input #i0
+    [id]="inputId"
     [(ngModel)]="label"
     [placeholder]="placeholder"
     [attr.disabled]="disabled || null"
@@ -10,13 +11,23 @@
     (blur)="onLostFocus(i0.value)"
     (focus)="toogleCompletion(true, i0.value)"
     (click)="toogleCompletion(true, i0.value)"
+    role="combobox"
+    aria-autocomplete="list"
+    aria-haspopup="true"
+    attr.aria-owns="{{ inputId + '_list' }}"
+    [attr.aria-activedescendant]="selectedOption"
   />
-  <div #completeDiv [class.showCompletion]="showCompletion" class="lux-completion-list">
+  <div class="autocomplete-overlay">
+    <button *ngIf="!disabled && value" class="icon-clear" aria-label="Clear" (click)="clear()"></button>
+  </div>
+  <div #completeDiv [class.showCompletion]="showCompletion" class="lux-completion-list" id="{{ inputId + '_list'}}">
     <ul>
-      <li *ngFor="let item of completionList"
+      <li *ngFor="let item of completionList; let index = index"
+          id="{{ inputId + '_' + index }}"
           class="lux-completion-item"
           [class.selected]="focusItem && item.key === focusItem.key"
           (click)="complete(item)"
+          [attr.aria-label]="item.label"
           >
           <span>{{ item.labelPrefix }}</span>
           <span class="bold">{{ item.labelMatch }}</span>
