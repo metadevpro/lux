@@ -5,7 +5,7 @@
       <button *ngIf="!disabled"
               class="remove-item"
               (click)="removeAt(index)"
-              attr.aria-label="{{ getdeleteMessage(label) }}"></button>
+              attr.aria-label="{{ getDeleteMessage(label) }}"></button>
     </li>
   </ul>
   <div *ngIf="!disabled" class="new-entry">
@@ -16,6 +16,6 @@
       (valueChange)="onValueChange()"
       (keypress)="onNewEntryChange($event, auto)">
     </lux-autocomplete>
-    <button *ngIf="canAdd" class="add-item" attr.aria-label="Add" (click)="addNew(auto)"></button>
+    <button *ngIf="canAdd" class="add-item" attr.aria-label="addMessage" (click)="addNew(auto)"></button>
   </div>
 </div>

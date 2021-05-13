@@ -32,6 +32,7 @@ export class AutocompleteListComponent implements OnInit {
   @Input() placeholder = 'new item';
   @Input() disabled = false;
   @Input() deleteLabelTemplate = 'Delete <<label>>';
+  @Input() addMessage = 'Add';
 
   @Input() resolveLabelsFunction?: (instance: any, ids: any[]) => Observable<DataSource<any, string>> = undefined;
   @Input() populateFunction?: (instance: any, search: string) => Observable<DataSource<any, string>> = undefined;
