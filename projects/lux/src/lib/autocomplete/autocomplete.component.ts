@@ -209,6 +209,10 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     this.cd.markForCheck();
   }
 
+  get currentActive(): string {
+    return this.focusItem ? `hijo${this.completionList.findIndex(i => i.key === this.focusItem.key)}` : null;
+  }
+
   private ensureItemVisible(index: number): void {
     const target = this.completeDiv.nativeElement.querySelectorAll('li')[index];
     if (target) {
