@@ -44,9 +44,9 @@
     </code>
   </pre>
   <div class="content">
-    <label>Direct Datasource sample for Countries:</label>
+    <label for="country">Direct Datasource sample for Countries:</label>
     <lux-autocomplete
-      name="country"
+      inputId="country"
       [(value)]="value"
       [dataSource]="countries"
       [disabled]="disabled1">
@@ -102,9 +102,9 @@
     </code>
   </pre>
   <div class="content">
-    <label>API Wired Sample for Countries:</label>
+    <label for="country2">API Wired Sample for Countries:</label>
     <lux-autocomplete
-      name="country"
+      inputId="country2"
       [(value)]="value2"
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
