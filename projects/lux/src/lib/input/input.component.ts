@@ -82,10 +82,21 @@ export class InputComponent implements OnInit {
   @Input()
   set value(v: any) {
     this._value = v;
-    this.formControl.setValue(v);
+    if (this.isGeolocation() && v.coordinates && v.coordinates.length === 2) {
+      this.formControl.setValue(v.coordinates[1]);
+      this.formControl2.setValue(v.coordinates[0]);
+    } else {
+      this.formControl.setValue(v);
+    }
     this.valueChange.emit(v);
   }
   get value(): any {
+    if (this.isGeolocation()) {
+      return {
+        type: 'Point',
+        coordinates: [this.formControl2.value, this.formControl.value]
+      };
+    }
     return this._value;
   }
   @Output() valueChange = new EventEmitter<string>();
@@ -98,13 +109,48 @@ export class InputComponent implements OnInit {
   }
 
   onKeyUpPrimary(newValue: string): void {
-    this.value = newValue;
+    if (this.isGeolocation()) {
+      this.value = {
+        type: 'Point',
+        coordinates: [ this.formControl.value, +newValue]
+      };
+    } else {
+      this.value = newValue;
+    }
   }
+  onChangePrimary(newValue: string): void {
+    if (this.isGeolocation()) {
+      this.value = {
+        type: 'Point',
+        coordinates: [ this.formControl2.value, +newValue]
+      };
+    } else {
+      this.value = newValue;
+    }
+  }
+
   onKeyPressPrimary(event: KeyboardEvent): void {
     this.keyPress.emit(event);
   }
+  onChangeSecondary(newValue: string): void {
+    if (this.isGeolocation()) {
+      this.value = {
+        type: 'Point',
+        coordinates: [ +newValue, this.formControl.value]
+      };
+    } else {
+      this.formControl2.setValue(newValue);
+    }
+  }
   onKeyUpSecondary(newValue: string): void {
-    this.formControl2.setValue(newValue);
+    if (this.isGeolocation()) {
+      this.value = {
+        type: 'Point',
+        coordinates: [ +newValue, this.formControl.value]
+      };
+    } else {
+      this.formControl2.setValue(newValue);
+    }
   }
 
   isGeolocation(): boolean {
@@ -139,6 +185,9 @@ export class InputComponent implements OnInit {
         break;
       case 'password':
         this.setPasswordPatterns();
+        break;
+      case 'number':
+        this.setNumberPatterns();
         break;
       case 'currency':
         this.setCurrencyPatterns();
@@ -180,6 +229,11 @@ export class InputComponent implements OnInit {
 
   setPasswordPatterns(): void {
     // ToDo
+  }
+
+  setNumberPatterns(): void {
+    this.domain = 'number';
+    this.placeholder = '0';
   }
 
   setCurrencyPatterns(): void {

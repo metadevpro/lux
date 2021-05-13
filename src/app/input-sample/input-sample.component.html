@@ -76,80 +76,109 @@
     <h3>Email</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Email example" placeholder="Write text..." <span class="text-underlined">type="email"</span> &gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input placeholder="Write text..." <span class="text-underlined">type="email"</span> &gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Email example" placeholder="Write text..." type="email"></lux-input>
+      <label for="email">Email: </label>
+      <lux-input inputId="email" placeholder="Write text..." type="email" [(value)]="valueEmail"></lux-input>
+      Bind value: {{ valueEmail }}
     </div>
 
     <h3>Date</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Date example" <span class="text-underlined">type="date"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input <span class="text-underlined">type="date"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Date example" type="date"></lux-input>
+      <label for="date">Date: </label>
+      <lux-input inputId="date" type="date" [(value)]="valueDate"></lux-input>
+      Bind value: {{ valueDate }}
     </div>
 
     <h3>Time</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Time example" <span class="text-underlined">type="time"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input <span class="text-underlined">type="time"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Time example" type="time"></lux-input>
+      <label for="time">Time: </label>
+      <lux-input inputId="time" type="time" [(value)]="valueTime"></lux-input>
+      Bind value: {{ valueTime }}
     </div>
 
     <h3>Password</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Password example" <span class="text-underlined">type="password"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input <span class="text-underlined">type="password"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Password example" type="password"></lux-input>
+        <label for="password">Password: </label>
+        <lux-input inputId="password" type="password" [(value)]="valuePassword"></lux-input>
+        Bind value: {{ valuePassword }}
+    </div>
+
+    <h3>Number</h3>
+    <pre class="language-html" rel="html">
+            <code class="language-html">
+    &lt;lux-input <span class="text-underlined">type="number"</span>&gt;&lt;/lux-input&gt;</code>
+    </pre>
+    <div class="sample">
+      <label for="numeric">Numeric value: </label>
+      <lux-input inputId="numeric" type="number" [(value)]="valueNumber"></lux-input>
+      Bind value: {{ valueNumber }}
     </div>
 
     <h3>Currency</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Currency example" <span class="text-underlined">type="currency" currency="USD"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input <span class="text-underlined">type="currency" currency="USD"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Currency example" type="currency" currency="USD"></lux-input>
+      <label for="currency1">Currency value: </label>
+      <lux-input inputId="currency1" type="currency" currency="USD" [(value)]="valueCurrencyUsd"></lux-input>
+      Bind value: {{ valueCurrencyUsd }} USD
     </div>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Currency example 2" <span class="text-underlined">type="currency" currency="EUR"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input <span class="text-underlined">type="currency" currency="EUR"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Currency example 2" type="currency" currency="EUR"></lux-input>
+      <label for="currency2">Currency value: </label>
+      <lux-input inputId="currency2" type="currency" currency="EUR" [(value)]="valueCurrencyEur"></lux-input>
+      Bind value: {{ valueCurrencyEur }} EUR
     </div>
 
     <h3>Percentage</h3>
     <pre class="language-html" rel="html">
-            <code class="language-html">
-    &lt;lux-input aria-label="Percentage example" <span class="text-underlined">type="percentage"</span>&gt;&lt;/lux-input&gt;</code>
+      <code class="language-html">
+    &lt;lux-input <span class="text-underlined">type="percentage"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Percentage example" type="percentage"></lux-input>
+      <label for="percentage">Percentage value: </label>
+      <lux-input inputId="percentage" type="percentage"  [(value)]="valuePercentage"></lux-input>
+      Bind value: {{ valuePercentage }}
     </div>
 
     <h3>Permillage</h3>
     <pre class="language-html" rel="html">
             <code class="language-html">
-    &lt;lux-input aria-label="Permillage example" <span class="text-underlined">type="permillage"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input <span class="text-underlined">type="permillage"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Permillage example" type="permillage"></lux-input>
+      <label for="permillage">Permillage value: </label>
+      <lux-input inputId="permillage" type="permillage"  [(value)]="valuePermillage"></lux-input>
+      Bind value: {{ valuePermillage }}
     </div>
 
     <h3>Geolocation</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Geolocation example" <span class="text-underlined">type="geolocation"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input <span class="text-underlined">type="geolocation"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
     <div class="sample">
-        <lux-input aria-label="Geolocation example" type="geolocation"></lux-input>
+      <label for="geolocation">Geolocation: </label>
+      <lux-input inputId="geolocation" type="geolocation" [(value)]="valueGeolocation"></lux-input>
+      Bind value: {{ valueGeolocation | json }}
     </div>
 </div>
 

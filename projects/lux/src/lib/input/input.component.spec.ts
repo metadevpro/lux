@@ -3,12 +3,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from './input.component';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { TooltipService } from '../tooltip/tooltip.service';
-import { byLabel, createHostFactory, Spectator } from '@ngneat/spectator';
+import { byLabel, createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 
 describe('InputComponent', () => {
   let component: InputComponent;
-  let spectator: Spectator<InputComponent>;
+  let spectator: SpectatorHost<InputComponent>;
   const createHost = createHostFactory({
     component: InputComponent,
     imports: [ FormsModule, ReactiveFormsModule ],
@@ -43,6 +43,16 @@ describe('InputComponent', () => {
       const updateSpy = spyOn(component, 'updateValidators');
       component.type = 'email';
       expect(updateSpy).toHaveBeenCalled();
+    });
+
+    it('When input type is number, domain should be number', () => {
+      component.type = 'number';
+      expect(component.domain).toEqual('number');
+    });
+
+    it('When input type is number, the placeholder should be 0', () => {
+      component.type = 'number';
+      expect(component.placeholder).toEqual('0');
     });
 
     it('When input type is currency, domain should be number, min should be 0 and max should be 10000.00 by default', () => {
@@ -116,5 +126,28 @@ describe('InputComponent', () => {
 
     const element = spectator.query(byLabel('Some label'));
     expect(element).not.toBeNull();
+  });
+
+  it('When type is number the value is also updated', async () => {
+    spectator = createHost(`<lux-input inputId="numeric" type="number" [(value)]="valueNumber"></lux-input>`, {
+      hostProps: {
+        valueNumber: '0'
+      }
+    });
+    const input: HTMLInputElement = spectator.query('#numeric');
+    const hostComponent = spectator.hostComponent as any;
+    input.stepUp();
+    input.dispatchEvent(new Event('change'));
+
+    expect(spectator.component.value).toBe('1');
+    expect(input.value).toBe('1');
+    expect(hostComponent.valueNumber).toBe('1');
+
+    input.stepDown();
+    input.dispatchEvent(new Event('change'));
+
+    expect(spectator.component.value).toBe('0');
+    expect(input.value).toBe('0');
+    expect(hostComponent.valueNumber).toBe('0');
   });
 });
