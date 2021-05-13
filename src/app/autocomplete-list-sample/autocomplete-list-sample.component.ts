@@ -5,12 +5,10 @@ import { Observable, of } from 'rxjs';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
-  selector: 'app-autocomplete-sample',
-  templateUrl: './autocomplete-sample.component.html'
+  selector: 'app-autocomplete-list-sample',
+  templateUrl: './autocomplete-list-sample.component.html'
 })
-export class AutoCompleteSampleComponent implements AfterContentInit {
-  value = 'ES';
-  value2 = 'JP';
+export class AutoCompleteListSampleComponent implements AfterContentInit {
   disabled1 = false;
   disabled2 = false;
 
@@ -35,6 +33,8 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
     { key: 'AR', label: 'Argentina' },
     { key: 'AM', label: 'Armenia' }
   ];
+  myPlaces = [ 'ES', 'IT', 'CR' ];
+  myPlaces2 = [ 'AM', 'DZ', 'JP' ];
 
   constructor(private prismService: PrismService) { }
 
@@ -46,7 +46,7 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
     return found ? found.label : null;
   }
 
-  get self(): AutoCompleteSampleComponent {
+  get self(): AutoCompleteListSampleComponent {
     return this;
   }
   getLabels(instance: any, keys: any[]): Observable<DataSource<any, string>> {

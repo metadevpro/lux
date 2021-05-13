@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LuxModule } from 'projects/lux/src/public-api';
 import { AutoCompleteSampleComponent } from './autocomplete-sample/autocomplete-sample.component';
+import { AutoCompleteListSampleComponent } from './autocomplete-list-sample/autocomplete-list-sample.component';
 import { AppComponent } from './app.component';
 import { BreadcrumbSampleComponent } from './breadcrumb-sample/breadcrumb-sample.component';
 import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
@@ -24,6 +25,7 @@ import { VoicerecognitionSampleComponent } from './voicerecognition-sample/voice
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
   { path: 'autocomplete', component: AutoCompleteSampleComponent },
+  { path: 'autocomplete-list', component: AutoCompleteListSampleComponent },
   { path: 'breadcrumb', component: BreadcrumbSampleComponent },
   { path: 'checkbox', component: CheckboxSampleComponent },
   { path: 'index', component: MainComponent },
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AutoCompleteSampleComponent,
+    AutoCompleteListSampleComponent,
     MainComponent,
     AppComponent,
     CheckboxSampleComponent,
