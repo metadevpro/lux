@@ -1,23 +1,28 @@
 .new-entry {
-  margin-left: 1.5em;
+  margin-left: 1.5rem;
+  display: grid;
+  grid-template-columns: auto 1.5rem;
+  lux-autocomplete {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .add-item {
+    grid-column: 2;
+    grid-row: 1;
+    border: none;
+    background: url(/assets/img/create.png) no-repeat .2rem .2rem;
+    background-size: 1.1rem;
+    height: 1.4rem;
+    width: 1.4rem;
+  }
 }
 .remove-item {
-  margin-left: .5em;
+  margin-left: .5rem;
   border: none;
-  background: url(/assets/img/delete.svg) no-repeat 3px 3px;
-  height: 1.2em;
-  width: 1.3em;
+  background: url(/assets/img/delete.svg) no-repeat .2rem .1rem;
+  height: 1.2rem;
+  width: 1.3rem;
   position: relative;
-  top: .2em;
-  background-size: 16px 16px;
-}
-.add-item {
-  border: none;
-  background: url(/assets/img/create.png) no-repeat 3px 2px;
-  background-size: 20px;
-  height: 23px;
-  width: 27px;
-  margin-left: -12px;
-  position: relative;
-  top: 6px;
+  top: .2rem;
+  background-size: 1rem 1rem;
 }
