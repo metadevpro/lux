@@ -1,11 +1,8 @@
 <div class="filter">
   <input type="text" [attr.aria-label]="ariaLabel" [placeholder]="placeholder" [id]="inputId" [(ngModel)]="searchValue" (keyup)="keyup($event)">
-  <div class="filter-overlay">
-    <i [class.hide]="!searchValue" class="filter-clear icon ion-md-backspace" (click)="clear()"></i>
-    <i *ngIf="searchOnType" class="filter-search icon ion-md-search"></i>
-  </div>
-  <button *ngIf="!searchOnType" (click)="search()">
-      <i class="icon ion-md-search"></i>&nbsp;
+  <button [class.hide]="!searchValue" aria-label="Clear" class="clear-indicator icon icon-clear" (click)="clear()"></button>
+  <i *ngIf="1 || searchOnType" class="search-indicator icon icon-search "></i>
+  <button class="btn-search" *ngIf="!searchOnType" (click)="search()">
       Search
   </button>
 </div>

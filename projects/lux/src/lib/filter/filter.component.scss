@@ -1,32 +1,38 @@
-.filter > * {
-  align-self: baseline;
-}
+//  align-self: baseline;
 .filter {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1.5rem 1.5rem .5rem auto;
 
   input {
-    align-self: center;
-    widows: 100%;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
   }
   .hide {
     visibility: collapse;
   }
-  .filter-overlay {
-    text-align: right;
-    text-align: right;
-    position: relative;
-    left: -10px;
+  .clear-indicator {
+    grid-row: 1;
+    grid-column: 2;
+    border: none;
   }
-  .filter-clear {
-    width: 20px;
-    height: 20px;
+  .search-indicator {
+    grid-row: 1;
+    grid-column: 3;
   }
-  .filter-search {
-    margin-left: 10px;
-    width: 20px;
-    height: 20px;
+  .btn-search {
+    grid-row: 1;
+    grid-column: 5;
   }
-  button {
-    margin-left: 10px;
+  .icon-search {
+    background: url(/assets/img/filter-search.png) no-repeat;
+    background-size: 1rem;
+    background-position: center;
+    width: 1rem;
+  }
+  .icon-clear {
+    background: url(/assets/img/filter-clear.png) no-repeat;
+    background-size: 1rem;
+    background-position: center;
   }
 }

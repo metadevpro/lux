@@ -1,23 +1,23 @@
 <div class="lux-autocomplete" (blur)="toogleCompletion(false, i0.value)">
-  <input #i0
-    [id]="inputId"
-    [(ngModel)]="label"
-    [placeholder]="placeholder"
-    [attr.disabled]="disabled || null"
-    [attr.readonly]="readonly || null"
-    (keydown)="onKeydown($event, i0.value)"
-    (keypress)="onKeypress($event, i0.value)"
-    (keyup)="onKeyup($event, i0.value)"
-    (blur)="onLostFocus(i0.value)"
-    (focus)="toogleCompletion(true, i0.value)"
-    (click)="toogleCompletion(true, i0.value)"
-    role="combobox"
-    aria-autocomplete="list"
-    aria-haspopup="true"
-    attr.aria-owns="{{ inputId + '_list' }}"
-    [attr.aria-activedescendant]="selectedOption"
-  />
-  <div class="autocomplete-overlay">
+  <div class="lux-autocomplete-box">
+    <input #i0
+      [id]="inputId"
+      [(ngModel)]="label"
+      [placeholder]="placeholder"
+      [attr.disabled]="disabled || null"
+      [attr.readonly]="readonly || null"
+      (keydown)="onKeydown($event, i0.value)"
+      (keypress)="onKeypress($event, i0.value)"
+      (keyup)="onKeyup($event, i0.value)"
+      (blur)="onLostFocus(i0.value)"
+      (focus)="toogleCompletion(true, i0.value)"
+      (click)="toogleCompletion(true, i0.value)"
+      role="combobox"
+      aria-autocomplete="list"
+      aria-haspopup="true"
+      attr.aria-owns="{{ inputId + '_list' }}"
+      [attr.aria-activedescendant]="selectedOption"
+    />
     <button *ngIf="!disabled && value" class="icon-clear" aria-label="Clear" (click)="clear()"></button>
   </div>
   <div #completeDiv [class.showCompletion]="showCompletion" class="lux-completion-list" id="{{ inputId + '_list'}}">

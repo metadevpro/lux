@@ -102,6 +102,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
 
   clear(): void {
     this.value = null;
+    this.toogleCompletion(true, '');
   }
 
   private completeLabel(): void {

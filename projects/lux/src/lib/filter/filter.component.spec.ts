@@ -22,19 +22,19 @@ describe('FilterComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should show button when searchOntype is false', () => {
+    it('should show the search button when searchOntype is false', () => {
       component.searchOnType = false;
 
       spectator.detectChanges();
-      const button = spectator.query('button');
+      const button = spectator.query('button.btn-search');
       expect(button).toBeTruthy();
     });
 
-    it('should not show button when searchOntype is true', () => {
+    it('should not show the search button when searchOntype is true', () => {
       component.searchOnType = true;
 
       spectator.detectChanges();
-      const button = spectator.query('button');
+      const button = spectator.query('button.btn-search');
       expect(button).toBeFalsy();
     });
 
