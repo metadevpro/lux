@@ -1,5 +1,12 @@
 # Lux Changelog
 
+## Version 0.2.0
+
+2021.05.21
+
+- Refactor to use css-grid layout and Rem units. [#59](https://github.com/metadevpro/lux/issues/59)
+- This is the last version using Angular 11. Next one to upgrade to v. 12.
+
 ## Version 0.1.0
 
 2021.05.13
