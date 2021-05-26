@@ -4,6 +4,8 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
+      "angular-resize-event": "angular-resize-event"
     }
-  }
+  },
+  "allowedNonPeerDependencies": ["angular-resize-event"]
 }
