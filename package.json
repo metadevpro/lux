@@ -50,6 +50,7 @@
     "@angular/platform-browser": "~11.2.10",
     "@angular/platform-browser-dynamic": "~11.2.10",
     "@angular/router": "~11.2.10",
+    "angular-resize-event": "^2.1.0",
     "http-server": "^0.12.3",
     "prismjs": "^1.23.0",
     "rxjs": "~6.6.7",

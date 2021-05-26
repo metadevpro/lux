@@ -33,16 +33,20 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
     { key: 'MO', label: 'Morroco' },
     { key: 'DZ', label: 'Argelia' },
     { key: 'AR', label: 'Argentina' },
-    { key: 'AM', label: 'Armenia' }
+    { key: 'AM', label: 'Armenia' },
+    {
+      key: 'FK',
+      label: 'Very long Fake Country where its title does not fit on editor'
+    }
   ];
 
-  constructor(private prismService: PrismService) { }
+  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
   getLabel(isoCode: string): string {
-    const found = this.countries.find(c => c.key === isoCode);
+    const found = this.countries.find((c) => c.key === isoCode);
     return found ? found.label : null;
   }
 
@@ -50,12 +54,18 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
     return this;
   }
   getLabels(instance: any, keys: any[]): Observable<DataSource<any, string>> {
-    return of(instance.countries.filter((c: DataSourceItem<string, string>) =>
-      keys.includes(c.key)));
+    return of(
+      instance.countries.filter((c: DataSourceItem<string, string>) =>
+        keys.includes(c.key)
+      )
+    );
   }
   getData(instance: any, search: string): Observable<DataSource<any, string>> {
     const searchKey = (search || '').toLowerCase();
-    return of(instance.countries.filter((c: DataSourceItem<string, string>) =>
-      c.label.toLowerCase().includes(searchKey)));
+    return of(
+      instance.countries.filter((c: DataSourceItem<string, string>) =>
+        c.label.toLowerCase().includes(searchKey)
+      )
+    );
   }
 }

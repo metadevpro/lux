@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
+import { ResizedEvent } from 'angular-resize-event';
 
 export interface DataSourceItem<K, L> {
   key: K;
@@ -87,16 +88,22 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     return this._placeholder ? this._placeholder : '';
   }
 
-  @Input() resolveLabelsFunction?: (instance: any, keys: any[]) => Observable<DataSource<any, string>> = undefined;
-  @Input() populateFunction?: (instance: any, search: string) => Observable<DataSource<any, string>> = undefined;
+  @Input() resolveLabelsFunction?: (
+    instance: any,
+    keys: any[]
+  ) => Observable<DataSource<any, string>> = undefined;
+  @Input() populateFunction?: (
+    instance: any,
+    search: string
+  ) => Observable<DataSource<any, string>> = undefined;
   @Input() instance: any;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-  ) {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.inputId = this.inputId ? this.inputId : `autocompletelist${AutocompleteComponent.idCounter++}`;
+    this.inputId = this.inputId
+      ? this.inputId
+      : `autocompletelist${AutocompleteComponent.idCounter++}`;
     this.completeLabel();
   }
 
@@ -110,9 +117,11 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
       if (this.dataSource) {
         this.label = findLabelForId(this.dataSource, this.value) || '';
       } else if (this.instance && this.resolveLabelsFunction) {
-        this.resolveLabelsFunction(this.instance, this.value).pipe(first()).subscribe(data => {
-          this.label = findLabelForId(data, this.value) || '';
-        });
+        this.resolveLabelsFunction(this.instance, this.value)
+          .pipe(first())
+          .subscribe((data) => {
+            this.label = findLabelForId(data, this.value) || '';
+          });
       }
     } else {
       this.label = '';
@@ -120,6 +129,12 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.setSameWidth();
+  }
+  onInputResized() {
+    this.setSameWidth();
+  }
+  private setSameWidth(): void {
     const width = this.i0.nativeElement.getBoundingClientRect().width;
     this.completeDiv.nativeElement.style.width = `${width}px`;
   }
@@ -215,7 +230,9 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   }
 
   get selectedOption(): string {
-    const index = this.completionList.findIndex(i => i.key === this.focusItem.key);
+    const index = this.completionList.findIndex(
+      (i) => i.key === this.focusItem.key
+    );
     if (index === -1 || !this.focusItem) {
       return null;
     }
@@ -239,14 +256,14 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
       return;
     }
     this.completionList = [];
-    this.computeCompletionList(source).subscribe(suggestions => {
+    this.computeCompletionList(source).subscribe((suggestions) => {
       this.complete(
         suggestions && suggestions.length > 0 ? suggestions[0] : null
       );
     });
   }
   private showCompletionList(text: string): void {
-    this.computeCompletionList(text).subscribe(cl => {
+    this.computeCompletionList(text).subscribe((cl) => {
       this.completionList = cl;
       this.focusItem =
         this.completionList.length > 0 ? this.completionList[0] : null;
@@ -263,9 +280,10 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     } else if (this.instance && this.populateFunction) {
       return this.populateFunction(this.instance, searchText).pipe(
         first(),
-        map(ds => {
-          ds.filter((it) => it.label.toLowerCase().includes(searchText))
-            .sort((a, b) => a.label.localeCompare(b.label));
+        map((ds) => {
+          ds.filter((it) => it.label.toLowerCase().includes(searchText)).sort(
+            (a, b) => a.label.localeCompare(b.label)
+          );
           return decorateDataSource(ds, searchText);
         })
       );
@@ -275,24 +293,29 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   }
 }
 
-const decorateDataSource = (dataSource: DataSource<any, string>, subString: string): DecoratedDataSource =>
-  dataSource.map(it => decorateItem(it, subString));
+const decorateDataSource = (
+  dataSource: DataSource<any, string>,
+  subString: string
+): DecoratedDataSource => dataSource.map((it) => decorateItem(it, subString));
 
-const decorateItem = (item: DataSourceItem<any, string>, tx: string): DecoratedDataSourceItem => {
+const decorateItem = (
+  item: DataSourceItem<any, string>,
+  tx: string
+): DecoratedDataSourceItem => {
   const index = item.label.toLowerCase().indexOf(tx.toLowerCase());
-  const labelPrefix = (index === -1) ? item.label : item.label.substr(0, index);
-  const labelMatch = (index === -1) ? '' : item.label.substr(index, tx.length);
-  const labelPostfix= (index === -1) ? '' : item.label.substr(index + tx.length);
+  const labelPrefix = index === -1 ? item.label : item.label.substr(0, index);
+  const labelMatch = index === -1 ? '' : item.label.substr(index, tx.length);
+  const labelPostfix = index === -1 ? '' : item.label.substr(index + tx.length);
   const newItem: DecoratedDataSourceItem = {
     ...item,
     labelPrefix,
     labelMatch,
-    labelPostfix
+    labelPostfix,
   };
   return newItem;
 };
 
 const findLabelForId = (data: DataSource<any, string>, id: any): string => {
-  const found = data.find(it => it.key === id);
+  const found = data.find((it) => it.key === id);
   return found ? found.label : null;
 };

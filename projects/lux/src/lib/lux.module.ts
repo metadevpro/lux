@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AngularResizedEventModule } from 'angular-resize-event';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { AutocompleteListComponent } from './autocomplete-list/autocomplete-list.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
@@ -44,7 +45,13 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     TooltipComponent,
   ],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
-  imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [
+    AngularResizedEventModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    CommonModule,
+  ],
   exports: [
     AutocompleteComponent,
     AutocompleteListComponent,

@@ -4,7 +4,8 @@
     grid-template-columns: auto 1.5rem;
   }
   input {
-    padding: .1rem .5rem;
+    padding: 0.1rem 1.5rem 0.1rem 0.5rem;
+    text-overflow: ellipsis;
     grid-row: 1;
     grid-column-start: 1;
     grid-column-end: 3;
@@ -16,7 +17,8 @@
     border: none;
     background-color: transparent;
     background: url(/assets/img/filter-clear.png) no-repeat center;
-    background-size: .5rem .5rem;
+    background-size: 0.5rem 0.5rem;
+    z-index: 1;
   }
 }
 .lux-completion-list {
@@ -40,9 +42,9 @@
 }
 
 .lux-completion-item {
-  background-color:  white;
+  background-color: white;
   color: black;
-  padding: .1rem .5rem;
+  padding: 0.1rem 0.5rem;
   cursor: pointer;
 }
 .selected {
@@ -50,10 +52,10 @@
   color: white;
 }
 .disabled {
-  background-color:  #f0f0f0;
+  background-color: #f0f0f0;
   color: #444;
   .selected {
-    background-color:  rgb(152, 152, 236);
+    background-color: rgb(152, 152, 236);
     color: white;
   }
 }
