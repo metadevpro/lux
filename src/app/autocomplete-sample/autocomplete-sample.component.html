@@ -3,17 +3,33 @@
 <h2>Usage samples</h2>
 <div>
   <p>
-    Autocompletion editor. Provides suggestions for completion as the user types.
+    Autocompletion editor. Provides suggestions for completion as the user
+    types.
   </p>
-  <p>
-    Main features:
-  </p>
+  <p>Main features:</p>
   <ul>
-    <li>Separation between key (programatic value used) and label (shown on user interface).</li>
-    <li>Good support for keyboard shorcuts:
+    <li>
+      Separation between key (programatic value used) and label (shown on user
+      interface).
+    </li>
+    <li>
+      Good support for keyboard shorcuts:
       <ul>
-        Support for <kbd>Page Down</kbd>, <kbd>Page Up</kbd>, <kbd>Arrow Up</kbd>, <kbd>Arrow Down</kbd>,
-        <kbd>Enter</kbd>, <kbd>Escape</kbd>, <kbd>Tab</kbd>.
+        Support for
+        <kbd>Page Down</kbd
+        >,
+        <kbd>Page Up</kbd
+        >,
+        <kbd>Arrow Up</kbd
+        >,
+        <kbd>Arrow Down</kbd
+        >,
+        <kbd>Enter</kbd
+        >,
+        <kbd>Escape</kbd
+        >,
+        <kbd>Tab</kbd
+        >.
       </ul>
     </li>
     <li>Progessive filtering of completion list.</li>
@@ -21,9 +37,7 @@
   </ul>
 
   <h3>Static Datasource Sample</h3>
-  <p>
-    In this sample, the data is pick from the static datasource: countries.
-  </p>
+  <p>In this sample, the data is pick from the static datasource: countries.</p>
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
   import &#123; DataSource &#125; from '@lux';
@@ -43,28 +57,29 @@
 &lt;/lux-autocomplete&gt;
     </code>
   </pre>
-  <div class="content">
+  <div class="content w-20">
     <label for="country">Direct Datasource sample for Countries:</label>
     <lux-autocomplete
       inputId="country"
       [(value)]="value"
       [dataSource]="countries"
-      [disabled]="disabled1">
+      [disabled]="disabled1"
+    >
     </lux-autocomplete>
-    <p>
-      Current value is: {{ value }} - {{ getLabel(value) }}.
-    </p>
+    <p>Current value is: {{ value }} - {{ getLabel(value) }}.</p>
     <label>
-      <input type="checkbox" [(ngModel)]="disabled1"> Disabled: {{ disabled1 }}
+      <input type="checkbox" [(ngModel)]="disabled1" /> Disabled:
+      {{ disabled1 }}
     </label>
   </div>
 
   <h3>API Wired Sample</h3>
   <p>
-    This sample uses a couple of functions to wire an API to retrieve items and complete the labels when needed.
-    Observables are used to support async operations.
-    The search string is passed in lowercase to make it easy insensive matching.a
-    Note the instance property must be set to avoid this dereferencing when calling the functions.
+    This sample uses a couple of functions to wire an API to retrieve items and
+    complete the labels when needed. Observables are used to support async
+    operations. The search string is passed in lowercase to make it easy
+    insensive matching.a Note the instance property must be set to avoid this
+    dereferencing when calling the functions.
   </p>
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
@@ -101,7 +116,7 @@
 &lt;/lux-autocomplete&gt;
     </code>
   </pre>
-  <div class="content">
+  <div class="content p50">
     <label for="country2">API Wired Sample for Countries:</label>
     <lux-autocomplete
       inputId="country2"
@@ -109,25 +124,39 @@
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
-      [disabled]="disabled2">
+      [disabled]="disabled2"
+    >
     </lux-autocomplete>
-    <p>
-      Current value is: {{ value2 }} - {{ getLabel(value2) }}.
-    </p>
+    <p>Current value is: {{ value2 }} - {{ getLabel(value2) }}.</p>
     <label>
-      <input type="checkbox" [(ngModel)]="disabled2"> Disabled:  {{ disabled2 }}
+      <input type="checkbox" [(ngModel)]="disabled2" /> Disabled:
+      {{ disabled2 }}
     </label>
-
   </div>
 </div>
 
 <h2>Documentation</h2>
 <h3>Properties</h3>
 <ul class="properties">
-  <li><span class="inline">datasource</span>A key-value list of data to be used as datasource.</li>
-  <li><span class="inline">disabled</span> When disabled, the checkbox is not editable.</li>
+  <li>
+    <span class="inline">datasource</span>A key-value list of data to be used as
+    datasource.
+  </li>
+  <li>
+    <span class="inline">disabled</span> When disabled, the checkbox is not
+    editable.
+  </li>
   <li><span class="inline">value</span> Status of checkbox on or off.</li>
-  <li><span class="inline">instance</span> Reference to the object implementing resolveLabels & populate functions.</li>
-  <li><span class="inline">resolveLabelsFunction</span> Function to resolve labels from keys. Returns an observable of a DataSource.</li>
-  <li><span class="inline">populateFunction</span> Function to retrieve data based on a substring query. Returns an observable of a DataSource.</li>
+  <li>
+    <span class="inline">instance</span> Reference to the object implementing
+    resolveLabels & populate functions.
+  </li>
+  <li>
+    <span class="inline">resolveLabelsFunction</span> Function to resolve labels
+    from keys. Returns an observable of a DataSource.
+  </li>
+  <li>
+    <span class="inline">populateFunction</span> Function to retrieve data based
+    on a substring query. Returns an observable of a DataSource.
+  </li>
 </ul>

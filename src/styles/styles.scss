@@ -6,8 +6,8 @@
 @import 'tooltip';
 @import 'modal';
 
-$accent-color: #4F447C;
-$second-color: #CEA1EE;
+$accent-color: #4f447c;
+$second-color: #cea1ee;
 
 body {
   font-family: Dosis, sans-serif;
@@ -15,7 +15,12 @@ body {
   margin: 0px 6em;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'PT Sans Narrow', sans-serif;
 }
 
@@ -23,7 +28,12 @@ hr {
   border: 0px solid $accent-color;
   height: 3px;
   background: $accent-color;
-  background: linear-gradient(90deg, $accent-color 0%, $accent-color 64%, $second-color 97%);
+  background: linear-gradient(
+    90deg,
+    $accent-color 0%,
+    $accent-color 64%,
+    $second-color 97%
+  );
 }
 
 a {
@@ -69,7 +79,6 @@ pre {
   font-family: Inconsolata, Consolas, monospace;
 }
 
-
 .sample {
   width: 49%;
   display: inline-block;
@@ -79,18 +88,17 @@ pre {
 }
 
 footer {
-  font-size: .8em;
+  font-size: 0.8em;
   text-align: center;
 }
 
 kbd {
-  font-size: .75em;
+  font-size: 0.75em;
   background-color: #e0d1df;
   border: 2px solid #630c6e;
   border-radius: 5px;
-  padding: .1em .3em;
+  padding: 0.1em 0.3em;
 }
-
 
 .configuration {
   border: 1px solid #777;
@@ -129,4 +137,10 @@ kbd {
   background-image: url(../assets/img/mic-recording.svg);
   background-size: 18px 18px;
   background-repeat: no-repeat;
+}
+.w-20 {
+  width: 20em;
+}
+.p50 {
+  width: 50%;
 }
