@@ -1,7 +1,7 @@
 {
   "name": "@metadev/lux",
   "description": "Lux: Libary with User Interface components for Angular.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "Metadev S.L.",
     "url": "https://metadev.pro"
@@ -26,7 +26,8 @@
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^11.0.0",
-    "@angular/core": "^11.0.0"
+    "@angular/core": "^11.0.0",
+    "angular-resize-event": "^2.1.0"
   },
   "dependencies": {}
 }

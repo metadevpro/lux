@@ -1,5 +1,9 @@
 # Lux Changelog
 
+## Version 0.3.1
+
+- Add missing peer dependency to `angular-resize-event`.
+
 ## Version 0.3.0
 
 2021.05.26
