@@ -1,5 +1,12 @@
 # Lux Changelog
 
+## Version 0.3.0
+
+2021.05.26
+
+- Fix [#61](https://github.com/metadevpro/lux/issues/61) Fix autocomplete width on resize
+- Fix [#63](https://github.com/metadevpro/lux/issues/63) Autocomplete shouldn't allow text to be under the close button
+
 ## Version 0.2.0
 
 2021.05.21
