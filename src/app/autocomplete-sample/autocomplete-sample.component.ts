@@ -6,7 +6,7 @@ import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
   selector: 'app-autocomplete-sample',
-  templateUrl: './autocomplete-sample.component.html',
+  templateUrl: './autocomplete-sample.component.html'
 })
 export class AutoCompleteSampleComponent implements AfterContentInit {
   value = 'ES';
@@ -34,6 +34,10 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
     { key: 'DZ', label: 'Argelia' },
     { key: 'AR', label: 'Argentina' },
     { key: 'AM', label: 'Armenia' },
+    {
+      key: 'FK',
+      label: 'Very long Fake Country where its title does not fit on editor'
+    }
   ];
 
   constructor(private prismService: PrismService) {}

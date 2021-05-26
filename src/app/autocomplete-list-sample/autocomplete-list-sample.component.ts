@@ -6,7 +6,7 @@ import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
   selector: 'app-autocomplete-list-sample',
-  templateUrl: './autocomplete-list-sample.component.html'
+  templateUrl: './autocomplete-list-sample.component.html',
 })
 export class AutoCompleteListSampleComponent implements AfterContentInit {
   disabled1 = false;
@@ -31,18 +31,18 @@ export class AutoCompleteListSampleComponent implements AfterContentInit {
     { key: 'MO', label: 'Morroco' },
     { key: 'DZ', label: 'Argelia' },
     { key: 'AR', label: 'Argentina' },
-    { key: 'AM', label: 'Armenia' }
+    { key: 'AM', label: 'Armenia' },
   ];
-  myPlaces = [ 'ES', 'IT', 'CR' ];
-  myPlaces2 = [ 'AM', 'DZ', 'JP' ];
+  myPlaces = ['ES', 'IT', 'CR'];
+  myPlaces2 = ['AM', 'DZ', 'JP'];
 
-  constructor(private prismService: PrismService) { }
+  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
   getLabel(isoCode: string): string {
-    const found = this.countries.find(c => c.key === isoCode);
+    const found = this.countries.find((c) => c.key === isoCode);
     return found ? found.label : null;
   }
 
@@ -50,12 +50,18 @@ export class AutoCompleteListSampleComponent implements AfterContentInit {
     return this;
   }
   getLabels(instance: any, keys: any[]): Observable<DataSource<any, string>> {
-    return of(instance.countries.filter((c: DataSourceItem<string, string>) =>
-      keys.includes(c.key)));
+    return of(
+      instance.countries.filter((c: DataSourceItem<string, string>) =>
+        keys.includes(c.key)
+      )
+    );
   }
   getData(instance: any, search: string): Observable<DataSource<any, string>> {
     const searchKey = (search || '').toLowerCase();
-    return of(instance.countries.filter((c: DataSourceItem<string, string>) =>
-      c.label.toLowerCase().includes(searchKey)));
+    return of(
+      instance.countries.filter((c: DataSourceItem<string, string>) =>
+        c.label.toLowerCase().includes(searchKey)
+      )
+    );
   }
 }
