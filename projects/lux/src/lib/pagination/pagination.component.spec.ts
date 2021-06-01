@@ -33,7 +33,7 @@ describe('PaginationComponent', () => {
     it('With 10 items and 2 items per page, should have 5 pages', () => {
         component.paginationInfo = {
             total: 10,
-            page: 1,
+            page: 0,
             pageSize: 2,
             pagesToShow: 2
         };
@@ -43,7 +43,7 @@ describe('PaginationComponent', () => {
     it('With 10 items, in page 3, and 2 items per page, it should not be last page', () => {
         component.paginationInfo = {
             total: 10,
-            page: 3,
+            page: 2,
             pageSize: 2,
             pagesToShow: 2
         };
@@ -53,17 +53,17 @@ describe('PaginationComponent', () => {
     it('With 10 items, in page 5, and 2 items per page, it should be last page', () => {
         component.paginationInfo = {
             total: 10,
-            page: 5,
+            page: 4,
             pageSize: 2,
             pagesToShow: 2
         };
         expect(component.lastPage).toBeTruthy();
     });
 
-    it('In page 1, disabled previous button', () => {
+    it('In page 0, disabled previous button', () => {
         component.paginationInfo = {
             total: 10,
-            page: 1,
+            page: 0,
             pageSize: 2,
             pagesToShow: 2
         };
@@ -73,7 +73,7 @@ describe('PaginationComponent', () => {
     it('With 10 items and show 3 items per page, it should be 4 pages', () => {
         component.paginationInfo = {
             total: 10,
-            page: 1,
+            page: 0,
             pageSize: 3,
             pagesToShow: 2
         };
@@ -83,7 +83,7 @@ describe('PaginationComponent', () => {
     it('With 20 items, in page 1 and 2 items per page, Next ellipsis should be displayed', () => {
         component.paginationInfo = {
             total: 20,
-            page: 1,
+            page: 0,
             pageSize: 2,
             pagesToShow: 2
         };
@@ -93,7 +93,7 @@ describe('PaginationComponent', () => {
     it('With 20 items, in page 1 and 2 items per page, Previous ellipsis should not be displayed', () => {
         component.paginationInfo = {
             total: 20,
-            page: 1,
+            page: 0,
             pageSize: 2,
             pagesToShow: 2
         };
@@ -103,7 +103,7 @@ describe('PaginationComponent', () => {
     it('With 20 items, in page 8 and 2 items per page, Next ellipsis should not be displayed', () => {
         component.paginationInfo = {
             total: 20,
-            page: 8,
+            page: 7,
             pageSize: 2,
             pagesToShow: 5
         };
@@ -112,7 +112,7 @@ describe('PaginationComponent', () => {
 
     it('With 20 items, in page 8 and 2 items per page, Previous ellipsis should be displayed', () => {
         component.paginationInfo.total = 20;
-        component.paginationInfo.page = 8;
+        component.paginationInfo.page = 7;
         component.paginationInfo.pageSize = 2;
         expect(component.displayPreviousEllipsis).toBeTruthy();
     });
@@ -123,23 +123,23 @@ describe('PaginationComponent', () => {
         expect(component.goToPage.emit).toHaveBeenCalledWith(3);
     });
 
-    it('Should emit goToPage 1', () => {
+    it('Should emit goToPage 0', () => {
         spyOn(component.goToPage, 'emit');
         component.onFirst();
-        expect(component.goToPage.emit).toHaveBeenCalledWith(1);
+        expect(component.goToPage.emit).toHaveBeenCalledWith(0);
     });
 
     it('Should emit go Last Page', () => {
         spyOn(component.goToPage, 'emit');
         component.paginationInfo = {
             total: 20,
-            page: 8,
+            page: 7,
             pageSize: 2,
             pagesToShow: 5
         };
         const lastPage = Math.ceil(component.paginationInfo.total / component.paginationInfo.pageSize);
         component.onLast();
-        expect(component.goToPage.emit).toHaveBeenCalledWith(lastPage);
+        expect(component.goToPage.emit).toHaveBeenCalledWith(lastPage - 1);
     });
 
 });

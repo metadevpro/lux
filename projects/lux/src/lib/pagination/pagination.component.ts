@@ -38,14 +38,12 @@ export class PaginationComponent {
   }
 
   get hidePrevious(): boolean {
-    this.hidePreviousValue = this.paginationInfo.page === 1;
+    this.hidePreviousValue = this.paginationInfo.page === 0;
     return this.hidePreviousValue;
   }
 
   get lastPage(): boolean {
-    this.lastPageValue =
-      this.paginationInfo.pageSize * this.paginationInfo.page >=
-      this.paginationInfo.total;
+    this.lastPageValue = (this.paginationInfo.pageSize * (this.paginationInfo.page + 1)) >= this.paginationInfo.total;
     return this.lastPageValue;
   }
 
@@ -57,7 +55,7 @@ export class PaginationComponent {
 
   get displayNextEllipsis(): boolean {
     const pagesShowed = this.getPages();
-    this.displayNextEllipsisValue = pagesShowed.includes(this.totalPages)
+    this.displayNextEllipsisValue = pagesShowed.includes(this.totalPages - 1)
       ? false
       : true;
     return this.displayNextEllipsisValue;
@@ -79,18 +77,18 @@ export class PaginationComponent {
   }
 
   onFirst(): void {
-    this.goToPage.emit(1);
+    this.goToPage.emit(0);
   }
 
   onLast(): void {
-    this.goToPage.emit(this.totalPages);
+    this.goToPage.emit(this.totalPages - 1);
   }
 
   getPages(): number[] {
     const c = Math.ceil(
       this.paginationInfo.total / this.paginationInfo.pageSize
     );
-    const p = this.paginationInfo.page || 1;
+    const p = this.paginationInfo.page || 0;
     const pagesToShow = this.paginationInfo.pagesToShow;
     const pages: number[] = [];
     pages.push(p);

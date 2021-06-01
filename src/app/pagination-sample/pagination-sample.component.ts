@@ -23,7 +23,7 @@ export class PaginationSampleComponent implements AfterContentInit {
     this.prismService.highlightAll();
     this.paginationInfo = {
       total: 0,
-      page: 1,
+      page: 0,
       pageSize: 2,
       pagesToShow: 3,
     };
@@ -38,7 +38,7 @@ export class PaginationSampleComponent implements AfterContentInit {
 
   reloadPage(pageSize: number): void {
     this.paginationInfo.pageSize = pageSize;
-    this.paginationInfo.page = 1;
+    this.paginationInfo.page = 0;
     this.loadUsers(this.paginationInfo);
   }
 
