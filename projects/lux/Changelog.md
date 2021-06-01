@@ -1,5 +1,9 @@
 # Lux Changelog
 
+## Version 0.4.0
+
+- Fix: Pagination. Reimplemented for page to be be 0-index instead of 1-index.
+
 ## Version 0.3.2
 
 - Add missing dependency to `angular-resize-event`.
