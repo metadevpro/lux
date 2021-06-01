@@ -1,5 +1,7 @@
 <h1>Pagination</h1>
 
+<p>Pagination component.</p>
+
 <h2>Usage samples</h2>
 <div>
 
@@ -7,7 +9,7 @@
     <code class="language-typescript">
   const paginationInfo = &#123;
     pageSize: 2,
-    page: 1,
+    page: 0,
     pagesToShow: 3,
     total: 15
   &#125;;</code>
@@ -52,7 +54,7 @@
     <ul>
         <li><span class="inline">total</span> Total of items.</li>
         <li><span class="inline">pageSize</span> Number of items that it is show.</li>
-        <li><span class="inline">page</span> Current page.</li>
+        <li><span class="inline">page</span> Current page (0-index).</li>
         <li><span class="inline">pagesToShow</span> Pages to show in the toolbar.</li>
     </ul>
   </li>
