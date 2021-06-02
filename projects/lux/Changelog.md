@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.4.1
+
+2021.06.01
+
+- Fix: Autcomplete. set size.
+
 ## Version 0.4.0
 
 - Fix: Pagination. Reimplemented for page to be be 0-index instead of 1-index.
