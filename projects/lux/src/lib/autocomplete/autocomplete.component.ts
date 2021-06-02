@@ -7,7 +7,7 @@ import {
   Input,
   OnInit,
   Output,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
@@ -31,7 +31,7 @@ type DecoratedDataSource = DecoratedDataSourceItem[];
 @Component({
   selector: 'lux-autocomplete',
   templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.scss'],
+  styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent implements OnInit, AfterViewInit {
   static idCounter = 0;
@@ -263,6 +263,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     });
   }
   private showCompletionList(text: string): void {
+    this.setSameWidth();
     this.computeCompletionList(text).subscribe((cl) => {
       this.completionList = cl;
       this.focusItem =
@@ -310,7 +311,7 @@ const decorateItem = (
     ...item,
     labelPrefix,
     labelMatch,
-    labelPostfix,
+    labelPostfix
   };
   return newItem;
 };
