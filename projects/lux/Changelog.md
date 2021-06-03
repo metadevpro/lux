@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.4.2
+
+2021.06.03
+
+- Fix: Keyboard entry for lux-input dates.
+
 ## Version 0.4.1
 
 2021.06.01
