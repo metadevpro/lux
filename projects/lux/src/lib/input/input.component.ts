@@ -23,7 +23,7 @@ export class InputComponent implements OnInit {
   public max: number;
   public minLong: number;
   public maxLong: number;
-  public valueLong: number  = null;
+  public valueLong: number = null;
   public formControl = new FormControl(this.value);
   public formControl2 = new FormControl(this.valueLong);
 
@@ -81,6 +81,9 @@ export class InputComponent implements OnInit {
 
   @Input()
   set value(v: any) {
+    if (v === this._value) {
+      return; // prevent events when there is no changes
+    }
     this._value = v;
     if (this.isGeolocation() && v.coordinates && v.coordinates.length === 2) {
       this.formControl.setValue(v.coordinates[1]);
@@ -105,14 +108,16 @@ export class InputComponent implements OnInit {
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
-    this.inputId = this.inputId ? this.inputId : `${this.type}$${InputComponent.idCounter++}`;
+    this.inputId = this.inputId
+      ? this.inputId
+      : `${this.type}$${InputComponent.idCounter++}`;
   }
 
   onKeyUpPrimary(newValue: string): void {
     if (this.isGeolocation()) {
       this.value = {
         type: 'Point',
-        coordinates: [ this.formControl.value, +newValue]
+        coordinates: [this.formControl.value, +newValue]
       };
     } else {
       this.value = newValue;
@@ -122,7 +127,7 @@ export class InputComponent implements OnInit {
     if (this.isGeolocation()) {
       this.value = {
         type: 'Point',
-        coordinates: [ this.formControl2.value, +newValue]
+        coordinates: [this.formControl2.value, +newValue]
       };
     } else {
       this.value = newValue;
@@ -136,7 +141,7 @@ export class InputComponent implements OnInit {
     if (this.isGeolocation()) {
       this.value = {
         type: 'Point',
-        coordinates: [ +newValue, this.formControl.value]
+        coordinates: [+newValue, this.formControl.value]
       };
     } else {
       this.formControl2.setValue(newValue);
@@ -146,7 +151,7 @@ export class InputComponent implements OnInit {
     if (this.isGeolocation()) {
       this.value = {
         type: 'Point',
-        coordinates: [ +newValue, this.formControl.value]
+        coordinates: [+newValue, this.formControl.value]
       };
     } else {
       this.formControl2.setValue(newValue);
@@ -207,15 +212,15 @@ export class InputComponent implements OnInit {
   }
 
   updateValidators(validators: ValidatorFn[]): void {
-    validators.map(validator => { this.validators.push(validator); });
+    validators.map((validator) => {
+      this.validators.push(validator);
+    });
     this.formControl.setValidators(this.validators);
     this.formControl.updateValueAndValidity();
   }
 
   setEmailPatterns(): void {
-    const validatorsEmail = [
-      Validators.email
-    ];
+    const validatorsEmail = [Validators.email];
     this.updateValidators(validatorsEmail);
   }
 
@@ -238,41 +243,31 @@ export class InputComponent implements OnInit {
 
   setCurrencyPatterns(): void {
     this.domain = 'number';
-    this.step = 0.10;
-    this.min = 0.00;
-    this.max = 10000.00;
-    this.value = 0.00;
-    const validatorsCurrency = [
-      Validators.min(0.00),
-      Validators.max(10000.00)
-    ];
+    this.step = 0.1;
+    this.min = 0.0;
+    this.max = 10000.0;
+    this.value = 0.0;
+    const validatorsCurrency = [Validators.min(0.0), Validators.max(10000.0)];
     this.updateValidators(validatorsCurrency);
-
   }
 
   setPercentagePatterns(): void {
     this.domain = 'number';
     this.step = 0.01;
-    this.min = 0.00;
-    this.max = 100.00;
+    this.min = 0.0;
+    this.max = 100.0;
     this.placeholder = '0.00';
-    const validatorsCurrency = [
-      Validators.min(0.00),
-      Validators.max(100.00)
-    ];
+    const validatorsCurrency = [Validators.min(0.0), Validators.max(100.0)];
     this.updateValidators(validatorsCurrency);
   }
 
   setPermillagePatterns(): void {
     this.domain = 'number';
     this.step = 0.01;
-    this.min = 0.00;
-    this.max = 1000.00;
+    this.min = 0.0;
+    this.max = 1000.0;
     this.placeholder = '0.00';
-    const validatorsCurrency = [
-      Validators.min(0.00),
-      Validators.max(1000.00)
-    ];
+    const validatorsCurrency = [Validators.min(0.0), Validators.max(1000.0)];
     this.updateValidators(validatorsCurrency);
   }
 
@@ -285,5 +280,4 @@ export class InputComponent implements OnInit {
     this.maxLong = 180;
     this.placeholder = '0.00';
   }
-
 }
