@@ -1,17 +1,20 @@
-<div class="lux-select">
+<div class="lux-select" [id]="inputId" [formControlName]="inputId">
   <ul class="list">
     <li *ngFor="let item of value; let i = index">
       <span>{{ item }}</span>
-      <button *ngIf="!disabled"
-            class="remove"
-            (click)="remove(i)"
-            [attr.aria-label]="'Remove ' + item"
-            >Remove</button>
+      <button
+        *ngIf="!disabled"
+        class="remove"
+        (click)="remove(i)"
+        [attr.aria-label]="'Remove ' + item"
+      >
+        Remove
+      </button>
     </li>
   </ul>
   <div class="add-new-item" *ngIf="!disabled">
     <lux-input
-      id="{{ id + 'addNew' }}"
+      id="{{ inputId + 'addNew' }}"
       type="string"
       [placeholder]="placeholder"
       [attr.aria-label]="placeholder"

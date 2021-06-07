@@ -1,58 +1,66 @@
 <div *ngIf="currency && currency === 'USD'" class="prefix">
-    <span>$</span>
+  <span>$</span>
 </div>
-<input #i1 [luxTooltip]="isGeolocation() ? 'Latitude' : null" placement="top" delay="200"
-    [id]="inputId"
-    [attr.aria-label]="ariaLabel"
-    [type]="domain"
-    [attr.disabled]="disabled || null"
-    [attr.readonly]="readonly || null"
-    [attr.min]="min"
-    [attr.max]="max || null"
-    [attr.step]="step || null"
-    [placeholder]="placeholder"
-    [formControl]="formControl"
-    [ngClass]="className"
-    (keyup)="onKeyUpPrimary(i1.value)"
-    (change)="onChangePrimary(i1.value)"
-    (keypress)="onKeyPressPrimary($event)"
-    >
-<input #i2 *ngIf="isGeolocation()" luxTooltip="Longitude" placement="top" delay="200"
-    [id]="inputId"
-    [attr.aria-label]="ariaLabel"
-    [type]="domain"
-    [attr.disabled]="disabled || null"
-    [attr.readonly]="readonly || null"
-    [attr.min]="minLong || null"
-    [attr.max]="maxLong || null"
-    [attr.step]="step || null"
-    [placeholder]="placeholder"
-    [formControl]="formControl2"
-    (keyup)="onKeyUpSecondary(i2.value)"
-    (change)="onChangeSecondary(i2.value)"
-    >
+<input
+  #i1
+  [luxTooltip]="isGeolocation() ? 'Latitude' : null"
+  placement="top"
+  delay="200"
+  [id]="inputId"
+  [formControlName]="inputId"
+  [attr.aria-label]="ariaLabel"
+  [type]="domain"
+  [attr.disabled]="disabled || null"
+  [attr.readonly]="readonly || null"
+  [attr.min]="min"
+  [attr.max]="max || null"
+  [attr.step]="step || null"
+  [placeholder]="placeholder"
+  [formControl]="formControl"
+  [ngClass]="className"
+  (keyup)="onKeyUpPrimary(i1.value)"
+  (change)="onChangePrimary(i1.value)"
+  (keypress)="onKeyPressPrimary($event)"
+/>
+<input
+  #i2
+  *ngIf="isGeolocation()"
+  luxTooltip="Longitude"
+  placement="top"
+  delay="200"
+  [id]="inputId2"
+  [formControlName]="inputId2"
+  [attr.aria-label]="ariaLabel"
+  [type]="domain"
+  [attr.disabled]="disabled || null"
+  [attr.readonly]="readonly || null"
+  [attr.min]="minLong || null"
+  [attr.max]="maxLong || null"
+  [attr.step]="step || null"
+  [placeholder]="placeholder"
+  [formControl]="formControl2"
+  (keyup)="onKeyUpSecondary(i2.value)"
+  (change)="onChangeSecondary(i2.value)"
+/>
 <button *ngIf="isGeolocation()">Geo</button>
 
-<div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="alert">
-    <div *ngIf="formControl.errors.required">
-        Value is required
-    </div>
-    <div *ngIf="formControl.errors.email">
-        Format should be example@example.com
-    </div>
-    <div *ngIf="formControl.errors.min">
-        Min value is 0.00
-    </div>
-    <div *ngIf="formControl.errors.max">
-        Max value is 10000.00
-    </div>
+<div
+  *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
+  class="alert"
+>
+  <div *ngIf="formControl.errors.required">Value is required</div>
+  <div *ngIf="formControl.errors.email">
+    Format should be example@example.com
+  </div>
+  <div *ngIf="formControl.errors.min">Min value is 0.00</div>
+  <div *ngIf="formControl.errors.max">Max value is 10000.00</div>
 </div>
 <div *ngIf="currency && currency === 'EUR'" class="postfix">
-    <span>€</span>
+  <span>€</span>
 </div>
 <div *ngIf="isPercentage()" class="postfix">
-    <span>%</span>
+  <span>%</span>
 </div>
 <div *ngIf="isPermillage()" class="postfix">
-    <span>‰</span>
+  <span>‰</span>
 </div>

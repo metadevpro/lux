@@ -8,7 +8,7 @@ import { ModalService } from '../modal/modal.service';
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent implements OnInit {
-  static idCounter = 0;
+  private static idCounter = 0;
 
   private _disabled: string | boolean;
   private _value: any;
@@ -106,6 +106,10 @@ export class InputComponent implements OnInit {
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
   constructor(private modalService: ModalService) {}
+
+  get inputId2(): string {
+    return `${this.inputId2}2`;
+  }
 
   ngOnInit() {
     this.inputId = this.inputId

@@ -1,5 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-
+import { Component, Input, EventEmitter, Output, OnInit } from '@angular/core';
 
 const KEY_SPACE = ' ';
 
@@ -8,9 +7,11 @@ const KEY_SPACE = ' ';
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss']
 })
-export class CheckboxComponent {
-
+export class CheckboxComponent implements OnInit {
+  private static idCounter = 0;
   private internalValue: boolean;
+
+  @Input() public inputId: string;
   @Input()
   get value(): boolean {
     return this.internalValue;
@@ -22,21 +23,24 @@ export class CheckboxComponent {
 
   get tabindexValue(): string {
     return this.disabled ? null : '0';
-}
+  }
 
   @Input() label: string = null;
   @Input() name: string = null;
   @Input() disabled = false;
-
 
   yesLabel = 'Yes';
   noLabel = 'No';
 
   @Output() valueChange = new EventEmitter<boolean>();
 
-  constructor() {
-  }
+  constructor() {}
 
+  ngOnInit() {
+    this.inputId = this.inputId
+      ? this.inputId
+      : `checkbox$${CheckboxComponent.idCounter++}`;
+  }
   clicked(): void {
     if (!this.disabled) {
       this.value = !this.value;

@@ -12,7 +12,7 @@ export class SelectComponent {
   error = null;
   isValidNewEntry = false;
 
-  @Input() id = 'stringList' + sequencer++;
+  @Input() inputId = 'stringList' + sequencer++;
   @Input() disabled = false;
   /** Allow multiple elements */
   @Input() multiple = true;
@@ -48,7 +48,7 @@ export class SelectComponent {
       return;
     }
     if (this.unique) {
-      const found = (this.value || []).find(it => it === newValue);
+      const found = (this.value || []).find((it) => it === newValue);
       this.isValidNewEntry = !found;
       this.error = found
         ? `Value '${newValue}' is already in. Cannot add duplicates.`
