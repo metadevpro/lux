@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 
 export interface LuxModalOptions {
-    backdrop?: boolean;
+  ariaDescribedBy?: string;
+  ariaLabelledBy?: string;
+  backdrop?: boolean;
+  keyboard?: boolean;
+  windowClass?: string;
+  backdropClass?: string;
 }
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LuxModalConfig implements LuxModalOptions {
-    backdrop = true;
+  backdrop = true;
 }

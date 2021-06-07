@@ -8,32 +8,40 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './modal-sample.component.html'
 })
 export class ModalSampleComponent implements AfterContentInit {
-
   message: string;
 
-  constructor(private modalService: ModalService,
-              private prismService: PrismService) { }
+  constructor(
+    private modalService: ModalService,
+    private prismService: PrismService
+  ) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
 
   openModal(modal: any): void {
-    this.modalService.open(modal).result.then(result => {
-      this.message = result;
-      console.log(result);
-    }, (reason) => {
-      console.log(reason);
-    });
+    this.modalService
+      .open(modal, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.message = result;
+          console.log(result);
+        },
+        (reason) => {
+          console.log(reason);
+        }
+      );
   }
 
   openModalWithoutBackdrop(modal: any) {
-    this.modalService.open(modal, {backdrop: false}).result.then(result => {
-      this.message = result;
-      console.log(result);
-    }, (reason) => {
-      console.log(reason);
-    });
+    this.modalService.open(modal, { backdrop: false }).result.then(
+      (result) => {
+        this.message = result;
+        console.log(result);
+      },
+      (reason) => {
+        console.log(reason);
+      }
+    );
   }
-
 }

@@ -1,41 +1,57 @@
 import { ViewRef, ComponentRef } from '@angular/core';
-import {fromEvent, Observable} from 'rxjs';
-import {filter, map, takeUntil, withLatestFrom} from 'rxjs/operators';
+import { fromEvent, Observable } from 'rxjs';
+import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
 
 export const FOCUS = 'focus';
 
 export enum Key {
-    Tab = 9,
-    Enter = 13,
-    Escape = 27,
-    Space = 32,
-    PageUp = 33,
-    PageDown = 34,
-    End = 35,
-    Home = 36,
-    ArrowLeft = 37,
-    ArrowUp = 38,
-    ArrowRight = 39,
-    ArrowDown = 40
+  Tab = 9,
+  Enter = 13,
+  Escape = 27,
+  Space = 32,
+  PageUp = 33,
+  PageDown = 34,
+  End = 35,
+  Home = 36,
+  ArrowLeft = 37,
+  ArrowUp = 38,
+  ArrowRight = 39,
+  ArrowDown = 40
 }
 
+export const isDefined = (value: any): boolean =>
+  value !== undefined && value !== null;
+
 export class ContentRef {
-    constructor(public nodes: any[], public viewRef?: ViewRef, public componentRef?: ComponentRef<any>) {}
+  constructor(
+    public nodes: any[],
+    public viewRef?: ViewRef,
+    public componentRef?: ComponentRef<any>
+  ) {}
 }
 
 const FOCUSABLE_ELEMENTS_SELECTOR = [
-    'a[href]', 'button:not([disabled])', 'input:not([disabled]):not([type="hidden"])', 'select:not([disabled])',
-    'textarea:not([disabled])', '[contenteditable]', '[tabindex]:not([tabindex="-1"])'
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[contenteditable]',
+  '[tabindex]:not([tabindex="-1"])'
 ].join(', ');
 
 /**
  * Returns first and last focusable elements inside of a given element based on specific CSS selector
  */
-export const getFocusableBoundaryElements = (element: HTMLElement): HTMLElement[] => {
-    const list: HTMLElement[] =
-        Array.from(element.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR) as NodeListOf<HTMLElement>)
-            .filter(el => el.tabIndex !== -1);
-    return [list[0], list[list.length - 1]];
+export const getFocusableBoundaryElements = (
+  element: HTMLElement
+): HTMLElement[] => {
+  const list: HTMLElement[] = Array.from(
+    element.querySelectorAll(
+      FOCUSABLE_ELEMENTS_SELECTOR
+    ) as NodeListOf<HTMLElement>
+  ).filter((el) => el.tabIndex !== -1);
+  return [list[0], list[list.length - 1]];
 };
 
 /**
@@ -49,37 +65,51 @@ export const getFocusableBoundaryElements = (element: HTMLElement): HTMLElement[
  * @param refocusOnClick Put the focus back to the last focused element whenever a click occurs on element (default to
  * false)
  */
-export const focusTrap = (element: HTMLElement, stopFocusTrap$: Observable<any>, refocusOnClick = false) => {
-    // last focused element
-    const lastFocusedElement$ =
-        fromEvent<FocusEvent>(element, 'focusin').pipe(takeUntil(stopFocusTrap$), map(e => e.target));
+export const focusTrap = (
+  element: HTMLElement,
+  stopFocusTrap$: Observable<any>,
+  refocusOnClick = false
+) => {
+  // last focused element
+  const lastFocusedElement$ = fromEvent<FocusEvent>(element, 'focusin').pipe(
+    takeUntil(stopFocusTrap$),
+    map((e) => e.target)
+  );
 
-    // 'tab' / 'shift+tab' stream
-    fromEvent<KeyboardEvent>(element, 'keydown')
-        .pipe(
-            takeUntil(stopFocusTrap$),
-            /* eslint-disable import/no-deprecated */
-            filter(e => e.which === Key.Tab),
-            /* eslint-enable import/no-deprecated */
-            withLatestFrom(lastFocusedElement$))
-        .subscribe(([tabEvent, focusedElement]) => {
-          const[first, last] = getFocusableBoundaryElements(element);
+  // 'tab' / 'shift+tab' stream
+  fromEvent<KeyboardEvent>(element, 'keydown')
+    .pipe(
+      takeUntil(stopFocusTrap$),
+      /* eslint-disable import/no-deprecated */
+      filter((e) => e.which === Key.Tab),
+      /* eslint-enable import/no-deprecated */
+      withLatestFrom(lastFocusedElement$)
+    )
+    .subscribe(([tabEvent, focusedElement]) => {
+      const [first, last] = getFocusableBoundaryElements(element);
 
-          if ((focusedElement === first || focusedElement === element) && tabEvent.shiftKey) {
-            last.focus();
-            tabEvent.preventDefault();
-          }
+      if (
+        (focusedElement === first || focusedElement === element) &&
+        tabEvent.shiftKey
+      ) {
+        last.focus();
+        tabEvent.preventDefault();
+      }
 
-          if (focusedElement === last && !tabEvent.shiftKey) {
-            first.focus();
-            tabEvent.preventDefault();
-          }
-        });
+      if (focusedElement === last && !tabEvent.shiftKey) {
+        first.focus();
+        tabEvent.preventDefault();
+      }
+    });
 
-    // inside click
-    if (refocusOnClick) {
-      fromEvent(element, 'click')
-          .pipe(takeUntil(stopFocusTrap$), withLatestFrom(lastFocusedElement$), map(arr => arr[1] as HTMLElement))
-          .subscribe(lastFocusedElement => lastFocusedElement.focus());
-    }
-  };
+  // inside click
+  if (refocusOnClick) {
+    fromEvent(element, 'click')
+      .pipe(
+        takeUntil(stopFocusTrap$),
+        withLatestFrom(lastFocusedElement$),
+        map((arr) => arr[1] as HTMLElement)
+      )
+      .subscribe((lastFocusedElement) => lastFocusedElement.focus());
+  }
+};

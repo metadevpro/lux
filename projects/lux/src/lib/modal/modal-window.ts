@@ -10,7 +10,7 @@ import {
   OnInit,
   Output,
   HostBinding,
-  HostListener,
+  HostListener
 } from '@angular/core';
 
 import { getFocusableBoundaryElements, FOCUS } from './util';
@@ -19,38 +19,36 @@ import { ModalDismissReasons } from './modal-dismiss-reasons';
 @Component({
   selector: 'lux-modal-window',
   template: `
-    <div
-      [class]="
-        'modal-dialog' +
-        (size ? ' modal-' + size : '') +
-        (centered ? ' modal-dialog-centered' : '') +
-        (scrollable ? ' modal-dialog-scrollable' : '')
-      "
-      role="document"
-    >
+    <div class="modal-dialog" role="document">
       <div class="modal-content"><ng-content></ng-content></div>
     </div>
-  `,
+  `
 })
 export class LuxModalWindowComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   private _elWithFocus: Element; // element that is focused prior to modal opening
 
+  @Input() ariaDescribedBy: string;
   @Input() ariaLabelledBy: string;
   @Input() backdrop: boolean | string = false;
-  @Input() centered: string;
   @Input() keyboard = true;
-  @Input() scrollable: string;
-  @Input() size: string;
   @Input() windowClass: string;
 
   @Output() dismissEvent = new EventEmitter();
 
-  @HostBinding('class') class = 'modal';
+  @HostBinding('class') get class() {
+    return `modal ${this.windowClass || ''}`;
+  }
   @HostBinding('attr.role') role = 'dialog';
   @HostBinding('tabindex') tabindex = '-1';
   @HostBinding('attr.aria-modal') ariamodal = true;
-  @HostBinding('attr.aria-labelledby') arialabelledby = 'ariaLabelledBy';
+  @HostBinding('attr.aria-labelledby') get hostAriaLabelledBy() {
+    return this.ariaLabelledBy;
+  }
+  @HostBinding('attr.aria-describedby') get hostAriaDescribedBy() {
+    return this.ariaDescribedBy;
+  }
   @HostListener('click', ['$event.target']) backdropClick(
     btn: HTMLElement
   ): void {
