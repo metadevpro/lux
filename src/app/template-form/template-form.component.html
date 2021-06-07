@@ -1,0 +1,31 @@
+<h1>Template Driven Form Use Case</h1>
+<p>Lux components can be used in Template Driven Angular Forms. Here is how:</p>
+
+<p>
+  A Template driven form binds directly with an model object. Each field uses
+  double data-bind to:
+</p>
+<ol>
+  <li>read and render the value when changed, and</li>
+  <li>propagate changes to the model when the user edit the value</li>
+</ol>
+<p>
+  In this way, the model is <strong>mutable</strong> as the user is doing a
+  direct edition of the content.
+</p>
+
+<h2>Technical Details</h2>
+<ul>
+  <li>
+    The directive <strong>ngModel</strong> is used to enable double
+    data-binding.
+  </li>
+  <li>
+    Under the hood, Angular creates a <strong>FormControl</strong> per each
+    field in the form.
+  </li>
+  <li>
+    Lux provides the corresponding <strong>formControlName</strong> properties
+    when setting the property <strong>inputId</strong>.
+  </li>
+</ul>

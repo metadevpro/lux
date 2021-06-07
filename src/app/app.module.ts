@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LuxModule } from 'projects/lux/src/public-api';
 import { AutoCompleteSampleComponent } from './autocomplete-sample/autocomplete-sample.component';
@@ -21,6 +21,8 @@ import { SelectSampleComponent } from './select-sample/select-sample.component';
 import { TooltipComponent } from './tooltip-sample/tooltip';
 import { RadiogroupSampleComponent } from './radiogroup-sample/radiogroup-sample.component';
 import { VoicerecognitionSampleComponent } from './voicerecognition-sample/voicerecognition-sample.component';
+import { TemplateFormComponent } from './template-form/template-form.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
@@ -37,6 +39,8 @@ const appRoutes: Routes = [
   { path: 'tooltip', component: TooltipSampleComponent },
   { path: 'radiogroup', component: RadiogroupSampleComponent },
   { path: 'voicerecognition', component: VoicerecognitionSampleComponent },
+  { path: 'template-form', component: TemplateFormComponent },
+  { path: 'reactive-form', component: ReactiveFormComponent },
   { path: '**', component: MainComponent }
 ];
 
@@ -56,17 +60,20 @@ const appRoutes: Routes = [
     BreadcrumbSampleComponent,
     ModalSampleComponent,
     RadiogroupSampleComponent,
-    VoicerecognitionSampleComponent
+    VoicerecognitionSampleComponent,
+    ReactiveFormComponent,
+    TemplateFormComponent
   ],
   imports: [
+    BrowserModule,
     CoreModule,
     FormsModule,
     LuxModule,
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   entryComponents: [TooltipComponent],
   providers: [PrismService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

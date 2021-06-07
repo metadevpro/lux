@@ -1,0 +1,30 @@
+<h1>Reactive Form Use Case</h1>
+<p>Lux components can be used in Reactive Angular Forms. Here is how:</p>
+
+<p>
+  On a Reactive Form, the binded object is consided <strong>immutable</strong>
+  so any changes made to the model will trigger a new complete object model to
+  be passed.
+</p>
+<p>
+  Single databing is used to pass along values to the controls. Changes are
+  notified by events to give the application chances to trigger side-effect
+  actions when needed.
+</p>
+
+<h2>Technical Details</h2>
+<ul>
+  <li>Single data-bind is used to pass aling the model to the editors.</li>
+  <li>Model is considered <strong>immutable</strong>.</li>
+</ul>
+
+<h2>Example</h2>
+<div class="example">
+  <form #formEditor="ngForm" name="f1">
+    <label for="name">Name:</label>
+    <lux-input inputId="name" [(value)]="form1.name"></lux-input>
+    <br />
+    <button type="reset">Reset</button>
+    <button type="submit" (click)="s1()">Submit</button>
+  </form>
+</div>
