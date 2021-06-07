@@ -1,10 +1,15 @@
 <div class="switch">
   <div>
-    <label *ngIf="label">{{ label }}</label>
+    <label *ngIf="label" [for]="inputId">{{ label }}</label>
   </div>
   <div *ngIf="!disabled" class="switch-item" (click)="clicked()">
-    <input [name]="name" type="checkbox" [(ngModel)]="value">
-    <div class="slider round" [class.disabled]="disabled" [tabindex]="tabindexValue" (keyup)="onKey($event)"></div> 
+    <input [name]="name" type="checkbox" [(ngModel)]="value" [id]="inputId" />
+    <div
+      class="slider round"
+      [class.disabled]="disabled"
+      [tabindex]="tabindexValue"
+      (keyup)="onKey($event)"
+    ></div>
   </div>
   <div>
     <span class="checkbox-label" *ngIf="value">{{ yesLabel }}</span>
