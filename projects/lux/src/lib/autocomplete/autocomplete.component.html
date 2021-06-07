@@ -17,6 +17,7 @@
       (window:resize)="onInputResized()"
       role="combobox"
       aria-autocomplete="list"
+      [attr.aria-expanded]="showCompletion"
       aria-haspopup="true"
       attr.aria-owns="{{ inputId + '_list' }}"
       [attr.aria-activedescendant]="selectedOption"
