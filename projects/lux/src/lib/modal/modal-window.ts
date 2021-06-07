@@ -19,15 +19,7 @@ import { ModalDismissReasons } from './modal-dismiss-reasons';
 @Component({
   selector: 'lux-modal-window',
   template: `
-    <div
-      [class]="
-        'modal-dialog' +
-        (size ? ' modal-' + size : '') +
-        (centered ? ' modal-dialog-centered' : '') +
-        (scrollable ? ' modal-dialog-scrollable' : '')
-      "
-      role="document"
-    >
+    <div class="modal-dialog" role="document">
       <div class="modal-content"><ng-content></ng-content></div>
     </div>
   `
@@ -40,10 +32,7 @@ export class LuxModalWindowComponent
   @Input() ariaDescribedBy: string;
   @Input() ariaLabelledBy: string;
   @Input() backdrop: boolean | string = false;
-  @Input() centered: string;
   @Input() keyboard = true;
-  @Input() scrollable: string;
-  @Input() size: string;
   @Input() windowClass: string;
 
   @Output() dismissEvent = new EventEmitter();
@@ -57,7 +46,7 @@ export class LuxModalWindowComponent
   @HostBinding('attr.aria-labelledby') get hostAriaLabelledBy() {
     return this.ariaLabelledBy;
   }
-  @HostBinding('attr-aria-describedby') get hostAriaDescribedBy() {
+  @HostBinding('attr.aria-describedby') get hostAriaDescribedBy() {
     return this.ariaDescribedBy;
   }
   @HostListener('click', ['$event.target']) backdropClick(
