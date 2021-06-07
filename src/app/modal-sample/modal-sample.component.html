@@ -10,7 +10,7 @@
   constructor(private modalService: ModalService) &#123; &#125;
 
   openModal(modal: any): void &#123;
-    this.modalService.open(modal).result.then(result => &#123;
+    this.modalService.open(modal, &#123; ariaLabelledBy: 'modal-basic-title' &#125;).result.then(result => &#123;
       console.log(result);
     &#125;, (reason) => &#123;
       console.log(reason);
@@ -20,7 +20,7 @@
   <pre class="language-html" rel="html">
     <code class="language-html">
   &lt;button (click)="openModal(modal1)"&gt;Modal&lt;/button&gt;
-  
+
   &lt;ng-template #modal1 let-modal&gt;
     &lt;div class="lux-modal-header"&gt;
       &lt;h4 class="modal-title" id="modal-basic-title"&gt;Modal Example&lt;/h4&gt;
@@ -49,7 +49,12 @@
     <ng-template #modal1 let-modal>
       <div class="lux-modal-header">
         <h4 class="modal-title" id="modal-basic-title">Modal Example</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -64,7 +69,13 @@
         </form>
       </div>
       <div class="lux-modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close(input.value)">Send</button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="modal.close(input.value)"
+        >
+          Send
+        </button>
       </div>
     </ng-template>
   </div>
@@ -95,7 +106,7 @@
   <pre class="language-html" rel="html">
       <code class="language-html">
     &lt;button (click)="openModal(modal2)"&gt;Modal&lt;/button&gt;
-    
+
     &lt;ng-template #modal2 let-modal&gt;
       &lt;div class="lux-modal-header"&gt;
         &lt;h4 class="modal-title" id="modal-basic-title"&gt;Modal nesting example&lt;/h4&gt;
@@ -139,23 +150,43 @@
     <button (click)="openModal(modal2)">Modal 1</button>
     <ng-template #modal2 let-modal>
       <div class="lux-modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Modal nesting example</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <h4 class="modal-title" id="modal-basic-title">
+          Modal nesting example
+        </h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="lux-modal-body">
-        <p>Message from Modal 2: {{message}}</p>
+        <p>Message from Modal 2: {{ message }}</p>
         <button (click)="openModalWithoutBackdrop(modal3)">Modal 2</button>
       </div>
       <div class="lux-modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Close</button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="modal.close()"
+        >
+          Close
+        </button>
       </div>
     </ng-template>
     <ng-template #modal3 let-modal>
       <div class="lux-modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Modal nesting example</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <h4 class="modal-title" id="modal-basic-title">
+          Modal nesting example
+        </h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -170,7 +201,13 @@
         </form>
       </div>
       <div class="lux-modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close(input.value)">Send</button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="modal.close(input.value)"
+        >
+          Send
+        </button>
       </div>
     </ng-template>
   </div>
@@ -179,15 +216,49 @@
 <h1>Documentation</h1>
 <h2>Modal Service</h2>
 <h3>Description</h3>
-<span>This servcie open modals. To open a modal, you need to use this service</span>
+<span
+  >This servcie open modals. To open a modal, you need to use this service</span
+>
 <h3>Methods</h3>
 <ul class="properties">
-    <li><span class="inline">open(modal: TemplateRef&lt;any&gt;): ModalRef</span>It allow to open a modal component</li>
+  <li>
+    <span class="inline"
+      >open(modal: TemplateRef&lt;any&gt;, options: LuxModalOptions):
+      ModalRef</span
+    >It allow to open a modal component and pass options to it.
+  </li>
+</ul>
+<h2>LuxModalOptions</h2>
+<h3>Options</h3>
+<ul class="properties">
+  <li>
+    <span class="inline">ariaDescribedBy</span> Points to an element used to
+    describe the modal.
+  </li>
+  <li>
+    <span class="inline">ariaLabelledBy</span> Points to an element used to
+    label the modal, usually the modal's header.
+  </li>
+  <li>
+    <span class="inline">backdrop</span> A boolean to indicate whether a
+    backdrop is shown.
+  </li>
+  <li>
+    <span class="inline">keyboard</span> Allows the modal to be closed with ESC
+    (default).
+  </li>
+  <li>
+    <span class="inline">windowClass</span> Add an extra class(es) to the modal
+    window.
+  </li>
 </ul>
 <h2>ModalRef</h2>
 <h3>Description</h3>
 <span>This class is a reference of the modal activeted</span>
 <h3>Methods</h3>
 <ul class="properties">
-    <li><span class="inline">result: Promise&lt;any&gt;</span>Modal result. Contains the reason by why it was closed</li>
+  <li>
+    <span class="inline">result: Promise&lt;any&gt;</span>Modal result. Contains
+    the reason by why it was closed.
+  </li>
 </ul>
