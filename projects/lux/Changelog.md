@@ -1,5 +1,13 @@
 # Lux Changelog
 
+## Version 0.4.3
+
+2021.06.07
+
+- Fix width for input and autocomplete
+- Refactor modal
+- Added Accesibility improvements
+
 ## Version 0.4.2
 
 2021.06.03
