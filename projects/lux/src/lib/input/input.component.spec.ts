@@ -5,15 +5,14 @@ import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { TooltipService } from '../tooltip/tooltip.service';
 import { byLabel, createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
-
 describe('InputComponent', () => {
   let component: InputComponent;
   let spectator: SpectatorHost<InputComponent>;
   const createHost = createHostFactory({
     component: InputComponent,
-    imports: [ FormsModule, ReactiveFormsModule ],
-    declarations: [ LuxTooltipDirective ],
-    providers: [ TooltipService ]
+    imports: [FormsModule, ReactiveFormsModule],
+    declarations: [LuxTooltipDirective],
+    providers: [TooltipService]
   });
 
   describe('no custom parameters', () => {
@@ -129,24 +128,27 @@ describe('InputComponent', () => {
   });
 
   it('When type is number the value is also updated', async () => {
-    spectator = createHost(`<lux-input inputId="numeric" type="number" [(value)]="valueNumber"></lux-input>`, {
-      hostProps: {
-        valueNumber: '0'
+    spectator = createHost(
+      `<lux-input inputId="numeric" type="number" [(value)]="valueNumber"></lux-input>`,
+      {
+        hostProps: {
+          valueNumber: '0'
+        }
       }
-    });
+    );
     const input: HTMLInputElement = spectator.query('#numeric');
     const hostComponent = spectator.hostComponent as any;
     input.stepUp();
     input.dispatchEvent(new Event('change'));
 
-    expect(spectator.component.value).toBe('1');
+    expect(spectator.component.value).toBe(1);
     expect(input.value).toBe('1');
     expect(hostComponent.valueNumber).toBe('1');
 
     input.stepDown();
     input.dispatchEvent(new Event('change'));
 
-    expect(spectator.component.value).toBe('0');
+    expect(spectator.component.value).toBe(0);
     expect(input.value).toBe('0');
     expect(hostComponent.valueNumber).toBe('0');
   });
