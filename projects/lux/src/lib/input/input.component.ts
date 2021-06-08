@@ -18,9 +18,12 @@ export class InputComponent implements OnInit {
   private _required: boolean;
   public domain: string;
   private validators: ValidatorFn[] = [];
-  public step: number;
-  public min: number;
-  public max: number;
+  @Input()
+  public step?: number;
+  @Input()
+  public min?: number;
+  @Input()
+  public max?: number;
   public minLong: number;
   public maxLong: number;
   public valueLong: number = null;
@@ -252,9 +255,9 @@ export class InputComponent implements OnInit {
 
   setCurrencyPatterns(): void {
     this.domain = 'number';
-    this.step = 0.1;
-    this.min = 0.0;
-    this.max = 10000.0;
+    this.step = this.step || 0.1;
+    this.min = this.min || 0.0;
+    this.max = this.max || 10000.0;
     this.value = 0.0;
     const validatorsCurrency = [Validators.min(0.0), Validators.max(10000.0)];
     this.updateValidators(validatorsCurrency);
@@ -262,9 +265,9 @@ export class InputComponent implements OnInit {
 
   setPercentagePatterns(): void {
     this.domain = 'number';
-    this.step = 0.01;
-    this.min = 0.0;
-    this.max = 100.0;
+    this.step = this.step || 0.01;
+    this.min = this.min || 0.0;
+    this.max = this.max || 100.0;
     this.placeholder = '0.00';
     const validatorsCurrency = [Validators.min(0.0), Validators.max(100.0)];
     this.updateValidators(validatorsCurrency);
@@ -272,9 +275,9 @@ export class InputComponent implements OnInit {
 
   setPermillagePatterns(): void {
     this.domain = 'number';
-    this.step = 0.01;
-    this.min = 0.0;
-    this.max = 1000.0;
+    this.step = this.step || 0.01;
+    this.min = this.min || 0.0;
+    this.max = this.max || 1000.0;
     this.placeholder = '0.00';
     const validatorsCurrency = [Validators.min(0.0), Validators.max(1000.0)];
     this.updateValidators(validatorsCurrency);
@@ -282,7 +285,7 @@ export class InputComponent implements OnInit {
 
   setGeolocationPatterns(): void {
     this.domain = 'number';
-    this.step = 0.01;
+    this.step = this.step || 0.01;
     this.min = -90;
     this.max = 90;
     this.minLong = -180;
