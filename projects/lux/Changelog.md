@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.4.4
+
+2021.06.08
+
+- Relax typing in lux-input.value. Can double- databind to `any` type.
+
 ## Version 0.4.3
 
 2021.06.07
