@@ -100,9 +100,15 @@ export class InputComponent implements OnInit {
         coordinates: [this.formControl2.value, this.formControl.value]
       };
     }
+    if (this.isPercentage() || this.isPermillage() || this.isNumber()) {
+      const numVal = parseFloat(this._value);
+      if (!Number.isNaN(numVal)) {
+        return numVal;
+      }
+    }
     return this._value;
   }
-  @Output() valueChange = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<any>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
   constructor(private modalService: ModalService) {}
@@ -168,6 +174,9 @@ export class InputComponent implements OnInit {
 
   isPermillage(): boolean {
     return this.type === 'permillage' ? true : false;
+  }
+  isNumber(): boolean {
+    return this.type === 'number' ? true : false;
   }
 
   checkClassName(): string {
