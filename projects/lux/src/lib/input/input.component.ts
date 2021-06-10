@@ -126,7 +126,7 @@ export class InputComponent implements OnInit {
     if (this.isGeolocation()) {
       this.value = {
         type: 'Point',
-        coordinates: [this.formControl.value, +newValue]
+        coordinates: [this.formControl2.value, +newValue]
       };
     } else {
       this.value = newValue;
