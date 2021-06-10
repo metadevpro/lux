@@ -31,6 +31,15 @@
     (keyup)="onKeyUpSecondary(i2.value)"
     (change)="onChangeSecondary(i2.value)"
     >
+<div *ngIf="currency && currency === 'EUR'" class="postfix">
+    <span>€</span>
+</div>
+<div *ngIf="isPercentage()" class="postfix">
+    <span>%</span>
+</div>
+<div *ngIf="isPermillage()" class="postfix">
+    <span>‰</span>
+</div>
 <button *ngIf="isGeolocation()">Geo</button>
 
 <div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="alert">
@@ -46,13 +55,4 @@
     <div *ngIf="formControl.errors.max">
         Max value is 10000.00
     </div>
-</div>
-<div *ngIf="currency && currency === 'EUR'" class="postfix">
-    <span>€</span>
-</div>
-<div *ngIf="isPercentage()" class="postfix">
-    <span>%</span>
-</div>
-<div *ngIf="isPermillage()" class="postfix">
-    <span>‰</span>
 </div>
