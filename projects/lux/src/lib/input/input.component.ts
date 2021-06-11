@@ -167,19 +167,17 @@ export class InputComponent implements OnInit {
     }
   }
 
-  isGeolocation(): boolean {
-    return this.type === 'geolocation' ? true : false;
-  }
-
-  isPercentage(): boolean {
-    return this.type === 'percentage' ? true : false;
-  }
-
-  isPermillage(): boolean {
-    return this.type === 'permillage' ? true : false;
-  }
   isNumber(): boolean {
-    return this.type === 'number' ? true : false;
+    return this.type === 'number';
+  }
+  isPercentage(): boolean {
+    return this.type === 'percentage';
+  }
+  isPermillage(): boolean {
+    return this.type === 'permillage';
+  }
+  isGeolocation(): boolean {
+    return this.type === 'geolocation';
   }
 
   checkClassName(): string {
