@@ -259,7 +259,10 @@ export class InputComponent implements OnInit {
     this.min = this.min || 0.0;
     this.max = this.max || 10000.0;
     this.value = 0.0;
-    const validatorsCurrency = [Validators.min(0.0), Validators.max(10000.0)];
+    const validatorsCurrency = [
+      Validators.min(this.min),
+      Validators.max(this.max)
+    ];
     this.updateValidators(validatorsCurrency);
   }
 
@@ -269,8 +272,11 @@ export class InputComponent implements OnInit {
     this.min = this.min || 0.0;
     this.max = this.max || 100.0;
     this.placeholder = '0.00';
-    const validatorsCurrency = [Validators.min(0.0), Validators.max(100.0)];
-    this.updateValidators(validatorsCurrency);
+    const validatorsPercentage = [
+      Validators.min(this.min),
+      Validators.max(this.max)
+    ];
+    this.updateValidators(validatorsPercentage);
   }
 
   setPermillagePatterns(): void {
@@ -279,8 +285,11 @@ export class InputComponent implements OnInit {
     this.min = this.min || 0.0;
     this.max = this.max || 1000.0;
     this.placeholder = '0.00';
-    const validatorsCurrency = [Validators.min(0.0), Validators.max(1000.0)];
-    this.updateValidators(validatorsCurrency);
+    const validatorsPermillage = [
+      Validators.min(this.min),
+      Validators.max(this.max)
+    ];
+    this.updateValidators(validatorsPermillage);
   }
 
   setGeolocationPatterns(): void {
