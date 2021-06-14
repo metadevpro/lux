@@ -4,7 +4,7 @@ import { PaginationInfo } from './pagination';
 @Component({
   selector: 'lux-pagination',
   templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss'],
+  styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent {
   @Output() goToPage = new EventEmitter<number>();
@@ -43,7 +43,9 @@ export class PaginationComponent {
   }
 
   get lastPage(): boolean {
-    this.lastPageValue = (this.paginationInfo.pageSize * (this.paginationInfo.page + 1)) >= this.paginationInfo.total;
+    this.lastPageValue =
+      this.paginationInfo.pageSize * (this.paginationInfo.page + 1) >=
+      this.paginationInfo.total;
     return this.lastPageValue;
   }
 
@@ -85,9 +87,8 @@ export class PaginationComponent {
   }
 
   getPages(): number[] {
-    const c = Math.ceil(
-      this.paginationInfo.total / this.paginationInfo.pageSize
-    );
+    const c =
+      Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) - 1; // base 0
     const p = this.paginationInfo.page || 0;
     const pagesToShow = this.paginationInfo.pagesToShow;
     const pages: number[] = [];
