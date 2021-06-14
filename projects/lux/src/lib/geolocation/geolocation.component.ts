@@ -71,6 +71,31 @@ export class GeolocationComponent {
 
   constructor(private modalService: ModalService) {}
 
+  onKeyUpLatitude(newLatitude: string): void {
+    this.value = {
+      type: 'Point',
+      coordinates: [this.longitude.value, +newLatitude]
+    };
+  }
+  onChangeLatitude(newLatitude: string): void {
+    this.value = {
+      type: 'Point',
+      coordinates: [this.longitude.value, +newLatitude]
+    };
+  }
+  onKeyUpLongitude(newLongitude: string): void {
+    this.value = {
+      type: 'Point',
+      coordinates: [+newLongitude, this.latitude.value]
+    };
+  }
+  onChangeLongitude(newLongitude: string): void {
+    this.value = {
+      type: 'Point',
+      coordinates: [+newLongitude, this.latitude.value]
+    };
+  }
+
   checkClassName(): string {
     if (this.readonly === true) {
       return 'readonly';
