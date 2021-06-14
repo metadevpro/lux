@@ -1,5 +1,12 @@
 # Lux Changelog
 
+## Version 0.4.6
+
+2021.06.14
+
+- Fix pagination bug [#89](https://github.com/metadevpro/lux/pull/89).
+- Fix validation on input geoposition [#86](https://github.com/metadevpro/lux/issues/86).
+
 ## Version 0.4.4
 
 2021.06.08
