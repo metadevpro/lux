@@ -18,18 +18,13 @@ export class InputComponent implements OnInit {
   private _required: boolean;
   public domain: string;
   private validators: ValidatorFn[] = [];
-  private validators2: ValidatorFn[] = [];
   @Input()
   public step?: number;
   @Input()
   public min?: number;
   @Input()
   public max?: number;
-  public minLong: number;
-  public maxLong: number;
-  public valueLong: number = null;
   public formControl = new FormControl(this.value);
-  public formControl2 = new FormControl(this.valueLong);
 
   get className(): string {
     return this.checkClassName();
@@ -89,21 +84,10 @@ export class InputComponent implements OnInit {
       return; // prevent events when there is no changes
     }
     this._value = v;
-    if (this.isGeolocation() && v.coordinates && v.coordinates.length === 2) {
-      this.formControl.setValue(v.coordinates[1]);
-      this.formControl2.setValue(v.coordinates[0]);
-    } else {
-      this.formControl.setValue(v);
-    }
+    this.formControl.setValue(v);
     this.valueChange.emit(v);
   }
   get value(): any {
-    if (this.isGeolocation()) {
-      return {
-        type: 'Point',
-        coordinates: [this.formControl2.value, this.formControl.value]
-      };
-    }
     if (this.isPercentage() || this.isPermillage() || this.isNumber()) {
       const numVal = parseFloat(this._value);
       if (!Number.isNaN(numVal)) {
@@ -123,49 +107,14 @@ export class InputComponent implements OnInit {
       : `${this.type}$${InputComponent.idCounter++}`;
   }
 
-  onKeyUpPrimary(newValue: string): void {
-    if (this.isGeolocation()) {
-      this.value = {
-        type: 'Point',
-        coordinates: [this.formControl2.value, +newValue]
-      };
-    } else {
-      this.value = newValue;
-    }
+  onKeyUp(newValue: string): void {
+    this.value = newValue;
   }
-  onChangePrimary(newValue: string): void {
-    if (this.isGeolocation()) {
-      this.value = {
-        type: 'Point',
-        coordinates: [this.formControl2.value, +newValue]
-      };
-    } else {
-      this.value = newValue;
-    }
+  onChange(newValue: string): void {
+    this.value = newValue;
   }
-
-  onKeyPressPrimary(event: KeyboardEvent): void {
+  onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);
-  }
-  onChangeSecondary(newValue: string): void {
-    if (this.isGeolocation()) {
-      this.value = {
-        type: 'Point',
-        coordinates: [+newValue, this.formControl.value]
-      };
-    } else {
-      this.formControl2.setValue(newValue);
-    }
-  }
-  onKeyUpSecondary(newValue: string): void {
-    if (this.isGeolocation()) {
-      this.value = {
-        type: 'Point',
-        coordinates: [+newValue, this.formControl.value]
-      };
-    } else {
-      this.formControl2.setValue(newValue);
-    }
   }
 
   isNumber(): boolean {
@@ -176,9 +125,6 @@ export class InputComponent implements OnInit {
   }
   isPermillage(): boolean {
     return this.type === 'permillage';
-  }
-  isGeolocation(): boolean {
-    return this.type === 'geolocation';
   }
 
   checkClassName(): string {
@@ -214,9 +160,6 @@ export class InputComponent implements OnInit {
       case 'permillage':
         this.setPermillagePatterns();
         break;
-      case 'geolocation':
-        this.setGeolocationPatterns();
-        break;
       default:
         break;
     }
@@ -231,13 +174,6 @@ export class InputComponent implements OnInit {
     });
     this.formControl.setValidators(this.validators);
     this.formControl.updateValueAndValidity();
-    if (validators2) {
-      validators2.map((validator2) => {
-        this.validators2.push(validator2);
-      });
-      this.formControl2.setValidators(this.validators2);
-      this.formControl2.updateValueAndValidity();
-    }
   }
 
   setEmailPatterns(): void {
@@ -299,24 +235,5 @@ export class InputComponent implements OnInit {
       Validators.max(this.max)
     ];
     this.updateValidators(validatorsPermillage);
-  }
-
-  setGeolocationPatterns(): void {
-    this.domain = 'number';
-    this.step = this.step || 0.01;
-    this.min = -90;
-    this.max = 90;
-    this.minLong = -180;
-    this.maxLong = 180;
-    this.placeholder = '0.00';
-    const validatorsLatitude = [
-      Validators.min(this.min),
-      Validators.max(this.max)
-    ];
-    const validatorsLongitude = [
-      Validators.min(this.minLong),
-      Validators.max(this.maxLong)
-    ];
-    this.updateValidators(validatorsLatitude, validatorsLongitude);
   }
 }
