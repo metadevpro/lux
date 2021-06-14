@@ -18,6 +18,7 @@ export class InputComponent implements OnInit {
   private _required: boolean;
   public domain: string;
   private validators: ValidatorFn[] = [];
+  private validators2: ValidatorFn[] = [];
   @Input()
   public step?: number;
   @Input()
@@ -221,12 +222,22 @@ export class InputComponent implements OnInit {
     }
   }
 
-  updateValidators(validators: ValidatorFn[]): void {
+  updateValidators(
+    validators: ValidatorFn[],
+    validators2?: ValidatorFn[]
+  ): void {
     validators.map((validator) => {
       this.validators.push(validator);
     });
     this.formControl.setValidators(this.validators);
     this.formControl.updateValueAndValidity();
+    if (validators2) {
+      validators2.map((validator2) => {
+        this.validators2.push(validator2);
+      });
+      this.formControl2.setValidators(this.validators2);
+      this.formControl2.updateValueAndValidity();
+    }
   }
 
   setEmailPatterns(): void {
@@ -298,5 +309,14 @@ export class InputComponent implements OnInit {
     this.minLong = -180;
     this.maxLong = 180;
     this.placeholder = '0.00';
+    const validatorsLatitude = [
+      Validators.min(this.min),
+      Validators.max(this.max)
+    ];
+    const validatorsLongitude = [
+      Validators.min(this.minLong),
+      Validators.max(this.maxLong)
+    ];
+    this.updateValidators(validatorsLatitude, validatorsLongitude);
   }
 }

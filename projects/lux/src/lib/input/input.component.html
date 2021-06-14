@@ -56,3 +56,14 @@
         Max value is {{max}}
     </div>
 </div>
+<div *ngIf="formControl2.invalid && (formControl2.dirty || formControl2.touched)" class="alert">
+    <div *ngIf="formControl2.errors.required">
+        Value is required
+    </div>
+    <div *ngIf="formControl2.errors.min">
+        Min value is {{minLong}}
+    </div>
+    <div *ngIf="formControl2.errors.max">
+        Max value is {{maxLong}}
+    </div>
+</div>
