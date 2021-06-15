@@ -1,0 +1,31 @@
+:host {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 20em;
+}
+
+.alert {
+  padding: 0.2em 2em;
+  background: #fe2e2e;
+  color: white;
+  font-family: Consolas, monospace;
+  width: 45%;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.readonly {
+  border: none;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+
+.map {
+  height: 45em;
+  width: 70em;
+}

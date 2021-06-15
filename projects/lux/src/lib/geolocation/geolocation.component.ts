@@ -1,25 +1,26 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { ModalService } from '../modal/modal.service';
-import { InputComponent } from '../input/input.component';
 
 @Component({
   selector: 'lux-geolocation',
   templateUrl: './geolocation.component.html',
   styleUrls: ['./geolocation.component.scss']
 })
-export class GeolocationComponent {
+export class GeolocationComponent implements OnInit {
+  public readonly minLatitude = -90;
+  public readonly maxLatitude = 90;
+  public readonly minLongitude = -180;
+  public readonly maxLongitude = 180;
   private _disabled: string | boolean;
-  private _value: any;
   private _required: boolean;
-
-  @ViewChild('latitude', { static: true }) latitude: InputComponent;
-  @ViewChild('longitude', { static: true }) longitude: InputComponent;
+  private _value: any;
+  public latitudeValue: number = null;
+  public longitudeValue: number = null;
+  public latitudeValidators: ValidatorFn[] = [];
+  public longitudeValidators: ValidatorFn[] = [];
+  public latitudeFormControl = new FormControl(this.latitudeValue);
+  public longitudeFormControl = new FormControl(this.longitudeValue);
 
   get className(): string {
     return this.checkClassName();
@@ -30,8 +31,8 @@ export class GeolocationComponent {
 
   @Input()
   set disabled(v: string | boolean) {
-    this.latitude.disabled = v;
-    this.longitude.disabled = v;
+    v = typeof v === 'string' ? true : v;
+    this._disabled = v;
   }
   get disabled(): string | boolean {
     return this._disabled;
@@ -40,8 +41,7 @@ export class GeolocationComponent {
   @Input()
   set required(v: boolean) {
     this._required = v;
-    this.latitude.required = v;
-    this.longitude.required = v;
+    this.updateValidators([Validators.required], [Validators.required]);
   }
   get required(): boolean {
     return this._required;
@@ -54,15 +54,20 @@ export class GeolocationComponent {
     }
     if (v.coordinates && v.coordinates.length === 2) {
       this._value = v;
-      this.latitude.value = v.coordinates[1];
-      this.longitude.value = v.coordinates[0];
+      this.latitudeValue = +v.coordinates[1];
+      this.longitudeValue = +v.coordinates[0];
+      this.latitudeFormControl.setValue(this.latitudeValue);
+      this.longitudeFormControl.setValue(this.longitudeValue);
     }
     this.valueChange.emit(v);
   }
   get value(): any {
     this._value = {
       type: 'Point',
-      coordinates: [this.longitude.value, this.latitude.value]
+      coordinates: [
+        +this.longitudeFormControl.value,
+        +this.latitudeFormControl.value
+      ]
     };
     return this._value;
   }
@@ -71,28 +76,40 @@ export class GeolocationComponent {
 
   constructor(private modalService: ModalService) {}
 
+  ngOnInit() {
+    this.latitudeValidators = [
+      Validators.min(this.minLatitude),
+      Validators.max(this.maxLatitude)
+    ];
+    this.longitudeValidators = [
+      Validators.min(this.minLongitude),
+      Validators.max(this.maxLongitude)
+    ];
+    this.updateValidators(this.latitudeValidators, this.longitudeValidators);
+  }
+
   onKeyUpLatitude(newLatitude: string): void {
     this.value = {
       type: 'Point',
-      coordinates: [this.longitude.value, +newLatitude]
+      coordinates: [this.longitudeValue, +newLatitude]
     };
   }
   onChangeLatitude(newLatitude: string): void {
     this.value = {
       type: 'Point',
-      coordinates: [this.longitude.value, +newLatitude]
+      coordinates: [this.longitudeValue, +newLatitude]
     };
   }
   onKeyUpLongitude(newLongitude: string): void {
     this.value = {
       type: 'Point',
-      coordinates: [+newLongitude, this.latitude.value]
+      coordinates: [+newLongitude, this.latitudeValue]
     };
   }
   onChangeLongitude(newLongitude: string): void {
     this.value = {
       type: 'Point',
-      coordinates: [+newLongitude, this.latitude.value]
+      coordinates: [+newLongitude, this.latitudeValue]
     };
   }
 
@@ -101,5 +118,21 @@ export class GeolocationComponent {
       return 'readonly';
     }
     return '';
+  }
+
+  updateValidators(
+    latitudeValidators: ValidatorFn[],
+    longitudeValidators: ValidatorFn[]
+  ): void {
+    latitudeValidators.map((latitudeValidator) => {
+      this.latitudeValidators.push(latitudeValidator);
+    });
+    longitudeValidators.map((longitudeValidator) => {
+      this.longitudeValidators.push(longitudeValidator);
+    });
+    this.latitudeFormControl.setValidators(this.latitudeValidators);
+    this.longitudeFormControl.setValidators(this.longitudeValidators);
+    this.latitudeFormControl.updateValueAndValidity();
+    this.longitudeFormControl.updateValueAndValidity();
   }
 }
