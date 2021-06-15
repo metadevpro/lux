@@ -165,10 +165,7 @@ export class InputComponent implements OnInit {
     }
   }
 
-  updateValidators(
-    validators: ValidatorFn[],
-    validators2?: ValidatorFn[]
-  ): void {
+  updateValidators(validators: ValidatorFn[]): void {
     validators.map((validator) => {
       this.validators.push(validator);
     });
