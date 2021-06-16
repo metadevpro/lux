@@ -9,6 +9,8 @@ import { Geopoint } from './geopoint';
   styleUrls: ['./geolocation.component.scss']
 })
 export class GeolocationComponent implements OnInit {
+  static idCounter = 0;
+
   @Input()
   public minLatitude = -90;
   @Input()
@@ -33,6 +35,7 @@ export class GeolocationComponent implements OnInit {
     return this.checkClassName();
   }
 
+  @Input() public inputId: string;
   @Input('aria-label') public ariaLabel: string;
   @Input() public readonly: boolean | null = null;
 
@@ -84,6 +87,9 @@ export class GeolocationComponent implements OnInit {
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
+    this.inputId = this.inputId
+      ? this.inputId
+      : `geolocation$${GeolocationComponent.idCounter++}`;
     this.latitudeValidators = [
       Validators.min(this.minLatitude),
       Validators.max(this.maxLatitude)

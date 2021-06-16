@@ -13,13 +13,24 @@
         <lux-geolocation aria-label="Value example" [(value)]="valueGeolocation1"></lux-geolocation> <span>Bind value: {{ valueGeolocation1 | json }}</span>
     </div>
 
+    <h3>inputId</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+        &lt;label for="someid"&gt;inputId example&lt;/label&gt;
+        &lt;lux-geolocation inputId="someid" [(value)]="valueGeolocation"&gt;&lt;/lux-geolocation&gt;</code>
+    </pre>
+    <div class="sample">
+        <label for="someid">inputId example:</label>
+        <lux-geolocation inputId="someid" [(value)]="valueGeolocation2"></lux-geolocation> <span>Bind value: {{ valueGeolocation2 | json }}</span>
+    </div>
+
     <h3>Disabled</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
     &lt;lux-geolocation aria-label="Disabled example" [(value)]="valueGeolocation" <span class="text-underlined">disabled</span>&gt;&lt;/lux-geolocation&gt;</code>
     </pre>
     <div class="sample">
-        <lux-geolocation aria-label="Disabled example" [(value)]="valueGeolocation2" disabled></lux-geolocation>
+        <lux-geolocation aria-label="Disabled example" [(value)]="valueGeolocation3" disabled></lux-geolocation>
     </div>
 
     <h3>Readonly</h3>
@@ -28,7 +39,7 @@
     &lt;lux-geolocation aria-label="Readonly example" [(value)]="valueGeolocation" <span class="text-underlined">[readonly]="true"</span>&gt;&lt;/lux-geolocation&gt;</code>
     </pre>
     <div class="sample">
-        <lux-geolocation aria-label="Readonly example" [(value)]="valueGeolocation3" [readonly]="true"></lux-geolocation>
+        <lux-geolocation aria-label="Readonly example" [(value)]="valueGeolocation4" [readonly]="true"></lux-geolocation>
     </div>
 
     <h3>Required</h3>
@@ -52,7 +63,7 @@
     </pre>
     <div class="sample">
       <label for="geolocation">Geolocation: </label>
-      <lux-geolocation type="geolocation" [(value)]="valueGeolocation4"></lux-geolocation>
+      <lux-geolocation type="geolocation" [(value)]="valueGeolocation5"></lux-geolocation>
       Bind value: {{ valueGeolocation4 | json }}
     </div>
 </div>

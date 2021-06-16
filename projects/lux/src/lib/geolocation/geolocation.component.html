@@ -1,5 +1,6 @@
 <div class="lux-geolocation">
     <input #latitude type="number"
+        [id]="inputId + '$latitude'"
         [attr.disabled]="disabled || null"
         [attr.readonly]="readonly || null"
         [attr.min]="minLatitude || null"
@@ -14,6 +15,7 @@
         <span *ngIf="latitude.value < 0" >S</span>
     </div>
     <input #longitude type="number"
+        [id]="inputId + '$longitude'"
         [attr.disabled]="disabled || null"
         [attr.readonly]="readonly || null"
         [attr.min]="minLongitude || null"
