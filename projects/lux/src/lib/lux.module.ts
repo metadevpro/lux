@@ -9,6 +9,7 @@ import { AutocompleteListComponent } from './autocomplete-list/autocomplete-list
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { InputComponent } from './input/input.component';
 import { FilterComponent } from './filter/filter.component';
+import { GeolocationComponent } from './geolocation/geolocation.component';
 import { LuxTooltipDirective } from './tooltip/tooltip.directive';
 import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LuxModalWindowComponent } from './modal/modal-window';
@@ -21,7 +22,6 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipService } from './tooltip/tooltip.service';
 import { VoiceRecognitionDirective } from './voice-recognition/voice-recognition.directive';
 import { WINDOW_PROVIDERS } from './window/window.service';
-import { GeolocationComponent } from './geolocation/geolocation.component';
 
 @NgModule({
   declarations: [

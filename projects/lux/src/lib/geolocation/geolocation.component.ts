@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { ModalService } from '../modal/modal.service';
+import { Geopoint } from './geopoint';
 
 @Component({
   selector: 'lux-geolocation',
@@ -8,10 +9,14 @@ import { ModalService } from '../modal/modal.service';
   styleUrls: ['./geolocation.component.scss']
 })
 export class GeolocationComponent implements OnInit {
-  public readonly minLatitude = -90;
-  public readonly maxLatitude = 90;
-  public readonly minLongitude = -180;
-  public readonly maxLongitude = 180;
+  @Input()
+  public minLatitude: number;
+  @Input()
+  public maxLatitude: number;
+  @Input()
+  public minLongitude: number;
+  @Input()
+  public maxLongitude: number;
   private _disabled: string | boolean;
   private _required: boolean;
   private _value: any;
@@ -48,7 +53,7 @@ export class GeolocationComponent implements OnInit {
   }
 
   @Input()
-  set value(v: any) {
+  set value(v: Geopoint) {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
@@ -61,7 +66,7 @@ export class GeolocationComponent implements OnInit {
     }
     this.valueChange.emit(v);
   }
-  get value(): any {
+  get value(): Geopoint {
     this._value = {
       type: 'Point',
       coordinates: [
@@ -72,20 +77,37 @@ export class GeolocationComponent implements OnInit {
     return this._value;
   }
 
-  @Output() valueChange = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<Geopoint>();
 
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
+    this.minLatitude = this.minLatitude || -90;
+    this.maxLatitude = this.maxLatitude || 90;
     this.latitudeValidators = [
       Validators.min(this.minLatitude),
       Validators.max(this.maxLatitude)
     ];
+    this.minLongitude = this.minLongitude || -180;
+    this.maxLongitude = this.maxLongitude || 180;
     this.longitudeValidators = [
       Validators.min(this.minLongitude),
       Validators.max(this.maxLongitude)
     ];
     this.updateValidators(this.latitudeValidators, this.longitudeValidators);
+  }
+
+  get latitudeHasErrors(): boolean {
+    return (
+      this.latitudeFormControl.invalid &&
+      (this.latitudeFormControl.dirty || this.latitudeFormControl.touched)
+    );
+  }
+  get longitudeHasErrors(): boolean {
+    return (
+      this.longitudeFormControl.invalid &&
+      (this.longitudeFormControl.dirty || this.longitudeFormControl.touched)
+    );
   }
 
   onKeyUpLatitude(newLatitude: string): void {
