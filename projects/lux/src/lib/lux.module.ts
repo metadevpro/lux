@@ -9,6 +9,7 @@ import { AutocompleteListComponent } from './autocomplete-list/autocomplete-list
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { InputComponent } from './input/input.component';
 import { FilterComponent } from './filter/filter.component';
+import { GeolocationComponent } from './geolocation/geolocation.component';
 import { LuxTooltipDirective } from './tooltip/tooltip.directive';
 import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LuxModalWindowComponent } from './modal/modal-window';
@@ -29,6 +30,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     FilterComponent,
     CheckboxComponent,
     InputComponent,
+    GeolocationComponent,
     LuxTooltipDirective,
     LuxModalWindowComponent,
     LuxModalBackdropComponent,
@@ -37,12 +39,12 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     TooltipComponent,
     PaginationComponent,
     RadiogroupComponent,
-    VoiceRecognitionDirective,
+    VoiceRecognitionDirective
   ],
   entryComponents: [
     LuxModalWindowComponent,
     LuxModalBackdropComponent,
-    TooltipComponent,
+    TooltipComponent
   ],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
   imports: [
@@ -50,7 +52,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    CommonModule,
+    CommonModule
   ],
   exports: [
     AutocompleteComponent,
@@ -58,13 +60,14 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     FilterComponent,
     CheckboxComponent,
     InputComponent,
+    GeolocationComponent,
     LuxTooltipDirective,
     LuxBreadcrumbComponent,
     LuxBreadcrumbComponent,
     SelectComponent,
     PaginationComponent,
     RadiogroupComponent,
-    VoiceRecognitionDirective,
-  ],
+    VoiceRecognitionDirective
+  ]
 })
 export class LuxModule {}

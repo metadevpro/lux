@@ -11,6 +11,7 @@ import { BreadcrumbSampleComponent } from './breadcrumb-sample/breadcrumb-sample
 import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
 import { InputSampleComponent } from './input-sample/input-sample.component';
 import { FilterSampleComponent } from './filter-sample/filter-sample.component';
+import { GeolocationSampleComponent } from './geolocation-sample/geolocation-sample.component';
 import { MainComponent } from './main/main.component';
 import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
 import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'checkbox', component: CheckboxSampleComponent },
   { path: 'index', component: MainComponent },
   { path: 'filter', component: FilterSampleComponent },
+  { path: 'geolocation', component: GeolocationSampleComponent },
   { path: 'input', component: InputSampleComponent },
   { path: 'pagination', component: PaginationSampleComponent },
   { path: 'modal', component: ModalSampleComponent },
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
     AppComponent,
     CheckboxSampleComponent,
     FilterSampleComponent,
+    GeolocationSampleComponent,
     TooltipSampleComponent,
     InputSampleComponent,
     PaginationSampleComponent,
@@ -63,10 +66,10 @@ const appRoutes: Routes = [
     FormsModule,
     LuxModule,
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes)
   ],
   entryComponents: [TooltipComponent],
   providers: [PrismService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

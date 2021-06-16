@@ -1,35 +1,21 @@
 <div *ngIf="currency && currency === 'USD'" class="prefix">
     <span>$</span>
 </div>
-<input #i1 [luxTooltip]="isGeolocation() ? 'Latitude' : null" placement="top" delay="200"
+<input #i1 placement="top"
     [id]="inputId"
     [attr.aria-label]="ariaLabel"
     [type]="domain"
     [attr.disabled]="disabled || null"
     [attr.readonly]="readonly || null"
-    [attr.min]="min"
+    [attr.min]="min || null"
     [attr.max]="max || null"
     [attr.step]="step || null"
     [placeholder]="placeholder"
     [formControl]="formControl"
     [ngClass]="className"
-    (keyup)="onKeyUpPrimary(i1.value)"
-    (change)="onChangePrimary(i1.value)"
-    (keypress)="onKeyPressPrimary($event)"
-    >
-<input #i2 *ngIf="isGeolocation()" luxTooltip="Longitude" placement="top" delay="200"
-    [id]="inputId"
-    [attr.aria-label]="ariaLabel"
-    [type]="domain"
-    [attr.disabled]="disabled || null"
-    [attr.readonly]="readonly || null"
-    [attr.min]="minLong || null"
-    [attr.max]="maxLong || null"
-    [attr.step]="step || null"
-    [placeholder]="placeholder"
-    [formControl]="formControl2"
-    (keyup)="onKeyUpSecondary(i2.value)"
-    (change)="onChangeSecondary(i2.value)"
+    (keyup)="onKeyUp(i1.value)"
+    (change)="onChange(i1.value)"
+    (keypress)="onKeyPress($event)"
     >
 <div *ngIf="currency && currency === 'EUR'" class="postfix">
     <span>€</span>
@@ -40,7 +26,6 @@
 <div *ngIf="isPermillage()" class="postfix">
     <span>‰</span>
 </div>
-<button *ngIf="isGeolocation()">Geo</button>
 
 <div *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)" class="alert">
     <div *ngIf="formControl.errors.required">
@@ -54,16 +39,5 @@
     </div>
     <div *ngIf="formControl.errors.max">
         Max value is {{max}}
-    </div>
-</div>
-<div *ngIf="formControl2.invalid && (formControl2.dirty || formControl2.touched)" class="alert">
-    <div *ngIf="formControl2.errors.required">
-        Value is required
-    </div>
-    <div *ngIf="formControl2.errors.min">
-        Min value is {{minLong}}
-    </div>
-    <div *ngIf="formControl2.errors.max">
-        Max value is {{maxLong}}
     </div>
 </div>
