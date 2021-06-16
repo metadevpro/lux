@@ -1,0 +1,72 @@
+<h1>Geolocation</h1>
+
+<h2>Attributes</h2>
+
+<div>
+
+    <h3>value</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+        &lt;lux-geolocation aria-label="Value example" [(value)]="valueGeolocation"&gt;&lt;/lux-geolocation&gt;</code>
+    </pre>
+    <div class="sample">
+        <lux-geolocation aria-label="Value example" [(value)]="valueGeolocation1"></lux-geolocation> <span>Bind value: {{ valueGeolocation1 | json }}</span>
+    </div>
+
+    <h3>Disabled</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+    &lt;lux-geolocation aria-label="Disabled example" [(value)]="valueGeolocation" <span class="text-underlined">disabled</span>&gt;&lt;/lux-geolocation&gt;</code>
+    </pre>
+    <div class="sample">
+        <lux-geolocation aria-label="Disabled example" [(value)]="valueGeolocation2" disabled></lux-geolocation>
+    </div>
+
+    <h3>Readonly</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+    &lt;lux-geolocation aria-label="Readonly example" [(value)]="valueGeolocation" <span class="text-underlined">[readonly]="true"</span>&gt;&lt;/lux-geolocation&gt;</code>
+    </pre>
+    <div class="sample">
+        <lux-geolocation aria-label="Readonly example" [(value)]="valueGeolocation3" [readonly]="true"></lux-geolocation>
+    </div>
+
+    <h3>Required</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+    &lt;lux-geolocation aria-label="Required example" <span class="text-underlined">required</span>&gt;&lt;/lux-geolocation&gt;</code>
+    </pre>
+    <div class="sample">
+        <lux-geolocation aria-label="Required example" required></lux-geolocation>
+    </div>
+
+</div>
+
+<h2>Types</h2>
+
+<div>
+    <h3>Geolocation</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+    &lt;lux-geolocation <span class="text-underlined">type="geolocation"</span>&gt;&lt;/lux-geolocation&gt;</code>
+    </pre>
+    <div class="sample">
+      <label for="geolocation">Geolocation: </label>
+      <lux-geolocation type="geolocation" [(value)]="valueGeolocation4"></lux-geolocation>
+      Bind value: {{ valueGeolocation4 | json }}
+    </div>
+</div>
+
+<h2>Documentation</h2>
+<h3>Properties</h3>
+<ul class="properties">
+  <li><span class="inline">aria-label</span> Custom aria label forwarded to the geolocation.</li>
+  <li><span class="inline">step</span> For numeric types: the discrete increment/decrement when using the arrows.</li>
+  <li><span class="inline">min</span> For numeric types: maximum value.</li>
+  <li><span class="inline">max</span> For numeric types: minimum value.</li>
+</ul>
+<h3>Events</h3>
+<ul class="properties">
+  <li><span class="inline">valueChange</span>Triggered whenever the value changes. Pass the newValue as payload.</li>
+  <li><span class="inline">keyPress</span>Triggered when a key is pressed. Pass the Keyboard event directly.</li>
+</ul>

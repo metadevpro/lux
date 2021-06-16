@@ -7,7 +7,6 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './input-sample.component.html'
 })
 export class InputSampleComponent implements AfterContentInit {
-
   value = 'Test';
   value1 = 'Test value';
   name = 'Lux';
@@ -22,12 +21,8 @@ export class InputSampleComponent implements AfterContentInit {
   valueCurrencyEur = 123.45;
   valuePercentage = 75.24;
   valuePermillage = 923.34;
-  valueGeolocation = {
-    type: 'Point',
-    coordinates: [-5.97, 37.99]
-  };
 
-  constructor(private prismService: PrismService) { }
+  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
