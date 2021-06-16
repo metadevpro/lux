@@ -1,8 +1,11 @@
 <div class="lux-geolocation">
-    <input #latitude type="number" min="-90" max="90" step="0.01"
+    <input #latitude type="number"
         [attr.disabled]="disabled || null"
         [attr.readonly]="readonly || null"
-        [placeholder]="0.0"
+        [attr.min]="minLatitude || null"
+        [attr.max]="maxLatitude || null"
+        [attr.step]="step || null"
+        [placeholder]="'lat'"
         [formControl]="latitudeFormControl"
         (keyup)="onKeyUpLatitude(latitude.value)"
         (change)="onChangeLatitude(latitude.value)"/>
@@ -10,10 +13,13 @@
         <span *ngIf="latitude.value >= 0" >N</span>
         <span *ngIf="latitude.value < 0" >S</span>
     </div>
-    <input #longitude type="number" min="-180" max="180" step="0.01"
+    <input #longitude type="number"
         [attr.disabled]="disabled || null"
         [attr.readonly]="readonly || null"
-        [placeholder]="0.0"
+        [attr.min]="minLongitude || null"
+        [attr.max]="maxLongitude || null"
+        [attr.step]="step || null"
+        [placeholder]="'lon'"
         [formControl]="longitudeFormControl"
         (keyup)="onKeyUpLongitude(longitude.value)"
         (change)="onChangeLongitude(longitude.value)"/>
@@ -24,23 +30,23 @@
     <button>
         <span>🌐</span>
     </button>
-    <div *ngIf="latitudeHasErrors || longitudeHasErrors" class="alert">
-        <div *ngIf="latitudeFormControl.errors && latitudeFormControl.errors.required">
+    <div *ngIf="geopositionHasErrors" class="alert">
+        <div *ngIf="latitudeFormControl.errors?.required">
             Latitude is required
         </div>
-        <div *ngIf="latitudeFormControl.errors && latitudeFormControl.errors.min">
+        <div *ngIf="latitudeFormControl.errors?.min">
             Min latitude is {{minLatitude}}
         </div>
-        <div *ngIf="latitudeFormControl.errors && latitudeFormControl.errors.max">
+        <div *ngIf="latitudeFormControl.errors?.max">
             Max latitude is {{maxLatitude}}
         </div>
-        <div *ngIf="longitudeFormControl.errors && longitudeFormControl.errors.required">
+        <div *ngIf="longitudeFormControl.errors?.required">
             Longitude is required
         </div>
-        <div *ngIf="longitudeFormControl.errors && longitudeFormControl.errors.min">
+        <div *ngIf="longitudeFormControl.errors?.min">
             Min longitude is {{minLongitude}}
         </div>
-        <div *ngIf="longitudeFormControl.errors && longitudeFormControl.errors.max">
+        <div *ngIf="longitudeFormControl.errors?.max">
             Max longitude is {{maxLongitude}}
         </div>
     </div>

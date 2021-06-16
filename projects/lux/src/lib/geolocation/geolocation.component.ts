@@ -10,13 +10,15 @@ import { Geopoint } from './geopoint';
 })
 export class GeolocationComponent implements OnInit {
   @Input()
-  public minLatitude: number;
+  public minLatitude = -90;
   @Input()
-  public maxLatitude: number;
+  public maxLatitude = 90;
   @Input()
-  public minLongitude: number;
+  public minLongitude = -180;
   @Input()
-  public maxLongitude: number;
+  public maxLongitude = 180;
+  @Input()
+  public step = 0.00001; // 0.00001 degrees = 1.11 meters
   private _disabled: string | boolean;
   private _required: boolean;
   private _value: any;
@@ -82,14 +84,10 @@ export class GeolocationComponent implements OnInit {
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
-    this.minLatitude = this.minLatitude || -90;
-    this.maxLatitude = this.maxLatitude || 90;
     this.latitudeValidators = [
       Validators.min(this.minLatitude),
       Validators.max(this.maxLatitude)
     ];
-    this.minLongitude = this.minLongitude || -180;
-    this.maxLongitude = this.maxLongitude || 180;
     this.longitudeValidators = [
       Validators.min(this.minLongitude),
       Validators.max(this.maxLongitude)
@@ -108,6 +106,9 @@ export class GeolocationComponent implements OnInit {
       this.longitudeFormControl.invalid &&
       (this.longitudeFormControl.dirty || this.longitudeFormControl.touched)
     );
+  }
+  get geopositionHasErrors(): boolean {
+    return this.latitudeHasErrors || this.longitudeHasErrors;
   }
 
   onKeyUpLatitude(newLatitude: string): void {
