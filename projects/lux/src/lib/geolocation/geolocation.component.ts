@@ -50,8 +50,14 @@ export class GeolocationComponent implements OnInit {
 
   @Input()
   set required(v: boolean) {
+    if (v && !this._required) {
+      this.addLatitudeValidators([Validators.required]);
+      this.addLongitudeValidators([Validators.required]);
+    } else if (!v && this._required) {
+      this.removeLatitudeValidators([Validators.required]);
+      this.removeLongitudeValidators([Validators.required]);
+    }
     this._required = v;
-    this.updateValidators([Validators.required], [Validators.required]);
   }
   get required(): boolean {
     return this._required;
@@ -102,15 +108,16 @@ export class GeolocationComponent implements OnInit {
     this.inputId = this.inputId
       ? this.inputId
       : `geolocation$${GeolocationComponent.idCounter++}`;
-    this.latitudeValidators = [
+    const latitudeValidators = [
       Validators.min(this.minLatitude),
       Validators.max(this.maxLatitude)
     ];
-    this.longitudeValidators = [
+    this.addLatitudeValidators(latitudeValidators);
+    const longitudeValidators = [
       Validators.min(this.minLongitude),
       Validators.max(this.maxLongitude)
     ];
-    this.updateValidators(this.latitudeValidators, this.longitudeValidators);
+    this.addLongitudeValidators(longitudeValidators);
   }
 
   get latitudeHasErrors(): boolean {
@@ -161,19 +168,49 @@ export class GeolocationComponent implements OnInit {
     return '';
   }
 
-  updateValidators(
-    latitudeValidators: ValidatorFn[],
-    longitudeValidators: ValidatorFn[]
-  ): void {
+  addLatitudeValidators(latitudeValidators: ValidatorFn[]): void {
     latitudeValidators.map((latitudeValidator) => {
       this.latitudeValidators.push(latitudeValidator);
     });
+    this.updateLatitudeValidators();
+  }
+
+  removeLatitudeValidators(latitudeValidators: ValidatorFn[]): void {
+    latitudeValidators.map((latitudeValidator) => {
+      const latitudeValidatorIndex =
+        this.latitudeValidators.indexOf(latitudeValidator);
+      if (latitudeValidatorIndex >= 0) {
+        this.latitudeValidators.splice(latitudeValidatorIndex);
+      }
+    });
+    this.updateLatitudeValidators();
+  }
+
+  updateLatitudeValidators(): void {
+    this.latitudeFormControl.setValidators(this.latitudeValidators);
+    this.latitudeFormControl.updateValueAndValidity();
+  }
+
+  addLongitudeValidators(longitudeValidators: ValidatorFn[]): void {
     longitudeValidators.map((longitudeValidator) => {
       this.longitudeValidators.push(longitudeValidator);
     });
-    this.latitudeFormControl.setValidators(this.latitudeValidators);
+    this.updateLongitudeValidators();
+  }
+
+  removeLongitudeValidators(longitudeValidators: ValidatorFn[]): void {
+    longitudeValidators.map((longitudeValidator) => {
+      const longitudeValidatorIndex =
+        this.longitudeValidators.indexOf(longitudeValidator);
+      if (longitudeValidatorIndex >= 0) {
+        this.longitudeValidators.splice(longitudeValidatorIndex);
+      }
+    });
+    this.updateLongitudeValidators();
+  }
+
+  updateLongitudeValidators(): void {
     this.longitudeFormControl.setValidators(this.longitudeValidators);
-    this.latitudeFormControl.updateValueAndValidity();
     this.longitudeFormControl.updateValueAndValidity();
   }
 }

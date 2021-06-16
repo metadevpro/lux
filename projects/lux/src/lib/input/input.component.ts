@@ -61,8 +61,12 @@ export class InputComponent implements OnInit {
 
   @Input()
   set required(v: boolean) {
+    if (v && !this._required) {
+      this.addValidators([Validators.required]);
+    } else if (!v && this._required) {
+      this.removeValidators([Validators.required]);
+    }
     this._required = v;
-    this.updateValidators([Validators.required]);
   }
   get required(): boolean {
     return this._required;
@@ -165,17 +169,31 @@ export class InputComponent implements OnInit {
     }
   }
 
-  updateValidators(validators: ValidatorFn[]): void {
+  addValidators(validators: ValidatorFn[]): void {
     validators.map((validator) => {
       this.validators.push(validator);
     });
+    this.updateValidators();
+  }
+
+  removeValidators(validators: ValidatorFn[]): void {
+    validators.map((validator) => {
+      const validatorIndex = this.validators.indexOf(validator);
+      if (validatorIndex >= 0) {
+        this.validators.splice(validatorIndex);
+      }
+    });
+    this.updateValidators();
+  }
+
+  updateValidators(): void {
     this.formControl.setValidators(this.validators);
     this.formControl.updateValueAndValidity();
   }
 
   setEmailPatterns(): void {
     const validatorsEmail = [Validators.email];
-    this.updateValidators(validatorsEmail);
+    this.addValidators(validatorsEmail);
   }
 
   setDatePatterns(): void {
@@ -205,7 +223,7 @@ export class InputComponent implements OnInit {
       Validators.min(this.min),
       Validators.max(this.max)
     ];
-    this.updateValidators(validatorsCurrency);
+    this.addValidators(validatorsCurrency);
   }
 
   setPercentagePatterns(): void {
@@ -218,7 +236,7 @@ export class InputComponent implements OnInit {
       Validators.min(this.min),
       Validators.max(this.max)
     ];
-    this.updateValidators(validatorsPercentage);
+    this.addValidators(validatorsPercentage);
   }
 
   setPermillagePatterns(): void {
@@ -231,6 +249,6 @@ export class InputComponent implements OnInit {
       Validators.min(this.min),
       Validators.max(this.max)
     ];
-    this.updateValidators(validatorsPermillage);
+    this.addValidators(validatorsPermillage);
   }
 }
