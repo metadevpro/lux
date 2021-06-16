@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LuxModule } from 'projects/lux/src/public-api';
 import { AutoCompleteSampleComponent } from './autocomplete-sample/autocomplete-sample.component';
@@ -64,6 +64,7 @@ const appRoutes: Routes = [
   imports: [
     CoreModule,
     FormsModule,
+    ReactiveFormsModule,
     LuxModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes)

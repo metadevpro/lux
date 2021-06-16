@@ -22,6 +22,16 @@ export class InputSampleComponent implements AfterContentInit {
   valuePercentage = 75.24;
   valuePermillage = 923.34;
 
+  f1 = {
+    type: 'email',
+    required: true,
+    inlineErrors: false,
+    value: 'a',
+    formValues: {
+      field1: ''
+    }
+  };
+
   constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {

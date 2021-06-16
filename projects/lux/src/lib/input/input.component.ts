@@ -1,14 +1,35 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormControl, Validators, ValidatorFn } from '@angular/forms';
-import { ModalService } from '../modal/modal.service';
+import {
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor,
+  AbstractControl,
+  ValidationErrors,
+  Validator,
+  NG_VALIDATORS
+} from '@angular/forms';
 
 @Component({
   selector: 'lux-input',
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss']
+  styleUrls: ['./input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: InputComponent
+    },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: InputComponent
+    }
+  ]
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   static idCounter = 0;
+  touched = false;
+  dirty = false;
+  lastErrors: ValidationErrors | null = null;
 
   private _disabled: string | boolean;
   private _value: any;
@@ -16,20 +37,36 @@ export class InputComponent implements OnInit {
   private _placeholder: string;
   private _currency: string;
   private _required: boolean;
+
+  public userErrors = {
+    en: {
+      required: 'Required field.',
+      min: 'Minimum value is $min.',
+      max: 'Maximum value is $max.',
+      email: 'Format should match example@example.com.'
+    },
+    es: {
+      required: 'El campo es obligatorio.',
+      min: 'El valor mínimo es $min.',
+      max: 'El valor máximo es $max.',
+      email: 'El campo debe tener un formato como ejemplo@ejemplo.com.'
+    }
+  };
+
   public domain: string;
-  private validators: ValidatorFn[] = [];
   @Input()
   public step?: number;
   @Input()
   public min?: number;
   @Input()
   public max?: number;
-  public formControl = new FormControl(this.value);
 
   get className(): string {
     return this.checkClassName();
   }
 
+  @Input() lang = languageDetector();
+  @Input() public inlineErrors = false;
   @Input() public inputId: string;
   @Input('aria-label') public ariaLabel: string;
   @Input() public readonly: boolean | null = null;
@@ -61,11 +98,6 @@ export class InputComponent implements OnInit {
 
   @Input()
   set required(v: boolean) {
-    if (v && !this._required) {
-      this.addValidators([Validators.required]);
-    } else if (!v && this._required) {
-      this.removeValidators([Validators.required]);
-    }
     this._required = v;
   }
   get required(): boolean {
@@ -88,7 +120,8 @@ export class InputComponent implements OnInit {
       return; // prevent events when there is no changes
     }
     this._value = v;
-    this.formControl.setValue(v);
+    this.onChange(v);
+    // this.formControl.setValue(v);
     this.valueChange.emit(v);
   }
   get value(): any {
@@ -103,7 +136,85 @@ export class InputComponent implements OnInit {
   @Output() valueChange = new EventEmitter<any>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
-  constructor(private modalService: ModalService) {}
+  onChange = (value) => {};
+  onTouched = () => {};
+
+  constructor() {}
+
+  // ControlValueAccessor Interface implementation
+  writeValue(value: any) {
+    this.value = value;
+  }
+
+  registerOnChange(onChange: any) {
+    this.onChange = onChange;
+  }
+
+  registerOnTouched(onTouched: any) {
+    this.onTouched = onTouched;
+  }
+
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
+  }
+
+  setDisabledState(disabled: boolean) {
+    this.disabled = disabled;
+  }
+  // End of ControlValueAccessor Interface implementation
+
+  // Validator interface
+  registerOnValidatorChange(): void {}
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    // eslint-disable-next-line prefer-const
+    let result: any = null;
+
+    if (
+      this.required &&
+      (value === '' || value === null || value === undefined)
+    ) {
+      result = result || {};
+      result.required = { value, reason: 'Required field.' };
+    }
+    if (this.type === 'email' && value && !validEmail(value)) {
+      result = result || {};
+      result.email = { value, reason: 'Invalid email.' };
+    }
+    if (
+      this.type === 'percentage' ||
+      this.type === 'permillage' ||
+      this.type === 'number' ||
+      this.type === 'currency' ||
+      this.type === 'date' ||
+      this.type === 'time' ||
+      this.type === 'timestamp'
+    ) {
+      if (this.min && value < this.min) {
+        result = result || {};
+        result.min = {
+          value,
+          min: this.min,
+          reason: `Value is lower than minimum value: ${this.min}.`
+        };
+      }
+      if (this.max && value > this.max) {
+        result = result || {};
+        result.max = {
+          value,
+          max: this.max,
+          reason: `Value is greater than than maximum value: ${this.max}.`
+        };
+      }
+    }
+    this.lastErrors = result;
+    return result;
+  }
+  // End of Validator interface
 
   ngOnInit() {
     this.inputId = this.inputId
@@ -114,7 +225,7 @@ export class InputComponent implements OnInit {
   onKeyUp(newValue: string): void {
     this.value = newValue;
   }
-  onChange(newValue: string): void {
+  onChangeValue(newValue: string): void {
     this.value = newValue;
   }
   onKeyPress(event: KeyboardEvent): void {
@@ -169,44 +280,13 @@ export class InputComponent implements OnInit {
     }
   }
 
-  addValidators(validators: ValidatorFn[]): void {
-    validators.map((validator) => {
-      this.validators.push(validator);
-    });
-    this.updateValidators();
-  }
+  setEmailPatterns(): void {}
 
-  removeValidators(validators: ValidatorFn[]): void {
-    validators.map((validator) => {
-      const validatorIndex = this.validators.indexOf(validator);
-      if (validatorIndex >= 0) {
-        this.validators.splice(validatorIndex);
-      }
-    });
-    this.updateValidators();
-  }
+  setDatePatterns(): void {}
 
-  updateValidators(): void {
-    this.formControl.setValidators(this.validators);
-    this.formControl.updateValueAndValidity();
-  }
+  setTimePatterns(): void {}
 
-  setEmailPatterns(): void {
-    const validatorsEmail = [Validators.email];
-    this.addValidators(validatorsEmail);
-  }
-
-  setDatePatterns(): void {
-    // ToDo
-  }
-
-  setTimePatterns(): void {
-    // ToDo
-  }
-
-  setPasswordPatterns(): void {
-    // ToDo
-  }
+  setPasswordPatterns(): void {}
 
   setNumberPatterns(): void {
     this.domain = 'number';
@@ -219,11 +299,6 @@ export class InputComponent implements OnInit {
     this.min = this.min || 0.0;
     this.max = this.max || 10000.0;
     this.value = 0.0;
-    const validatorsCurrency = [
-      Validators.min(this.min),
-      Validators.max(this.max)
-    ];
-    this.addValidators(validatorsCurrency);
   }
 
   setPercentagePatterns(): void {
@@ -232,11 +307,6 @@ export class InputComponent implements OnInit {
     this.min = this.min || 0.0;
     this.max = this.max || 100.0;
     this.placeholder = '0.00';
-    const validatorsPercentage = [
-      Validators.min(this.min),
-      Validators.max(this.max)
-    ];
-    this.addValidators(validatorsPercentage);
   }
 
   setPermillagePatterns(): void {
@@ -245,10 +315,19 @@ export class InputComponent implements OnInit {
     this.min = this.min || 0.0;
     this.max = this.max || 1000.0;
     this.placeholder = '0.00';
-    const validatorsPermillage = [
-      Validators.min(this.min),
-      Validators.max(this.max)
-    ];
-    this.addValidators(validatorsPermillage);
   }
 }
+
+const validEmail = (email: string): boolean => {
+  const re =
+    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+  return re.test(String(email).toLowerCase());
+};
+
+const languageDetector = (): string => {
+  const lang = navigator.language.split('-')[0];
+  if (lang === 'es' || lang === 'en') {
+    return lang;
+  }
+  return 'en'; // default
+};
