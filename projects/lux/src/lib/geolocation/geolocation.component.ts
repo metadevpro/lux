@@ -24,8 +24,8 @@ export class GeolocationComponent implements OnInit {
   private _disabled: string | boolean;
   private _required: boolean;
   private _value: any;
-  public latitudeValue: number = null;
-  public longitudeValue: number = null;
+  public latitudeValue?: number = null;
+  public longitudeValue?: number = null;
   public latitudeValidators: ValidatorFn[] = [];
   public longitudeValidators: ValidatorFn[] = [];
   public latitudeFormControl = new FormControl(this.latitudeValue);
@@ -68,10 +68,22 @@ export class GeolocationComponent implements OnInit {
       this.longitudeValue = +v.coordinates[0];
       this.latitudeFormControl.setValue(this.latitudeValue);
       this.longitudeFormControl.setValue(this.longitudeValue);
+    } else {
+      this._value = undefined;
+      this.latitudeValue = undefined;
+      this.longitudeValue = undefined;
+      this.latitudeFormControl.setValue(this.latitudeValue);
+      this.longitudeFormControl.setValue(this.longitudeValue);
     }
     this.valueChange.emit(v);
   }
   get value(): Geopoint {
+    if (
+      this.latitudeFormControl.value === undefined ||
+      this.longitudeFormControl.value === undefined
+    ) {
+      return undefined;
+    }
     this._value = {
       type: 'Point',
       coordinates: [

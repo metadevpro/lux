@@ -6,7 +6,7 @@
         [attr.min]="minLatitude || null"
         [attr.max]="maxLatitude || null"
         [attr.step]="step || null"
-        [placeholder]="'lat'"
+        placeholder="lat"
         [formControl]="latitudeFormControl"
         (keyup)="onKeyUpLatitude(latitude.value)"
         (change)="onChangeLatitude(latitude.value)"/>
@@ -21,7 +21,7 @@
         [attr.min]="minLongitude || null"
         [attr.max]="maxLongitude || null"
         [attr.step]="step || null"
-        [placeholder]="'lon'"
+        placeholder="lon"
         [formControl]="longitudeFormControl"
         (keyup)="onKeyUpLongitude(longitude.value)"
         (change)="onChangeLongitude(longitude.value)"/>
