@@ -121,7 +121,6 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     }
     this._value = v;
     this.onChange(v);
-    // this.formControl.setValue(v);
     this.valueChange.emit(v);
   }
   get value(): any {
