@@ -1,9 +1,11 @@
 # Lux Changelog
 
-## Version 0.4.6
+## Version 0.5.0
 
-2021.06.14
+2021.06.18
 
+- Implement ControlValueAccessor in lux-input.
+- Conform to ngForms validation
 - Fix pagination bug [#89](https://github.com/metadevpro/lux/pull/89).
 - Fix validation on input geoposition [#86](https://github.com/metadevpro/lux/issues/86).
 
