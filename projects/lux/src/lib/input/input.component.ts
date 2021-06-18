@@ -5,7 +5,8 @@ import {
   EventEmitter,
   OnInit,
   ElementRef,
-  ViewChild
+  ViewChild,
+  forwardRef
 } from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
@@ -24,7 +25,7 @@ import {
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: InputComponent
+      useExisting: forwardRef(() => InputComponent)
     },
     {
       provide: NG_VALIDATORS,
