@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.5.1
+
+2021.06.18
+
+- Fix missing initial balue binding for lux-input
+
 ## Version 0.5.0
 
 2021.06.18
