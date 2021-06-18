@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
@@ -27,6 +35,9 @@ import {
 })
 export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   static idCounter = 0;
+
+  @ViewChild('i1', { static: true }) i1: ElementRef;
+
   touched = false;
   dirty = false;
   lastErrors: ValidationErrors | null = null;
@@ -143,6 +154,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   // ControlValueAccessor Interface implementation
   writeValue(value: any) {
     this.value = value;
+    this.setValueInControl(value);
   }
 
   registerOnChange(onChange: any) {
@@ -164,6 +176,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     this.disabled = disabled;
   }
   // End of ControlValueAccessor Interface implementation
+
+  private setValueInControl(v: any) {
+    this.i1.nativeElement.value = v;
+  }
 
   // Validator interface
   registerOnValidatorChange(): void {}

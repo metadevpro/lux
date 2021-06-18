@@ -265,6 +265,7 @@
     </lux-input>
     <div *ngIf="!f1Val.valid">Debug: {{ f1Val.errors | json }}</div>
     <button [disabled]="!form.valid">Fake sumbit</button>
+    <div>Form values: {{ f1.formValues | json }}</div>
   </form>
 </div>
 
