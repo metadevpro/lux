@@ -32,18 +32,6 @@ describe('InputComponent', () => {
       expect(valueEmitterSpy).toHaveBeenCalled();
     });
 
-    it('Updated Validators when input is required', () => {
-      const updateSpy = spyOn(component, 'updateValidators');
-      component.required = true;
-      expect(updateSpy).toHaveBeenCalled();
-    });
-
-    it('Updated Validators when type is set to email', () => {
-      const updateSpy = spyOn(component, 'updateValidators');
-      component.type = 'email';
-      expect(updateSpy).toHaveBeenCalled();
-    });
-
     it('When input type is number, domain should be number', () => {
       component.type = 'number';
       expect(component.domain).toEqual('number');
@@ -84,12 +72,6 @@ describe('InputComponent', () => {
       expect(component.domain).toEqual('number');
     });
 
-    it('When input type is percentage, the update validators should be called', () => {
-      const updateValidatorsSpy = spyOn(component, 'updateValidators');
-      component.type = 'percentage';
-      expect(updateValidatorsSpy).toHaveBeenCalled();
-    });
-
     it('When input type is permillage, the min should be 0 and the max should be 1000', () => {
       component.type = 'permillage';
       expect(component.max).toEqual(1000);
@@ -104,12 +86,6 @@ describe('InputComponent', () => {
     it('When input type is permillage, the domain should be number', () => {
       component.type = 'permillage';
       expect(component.domain).toEqual('number');
-    });
-
-    it('When input type is permillage, the update validators should be called', () => {
-      const updateValidatorsSpy = spyOn(component, 'updateValidators');
-      component.type = 'permillage';
-      expect(updateValidatorsSpy).toHaveBeenCalled();
     });
   });
 
