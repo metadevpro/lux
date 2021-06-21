@@ -6,6 +6,7 @@
   placement="top"
   [id]="inputId"
   [type]="domain"
+  [value]="value || ''"
   [attr.aria-label]="ariaLabel"
   [attr.disabled]="disabled || null"
   [attr.readonly]="readonly || null"
@@ -18,8 +19,6 @@
   (keyup)="onKeyUp(i1.value)"
   (change)="onChangeValue(i1.value)"
   (keypress)="onKeyPress($event)"
-  [(ngModel)]="value"
-  (ngModelChange)="onChange($event)"
 />
 <div *ngIf="currency && currency === 'EUR'" class="postfix">
   <span>€</span>

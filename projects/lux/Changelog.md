@@ -1,16 +1,22 @@
 # Lux Changelog
 
+## Version 0.5.4
+
+2021.06.21
+
+- Fix missing initial value binding for lux-input (3)
+
 ## Version 0.5.3
 
 2021.06.18
 
-- Fix missing initial balue binding for lux-input (2)
+- Fix missing initial value binding for lux-input (2) (Not use.)
 
 ## Version 0.5.2
 
 2021.06.18
 
-- Fix missing initial balue binding for lux-input
+- Fix missing initial value binding for lux-input (Not use.)
 
 ## Version 0.5.0
 
