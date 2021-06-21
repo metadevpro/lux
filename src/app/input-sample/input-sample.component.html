@@ -6,10 +6,10 @@
   <h3>value</h3>
   <pre class="language-html" rel="html">
         <code class="language-html">
-        &lt;lux-input aria-label="Value example" [(value)]="value"&gt;&lt;/lux-input&gt;</code>
+        &lt;lux-input aria-label="Value example" [(ngModel)]="value"&gt;&lt;/lux-input&gt;</code>
     </pre>
   <div class="sample">
-    <lux-input aria-label="Value example" [(value)]="value1"></lux-input>
+    <lux-input aria-label="Value example" [(ngModel)]="value1"></lux-input>
     <span>Bind value: {{ value1 }}</span>
   </div>
 
@@ -17,23 +17,23 @@
   <pre class="language-html" rel="html">
         <code class="language-html">
         &lt;label for="someid"&gt;inputId example&lt;/label&gt;
-        &lt;lux-input inputId="someid" [(value)]="name"&gt;&lt;/lux-input&gt;</code>
+        &lt;lux-input inputId="someid" [(ngModel)]="name"&gt;&lt;/lux-input&gt;</code>
     </pre>
   <div class="sample">
     <label for="someid">inputId example:</label>
-    <lux-input inputId="someid" [(value)]="name"></lux-input>
+    <lux-input inputId="someid" [(ngModel)]="name"></lux-input>
     <span>Bind value: {{ name }}</span>
   </div>
 
   <h3>Disabled</h3>
   <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Disabled example" [(value)]="value" <span class="text-underlined">disabled</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input aria-label="Disabled example" [(ngModel)]="value" <span class="text-underlined">disabled</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
   <div class="sample">
     <lux-input
       aria-label="Disabled example"
-      [(value)]="value"
+      [(ngModel)]="value"
       disabled
     ></lux-input>
   </div>
@@ -41,12 +41,12 @@
   <h3>Readonly</h3>
   <pre class="language-html" rel="html">
         <code class="language-html">
-    &lt;lux-input aria-label="Readonly example" [(value)]="value" <span class="text-underlined">[readonly]="true"</span>&gt;&lt;/lux-input&gt;</code>
+    &lt;lux-input aria-label="Readonly example" [(ngModel)]="value" <span class="text-underlined">[readonly]="true"</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
   <div class="sample">
     <lux-input
       aria-label="Readonly example"
-      [(value)]="value"
+      [(ngModel)]="value"
       [readonly]="true"
     ></lux-input>
   </div>
@@ -97,7 +97,7 @@
       inputId="email"
       placeholder="Write text..."
       type="email"
-      [(value)]="valueEmail"
+      [(ngModel)]="valueEmail"
     ></lux-input>
     Bind value: {{ valueEmail }}
   </div>
@@ -109,7 +109,7 @@
     </pre>
   <div class="sample">
     <label for="date">Date: </label>
-    <lux-input inputId="date" type="date" [(value)]="valueDate"></lux-input>
+    <lux-input inputId="date" type="date" [(ngModel)]="valueDate"></lux-input>
     Bind value: {{ valueDate }}
   </div>
 
@@ -120,7 +120,7 @@
     </pre>
   <div class="sample">
     <label for="time">Time: </label>
-    <lux-input inputId="time" type="time" [(value)]="valueTime"></lux-input>
+    <lux-input inputId="time" type="time" [(ngModel)]="valueTime"></lux-input>
     Bind value: {{ valueTime }}
   </div>
 
@@ -134,7 +134,7 @@
     <lux-input
       inputId="password"
       type="password"
-      [(value)]="valuePassword"
+      [(ngModel)]="valuePassword"
     ></lux-input>
     Bind value: {{ valuePassword }}
   </div>
@@ -149,7 +149,7 @@
     <lux-input
       inputId="numeric"
       type="number"
-      [(value)]="valueNumber"
+      [(ngModel)]="valueNumber"
     ></lux-input>
     Bind value: {{ valueNumber }}
   </div>
@@ -165,7 +165,7 @@
       inputId="currency1"
       type="currency"
       currency="USD"
-      [(value)]="valueCurrencyUsd"
+      [(ngModel)]="valueCurrencyUsd"
     ></lux-input>
     Bind value: {{ valueCurrencyUsd }} USD
   </div>
@@ -179,7 +179,7 @@
       inputId="currency2"
       type="currency"
       currency="EUR"
-      [(value)]="valueCurrencyEur"
+      [(ngModel)]="valueCurrencyEur"
     ></lux-input>
     Bind value: {{ valueCurrencyEur }} EUR
   </div>
@@ -194,7 +194,7 @@
     <lux-input
       inputId="percentage"
       type="percentage"
-      [(value)]="valuePercentage"
+      [(ngModel)]="valuePercentage"
     ></lux-input>
     Bind value: {{ valuePercentage }}
   </div>
@@ -209,7 +209,7 @@
     <lux-input
       inputId="permillage"
       type="permillage"
-      [(value)]="valuePermillage"
+      [(ngModel)]="valuePermillage"
     ></lux-input>
     Bind value: {{ valuePermillage }}
   </div>
@@ -229,6 +229,10 @@
       <option value="permillage">permillage</option>
       <option value="number">number</option>
     </select>
+  </div>
+  <div>
+    <label for="v1">Value: </label>
+    <input type="string" name="v1" [(ngModel)]="f1.formValues.field1" />
   </div>
   <div>
     <label for="t1">

@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.5.5
+
+2021.06.21
+
+- Fix lux-input date when ISO timestamp arrives for dates.
+
 ## Version 0.5.4
 
 2021.06.21

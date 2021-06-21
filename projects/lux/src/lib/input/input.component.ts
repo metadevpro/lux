@@ -131,6 +131,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
+    if (this.type === 'date') {
+      v = normalizeDate(v);
+    }
+
     this._value = v;
     this.onChange(v);
     this.valueChange.emit(v);
@@ -179,6 +183,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   // End of ControlValueAccessor Interface implementation
 
   private setValueInControl(v: any) {
+    if (this.domain === 'date') {
+      v = normalizeDate(v);
+    }
     this.i1.nativeElement.value = v;
   }
 
@@ -346,4 +353,11 @@ const languageDetector = (): string => {
     return lang;
   }
   return 'en'; // default
+};
+
+const normalizeDate = (v: any): string => {
+  if (typeof v === 'string' && v.length > 10) {
+    return v.substr(0, 10);
+  }
+  return v ? v.toString() : '';
 };
