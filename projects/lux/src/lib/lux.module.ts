@@ -14,6 +14,7 @@ import { LuxTooltipDirective } from './tooltip/tooltip.directive';
 import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LuxModalWindowComponent } from './modal/modal-window';
 import { LuxModalBackdropComponent } from './modal/modal-backdrop';
+import { MapComponent } from './geolocation/map.component';
 import { ModalService } from './modal/modal.service';
 import { PaginationComponent } from './pagination/pagination.component';
 import { RadiogroupComponent } from './radiogroup/radiogroup.component';
@@ -35,6 +36,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     LuxModalWindowComponent,
     LuxModalBackdropComponent,
     LuxBreadcrumbComponent,
+    MapComponent,
     SelectComponent,
     TooltipComponent,
     PaginationComponent,
@@ -64,6 +66,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     LuxTooltipDirective,
     LuxBreadcrumbComponent,
     LuxBreadcrumbComponent,
+    MapComponent,
     SelectComponent,
     PaginationComponent,
     RadiogroupComponent,

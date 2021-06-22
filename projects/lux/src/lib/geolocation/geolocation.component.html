@@ -1,70 +1,85 @@
 <div class="lux-geolocation" [id]="inputId">
-    <input #latitude type="number"
-        [id]="inputId + '$latitude'"
-        [attr.disabled]="disabled || null"
-        [attr.readonly]="readonly || null"
-        [attr.min]="minLatitude || null"
-        [attr.max]="maxLatitude || null"
-        [attr.step]="step || null"
-        placeholder="lat"
-        [formControl]="latitudeFormControl"
-        (keyup)="onKeyUpLatitude(latitude.value)"
-        (change)="onChangeLatitude(latitude.value)"/>
-    <div class="postfix">
-        <span *ngIf="latitude.value >= 0" >N</span>
-        <span *ngIf="latitude.value < 0" >S</span>
+  <input
+    #latitude
+    type="number"
+    [id]="inputId + '$latitude'"
+    [attr.disabled]="disabled || null"
+    [attr.readonly]="readonly || null"
+    [attr.min]="minLatitude || null"
+    [attr.max]="maxLatitude || null"
+    [attr.step]="step || null"
+    placeholder="lat"
+    [formControl]="latitudeFormControl"
+    (keyup)="onKeyUpLatitude(latitude.value)"
+    (change)="onChangeLatitude(latitude.value)"
+  />
+  <div class="postfix">
+    <span *ngIf="latitude.value >= 0">N</span>
+    <span *ngIf="latitude.value < 0">S</span>
+  </div>
+  <input
+    #longitude
+    type="number"
+    [id]="inputId + '$longitude'"
+    [attr.disabled]="disabled || null"
+    [attr.readonly]="readonly || null"
+    [attr.min]="minLongitude || null"
+    [attr.max]="maxLongitude || null"
+    [attr.step]="step || null"
+    placeholder="lon"
+    [formControl]="longitudeFormControl"
+    (keyup)="onKeyUpLongitude(longitude.value)"
+    (change)="onChangeLongitude(longitude.value)"
+  />
+  <div class="postfix">
+    <span *ngIf="longitude.value >= 0">E</span>
+    <span *ngIf="longitude.value < 0">W</span>
+  </div>
+  <button (click)="openModal(modalMap)">
+    <span>🌐</span>
+  </button>
+  <div *ngIf="geopositionHasErrors" class="alert">
+    <div *ngIf="latitudeFormControl.errors?.required">Latitude is required</div>
+    <div *ngIf="latitudeFormControl.errors?.min">
+      Min latitude is {{ minLatitude }}
     </div>
-    <input #longitude type="number"
-        [id]="inputId + '$longitude'"
-        [attr.disabled]="disabled || null"
-        [attr.readonly]="readonly || null"
-        [attr.min]="minLongitude || null"
-        [attr.max]="maxLongitude || null"
-        [attr.step]="step || null"
-        placeholder="lon"
-        [formControl]="longitudeFormControl"
-        (keyup)="onKeyUpLongitude(longitude.value)"
-        (change)="onChangeLongitude(longitude.value)"/>
-    <div class="postfix">
-        <span *ngIf="longitude.value >= 0" >E</span>
-        <span *ngIf="longitude.value < 0" >W</span>
+    <div *ngIf="latitudeFormControl.errors?.max">
+      Max latitude is {{ maxLatitude }}
     </div>
-    <button (click)="openModal(modal)">
-        <span>🌐</span>
-    </button>
-    <ng-template #modal let-modal>
-        <div class="lux-modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Map</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="lux-modal-body">
-            <div id="map" class="map"></div>
-            <div id="mouse-position"></div>
-        </div>
-        <div class="lux-modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close(input.value)">Send</button>
-        </div>
-    </ng-template>
-    <div *ngIf="geopositionHasErrors" class="alert">
-        <div *ngIf="latitudeFormControl.errors?.required">
-            Latitude is required
-        </div>
-        <div *ngIf="latitudeFormControl.errors?.min">
-            Min latitude is {{minLatitude}}
-        </div>
-        <div *ngIf="latitudeFormControl.errors?.max">
-            Max latitude is {{maxLatitude}}
-        </div>
-        <div *ngIf="longitudeFormControl.errors?.required">
-            Longitude is required
-        </div>
-        <div *ngIf="longitudeFormControl.errors?.min">
-            Min longitude is {{minLongitude}}
-        </div>
-        <div *ngIf="longitudeFormControl.errors?.max">
-            Max longitude is {{maxLongitude}}
-        </div>
+    <div *ngIf="longitudeFormControl.errors?.required">
+      Longitude is required
     </div>
+    <div *ngIf="longitudeFormControl.errors?.min">
+      Min longitude is {{ minLongitude }}
+    </div>
+    <div *ngIf="longitudeFormControl.errors?.max">
+      Max longitude is {{ maxLongitude }}
+    </div>
+  </div>
 </div>
+
+<ng-template #modalMap let-modal>
+  <div class="lux-modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Map</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="lux-modal-body">
+    <lux-map [longitude]="longitude" [latitude]="latitude"> </lux-map>
+  </div>
+  <div class="lux-modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close(input.value)"
+    >
+      Select
+    </button>
+  </div>
+</ng-template>
