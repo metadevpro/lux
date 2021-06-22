@@ -26,7 +26,8 @@
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^11.0.0",
-    "@angular/core": "^11.0.0"
+    "@angular/core": "^11.0.0",
+    "ol": "^6.5.0"
   },
   "dependencies": {
     "angular-resize-event": "^2.1.0"
