@@ -79,7 +79,7 @@
     &lt;lux-input aria-label="Required example" <span class="text-underlined">required</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
   <div class="sample">
-    <lux-input aria-label="Required example" required></lux-input>
+    <lux-input aria-label="Required example" [required]="true"></lux-input>
   </div>
 </div>
 
@@ -274,6 +274,8 @@
 </div>
 
 <h2>Documentation</h2>
+<p>The LuxInput component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li>

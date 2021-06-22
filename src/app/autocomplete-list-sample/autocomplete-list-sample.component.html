@@ -41,7 +41,7 @@
 
   <pre class="language-html" rel="html">
     <code class="language-html">
-&lt;lux-autocomplete-list name="countries" [(value)]="myPlaces" [dataSource]="countries"&gt;
+&lt;lux-autocomplete-list name="countries" [(ngModel)]="myPlaces" [dataSource]="countries"&gt;
 &lt;/lux-autocomplete-list&gt;
     </code>
   </pre>
@@ -49,7 +49,8 @@
     <label for="countries">Direct Datasource sample for Countries:</label>
     <lux-autocomplete-list
       inputId="countries"
-      [(value)]="myPlaces"
+      name="countries"
+      [(ngModel)]="myPlaces"
       [dataSource]="countries"
       [disabled]="disabled1">
     </lux-autocomplete-list>
@@ -103,7 +104,8 @@
   <pre class="language-html" rel="html">
     <code class="language-html">
 &lt;lux-autocomplete
-    [(value)]="myPlaces2"
+    name="countries2"
+    [(ngModel)]="myPlaces2"
     [instance]="self"
     [resolveLabelsFunction]="getLabels"
     [populateFunction]="getData"&gt;
@@ -114,7 +116,8 @@
     <label for="countries2">API Wired Sample for Countries:</label>
     <lux-autocomplete-list
       inputId="countries2"
-      [(value)]="myPlaces2"
+      name="countries2"
+      [(ngModel)]="myPlaces2"
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
@@ -130,6 +133,8 @@
 </div>
 
 <h2>Documentation</h2>
+<p>The Autocomplete component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li><span class="inline">datasource</span>A key-value list of data to be used as datasource.</li>
@@ -140,4 +145,10 @@
   <li><span class="inline">populateFunction</span> Function to retrieve data based on a substring query. Returns an observable of a DataSource.</li>
   <li><span class="inline">deleteLabelTemplate</span> Template for the aria-label for the delete button.</li>
   <li><span class="inline">addMessage</span> Add Message aria-label.</li>
+</ul>
+<h3>Events</h3>
+<ul class="properties">
+  <li>
+    <span class="inline">valueChange</span>Fired whenever the value changes.
+  </li>
 </ul>

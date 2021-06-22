@@ -86,12 +86,12 @@
   <pre class="language-html" rel="html">
     <code class="language-html">
   &lt;label for="filter3"&gt;Filter&lt;/label&gt;
-  &lt;lux-filter #filter3 inputId="filter3" placeholder="type to search3" debounce="500"&gt;
+  &lt;lux-filter #filter3 inputId="filter3" placeholder="type to search3" [debounce]="500"&gt;
   &lt;/lux-filter&gt;</code>
   </pre>
   <div class="filter-container">
     <label for="filter3">Filter</label>
-    <lux-filter #filter3 inputId="filter3" placeholder="type to search3" debounce="500">
+    <lux-filter #filter3 inputId="filter3" placeholder="type to search3" [debounce]="500">
     </lux-filter>
   </div>
 
@@ -116,11 +116,11 @@
 <h3>Filter without label</h3>
 <pre class="language-html" rel="html">
   <code class="language-html">
-&lt;lux-filter #filter4 aria-label="Filter input" placeholder="type to search4" debounce="500"&gt;
+&lt;lux-filter #filter4 aria-label="Filter input" placeholder="type to search4" [debounce]="500"&gt;
 &lt;/lux-filter&gt;</code>
 </pre>
 <div class="filter-container">
-  <lux-filter #filter4 aria-label="Filter input" placeholder="type to search4" debounce="500">
+  <lux-filter #filter4 aria-label="Filter input" placeholder="type to search4" [debounce]="500">
   </lux-filter>
 </div>
 
@@ -143,6 +143,8 @@
 
 
 <h2>Documentation</h2>
+<p>The Filter component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li><span class="inline">FilterInfo</span> Data structure providing the filter details.

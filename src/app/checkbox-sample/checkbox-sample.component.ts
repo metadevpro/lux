@@ -6,11 +6,14 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './checkbox-sample.component.html'
 })
 export class CheckboxSampleComponent implements AfterContentInit {
+  model = {
+    hasCar: true,
+    closed: false
+  };
 
   constructor(private prismService: PrismService) { }
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
-
 }

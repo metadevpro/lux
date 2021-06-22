@@ -52,7 +52,7 @@ export class AutoCompleteListSampleComponent implements AfterContentInit {
   getLabels(instance: any, keys: any[]): Observable<DataSource<any, string>> {
     return of(
       instance.countries.filter((c: DataSourceItem<string, string>) =>
-        keys.includes(c.key)
+        (keys || []).includes(c.key)
       )
     );
   }

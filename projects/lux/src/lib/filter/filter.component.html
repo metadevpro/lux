@@ -1,8 +1,24 @@
 <div class="filter">
-  <input type="text" [attr.aria-label]="ariaLabel" [placeholder]="placeholder" [id]="inputId" [(ngModel)]="searchValue" (keyup)="keyup($event)">
-  <button [class.hide]="!searchValue" aria-label="Clear" class="clear-indicator icon icon-clear" (click)="clear()"></button>
-  <i *ngIf="1 || searchOnType" class="search-indicator icon icon-search "></i>
-  <button class="btn-search" *ngIf="!searchOnType" (click)="search()">
+  <input type="text"
+    [attr.aria-label]="ariaLabel"
+    [placeholder]="placeholder"
+    [id]="inputId"
+    [disabled]="disabled"
+    [(ngModel)]="searchValue"
+    (keyup)="keyup($event)">
+
+  <button
+    [class.hide]="!searchValue"
+    aria-label="Clear"
+    class="clear-indicator icon icon-clear"
+    (click)="clear()"></button>
+  <i
+    *ngIf="1 || searchOnType"
+    class="search-indicator icon icon-search "></i>
+  <button class="btn-search"
+    *ngIf="!searchOnType"
+    [disabled]="disabled"
+    (click)="search()">
       Search
   </button>
 </div>
