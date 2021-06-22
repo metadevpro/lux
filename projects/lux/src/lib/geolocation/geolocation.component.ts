@@ -2,6 +2,12 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { ModalService } from '../modal/modal.service';
 import { Geopoint } from './geopoint';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import XYZ from 'ol/source/XYZ';
+
+declare const ol: any;
 
 @Component({
   selector: 'lux-geolocation',
@@ -10,6 +16,8 @@ import { Geopoint } from './geopoint';
 })
 export class GeolocationComponent implements OnInit {
   static idCounter = 0;
+
+  private map: any;
 
   @Input()
   public minLatitude = -90;
@@ -104,6 +112,9 @@ export class GeolocationComponent implements OnInit {
 
   constructor(private modalService: ModalService) {}
 
+  private latitude = 18.5204;
+  private longitude = 73.8567;
+
   ngOnInit() {
     this.inputId = this.inputId
       ? this.inputId
@@ -118,6 +129,56 @@ export class GeolocationComponent implements OnInit {
       Validators.max(this.maxLongitude)
     ];
     this.addLongitudeValidators(longitudeValidators);
+
+    const mousePositionControl = new ol.control.MousePosition({
+      coordinateFormat: ol.coordinate.createStringXY(4),
+      projection: 'EPSG:4326',
+      // comment the following two lines to have the mouse position
+      // be placed within the map.
+      className: 'custom-mouse-position',
+      target: document.getElementById('mouse-position'),
+      undefinedHTML: '&nbsp;'
+    });
+
+    this.map = new ol.Map({
+      target: 'map',
+      controls: ol.control
+        .defaults({
+          attributionOptions: {
+            collapsible: false
+          }
+        })
+        .extend([mousePositionControl]),
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+      ],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([73.8567, 18.5204]),
+        zoom: 8
+      })
+    });
+
+    this.map.on('click', (args) => {
+      console.log(args.coordinate);
+      const lonlat = ol.proj.transform(
+        args.coordinate,
+        'EPSG:3857',
+        'EPSG:4326'
+      );
+      console.log(lonlat);
+
+      const lon = lonlat[0];
+      const lat = lonlat[1];
+      alert(`lat: ${lat} long: ${lon}`);
+    });
+  }
+
+  setCenter() {
+    const view = this.map.getView();
+    view.setCenter(ol.proj.fromLonLat([this.longitude, this.latitude]));
+    view.setZoom(8);
   }
 
   get latitudeHasErrors(): boolean {
@@ -212,5 +273,16 @@ export class GeolocationComponent implements OnInit {
   updateLongitudeValidators(): void {
     this.longitudeFormControl.setValidators(this.longitudeValidators);
     this.longitudeFormControl.updateValueAndValidity();
+  }
+
+  openModal(modal: any): void {
+    this.modalService.open(modal).result.then(
+      (result) => {
+        console.log(result);
+      },
+      (reason) => {
+        console.log(reason);
+      }
+    );
   }
 }
