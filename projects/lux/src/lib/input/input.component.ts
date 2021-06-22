@@ -217,7 +217,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       this.type === 'time' ||
       this.type === 'timestamp'
     ) {
-      if (this.min && value < this.min) {
+      if (this.min !== undefined && value < this.min) {
         result = result || {};
         result.min = {
           value,
@@ -225,7 +225,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
           reason: `Value is lower than minimum value: ${this.min}.`
         };
       }
-      if (this.max && value > this.max) {
+      if (this.max !== undefined && value > this.max) {
         result = result || {};
         result.max = {
           value,
