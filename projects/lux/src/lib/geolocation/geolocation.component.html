@@ -1,6 +1,7 @@
 <div class="lux-geolocation" [id]="inputId">
   <input
     #latitude
+    class="prefix"
     type="number"
     [id]="inputId + '$latitude'"
     [attr.disabled]="disabled || null"
@@ -13,12 +14,13 @@
     (keyup)="onKeyUpLatitude(latitude.value)"
     (change)="onChangeLatitude(latitude.value)"
   />
-  <div class="postfix">
+  <div class="infix symbol">
     <span *ngIf="latitude.value >= 0">N</span>
     <span *ngIf="latitude.value < 0">S</span>
   </div>
   <input
     #longitude
+    class="infix"
     type="number"
     [id]="inputId + '$longitude'"
     [attr.disabled]="disabled || null"
@@ -31,11 +33,11 @@
     (keyup)="onKeyUpLongitude(longitude.value)"
     (change)="onChangeLongitude(longitude.value)"
   />
-  <div class="postfix">
+  <div class="infix symbol">
     <span *ngIf="longitude.value >= 0">E</span>
     <span *ngIf="longitude.value < 0">W</span>
   </div>
-  <button (click)="openModal(modalMap)">
+  <button class="postfix" (click)="openModal(modalMap)">
     <span>🌐</span>
   </button>
   <div *ngIf="geopositionHasErrors" class="alert">
