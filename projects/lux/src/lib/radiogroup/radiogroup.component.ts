@@ -1,5 +1,18 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator
+} from '@angular/forms';
 
 export interface RadioItem {
   name?: string;
@@ -34,7 +47,9 @@ export class RadiogroupComponent implements ControlValueAccessor, Validator {
 
   @Input()
   set items(col: RadioItem[]) {
-    this._items = (col || []).map((it, index) => this.ensureHasUniqueName(it, index));
+    this._items = (col || []).map((it, index) =>
+      this.ensureHasUniqueName(it, index)
+    );
     this.itemsChange.emit(col);
   }
   get items(): RadioItem[] {
@@ -62,24 +77,24 @@ export class RadiogroupComponent implements ControlValueAccessor, Validator {
   constructor() {}
 
   // ControlValueAccessor Interface
-  onChange = (value) => {};
-  onTouched = () => {};
-  writeValue(value: any) {
+  onChange = (value): void => {};
+  onTouched = (): void => {};
+  writeValue(value: any): void {
     this.value = value;
   }
-  registerOnChange(onChange: any) {
+  registerOnChange(onChange: any): void {
     this.onChange = onChange;
   }
-  registerOnTouched(onTouched: any) {
+  registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
-  markAsTouched() {
+  markAsTouched(): void {
     if (!this.touched) {
       this.onTouched();
       this.touched = true;
     }
   }
-  setDisabledState(disabled: boolean) {
+  setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
   // End ControlValueAccessor Interface

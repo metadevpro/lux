@@ -14,7 +14,7 @@ describe('FilterComponent', () => {
 
   describe('no custom parameters', () => {
     beforeEach(() => {
-      spectator = createHost(`<lux-filter></lux-filter>`);
+      spectator = createHost('`<lux-filter></lux-filter>');
       component = spectator.component;
     });
 
@@ -146,7 +146,7 @@ describe('FilterComponent', () => {
 
   it('sets aria-label in the input correctly', () => {
     spectator = createHost(
-      `<lux-filter aria-label="filter input"></lux-filter>`
+      '<lux-filter aria-label="filter input"></lux-filter>'
     );
 
     const element = spectator.query(byLabel('filter input'));

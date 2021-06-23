@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterContentInit,
+  OnDestroy
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
 import { FilterComponent } from 'projects/lux/src/lib/filter/filter.component';
@@ -11,7 +17,9 @@ import { PrismService } from '../core/services/prism-service.service';
   styleUrls: ['./filter-sample.component.scss'],
   providers: [UserServiceMock]
 })
-export class FilterSampleComponent implements OnInit, AfterContentInit, OnDestroy {
+export class FilterSampleComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
   @ViewChild('filter', { static: true }) filter: FilterComponent;
   @ViewChild('filter2', { static: true }) filter2: FilterComponent;
   @ViewChild('filter3', { static: true }) filter3: FilterComponent;
@@ -24,29 +32,38 @@ export class FilterSampleComponent implements OnInit, AfterContentInit, OnDestro
 
   constructor(
     private userService: UserServiceMock,
-    private prismService: PrismService) { }
+    private prismService: PrismService
+  ) {}
 
-  ngOnInit() {
-    this.subs.push(this.filter.searchValueChange.subscribe(searchString => {
-      this.loadGrid(searchString);
-    }));
+  ngOnInit(): void {
+    this.subs.push(
+      this.filter.searchValueChange.subscribe((searchString) => {
+        this.loadGrid(searchString);
+      })
+    );
     this.loadGrid('');
-    this.subs.push(this.filter2.searchValueChange.subscribe(searchString => {
-      this.loadGrid2(searchString);
-    }));
+    this.subs.push(
+      this.filter2.searchValueChange.subscribe((searchString) => {
+        this.loadGrid2(searchString);
+      })
+    );
     this.loadGrid2('');
-    this.subs.push(this.filter3.searchValueChange.subscribe(searchString => {
-      this.loadGrid3(searchString);
-    }));
+    this.subs.push(
+      this.filter3.searchValueChange.subscribe((searchString) => {
+        this.loadGrid3(searchString);
+      })
+    );
     this.loadGrid3('');
-    this.subs.push(this.filter4.searchValueChange.subscribe(searchString => {
-      this.loadGrid4(searchString);
-    }));
+    this.subs.push(
+      this.filter4.searchValueChange.subscribe((searchString) => {
+        this.loadGrid4(searchString);
+      })
+    );
     this.loadGrid4('');
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach(s => s.unsubscribe());
+    this.subs.forEach((s) => s.unsubscribe());
     this.subs = [];
   }
 

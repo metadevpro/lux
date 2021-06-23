@@ -37,16 +37,16 @@ export class LuxModalWindowComponent
 
   @Output() dismissEvent = new EventEmitter();
 
-  @HostBinding('class') get class() {
+  @HostBinding('class') get class(): string {
     return `modal ${this.windowClass || ''}`;
   }
   @HostBinding('attr.role') role = 'dialog';
   @HostBinding('tabindex') tabindex = '-1';
   @HostBinding('attr.aria-modal') ariamodal = true;
-  @HostBinding('attr.aria-labelledby') get hostAriaLabelledBy() {
+  @HostBinding('attr.aria-labelledby') get hostAriaLabelledBy(): string {
     return this.ariaLabelledBy;
   }
-  @HostBinding('attr.aria-describedby') get hostAriaDescribedBy() {
+  @HostBinding('attr.aria-describedby') get hostAriaDescribedBy(): string {
     return this.ariaDescribedBy;
   }
   @HostListener('click', ['$event.target']) backdropClick(
@@ -71,11 +71,11 @@ export class LuxModalWindowComponent
     this.dismissEvent.emit(reason);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._elWithFocus = this._document.activeElement;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!this._elRef.nativeElement.contains(document.activeElement)) {
       const firstFocusable = getFocusableBoundaryElements(
         this._elRef.nativeElement
@@ -86,7 +86,7 @@ export class LuxModalWindowComponent
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     const body = this._document.body;
     const elWithFocus = this._elWithFocus;
 

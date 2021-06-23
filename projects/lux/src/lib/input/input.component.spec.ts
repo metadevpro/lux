@@ -97,7 +97,7 @@ describe('InputComponent', () => {
   });
 
   it('When aria-label is applied it gets forwarded to the input', () => {
-    spectator = createHost(`<lux-input aria-label="Some label"></lux-input>`);
+    spectator = createHost('<lux-input aria-label="Some label"></lux-input>');
 
     const element = spectator.query(byLabel('Some label'));
     expect(element).not.toBeNull();
@@ -105,7 +105,7 @@ describe('InputComponent', () => {
 
   it('When type is number the value is also updated', async () => {
     spectator = createHost(
-      `<lux-input inputId="numeric" type="number" [(value)]="valueNumber"></lux-input>`,
+      '<lux-input inputId="numeric" type="number" [(value)]="valueNumber"></lux-input>',
       {
         hostProps: {
           valueNumber: '0'

@@ -151,38 +151,38 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   @Output() valueChange = new EventEmitter<any>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
-  onChange = (value) => {};
-  onTouched = () => {};
+  onChange = (value): void => {};
+  onTouched = (): void => {};
 
   constructor() {}
 
   // ControlValueAccessor Interface implementation
-  writeValue(value: any) {
+  writeValue(value: any): void {
     this.value = value;
     this.setValueInControl(value);
   }
 
-  registerOnChange(onChange: any) {
+  registerOnChange(onChange: any): void {
     this.onChange = onChange;
   }
 
-  registerOnTouched(onTouched: any) {
+  registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
 
-  markAsTouched() {
+  markAsTouched(): void {
     if (!this.touched) {
       this.onTouched();
       this.touched = true;
     }
   }
 
-  setDisabledState(disabled: boolean) {
+  setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
   // End of ControlValueAccessor Interface implementation
 
-  private setValueInControl(v: any) {
+  private setValueInControl(v: any): void {
     if (this.domain === 'date') {
       v = normalizeDate(v);
     }
@@ -238,7 +238,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
   // End of Validator interface
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.inputId = this.inputId
       ? this.inputId
       : `${this.type}$${InputComponent.idCounter++}`;

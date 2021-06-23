@@ -69,7 +69,7 @@ export const focusTrap = (
   element: HTMLElement,
   stopFocusTrap$: Observable<any>,
   refocusOnClick = false
-) => {
+): void => {
   // last focused element
   const lastFocusedElement$ = fromEvent<FocusEvent>(element, 'focusin').pipe(
     takeUntil(stopFocusTrap$),
