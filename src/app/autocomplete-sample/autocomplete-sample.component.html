@@ -53,7 +53,7 @@
 
   <pre class="language-html" rel="html">
     <code class="language-html">
-&lt;lux-autocomplete name="country" [(value)]="value" [dataSource]="countries"&gt;
+&lt;lux-autocomplete name="country" [(ngModel)]="value" [dataSource]="countries"&gt;
 &lt;/lux-autocomplete&gt;
     </code>
   </pre>
@@ -61,7 +61,8 @@
     <label for="country">Direct Datasource sample for Countries:</label>
     <lux-autocomplete
       inputId="country"
-      [(value)]="value"
+      name="country"
+      [(ngModel)]="value"
       [dataSource]="countries"
       [disabled]="disabled1"
     >
@@ -108,8 +109,8 @@
   <pre class="language-html" rel="html">
     <code class="language-html">
 &lt;lux-autocomplete
-    name="country"
-    [(value)]="value2"
+    name="country2"
+    [(ngModel)]="value2"
     [instance]="self"
     [resolveLabelsFunction]="getLabels"
     [populateFunction]="getData"&gt;
@@ -120,7 +121,8 @@
     <label for="country2">API Wired Sample for Countries:</label>
     <lux-autocomplete
       inputId="country2"
-      [(value)]="value2"
+      name="country2"
+      [(ngModel)]="value2"
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
@@ -136,6 +138,8 @@
 </div>
 
 <h2>Documentation</h2>
+<p>The AutocompleteList component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li>
@@ -160,3 +164,10 @@
     on a substring query. Returns an observable of a DataSource.
   </li>
 </ul>
+<h3>Events</h3>
+<ul class="properties">
+  <li>
+    <span class="inline">valueChange</span>Fired whenever the value changes.
+  </li>
+</ul>
+

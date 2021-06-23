@@ -29,14 +29,14 @@
 
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;lux-radiogroup name="brand" [(value)]="selectedValue" [items]="carBrands"&gt;
+  &lt;lux-radiogroup name="brand" [(ngModel)]="selectedValue" [items]="carBrands"&gt;
   &lt;/lux-radiogroup&gt;
     </code>
   </pre>
 
   <div class="content">
     <label for="brand">Car brand:</label>
-    <lux-radiogroup name="brand" [(value)]="selectedValue" [items]="carBrands">
+    <lux-radiogroup name="brand" [(ngModel)]="selectedValue" [items]="carBrands">
     </lux-radiogroup>
     <p>Selected value: {{ selectedValue }}</p>
   </div>
@@ -44,14 +44,14 @@
   <h3>Disabled or Readonly</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
-  &lt;lux-radiogroup name="brand2" [items]="carBrands" [(value)]="selectedValue2" disabled="true"&gt;
+  &lt;lux-radiogroup name="brand2" [items]="carBrands" [(ngModel)]="selectedValue2" [disabled]="true"&gt;
   &lt;/lux-radiogroup&gt;
     </code>
   </pre>
 
   <div class="content">
     <label for="brand2">Car brand disabled:</label>
-    <lux-radiogroup name="brand2" [items]="carBrands" [(value)]="selectedValue2" disabled="true">
+    <lux-radiogroup name="brand2" [items]="carBrands" [(ngModel)]="selectedValue2" [disabled]="true">
     </lux-radiogroup>
     <p>Selected value: {{ selectedValue2 }}</p>
   </div>
@@ -59,10 +59,17 @@
 </div>
 
 <h2>Documentation</h2>
+<p>The LuxRadioGroup component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li><span class="inline">items</span>The options for the radio group.</li>
   <li><span class="inline">readonly</span> If read-only is set the component is not editable.</li>
   <li><span class="inline">disabled</span> If disabled the component is not editable.</li>
   <li><span class="inline">value</span> Currrent value.</li>
+</ul>
+<h3>Events</h3>
+<ul class="properties">
+  <li><span class="inline">valueChange</span> Fires whenever the value changes.</li>
+  <li><span class="inline">itemsChange</span> Fires whenever the input items changes.</li>
 </ul>

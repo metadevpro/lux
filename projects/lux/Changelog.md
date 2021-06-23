@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.5.6
+
+2021.06.23
+
+- Implemented ValueControlAccessor in all input compontes to support ngModel and ngForms.
+
 ## Version 0.5.5
 
 2021.06.21

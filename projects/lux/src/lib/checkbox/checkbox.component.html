@@ -3,7 +3,7 @@
     <label *ngIf="label" [for]="inputId">{{ label }}</label>
   </div>
   <div *ngIf="!disabled" class="switch-item" (click)="clicked()">
-    <input [name]="name" type="checkbox" [(ngModel)]="value" [id]="inputId" />
+    <input #ck [name]="name" type="checkbox" [id]="inputId" />
     <div
       class="slider round"
       [class.disabled]="disabled"
