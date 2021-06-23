@@ -38,108 +38,118 @@ describe('FilterComponent', () => {
       expect(button).toBeFalsy();
     });
 
-    it('it should launch search after keypress + debounce time', waitForAsync(() => {
-      // Arrange
-      component.searchOnType = true;
-      component.debounce = 520; // ms
-      spectator.detectChanges();
+    it(
+      'it should launch search after keypress + debounce time',
+      waitForAsync(() => {
+        // Arrange
+        component.searchOnType = true;
+        component.debounce = 520; // ms
+        spectator.detectChanges();
 
-      const input = spectator.query('input');
-      const t0 = Date.now();
-      let t1 = null;
+        const input = spectator.query('input');
+        const t0 = Date.now();
+        let t1 = null;
 
-      const sub = component.searchValueChange.subscribe(val => {
-        t1 = Date.now();
+        const sub = component.searchValueChange.subscribe((val) => {
+          t1 = Date.now();
 
-        // Assert
-        const delay = t1 - t0;
-        expect(delay).toBeGreaterThanOrEqual(component.debounce);
+          // Assert
+          const delay = t1 - t0;
+          expect(delay).toBeGreaterThanOrEqual(component.debounce);
 
-        sub.unsubscribe();
-      });
+          sub.unsubscribe();
+        });
 
-      // Act
-      spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
-      spectator.detectChanges();
+        // Act
+        spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
+        spectator.detectChanges();
+      })
+    );
+    it(
+      'by default debounce time is 300 ms',
+      waitForAsync(() => {
+        // Arrange
+        component.searchOnType = true;
+        const input = spectator.query('input');
+        const t0 = Date.now();
+        let t1 = null;
 
-    }));
-    it('by default debounce time is 300 ms', waitForAsync(() => {
-      // Arrange
-      component.searchOnType = true;
-      const input = spectator.query('input');
-      const t0 = Date.now();
-      let t1 = null;
+        const sub = component.searchValueChange.subscribe((val) => {
+          t1 = Date.now();
 
-      const sub = component.searchValueChange.subscribe(val => {
-        t1 = Date.now();
+          // Assert
+          const delay = t1 - t0;
+          expect(delay).toBeGreaterThanOrEqual(component.debounce);
 
-        // Assert
-        const delay = t1 - t0;
-        expect(delay).toBeGreaterThanOrEqual(component.debounce);
+          sub.unsubscribe();
+        });
 
-        sub.unsubscribe();
-      });
+        // Act
+        spectator.detectChanges();
+        spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
+        spectator.detectChanges();
+      })
+    );
 
-      // Act
-      spectator.detectChanges();
-      spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
-      spectator.detectChanges();
+    it(
+      'enter should trigger search immediately',
+      waitForAsync(() => {
+        // Arrange
+        component.searchOnType = true;
+        const input = spectator.query('input');
+        const t0 = Date.now();
+        let t1 = null;
 
-    }));
+        const sub = component.searchValueChange.subscribe((val) => {
+          t1 = Date.now();
 
-    it('enter should trigger search immediately', waitForAsync(() => {
-      // Arrange
-      component.searchOnType = true;
-      const input = spectator.query('input');
-      const t0 = Date.now();
-      let t1 = null;
+          // Assert
+          const delay = t1 - t0;
+          expect(delay).toBeLessThan(10);
 
-      const sub = component.searchValueChange.subscribe(val => {
-        t1 = Date.now();
+          sub.unsubscribe();
+        });
 
-        // Assert
-        const delay = t1 - t0;
-        expect(delay).toBeLessThan(10);
+        // Act
+        spectator.detectChanges();
+        component.keyup(new KeyboardEvent('keyup', { key: 'Enter' }), '');
+        spectator.detectChanges();
+      })
+    );
+    it(
+      'clear() should trigger search inmediatly',
+      waitForAsync(() => {
+        // Arrange
+        component.searchOnType = true;
+        component.searchValue = 'ABC';
+        const input = spectator.query('input');
+        const t0 = Date.now();
+        let t1 = null;
 
-        sub.unsubscribe();
-      });
+        const sub = component.searchValueChange.subscribe((val) => {
+          t1 = Date.now();
 
-      // Act
-      spectator.detectChanges();
-      component.keyup(new KeyboardEvent('keyup', { key: 'Enter' }));
-      spectator.detectChanges();
+          // Assert
+          const delay = t1 - t0;
+          expect(delay).toBeLessThan(10);
 
-    }));
-    it('clear() should trigger search inmediatly', waitForAsync(() => {
-      // Arrange
-      component.searchOnType = true;
-      component.searchValue = 'ABC';
-      const input = spectator.query('input');
-      const t0 = Date.now();
-      let t1 = null;
+          sub.unsubscribe();
+        });
 
-      const sub = component.searchValueChange.subscribe(val => {
-        t1 = Date.now();
-
-        // Assert
-        const delay = t1 - t0;
-        expect(delay).toBeLessThan(10);
-
-        sub.unsubscribe();
-      });
-
-      // Act
-      spectator.detectChanges();
-      component.clear();
-      spectator.detectChanges();
-    }));
+        // Act
+        spectator.detectChanges();
+        component.clear();
+        spectator.detectChanges();
+      })
+    );
   });
 
   it('sets aria-label in the input correctly', () => {
-    spectator = createHost(`<lux-filter aria-label="filter input"></lux-filter>`);
+    spectator = createHost(
+      `<lux-filter aria-label="filter input"></lux-filter>`
+    );
 
     const element = spectator.query(byLabel('filter input'));
     expect(element).not.toBeNull();
   });
-
 });
