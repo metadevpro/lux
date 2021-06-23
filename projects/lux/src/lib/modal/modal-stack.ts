@@ -63,7 +63,7 @@ export class ModalStack {
     const config = Object.assign({}, this.modalConfig, options);
     const containerEl = this._document.body;
     const renderer = this._rendererFactory.createRenderer(null, null);
-    const removeBodyClass = () => {
+    const removeBodyClass = (): void => {
       if (!this._modalRefs.length) {
         renderer.removeClass(this._document.body, 'modal-open');
         this._revertAriaHidden();
@@ -83,10 +83,10 @@ export class ModalStack {
     this._registerModalRef(modalRef);
     this._registerWindowCmpt(windowCmptRef);
     modalRef.result.then(removeBodyClass, removeBodyClass);
-    activeModal.close = (result: any) => {
+    activeModal.close = (result: any): void => {
       modalRef.close(result);
     };
-    activeModal.dismiss = (reason: any) => {
+    activeModal.dismiss = (reason: any): void => {
       modalRef.dismiss(reason);
     };
 
@@ -125,7 +125,7 @@ export class ModalStack {
     });
   }
 
-  private _revertAriaHidden() {
+  private _revertAriaHidden(): void {
     this._ariaHiddenValues.forEach((value, element) => {
       if (value) {
         element.setAttribute('aria-hidden', value);
@@ -153,11 +153,11 @@ export class ModalStack {
     const context = {
       $implicit: activeModal,
       // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-      close(result) {
+      close(result): void {
         activeModal.close(result);
       },
       // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-      dismiss(reason) {
+      dismiss(reason): void {
         activeModal.dismiss(reason);
       }
     };
@@ -183,7 +183,7 @@ export class ModalStack {
     moduleCFR: ComponentFactoryResolver,
     containerEl: any,
     contentRef: any
-  ) {
+  ): ComponentRef<LuxModalWindowComponent> {
     const windowFactory = moduleCFR.resolveComponentFactory(
       LuxModalWindowComponent
     );
@@ -196,8 +196,8 @@ export class ModalStack {
     return windowCmptRef;
   }
 
-  private _registerModalRef(modalRef: ModalRef) {
-    const unregisterModalRef = () => {
+  private _registerModalRef(modalRef: ModalRef): void {
+    const unregisterModalRef = (): void => {
       const index = this._modalRefs.indexOf(modalRef);
       if (index > -1) {
         this._modalRefs.splice(index, 1);
@@ -209,7 +209,7 @@ export class ModalStack {
 
   private _registerWindowCmpt(
     windowCmpt: ComponentRef<LuxModalWindowComponent>
-  ) {
+  ): void {
     this._windowCmpts.push(windowCmpt);
     this._activeWindowCmptHasChanged.next();
 
@@ -222,7 +222,7 @@ export class ModalStack {
     });
   }
 
-  private _setAriaHidden(element: Element) {
+  private _setAriaHidden(element: Element): void {
     const parent = element.parentElement;
     if (parent && element !== this._document.body) {
       Array.from(parent.children).forEach((sibling) => {

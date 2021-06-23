@@ -1,4 +1,13 @@
-import { Component, Input, EventEmitter, Output, OnInit, forwardRef, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  OnInit,
+  forwardRef,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const KEY_SPACE = ' ';
@@ -55,29 +64,29 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
   constructor() {}
 
   // ControlValueAccessor Interface
-  onChange = (value) => {};
-  onTouched = () => {};
-  writeValue(value: any) {
+  onChange = (value): void => {};
+  onTouched = (): void => {};
+  writeValue(value: any): void {
     this.value = !!value;
   }
-  registerOnChange(onChange: any) {
+  registerOnChange(onChange: any): void {
     this.onChange = onChange;
   }
-  registerOnTouched(onTouched: any) {
+  registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
-  markAsTouched() {
+  markAsTouched(): void {
     if (!this.touched) {
       this.onTouched();
       this.touched = true;
     }
   }
-  setDisabledState(disabled: boolean) {
+  setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
   // End ControlValueAccessor Interface
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.inputId = this.inputId
       ? this.inputId
       : `${this.name || 'checkbox'}$${CheckboxComponent.idCounter++}`;

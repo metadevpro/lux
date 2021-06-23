@@ -8,50 +8,58 @@ import { TooltipContentRef } from './tooltop-content';
  * Tooltip directive
  */
 @Directive({
-    selector: '[luxTooltip]'
+  selector: '[luxTooltip]'
 })
 export class LuxTooltipDirective {
+  /** Tooltip title */
+  @Input() luxTooltip: any;
 
-    /** Tooltip title */
-    @Input() luxTooltip: any;
+  /** Component, TemplateRef or String */
+  @Input() content: any;
 
-    /** Component, TemplateRef or String */
-    @Input() content: any;
+  /** Placement */
+  @Input() placement: PlacementValue;
 
-    /** Placement */
-    @Input() placement: PlacementValue;
+  tooltipRef: TooltipContentRef;
 
-    tooltipRef: TooltipContentRef;
+  constructor(
+    private elHost: ElementRef,
+    private tooltipService: TooltipService
+  ) {}
 
-    constructor(private elHost: ElementRef,
-                private tooltipService: TooltipService) { }
-
-    @HostListener('mouseenter') onMouseEnter() {
-        if (!this.tooltipRef) {
-            this.tooltipRef = this.show(this.content, this.elHost, this.placement);
-        }
+  @HostListener('mouseenter') onMouseEnter(): void {
+    if (!this.tooltipRef) {
+      this.tooltipRef = this.show(this.content, this.elHost, this.placement);
     }
+  }
 
-    @HostListener('mouseleave') onmouseleave() {
-        if (this.tooltipRef) {
-            this.remove(this.tooltipRef);
-            this.tooltipRef = null;
-        }
+  @HostListener('mouseleave') onMouseLeave(): void {
+    if (this.tooltipRef) {
+      this.remove(this.tooltipRef);
+      this.tooltipRef = null;
     }
+  }
 
-    @HostListener('click') onclick() {
-        if (this.tooltipRef) {
-            this.remove(this.tooltipRef);
-            this.tooltipRef = null;
-        }
+  @HostListener('click') onClick(): void {
+    if (this.tooltipRef) {
+      this.remove(this.tooltipRef);
+      this.tooltipRef = null;
     }
+  }
 
-    show(component: any, elHost: ElementRef, placement: PlacementValue): TooltipContentRef {
-        return this.tooltipService.appendComponentToBody(component, elHost, placement);
-    }
+  show(
+    component: any,
+    elHost: ElementRef,
+    placement: PlacementValue
+  ): TooltipContentRef {
+    return this.tooltipService.appendComponentToBody(
+      component,
+      elHost,
+      placement
+    );
+  }
 
-    remove(tooltipRef: TooltipContentRef): void {
-        this.tooltipService.removeComponentFromBody(tooltipRef);
-    }
-
+  remove(tooltipRef: TooltipContentRef): void {
+    this.tooltipService.removeComponentFromBody(tooltipRef);
+  }
 }

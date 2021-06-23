@@ -79,44 +79,44 @@ export class FilterComponent
   }
 
   // ControlValueAccessor Interface
-  onChange = (value) => {};
-  onTouched = () => {};
-  writeValue(value: any) {
+  onChange = (value): void => {};
+  onTouched = (): void => {};
+  writeValue(value: any): void {
     this.searchValue = (value || '').toString();
   }
-  registerOnChange(onChange: any) {
+  registerOnChange(onChange: any): void {
     this.onChange = onChange;
   }
-  registerOnTouched(onTouched: any) {
+  registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
-  markAsTouched() {
+  markAsTouched(): void {
     if (!this.touched) {
       this.onTouched();
       this.touched = true;
     }
   }
-  setDisabledState(disabled: boolean) {
+  setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
   // End ControlValueAccessor Interface
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.inputId = this.inputId
       ? this.inputId
       : `filter$${FilterComponent.idCounter++}`;
   }
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.freeSubscriptions();
   }
-  clear() {
+  clear(): void {
     this.searchValue = '';
     this.search();
   }
-  search() {
+  search(): void {
     this.searchValueChange.emit(this.searchValue);
   }
-  keyup(event: KeyboardEvent, newValue: string) {
+  keyup(event: KeyboardEvent, newValue: string): void {
     this.markAsTouched();
     this.searchValue = newValue;
     if (event.key === 'Enter') {
@@ -126,7 +126,7 @@ export class FilterComponent
       this.addEvent();
     }
   }
-  onInputValueChange(newValue: string) {
+  onInputValueChange(newValue: string): void {
     this.markAsTouched();
     this.searchValue = newValue;
   }
@@ -141,16 +141,16 @@ export class FilterComponent
       this.searchValueChange.emit(value);
     });
   }
-  private freeSubscriptions() {
+  private freeSubscriptions(): void {
     if (this.sub) {
       this.sub.unsubscribe();
       this.sub = null;
     }
   }
-  private searchNow(value: string) {
+  private searchNow(value: string): void {
     this.searchValueChange.emit(value);
   }
-  private addEvent() {
+  private addEvent(): void {
     this.subject.next(this.searchValue);
   }
 }

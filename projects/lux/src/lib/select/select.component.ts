@@ -1,5 +1,18 @@
-import { Component, Input, EventEmitter, Output, forwardRef } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  forwardRef
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator
+} from '@angular/forms';
 
 let sequencer = 0;
 
@@ -21,12 +34,6 @@ let sequencer = 0;
   ]
 })
 export class SelectComponent implements ControlValueAccessor, Validator {
-  private touched = false;
-
-  newEntry = '';
-  error = null;
-  isValidNewEntry = false;
-
   @Input() id = 'stringList' + sequencer++;
   @Input() disabled = false;
   @Input() required = false;
@@ -40,25 +47,33 @@ export class SelectComponent implements ControlValueAccessor, Validator {
   /** Validation function for new items. Returns error or null if valid */
   @Input() validateItem: (item: string) => string = (_) => null;
 
+  newEntry = '';
+  error = null;
+  isValidNewEntry = false;
+
+  private touched = false;
+
+  constructor() {}
+
   // ControlValueAccessor Interface
-  onChange = (value) => {};
-  onTouched = () => {};
-  writeValue(value: any) {
+  onChange = (value): void => {};
+  onTouched = (): void => {};
+  writeValue(value: any): void {
     this.value = value;
   }
-  registerOnChange(onChange: any) {
+  registerOnChange(onChange: any): void {
     this.onChange = onChange;
   }
-  registerOnTouched(onTouched: any) {
+  registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
-  markAsTouched() {
+  markAsTouched(): void {
     if (!this.touched) {
       this.onTouched();
       this.touched = true;
     }
   }
-  setDisabledState(disabled: boolean) {
+  setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
   // End ControlValueAccessor Interface
@@ -68,7 +83,10 @@ export class SelectComponent implements ControlValueAccessor, Validator {
 
   validate(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
-    if (this.required && (value === '' || value === null || value === undefined)) {
+    if (
+      this.required &&
+      (value === '' || value === null || value === undefined)
+    ) {
       return { required: { value, reason: 'Required field.' } };
     }
     return null;
@@ -91,7 +109,7 @@ export class SelectComponent implements ControlValueAccessor, Validator {
       this.valueChange.emit(this.value);
     }
   }
-  onKeyPress(event: KeyboardEvent) {
+  onKeyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter' && !this.error && this.newEntry !== '') {
       // Add on pressing Enter/Return
       this.markAsTouched();
@@ -106,7 +124,7 @@ export class SelectComponent implements ControlValueAccessor, Validator {
       return;
     }
     if (this.unique) {
-      const found = (this.value || []).find(it => it === newValue);
+      const found = (this.value || []).find((it) => it === newValue);
       this.isValidNewEntry = !found;
       this.error = found
         ? `Value '${newValue}' is already in. Cannot add duplicates.`

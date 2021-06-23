@@ -1,12 +1,12 @@
 import { Component, AfterContentInit } from '@angular/core';
 import { DataSourceItem } from 'lux/public-api';
-import { DataSource } from 'projects/lux/src/lib/autocomplete/autocomplete.component';
+import { DataSource } from 'projects/lux/src/lib/datasource';
 import { Observable, of } from 'rxjs';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
   selector: 'app-autocomplete-list-sample',
-  templateUrl: './autocomplete-list-sample.component.html',
+  templateUrl: './autocomplete-list-sample.component.html'
 })
 export class AutoCompleteListSampleComponent implements AfterContentInit {
   disabled1 = false;
@@ -31,7 +31,7 @@ export class AutoCompleteListSampleComponent implements AfterContentInit {
     { key: 'MO', label: 'Morroco' },
     { key: 'DZ', label: 'Argelia' },
     { key: 'AR', label: 'Argentina' },
-    { key: 'AM', label: 'Armenia' },
+    { key: 'AM', label: 'Armenia' }
   ];
   myPlaces = ['ES', 'IT', 'CR'];
   myPlaces2 = ['AM', 'DZ', 'JP'];

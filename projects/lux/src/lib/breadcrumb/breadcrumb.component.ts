@@ -1,9 +1,14 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import {
+  Router,
+  NavigationEnd,
+  ActivatedRoute,
+  ActivatedRouteSnapshot
+} from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   label: string;
   url: string;
 }
@@ -17,29 +22,37 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
   public imagePath = '../assets/img/arrow-forward.svg';
 
-  constructor(
-    private route: Router,
-    private activedRoute: ActivatedRoute) { }
+  constructor(private route: Router, private activedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.subs.push(this.route.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(_ => {
-      this.breadcrumbs = [];
-      this.addBreadcrumbs(this.activedRoute.snapshot.root, true, null);
-    }));
+    this.subs.push(
+      this.route.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .subscribe((_) => {
+          this.breadcrumbs = [];
+          this.addBreadcrumbs(this.activedRoute.snapshot.root, true, null);
+        })
+    );
   }
 
-  ngOnDestroy() {
-    this.subs.forEach(s => s.unsubscribe());
+  ngOnDestroy(): void {
+    this.subs.forEach((s) => s.unsubscribe());
     this.subs = [];
   }
 
-  private addBreadcrumbs(activedRouteSnapshot: ActivatedRouteSnapshot, isRoot: boolean, urlPrefix: string): void {
+  private addBreadcrumbs(
+    activedRouteSnapshot: ActivatedRouteSnapshot,
+    isRoot: boolean,
+    urlPrefix: string
+  ): void {
     const routeConfig = activedRouteSnapshot.routeConfig;
     let url = urlPrefix || '';
     url += routeConfig ? '/' + this.getUrl(activedRouteSnapshot) : '';
-    const label = routeConfig ? this.getLabel(activedRouteSnapshot) : isRoot ? 'Home' : '';
+    const label = routeConfig
+      ? this.getLabel(activedRouteSnapshot)
+      : isRoot
+      ? 'Home'
+      : '';
     if (label && url !== '/') {
       const breadcrumb = { label, url };
       this.breadcrumbs.push(breadcrumb);
@@ -54,8 +67,9 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
       return '';
     }
     const id = activedRouteSnapshot.params.id;
-    return id ? `${activedRouteSnapshot.url[0]}/${id}`
-      : (activedRouteSnapshot.routeConfig.path || '');
+    return id
+      ? `${activedRouteSnapshot.url[0]}/${id}`
+      : activedRouteSnapshot.routeConfig.path || '';
   }
 
   private getLabel(activedRouteSnapshot: ActivatedRouteSnapshot): string {

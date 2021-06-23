@@ -69,7 +69,7 @@ export class PaginationComponent {
     return this.displayPreviousEllipsisValue;
   }
 
-  pageSizeChanged(pageSize: number) {
+  pageSizeChanged(pageSize: number): void {
     this.paginationInfo.pageSize = pageSize;
     this.pageSizeChange.emit(pageSize);
   }

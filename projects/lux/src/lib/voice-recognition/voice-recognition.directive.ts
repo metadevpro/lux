@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[luxVoiceRecognition]',
+  selector: '[luxVoiceRecognition]'
 })
 export class VoiceRecognitionDirective implements OnInit {
   @Input() language: string;
@@ -10,17 +10,14 @@ export class VoiceRecognitionDirective implements OnInit {
   private isRecognizing = false;
   private mic: any;
 
-  constructor(
-    private el: ElementRef,
-    private renderer: Renderer2
-    ) {
+  constructor(private el: ElementRef, private renderer: Renderer2) {
     const speechRecognition = (window as any).webkitSpeechRecognition;
     if (speechRecognition) {
       this.recognition = new speechRecognition();
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.recognition) {
       // API is available
       this.recognition.lang = this.language || window.navigator.language;
@@ -35,12 +32,12 @@ export class VoiceRecognitionDirective implements OnInit {
       parent.appendChild(this.mic);
 
       // Add event handlers
-      this.mic.onclick = () => this.microphoneClick();
-      this.recognition.onresult = (event) => this.onRecognized(event);
+      this.mic.onclick = (): void => this.microphoneClick();
+      this.recognition.onresult = (event): void => this.onRecognized(event);
     }
   }
 
-  microphoneClick() {
+  microphoneClick(): void {
     if (this.isRecognizing) {
       // stop
       this.isRecognizing = false;

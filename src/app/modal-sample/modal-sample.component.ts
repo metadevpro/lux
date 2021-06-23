@@ -33,7 +33,7 @@ export class ModalSampleComponent implements AfterContentInit {
       );
   }
 
-  openModalWithoutBackdrop(modal: any) {
+  openModalWithoutBackdrop(modal: any): void {
     this.modalService.open(modal, { backdrop: false }).result.then(
       (result) => {
         this.message = result;

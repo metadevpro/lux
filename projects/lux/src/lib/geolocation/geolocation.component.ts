@@ -104,7 +104,7 @@ export class GeolocationComponent implements OnInit {
 
   constructor(private modalService: ModalService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.inputId = this.inputId
       ? this.inputId
       : `geolocation$${GeolocationComponent.idCounter++}`;
