@@ -51,14 +51,7 @@
                   }
               ],
               "@typescript-eslint/no-inferrable-types": "off",
-              "arrow-parens": [
-                  "error",
-                  "as-needed",
-                  {
-                      "requireForBlockBody": true
-                  }
-              ],
-              "brace-style": [
+1              "brace-style": [
                   "off",
                   "off"
               ],
@@ -83,7 +76,9 @@
               "@typescript-eslint/naming-convention": [
                 "error",
                 { "selector": "enum", "format": ["PascalCase"] }
-              ]
+              ],
+              "@typescript-eslint/member-ordering": "off",
+              "arrow-parens": "off"
           }
       },
       {
