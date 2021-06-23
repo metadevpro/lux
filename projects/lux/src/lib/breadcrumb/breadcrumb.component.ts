@@ -8,7 +8,7 @@ import {
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   label: string;
   url: string;
 }

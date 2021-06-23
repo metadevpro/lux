@@ -21,21 +21,12 @@ import {
   ValidationErrors,
   Validator
 } from '@angular/forms';
-
-export interface DataSourceItem<K, L> {
-  key: K;
-  label: L;
-}
-export type DataSource<K, L> = DataSourceItem<K, L>[];
-
-interface DecoratedDataSourceItem {
-  key: any;
-  label: string;
-  labelPrefix: string;
-  labelMatch: string;
-  labelPostfix: string;
-}
-type DecoratedDataSource = DecoratedDataSourceItem[];
+import {
+  DataSource,
+  DataSourceItem,
+  DecoratedDataSource,
+  DecoratedDataSourceItem
+} from '../datasource';
 
 @Component({
   selector: 'lux-autocomplete',

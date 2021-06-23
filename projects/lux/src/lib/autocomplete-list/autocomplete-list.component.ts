@@ -17,10 +17,8 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import {
-  AutocompleteComponent,
-  DataSource
-} from '../autocomplete/autocomplete.component';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
+import { DataSource } from '../datasource';
 
 @Component({
   selector: 'lux-autocomplete-list',
