@@ -51,7 +51,7 @@
                   }
               ],
               "@typescript-eslint/no-inferrable-types": "off",
-1              "brace-style": [
+              "brace-style": [
                   "off",
                   "off"
               ],
