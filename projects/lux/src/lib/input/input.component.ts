@@ -30,7 +30,7 @@ import {
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: InputComponent
+      useExisting: forwardRef(() => InputComponent)
     }
   ]
 })
@@ -194,8 +194,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   validate(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
-    // eslint-disable-next-line prefer-const
-    let result: any = null;
+    let result: ValidationErrors | null = null;
 
     if (
       this.required &&

@@ -6,50 +6,52 @@
   <h3>Checkbox with label enabled</h3>
   <pre class="language-html" rel="html">
     <code class="language-html">
-&lt;lux-checkbox name="closed" label="Is closed?"&gt;
-&lt;/lux-checkbox&gt;
-&lt;lux-checkbox name="hasCar" label="Has car?" [value]="true"&gt;
+&lt;lux-checkbox name="closed" label="Is closed?"  [(ngModel)]="model.closed"&gt;
 &lt;/lux-checkbox&gt;
 
-&lt;lux-checkbox name="closed" label="Is closed?"&gt;
-&lt;/lux-checkbox&gt;
-&lt;lux-checkbox name="hasCar" label="Has car?" [(value)]="true"&gt;
+&lt;lux-checkbox name="hasCar" label="Has car?" [(ngModel)]="model.hasCar"&gt;
 &lt;/lux-checkbox&gt;</code>
   </pre>
   <div class="content">
-    <table class="all-width"></table>
-    <lux-checkbox name="closed" label="Is closed?"> </lux-checkbox>
-    <lux-checkbox name="hasCar" label="Has car?" [value]="true"> </lux-checkbox>
+    <lux-checkbox name="closed" label="Is closed?" [(ngModel)]="model.closed"> </lux-checkbox>
+    <span>Closed? Binded value: {{ model.closed }}</span>
+    <br/>
+    <lux-checkbox name="hasCar" label="Has car?" [(ngModel)]="model.hasCar"> </lux-checkbox>
+    <span>Has car? Binded value: {{ model.hasCar }}</span>
+    <br/>
+    {{ model | json }}
   </div>
 
   <h3>Checkbox disabled</h3>
 
   <pre class="language-html" rel="html">
     <code class="language-html">
-&lt;lux-checkbox name="closed" label="Is closed? [disabled]="true"&gt;
-&lt;/lux-checkbox&gt;
-&lt;lux-checkbox name="hasCar" label="Has car?" [disabled]="true" [value]="true"&gt;
+&lt;lux-checkbox name="closed" label="Is closed? [(disabled)]="true" [ngModel]="model.closed"&gt;
 &lt;/lux-checkbox&gt;
 
-&lt;lux-checkbox name="closed" label="Is closed? [(disabled)]="true"&gt;
+&lt;lux-checkbox name="hasCar2" label="Has car? [disabled]="true" [ngModel]="model.hasCar"&gt;
 &lt;/lux-checkbox&gt;
-&lt;lux-checkbox name="hasCar" label="Has car?" [(disabled)]="true" [(value)]="true"&gt;
-&lt;/lux-checkbox&gt;</code>
+</code>
   </pre>
   <div class="content">
-    <lux-checkbox name="closed" label="Is closed?" [disabled]="true">
+    <lux-checkbox name="closed2" label="Is closed?" [disabled]="true" [ngModel]="model.closed">
     </lux-checkbox>
+    <span>Binded value: {{ model.closed }}</span>
     <lux-checkbox
-      name="hasCar"
+      name="hasCar2"
       label="Has car?"
       [disabled]="true"
-      [value]="true"
+      [ngModel]="model.hasCar"
     >
     </lux-checkbox>
+    <span>Binded value: {{ model.hasCar }}</span>
+
   </div>
 </div>
 
 <h2>Documentation</h2>
+<p>The Checkbox component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li>
@@ -62,4 +64,10 @@
     editable.
   </li>
   <li><span class="inline">value</span> Status of checkbox on or off.</li>
+</ul>
+<h3>Events</h3>
+<ul class="properties">
+  <li>
+    <span class="inline">valueChange</span>Fired whenever the value changes.
+  </li>
 </ul>

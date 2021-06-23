@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  forwardRef,
   Input,
   OnInit,
   Output,
@@ -12,6 +13,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { ResizedEvent } from 'angular-resize-event';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 
 export interface DataSourceItem<K, L> {
   key: K;
@@ -31,19 +33,31 @@ type DecoratedDataSource = DecoratedDataSourceItem[];
 @Component({
   selector: 'lux-autocomplete',
   templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.scss']
+  styleUrls: ['./autocomplete.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => AutocompleteComponent)
+    },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: forwardRef(() => AutocompleteComponent)
+    }
+  ]
 })
-export class AutocompleteComponent implements OnInit, AfterViewInit {
+export class AutocompleteComponent implements ControlValueAccessor, Validator, OnInit, AfterViewInit {
   static idCounter = 0;
 
   @ViewChild('i0', { static: true }) i0: ElementRef;
   @ViewChild('completeDiv', { static: true }) completeDiv: ElementRef;
 
   private _dataSource: DataSource<any, string>;
-  private _required: boolean;
   private _placeholder: string;
   private _value: any;
 
+  touched = false;
   completionList: DecoratedDataSource = [];
   showCompletion = false;
   focusItem: DataSourceItem<any, string>;
@@ -63,6 +77,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   set value(v: any) {
     this._value = v;
     this.valueChange.emit(v);
+    this.onChange(v);
     this.completeLabel();
   }
   @Input()
@@ -73,13 +88,8 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     this._dataSource = v;
     this.dataSourceChange.emit(v);
   }
-  @Input()
-  set required(v: boolean) {
-    this._required = v;
-  }
-  get required(): boolean {
-    return this._required;
-  }
+  @Input() required = false;
+
   @Input()
   set placeholder(v: string) {
     this._placeholder = v;
@@ -100,12 +110,44 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
 
   constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
-    this.inputId = this.inputId
-      ? this.inputId
-      : `autocompletelist${AutocompleteComponent.idCounter++}`;
-    this.completeLabel();
+  // ControlValueAccessor Interface
+  onChange = (value) => {};
+  onTouched = () => {};
+
+  writeValue(value: any) {
+    this.value = value;
   }
+
+  registerOnChange(onChange: any) {
+    this.onChange = onChange;
+  }
+  registerOnTouched(onTouched: any) {
+    this.onTouched = onTouched;
+  }
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
+  }
+
+  setDisabledState(disabled: boolean) {
+    this.disabled = disabled;
+  }
+  // End ControlValueAccessor Interface
+
+  // Validator interface
+  registerOnValidatorChange(): void {}
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (this.required &&
+        (value === '' || value === null || value === undefined)) {
+      return { required: { value, reason: 'Required field.'  } };
+    }
+    return null;
+  }
+  // End of Validator interface
 
   clear(): void {
     this.value = null;
@@ -128,6 +170,12 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ngOnInit(): void {
+    this.inputId = this.inputId
+      ? this.inputId
+      : `autocompletelist${AutocompleteComponent.idCounter++}`;
+    this.completeLabel();
+  }
   ngAfterViewInit(): void {
     this.setSameWidth();
   }
@@ -204,7 +252,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     this.focusItem = next;
     this.ensureItemVisible(index);
   }
-  onLostFocus(label: string): void {
+  onLostFocus(): void {
     setTimeout(() => {
       this.toogleCompletion(false, null);
     }, 200);

@@ -11,8 +11,8 @@
         (keyup)="onKeyUpLatitude(latitude.value)"
         (change)="onChangeLatitude(latitude.value)"/>
     <div class="postfix">
-        <span *ngIf="latitude.value >= 0" >N</span>
-        <span *ngIf="latitude.value < 0" >S</span>
+        <span *ngIf="+latitude >= 0" >N</span>
+        <span *ngIf="+latitude < 0" >S</span>
     </div>
     <input #longitude type="number"
         [id]="inputId + '$longitude'"
@@ -26,8 +26,8 @@
         (keyup)="onKeyUpLongitude(longitude.value)"
         (change)="onChangeLongitude(longitude.value)"/>
     <div class="postfix">
-        <span *ngIf="longitude.value >= 0" >E</span>
-        <span *ngIf="longitude.value < 0" >W</span>
+        <span *ngIf="+longitude >= 0" >E</span>
+        <span *ngIf="+longitude < 0" >W</span>
     </div>
     <button>
         <span>🌐</span>

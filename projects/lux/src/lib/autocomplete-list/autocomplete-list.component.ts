@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AutocompleteComponent, DataSource } from '../autocomplete/autocomplete.component';
@@ -7,8 +8,20 @@ import { AutocompleteComponent, DataSource } from '../autocomplete/autocomplete.
   selector: 'lux-autocomplete-list',
   templateUrl: './autocomplete-list.component.html',
   styleUrls: ['./autocomplete-list.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => AutocompleteListComponent)
+    },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: forwardRef(() => AutocompleteListComponent)
+    }
+  ]
 })
-export class AutocompleteListComponent implements OnInit {
+export class AutocompleteListComponent implements ControlValueAccessor, Validator, OnInit {
   static idCounter = 0;
 
   @ViewChild('auto') auto!: AutocompleteListComponent;
@@ -19,9 +32,14 @@ export class AutocompleteListComponent implements OnInit {
   private _value: any[] = [];
   @Input()
   set value(val: any[]) {
+    if (val === this._value) {
+      return;
+    }
     this._value = val;
     this.ensureLabelsForIds();
     this.populateWith('');
+    this.valueChange.emit(this._value);
+    this.onChange(this._value);
   }
   get value(): any[] {
     return this._value;
@@ -29,6 +47,7 @@ export class AutocompleteListComponent implements OnInit {
   labels: string[] = [];
   newEntry: any;
   canAdd = false;
+  touched = false;
 
   @Input() inputId: string;
   @Input() dataSource: DataSource<any, any> = [];
@@ -36,13 +55,51 @@ export class AutocompleteListComponent implements OnInit {
   @Input() disabled = false;
   @Input() deleteLabelTemplate = 'Delete <<label>>';
   @Input() addMessage = 'Add';
+  @Input() required = false;
 
   @Input() resolveLabelsFunction?: (instance: any, ids: any[]) => Observable<DataSource<any, string>> = undefined;
   @Input() populateFunction?: (instance: any, search: string) => Observable<DataSource<any, string>> = undefined;
   @Input() instance: any;
 
-  @Output() valueChange = new EventEmitter();
+  @Output() valueChange = new EventEmitter<any[]>();
 
+  // ControlValueAccessor Interface
+  onChange = (value) => {};
+  onTouched = () => {};
+
+  writeValue(value: any) {
+    this.value = value;
+  }
+
+  registerOnChange(onChange: any) {
+    this.onChange = onChange;
+  }
+  registerOnTouched(onTouched: any) {
+    this.onTouched = onTouched;
+  }
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
+  }
+  setDisabledState(disabled: boolean) {
+    this.disabled = disabled;
+  }
+  // End ControlValueAccessor Interface
+
+  // Validator interface
+  registerOnValidatorChange(): void {}
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (this.required &&
+        (value === '' || value === null || value === undefined)) {
+      return { required: { value, reason: 'Required field.' } };
+    }
+    return null;
+  }
+  // End of Validator interface
 
   ngOnInit() {
     this.inputId = this.inputId ? this.inputId : `autocompletelist${AutocompleteListComponent.idCounter++}`;
@@ -53,7 +110,7 @@ export class AutocompleteListComponent implements OnInit {
     if (this.autoPopulate && this.resolveLabelsFunction) {
       this.resolveLabelsFunction(this.instance, this._value).pipe(first()).subscribe(data => {
         const res: string[] = [];
-        this._value.map(id => {
+        (this._value || []).map(id => {
           const found = data.find(it => it.key === id);
           if (found) {
             res.push(found.label);
@@ -65,7 +122,7 @@ export class AutocompleteListComponent implements OnInit {
       });
     } else if (this.dataSource) {
       const res: string[] = [];
-      this._value.map(id => {
+      (this._value || []).map(id => {
         const found = this.dataSource.find(it => it.key === id);
         if (found) {
           res.push(found.label);
@@ -99,15 +156,15 @@ export class AutocompleteListComponent implements OnInit {
     this.updateCanAdd();
   }
   populateWith(searchText: string): void {
-      if (this.autoPopulate && this.populateFunction && this.instance) {
-        this.populateFunction(this.instance, searchText)
-          .pipe(first())
-          .subscribe(data => {
-            this.internalDataSource = data.filter(it => !this._value.includes(it.key));
-          });
-      } else if (this.dataSource) {
-        this.internalDataSource = this.dataSource.filter(it => !this._value.includes(it.key));
-      }
+    if (this.autoPopulate && this.populateFunction && this.instance) {
+      this.populateFunction(this.instance, searchText)
+        .pipe(first())
+        .subscribe(data => {
+          this.internalDataSource = data.filter(it => !(this._value || []).includes(it.key));
+        });
+    } else if (this.dataSource) {
+      this.internalDataSource = this.dataSource.filter(it => !(this._value || []).includes(it.key));
+    }
   }
   updateCanAdd(): void {
     this.canAdd = !this.disabled &&

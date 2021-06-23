@@ -26,5 +26,8 @@
         "dist/lux/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }
