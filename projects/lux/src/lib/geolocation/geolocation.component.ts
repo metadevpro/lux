@@ -115,7 +115,7 @@ export class GeolocationComponent implements OnInit {
   private latitude = 18.5204;
   private longitude = 73.8567;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.inputId = this.inputId
       ? this.inputId
       : `geolocation$${GeolocationComponent.idCounter++}`;

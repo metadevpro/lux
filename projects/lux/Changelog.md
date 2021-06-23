@@ -1,10 +1,18 @@
 # Lux Changelog
 
+## Version 0.6.0
+
+2021.06.23
+
+- Port to Angular version 12.
+- Upgraded to latest eslint and libs.
+
 ## Version 0.5.6
 
 2021.06.23
 
 - Implemented ValueControlAccessor in all input compontes to support ngModel and ngForms.
+- Last version built with Angular 11.
 
 ## Version 0.5.5
 

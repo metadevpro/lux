@@ -13,22 +13,20 @@ import {
 import { Observable, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { ResizedEvent } from 'angular-resize-event';
-import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
-
-export interface DataSourceItem<K, L> {
-  key: K;
-  label: L;
-}
-export type DataSource<K, L> = DataSourceItem<K, L>[];
-
-interface DecoratedDataSourceItem {
-  key: any;
-  label: string;
-  labelPrefix: string;
-  labelMatch: string;
-  labelPostfix: string;
-}
-type DecoratedDataSource = DecoratedDataSourceItem[];
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator
+} from '@angular/forms';
+import {
+  DataSource,
+  DataSourceItem,
+  DecoratedDataSource,
+  DecoratedDataSourceItem
+} from '../datasource';
 
 @Component({
   selector: 'lux-autocomplete',
@@ -47,7 +45,9 @@ type DecoratedDataSource = DecoratedDataSourceItem[];
     }
   ]
 })
-export class AutocompleteComponent implements ControlValueAccessor, Validator, OnInit, AfterViewInit {
+export class AutocompleteComponent
+  implements ControlValueAccessor, Validator, OnInit, AfterViewInit
+{
   static idCounter = 0;
 
   @ViewChild('i0', { static: true }) i0: ElementRef;
@@ -111,27 +111,27 @@ export class AutocompleteComponent implements ControlValueAccessor, Validator, O
   constructor(private cd: ChangeDetectorRef) {}
 
   // ControlValueAccessor Interface
-  onChange = (value) => {};
-  onTouched = () => {};
+  onChange = (value): void => {};
+  onTouched = (): void => {};
 
-  writeValue(value: any) {
+  writeValue(value: any): void {
     this.value = value;
   }
 
-  registerOnChange(onChange: any) {
+  registerOnChange(onChange: any): void {
     this.onChange = onChange;
   }
-  registerOnTouched(onTouched: any) {
+  registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
-  markAsTouched() {
+  markAsTouched(): void {
     if (!this.touched) {
       this.onTouched();
       this.touched = true;
     }
   }
 
-  setDisabledState(disabled: boolean) {
+  setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
   }
   // End ControlValueAccessor Interface
@@ -141,9 +141,11 @@ export class AutocompleteComponent implements ControlValueAccessor, Validator, O
 
   validate(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
-    if (this.required &&
-        (value === '' || value === null || value === undefined)) {
-      return { required: { value, reason: 'Required field.'  } };
+    if (
+      this.required &&
+      (value === '' || value === null || value === undefined)
+    ) {
+      return { required: { value, reason: 'Required field.' } };
     }
     return null;
   }
@@ -179,7 +181,7 @@ export class AutocompleteComponent implements ControlValueAccessor, Validator, O
   ngAfterViewInit(): void {
     this.setSameWidth();
   }
-  onInputResized() {
+  onInputResized(): void {
     this.setSameWidth();
   }
   private setSameWidth(): void {
@@ -187,14 +189,14 @@ export class AutocompleteComponent implements ControlValueAccessor, Validator, O
     this.completeDiv.nativeElement.style.width = `${width}px`;
   }
 
-  onKeydown(event: KeyboardEvent, label: string) {
+  onKeydown(event: KeyboardEvent, label: string): void {
     switch (event.key) {
       case 'Tab':
         this.pickFirstMatch(label);
         break;
     }
   }
-  onKeypress(event: KeyboardEvent, label: string) {
+  onKeypress(event: KeyboardEvent, label: string): void {
     switch (event.key) {
       case 'Intro':
       case 'Enter':
@@ -203,7 +205,7 @@ export class AutocompleteComponent implements ControlValueAccessor, Validator, O
         break;
     }
   }
-  onKeyup(event: KeyboardEvent, label: string) {
+  onKeyup(event: KeyboardEvent, label: string): void {
     switch (event.key) {
       case 'PageDown':
         this.focusOnNext(5);
@@ -230,7 +232,7 @@ export class AutocompleteComponent implements ControlValueAccessor, Validator, O
       // event.preventDefault();
     }
   }
-  private focusOnNext(offset: number) {
+  private focusOnNext(offset: number): void {
     const list = this.completionList || [];
     const index = list.findIndex(
       (it) => this.focusItem && it.key === this.focusItem.key
@@ -242,7 +244,7 @@ export class AutocompleteComponent implements ControlValueAccessor, Validator, O
     this.focusItem = next;
     this.ensureItemVisible(index);
   }
-  private focusOnPrevious(offset: number) {
+  private focusOnPrevious(offset: number): void {
     const list = this.completionList || [];
     const index = list.findIndex(
       (it) => this.focusItem && it.key === this.focusItem.key

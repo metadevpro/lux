@@ -19,11 +19,11 @@ declare const Prism: any;
 
 @Injectable({ providedIn: 'root' })
 export class PrismService {
-    constructor(@Inject(PLATFORM_ID) private platformId) { }
+  constructor(@Inject(PLATFORM_ID) private platformId) {}
 
-    highlightAll() {
-      if (isPlatformBrowser(this.platformId)) {
-        Prism.highlightAll();
-      }
+  highlightAll(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      Prism.highlightAll();
     }
+  }
 }
