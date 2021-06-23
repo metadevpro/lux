@@ -15,8 +15,8 @@
     (change)="onChangeLatitude(latitude.value)"
   />
   <div class="infix symbol">
-    <span *ngIf="+latitude >= 0" >N</span>
-	<span *ngIf="+latitude < 0" >S</span>
+    <span *ngIf="latitudeValue >= 0" >N</span>
+	<span *ngIf="latitudeValue < 0" >S</span>
   </div>
   <input
     #longitude
@@ -34,8 +34,8 @@
     (change)="onChangeLongitude(longitude.value)"
   />
   <div class="infix symbol">
-    <span *ngIf="+longitude >= 0">E</span>
-    <span *ngIf="+longitude < 0">W</span>
+    <span *ngIf="longitudeValue >= 0">E</span>
+    <span *ngIf="longitudeValue < 0">W</span>
   </div>
   <button class="postfix" (click)="openModal(modalMap)">
     <span>🌐</span>
@@ -73,13 +73,13 @@
     </button>
   </div>
   <div class="lux-modal-body">
-    <lux-map [longitude]="longitude" [latitude]="latitude"> </lux-map>
+    <lux-map #map [longitude]="longitudeValue" [latitude]="latitudeValue"> </lux-map>
   </div>
   <div class="lux-modal-footer">
     <button
       type="button"
       class="btn btn-outline-dark"
-      (click)="modal.close({lat:latitude, lng:longitude})"
+      (click)="modal.close({latitude:map.latitude, longitude:map.longitude})"
     >
       Select
     </button>
