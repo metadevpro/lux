@@ -4,15 +4,19 @@
     class="prefix"
     type="number"
     [id]="inputId + '$latitude'"
-    [attr.disabled]="disabled || null"
-    [attr.readonly]="readonly || null"
-    [attr.min]="minLatitude || null"
-    [attr.max]="maxLatitude || null"
-    [attr.step]="step || null"
+    [attr.value]="latitudeValue"
+    [attr.aria-label]="ariaLabel"
+    [attr.disabled]="(disabled !== undefined && disabled !== null) ? disabled : null"
+    [attr.readonly]="(readonly !== undefined && readonly !== null) ? readonly : null"
+    [attr.min]="(minLatitude !== undefined && minLatitude !== null) ? minLatitude : null"
+    [attr.max]="(maxLatitude !== undefined && maxLatitude !== null) ? maxLatitude : null"
+    [attr.step]="(step !== undefined && step !== null) ? step : null"
     placeholder="lat"
-    [formControl]="latitudeFormControl"
+    [ngClass]="className"
+    (focus)="markAsTouched()"
     (keyup)="onKeyUpLatitude(latitude.value)"
     (change)="onChangeLatitude(latitude.value)"
+    (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
     <span *ngIf="latitudeValue >= 0" >N</span>
@@ -23,15 +27,19 @@
     class="infix"
     type="number"
     [id]="inputId + '$longitude'"
-    [attr.disabled]="disabled || null"
-    [attr.readonly]="readonly || null"
-    [attr.min]="minLongitude || null"
-    [attr.max]="maxLongitude || null"
-    [attr.step]="step || null"
+    [attr.value]="longitudeValue"
+    [attr.aria-label]="ariaLabel"
+    [attr.disabled]="(disabled !== undefined && disabled !== null) ? disabled : null"
+    [attr.readonly]="(readonly !== undefined && readonly !== null) ? readonly : null"
+    [attr.min]="(minLongitude !== undefined && minLongitude !== null) ? minLongitude : null"
+    [attr.max]="(maxLongitude !== undefined && maxLongitude !== null) ? maxLongitude : null"
+    [attr.step]="(step !== undefined && step !== null) ? step : null"
     placeholder="lon"
-    [formControl]="longitudeFormControl"
+    [ngClass]="className"
+    (focus)="markAsTouched()"
     (keyup)="onKeyUpLongitude(longitude.value)"
     (change)="onChangeLongitude(longitude.value)"
+    (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
     <span *ngIf="longitudeValue >= 0">E</span>
@@ -40,23 +48,23 @@
   <button class="postfix" (click)="openModal(modalMap)">
     <span>🌐</span>
   </button>
-  <div *ngIf="geopositionHasErrors" class="alert">
-    <div *ngIf="latitudeFormControl.errors?.required">Latitude is required</div>
-    <div *ngIf="latitudeFormControl.errors?.min">
-      Min latitude is {{ minLatitude }}
-    </div>
-    <div *ngIf="latitudeFormControl.errors?.max">
-      Max latitude is {{ maxLatitude }}
-    </div>
-    <div *ngIf="longitudeFormControl.errors?.required">
-      Longitude is required
-    </div>
-    <div *ngIf="longitudeFormControl.errors?.min">
-      Min longitude is {{ minLongitude }}
-    </div>
-    <div *ngIf="longitudeFormControl.errors?.max">
-      Max longitude is {{ maxLongitude }}
-    </div>
+</div>
+
+<div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
+  <div *ngIf="lastErrors.required">
+    {{ userErrors[this.lang].required }}
+  </div>
+  <div *ngIf="lastErrors.minLatitude">
+    {{ userErrors[this.lang].minLatitude.replace('$minLatitude', lastErrors.minLatitude.min) }}
+  </div>
+  <div *ngIf="lastErrors.maxLatitude">
+    {{ userErrors[this.lang].maxLatitude.replace('$maxLatitude', lastErrors.maxLatitude.max) }}
+  </div>
+  <div *ngIf="lastErrors.minLongitude">
+    {{ userErrors[this.lang].minLongitude.replace('$minLongitude', lastErrors.minLongitude.min) }}
+  </div>
+  <div *ngIf="lastErrors.maxLongitude">
+    {{ userErrors[this.lang].maxLongitude.replace('$maxLongitude', lastErrors.maxLongitude.max) }}
   </div>
 </div>
 

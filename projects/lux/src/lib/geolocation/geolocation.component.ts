@@ -4,45 +4,88 @@ import {
   Output,
   EventEmitter,
   OnInit,
+  ElementRef,
+  ViewChild,
+  forwardRef,
   TemplateRef
 } from '@angular/core';
-import { FormControl, Validators, ValidatorFn } from '@angular/forms';
-
+import {
+  NG_VALUE_ACCESSOR,
+  AbstractControl,
+  ValidationErrors,
+  NG_VALIDATORS
+} from '@angular/forms';
 import { ModalService } from '../modal/modal.service';
 import { Geopoint } from './geopoint';
 
 @Component({
   selector: 'lux-geolocation',
   templateUrl: './geolocation.component.html',
-  styleUrls: ['./geolocation.component.scss']
+  styleUrls: ['./geolocation.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => GeolocationComponent)
+    },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: forwardRef(() => GeolocationComponent)
+    }
+  ]
 })
 export class GeolocationComponent implements OnInit {
   static idCounter = 0;
 
-  @Input()
-  public minLatitude = -90;
-  @Input()
-  public maxLatitude = 90;
-  @Input()
-  public minLongitude = -180;
-  @Input()
-  public maxLongitude = 180;
-  @Input()
-  public step = 0.00001; // 0.00001 degrees = 1.11 meters
+  @ViewChild('latitude', { static: true }) latitude: ElementRef;
+  @ViewChild('longitude', { static: true }) longitude: ElementRef;
+
+  touched = false;
+  dirty = false;
+  lastErrors: ValidationErrors | null = null;
+
   private _disabled: string | boolean;
   private _required: boolean;
   private _value: any;
+
   public latitudeValue?: number = null;
   public longitudeValue?: number = null;
-  public latitudeValidators: ValidatorFn[] = [];
-  public longitudeValidators: ValidatorFn[] = [];
-  public latitudeFormControl = new FormControl(this.latitudeValue);
-  public longitudeFormControl = new FormControl(this.longitudeValue);
+
+  public userErrors = {
+    en: {
+      required: 'Required field.',
+      minLatitude: 'Minimum latitude is $minLatitude.',
+      maxLatitude: 'Maximum latitude is $maxLatitude.',
+      minLongitude: 'Minimum longitude is $minLongitude.',
+      maxLongitude: 'Maximum longitude is $maxLongitude.'
+    },
+    es: {
+      required: 'El campo es obligatorio.',
+      minLatitude: 'La latitud mínima es $minLatitude.',
+      maxLatitude: 'La latitud máxima es $maxLatitude.',
+      minLongitude: 'La longitud mínima es $minLongitude.',
+      maxLongitude: 'La longitud máxima es $maxLongitude.'
+    }
+  };
+
+  @Input()
+  public minLatitude: number;
+  @Input()
+  public maxLatitude: number;
+  @Input()
+  public minLongitude: number;
+  @Input()
+  public maxLongitude: number;
+  @Input()
+  public step: number;
 
   get className(): string {
     return this.checkClassName();
   }
 
+  @Input() lang = languageDetector();
+  @Input() public inlineErrors = false;
   @Input() public inputId: string;
   @Input('aria-label') public ariaLabel: string;
   @Input() public readonly: boolean | null = null;
@@ -58,13 +101,6 @@ export class GeolocationComponent implements OnInit {
 
   @Input()
   set required(v: boolean) {
-    if (v && !this._required) {
-      this.addLatitudeValidators([Validators.required]);
-      this.addLongitudeValidators([Validators.required]);
-    } else if (!v && this._required) {
-      this.removeLatitudeValidators([Validators.required]);
-      this.removeLongitudeValidators([Validators.required]);
-    }
     this._required = v;
   }
   get required(): boolean {
@@ -80,95 +116,162 @@ export class GeolocationComponent implements OnInit {
       this._value = v;
       this.latitudeValue = +v.coordinates[1];
       this.longitudeValue = +v.coordinates[0];
-      this.latitudeFormControl.setValue(this.latitudeValue);
-      this.longitudeFormControl.setValue(this.longitudeValue);
+      this.setLatitudeInControl(this.latitudeValue);
+      this.setLongitudeInControl(this.longitudeValue);
     } else {
       this._value = undefined;
       this.latitudeValue = undefined;
       this.longitudeValue = undefined;
-      this.latitudeFormControl.setValue(this.latitudeValue);
-      this.longitudeFormControl.setValue(this.longitudeValue);
+      this.setLatitudeInControl(this.latitudeValue);
+      this.setLongitudeInControl(this.longitudeValue);
     }
+    this.onChange(v);
     this.valueChange.emit(v);
   }
   get value(): Geopoint {
-    if (
-      this.latitudeFormControl.value === undefined ||
-      this.longitudeFormControl.value === undefined
-    ) {
-      return undefined;
-    }
-    this._value = {
-      type: 'Point',
-      coordinates: [
-        +this.longitudeFormControl.value,
-        +this.latitudeFormControl.value
-      ]
-    };
     return this._value;
   }
 
-  @Output() valueChange = new EventEmitter<Geopoint>();
+  @Output() valueChange = new EventEmitter<any>();
+  @Output() keyPress = new EventEmitter<KeyboardEvent>();
+
+  onChange = (value): void => {};
+  onTouched = (): void => {};
 
   constructor(private modalService: ModalService) {}
 
-  private latitude = 18.5204;
-  private longitude = 73.8567;
+  // ControlValueAccessor Interface implementation
+  writeValue(value: any): void {
+    this.value = value;
+    this.setLatitudeInControl(this.latitudeValue);
+    this.setLongitudeInControl(this.longitudeValue);
+  }
+
+  registerOnChange(onChange: any): void {
+    this.onChange = onChange;
+  }
+
+  registerOnTouched(onTouched: any): void {
+    this.onTouched = onTouched;
+  }
+
+  markAsTouched(): void {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.disabled = disabled;
+  }
+  // End of ControlValueAccessor Interface implementation
+
+  private setLatitudeInControl(latitude: any): void {
+    this.latitude.nativeElement.value = latitude;
+  }
+  private setLongitudeInControl(longitude: any): void {
+    this.longitude.nativeElement.value = longitude;
+  }
+
+  // Validator interface
+  registerOnValidatorChange(): void {}
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    let result: ValidationErrors | null = null;
+
+    if (this.required && (value === null || value === undefined)) {
+      result = result || {};
+      result.required = { value, reason: 'Required field.' };
+    }
+    if (
+      this.minLatitude !== undefined &&
+      this.minLatitude !== null &&
+      this.latitudeValue < this.minLatitude
+    ) {
+      result = result || {};
+      result.minLatitude = {
+        value,
+        min: this.minLatitude,
+        reason: `Value is lower than minimum value: ${this.minLatitude}.`
+      };
+    }
+    if (
+      this.maxLatitude !== undefined &&
+      this.maxLatitude !== null &&
+      this.latitudeValue < this.maxLatitude
+    ) {
+      result = result || {};
+      result.maxLatitude = {
+        value,
+        max: this.maxLatitude,
+        reason: `Value is lower than maximum value: ${this.maxLatitude}.`
+      };
+    }
+    if (
+      this.minLongitude !== undefined &&
+      this.minLongitude !== null &&
+      this.longitudeValue < this.minLongitude
+    ) {
+      result = result || {};
+      result.minLongitude = {
+        value,
+        min: this.minLongitude,
+        reason: `Value is lower than minimum value: ${this.minLongitude}.`
+      };
+    }
+    if (
+      this.maxLongitude !== undefined &&
+      this.maxLongitude !== null &&
+      this.longitudeValue < this.maxLongitude
+    ) {
+      result = result || {};
+      result.maxLongitude = {
+        value,
+        max: this.maxLongitude,
+        reason: `Value is lower than maximum value: ${this.maxLongitude}.`
+      };
+    }
+    this.lastErrors = result;
+    return result;
+  }
+  // End of Validator interface
 
   ngOnInit(): void {
     this.inputId = this.inputId
       ? this.inputId
       : `geolocation$${GeolocationComponent.idCounter++}`;
-    const latitudeValidators = [
-      Validators.min(this.minLatitude),
-      Validators.max(this.maxLatitude)
-    ];
-    this.addLatitudeValidators(latitudeValidators);
-    const longitudeValidators = [
-      Validators.min(this.minLongitude),
-      Validators.max(this.maxLongitude)
-    ];
-    this.addLongitudeValidators(longitudeValidators);
+    this.setPatterns();
   }
-  get latitudeHasErrors(): boolean {
-    return (
-      this.latitudeFormControl.invalid &&
-      (this.latitudeFormControl.dirty || this.latitudeFormControl.touched)
-    );
+
+  updateLatitude(newLatitude: number): void {
+    this.value = {
+      type: 'Point',
+      coordinates: [this.longitudeValue, +newLatitude]
+    };
   }
-  get longitudeHasErrors(): boolean {
-    return (
-      this.longitudeFormControl.invalid &&
-      (this.longitudeFormControl.dirty || this.longitudeFormControl.touched)
-    );
-  }
-  get geopositionHasErrors(): boolean {
-    return this.latitudeHasErrors || this.longitudeHasErrors;
+  updateLongitude(newLongitude: number): void {
+    this.value = {
+      type: 'Point',
+      coordinates: [+newLongitude, this.latitudeValue]
+    };
   }
 
   onKeyUpLatitude(newLatitude: string): void {
-    this.value = {
-      type: 'Point',
-      coordinates: [this.longitudeValue, +newLatitude]
-    };
+    this.updateLatitude(+newLatitude);
   }
   onChangeLatitude(newLatitude: string): void {
-    this.value = {
-      type: 'Point',
-      coordinates: [this.longitudeValue, +newLatitude]
-    };
+    this.updateLatitude(+newLatitude);
   }
   onKeyUpLongitude(newLongitude: string): void {
-    this.value = {
-      type: 'Point',
-      coordinates: [+newLongitude, this.latitudeValue]
-    };
+    this.updateLongitude(+newLongitude);
   }
   onChangeLongitude(newLongitude: string): void {
-    this.value = {
-      type: 'Point',
-      coordinates: [+newLongitude, this.latitudeValue]
-    };
+    this.updateLongitude(+newLongitude);
+  }
+  onKeyPress(event: KeyboardEvent): void {
+    this.keyPress.emit(event);
   }
 
   checkClassName(): string {
@@ -176,52 +279,6 @@ export class GeolocationComponent implements OnInit {
       return 'readonly';
     }
     return '';
-  }
-
-  addLatitudeValidators(latitudeValidators: ValidatorFn[]): void {
-    latitudeValidators.map((latitudeValidator) => {
-      this.latitudeValidators.push(latitudeValidator);
-    });
-    this.updateLatitudeValidators();
-  }
-
-  removeLatitudeValidators(latitudeValidators: ValidatorFn[]): void {
-    latitudeValidators.map((latitudeValidator) => {
-      const latitudeValidatorIndex =
-        this.latitudeValidators.indexOf(latitudeValidator);
-      if (latitudeValidatorIndex >= 0) {
-        this.latitudeValidators.splice(latitudeValidatorIndex);
-      }
-    });
-    this.updateLatitudeValidators();
-  }
-
-  updateLatitudeValidators(): void {
-    this.latitudeFormControl.setValidators(this.latitudeValidators);
-    this.latitudeFormControl.updateValueAndValidity();
-  }
-
-  addLongitudeValidators(longitudeValidators: ValidatorFn[]): void {
-    longitudeValidators.map((longitudeValidator) => {
-      this.longitudeValidators.push(longitudeValidator);
-    });
-    this.updateLongitudeValidators();
-  }
-
-  removeLongitudeValidators(longitudeValidators: ValidatorFn[]): void {
-    longitudeValidators.map((longitudeValidator) => {
-      const longitudeValidatorIndex =
-        this.longitudeValidators.indexOf(longitudeValidator);
-      if (longitudeValidatorIndex >= 0) {
-        this.longitudeValidators.splice(longitudeValidatorIndex);
-      }
-    });
-    this.updateLongitudeValidators();
-  }
-
-  updateLongitudeValidators(): void {
-    this.longitudeFormControl.setValidators(this.longitudeValidators);
-    this.longitudeFormControl.updateValueAndValidity();
   }
 
   openModal(modal: TemplateRef<any>): void {
@@ -234,4 +291,20 @@ export class GeolocationComponent implements OnInit {
       }
     );
   }
+
+  setPatterns(): void {
+    this.step = this.step || 0.00001; // 0.00001 degrees = 1.11 meters
+    this.minLatitude = this.minLatitude || -90;
+    this.maxLatitude = this.maxLatitude || +90;
+    this.minLongitude = this.minLongitude || -180;
+    this.maxLongitude = this.maxLongitude || +180;
+  }
 }
+
+const languageDetector = (): string => {
+  const lang = navigator.language.split('-')[0];
+  if (lang === 'es' || lang === 'en') {
+    return lang;
+  }
+  return 'en'; // default
+};
