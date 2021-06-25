@@ -12,6 +12,7 @@ import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.compo
 import { InputSampleComponent } from './input-sample/input-sample.component';
 import { FilterSampleComponent } from './filter-sample/filter-sample.component';
 import { GeolocationSampleComponent } from './geolocation-sample/geolocation-sample.component';
+import { MapSampleComponent } from './map-sample/map-sample.component';
 import { MainComponent } from './main/main.component';
 import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
 import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
   { path: 'index', component: MainComponent },
   { path: 'filter', component: FilterSampleComponent },
   { path: 'geolocation', component: GeolocationSampleComponent },
+  { path: 'map', component: MapSampleComponent },
   { path: 'input', component: InputSampleComponent },
   { path: 'pagination', component: PaginationSampleComponent },
   { path: 'modal', component: ModalSampleComponent },
@@ -51,6 +53,7 @@ const appRoutes: Routes = [
     CheckboxSampleComponent,
     FilterSampleComponent,
     GeolocationSampleComponent,
+    MapSampleComponent,
     TooltipSampleComponent,
     InputSampleComponent,
     PaginationSampleComponent,

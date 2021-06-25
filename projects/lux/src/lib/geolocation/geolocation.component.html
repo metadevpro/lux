@@ -81,13 +81,20 @@
     </button>
   </div>
   <div class="lux-modal-body">
-    <lux-map #map [longitude]="longitudeValue" [latitude]="latitudeValue"> </lux-map>
+    <lux-map #map [geopoint]="value" [zoom]="zoom"> </lux-map>
   </div>
   <div class="lux-modal-footer">
     <button
       type="button"
       class="btn btn-outline-dark"
-      (click)="modal.close({latitude:map.latitude, longitude:map.longitude})"
+      (click)="modal.close('cancel')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close(map.geopoint)"
     >
       Select
     </button>

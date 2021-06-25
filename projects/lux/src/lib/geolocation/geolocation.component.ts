@@ -16,7 +16,7 @@ import {
   NG_VALIDATORS
 } from '@angular/forms';
 import { ModalService } from '../modal/modal.service';
-import { Geopoint } from './geopoint';
+import { Geopoint } from '../map/geopoint';
 
 @Component({
   selector: 'lux-geolocation',
@@ -79,6 +79,8 @@ export class GeolocationComponent implements OnInit {
   public maxLongitude: number;
   @Input()
   public step: number;
+  @Input()
+  public zoom: number;
 
   get className(): string {
     return this.checkClassName();
@@ -294,6 +296,7 @@ export class GeolocationComponent implements OnInit {
 
   setPatterns(): void {
     this.step = this.step || 0.00001; // 0.00001 degrees = 1.11 meters
+    this.zoom = this.zoom || 16; // (360/2^16) degrees = 0.0055 degrees = 610 meters
     this.minLatitude = this.minLatitude || -90;
     this.maxLatitude = this.maxLatitude || +90;
     this.minLongitude = this.minLongitude || -180;

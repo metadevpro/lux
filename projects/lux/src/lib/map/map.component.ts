@@ -4,6 +4,7 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
+import { Geopoint } from './geopoint';
 
 declare const ol: any;
 
@@ -14,11 +15,33 @@ declare const ol: any;
 })
 export class MapComponent implements OnInit {
   map: any;
-  @Input() longitude = 0;
-  @Input() latitude = 0;
-  @Input() zoom = 8;
+
+  @Input() zoom: number;
+
+  _geopoint: Geopoint;
+  @Input()
+  set geopoint(v: Geopoint) {
+    if (v === this._geopoint) {
+      return;
+    }
+    if (v.coordinates && v.coordinates.length === 2) {
+      this._geopoint = v;
+    } else {
+      this._geopoint = undefined;
+    }
+  }
+  get geopoint(): Geopoint {
+    return this._geopoint;
+  }
 
   ngOnInit(): void {
+    console.log(this.geopoint);
+    this.geopoint =
+      this.geopoint !== undefined && this.geopoint !== null
+        ? this.geopoint
+        : { type: 'Point', coordinates: [0, 0] };
+    this.zoom = this.zoom !== undefined && this.zoom !== null ? this.zoom : 16;
+
     const mousePositionControl = new ol.control.MousePosition({
       coordinateFormat: ol.coordinate.createStringXY(4),
       projection: 'EPSG:4326',
@@ -44,7 +67,7 @@ export class MapComponent implements OnInit {
         })
       ],
       view: new ol.View({
-        center: ol.proj.fromLonLat([73.8567, 18.5204]),
+        center: ol.proj.fromLonLat(this.geopoint.coordinates),
         zoom: this.zoom
       })
     });
@@ -63,9 +86,9 @@ export class MapComponent implements OnInit {
       alert(`lat: ${lat} long: ${lon}`);
     });
   }
-  setCenter() {
+  setCenter(): void {
     const view = this.map.getView();
-    view.setCenter(ol.proj.fromLonLat([this.longitude, this.latitude]));
-    view.setZoom(8);
+    view.setCenter(ol.proj.fromLonLat(this.geopoint.coordinates));
+    view.setZoom(this.zoom);
   }
 }
