@@ -43,7 +43,7 @@ describe('PaginationComponent', () => {
     let numberButtons = spectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons
     expect(numberButtons.length).toEqual(5);
-    expect(component.getPages().length).toEqual(5);
+    expect(component.pages.length).toEqual(5);
     expect(component.totalPages).toEqual(5);
   });
 
@@ -88,7 +88,7 @@ describe('PaginationComponent', () => {
     let numberButtons = spectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons
     expect(numberButtons.length).toEqual(4);
-    expect(component.getPages().length).toEqual(4);
+    expect(component.pages.length).toEqual(4);
     expect(component.totalPages).toEqual(4);
   });
 
