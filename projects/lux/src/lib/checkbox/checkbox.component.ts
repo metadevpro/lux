@@ -36,7 +36,7 @@ export class CheckboxComponent
   private _lang = languageDetector();
   @Input()
   set lang(l: string) {
-    if (l !== this._lang) {
+    if (l === this._lang) {
       return;
     }
     if (Object.keys(this.literals).includes(l)) {

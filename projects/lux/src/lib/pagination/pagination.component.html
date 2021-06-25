@@ -1,24 +1,71 @@
-<div class="pagination" *ngIf="showPagination">
-  <a luxTooltip content="First" placement="top" delay="500" (click)="onFirst()" [ngClass]="{
-    'disabledFirstLast': hidePrevious,
-    'enabledFirstLast': !hidePrevious
-  }" class="button-pagination icon arrow-left-end"></a>
-  <a luxTooltip content="Previous" placement="top" delay="500" (click)="onPage(paginationInfo.page - 1)" [ngClass]="{
-    'disabledFirstLast': hidePrevious,
-    'enabledFirstLast': !hidePrevious
-  }" class="button-pagination icon arrow-left"></a>
+<div class="lux-pagination" *ngIf="showPagination">
+  <ng-container *ngIf="!hidePrevious">
+    <a
+      luxTooltip
+      [content]="first"
+      placement="top"
+      delay="500"
+      (click)="onFirst()"
+      [ngClass]="{
+        enabledFirstLast: !hidePrevious
+      }"
+      class="button-pagination icon arrow-left-end"
+    ></a>
+    <a
+      luxTooltip
+      [content]="previous"
+      placement="top"
+      delay="500"
+      (click)="onPage(paginationInfo.page - 1)"
+      [ngClass]="{
+        enabledFirstLast: !hidePrevious
+      }"
+      class="button-pagination icon arrow-left"
+    ></a>
+  </ng-container>
+
   <span class="ellipsis" *ngIf="displayPreviousEllipsis">...</span>
-  <a luxTooltip content="{{pageNum + 1}}" placement="top" delay="500" [ngClass]="{
-   'disabled': pageNum === paginationInfo.page,
-   'enabled': pageNum !== paginationInfo.page
-  }" class="button-pagination" *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)">{{pageNum + 1}}</a>
+
+  <ng-container *ngFor="let pageNum of pages">
+    <a
+      luxTooltip
+      content="{{ pageNum + 1 }}"
+      placement="top"
+      delay="500"
+      [ngClass]="{
+        disabled: pageNum === paginationInfo.page,
+        enabled: pageNum !== paginationInfo.page
+      }"
+      class="button-pagination"
+      (click)="onPage(pageNum)"
+      >{{ pageNum + 1 }}</a
+    >
+  </ng-container>
+
   <span class="ellipsis" *ngIf="displayNextEllipsis">...</span>
-  <a luxTooltip content="Next" placement="top" delay="500" (click)="onPage(paginationInfo.page + 1)" [ngClass]="{
-    'disabledFirstLast': lastPage,
-    'enabledFirstLast': !lastPage
-  }" class="button-pagination icon arrow-right"></a>
-  <a luxTooltip content="Last" placement="top" delay="500" (click)="onLast()" [ngClass]="{
-    'disabledFirstLast': lastPage,
-    'enabledFirstLast': !lastPage
-  }" class="button-pagination icon arrow-right-end"></a>
+
+  <ng-container *ngIf="!lastPage">
+    <a
+      luxTooltip
+      [content]="next"
+      placement="top"
+      delay="500"
+      (click)="onPage(paginationInfo.page + 1)"
+      [ngClass]="{
+        enabledFirstLast: !lastPage
+      }"
+      class="button-pagination icon arrow-right"
+    ></a>
+    <a
+      luxTooltip
+      [content]="last"
+      placement="top"
+      delay="500"
+      (click)="onLast()"
+      [ngClass]="{
+        enabledFirstLast: !lastPage
+      }"
+      class="button-pagination icon arrow-right-end"
+    ></a>
+  </ng-container>
 </div>

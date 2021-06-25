@@ -87,6 +87,9 @@ export class AutocompleteListComponent
     return this._lang;
   }
   set lang(l: string) {
+    if (l === this._lang) {
+      return;
+    }
     if (Object.keys(this.literals).includes(l)) {
       this._lang = l;
     } else {
