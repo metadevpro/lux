@@ -1,5 +1,13 @@
 # Lux Changelog
 
+## Version 0.7.0
+
+2021.06.26
+
+- Support Spanish language for checkbox, autocomplete, autocomplete-list, pagination.
+- Fix and refactor of the pagination component.
+- Fix on the checkbox component.
+
 ## Version 0.6.0
 
 2021.06.23
