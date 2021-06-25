@@ -23,11 +23,17 @@
       [attr.aria-activedescendant]="selectedOption"
     />
     <button
-      *ngIf="!disabled && value"
+      *ngIf="!disabled && value; else dropdown"
       class="icon-clear"
       aria-label="Clear"
       (click)="clear()"
     ></button>
+    <ng-template #dropdown>
+      <div
+        class="icon-dropdown"
+        (click)="toogleCompletion(true, i0.value)"
+      ></div>
+    </ng-template>
   </div>
   <div
     #completeDiv

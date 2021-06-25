@@ -6,9 +6,11 @@ import {
   OnInit,
   forwardRef,
   ViewChild,
-  ElementRef
+  ElementRef,
+  AfterViewInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { languageDetector } from '../lang';
 
 const KEY_SPACE = ' ';
 
@@ -24,11 +26,28 @@ const KEY_SPACE = ' ';
     }
   ]
 })
-export class CheckboxComponent implements ControlValueAccessor, OnInit {
+export class CheckboxComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit
+{
   static idCounter = 0;
 
   @ViewChild('ck', { static: false }) ck: ElementRef;
 
+  private _lang = languageDetector();
+  @Input()
+  set lang(l: string) {
+    if (l === this._lang) {
+      return;
+    }
+    if (Object.keys(this.literals).includes(l)) {
+      this._lang = l;
+    } else {
+      this._lang = 'en';
+    }
+  }
+  get lang(): string {
+    return this._lang;
+  }
   private internalValue: boolean;
   @Input()
   get value(): boolean {
@@ -39,9 +58,7 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
       return;
     }
     this.internalValue = v;
-    if (this.ck) {
-      this.ck.nativeElement.checked = v;
-    }
+    this.syncModel();
     this.valueChange.emit(v);
     this.onChange(v);
   }
@@ -52,11 +69,30 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
 
   @Input() label: string = null;
   @Input() name: string = null;
-  @Input() disabled = false;
+  private _disabled = false;
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(v: boolean) {
+    if (v === this._disabled) {
+      return;
+    }
+    this._disabled = v;
+    this.syncModel();
+  }
   @Input() inputId: string;
 
-  yesLabel = 'Yes';
-  noLabel = 'No';
+  literals = {
+    en: {
+      yesLabel: 'Yes',
+      noLabel: 'No'
+    },
+    es: {
+      yesLabel: 'Sí',
+      noLabel: 'No'
+    }
+  };
   touched = false;
 
   @Output() valueChange = new EventEmitter<boolean>();
@@ -91,6 +127,9 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
       ? this.inputId
       : `${this.name || 'checkbox'}$${CheckboxComponent.idCounter++}`;
   }
+  ngAfterViewInit(): void {
+    this.syncModel();
+  }
 
   clicked(): void {
     if (!this.disabled) {
@@ -103,6 +142,12 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
       this.value = !this.internalValue;
       this.markAsTouched();
       event.preventDefault();
+    }
+  }
+
+  private syncModel(): void {
+    if (this.ck) {
+      this.ck.nativeElement.checked = this.internalValue;
     }
   }
 }

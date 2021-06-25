@@ -20,6 +20,17 @@
     background-size: 0.5rem 0.5rem;
     z-index: 1;
   }
+  .icon-dropdown {
+    grid-row: 1;
+    grid-column: 2;
+    width: 1.5rem;
+    height: 1.3rem;
+    border: none;
+    background-color: transparent;
+    background: url(/assets/img/drop-down-arrow.svg) no-repeat center;
+    background-size: 0.5rem 0.5rem;
+    z-index: 1;
+  }
 }
 .lux-completion-list {
   visibility: collapse;

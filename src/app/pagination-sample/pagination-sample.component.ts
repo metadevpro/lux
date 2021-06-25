@@ -11,13 +11,14 @@ import { PaginationInfo } from 'projects/lux/src/lib/pagination/pagination';
   styleUrls: ['pagination-sample.component.scss']
 })
 export class PaginationSampleComponent implements AfterContentInit {
-
   users$: Observable<any[]>;
 
   paginationInfo: PaginationInfo;
 
-  constructor(private userService: UserMockService,
-              private prismService: PrismService) { }
+  constructor(
+    private userService: UserMockService,
+    private prismService: PrismService
+  ) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
@@ -25,14 +26,17 @@ export class PaginationSampleComponent implements AfterContentInit {
       total: 0,
       page: 0,
       pageSize: 2,
-      pagesToShow: 3,
+      pagesToShow: 3
     };
     this.getTotalItemsCount();
     this.loadUsers(this.paginationInfo);
   }
 
   goToPage(n: number): void {
-    this.paginationInfo.page = n;
+    this.paginationInfo = {
+      ...this.paginationInfo,
+      page: n
+    };
     this.loadUsers(this.paginationInfo);
   }
 
@@ -51,5 +55,4 @@ export class PaginationSampleComponent implements AfterContentInit {
       this.paginationInfo.total = res;
     });
   }
-
 }
