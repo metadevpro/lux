@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { DataSource } from '../datasource';
+import { languageDetector } from '../lang';
 
 @Component({
   selector: 'lux-autocomplete-list',
@@ -44,6 +45,19 @@ export class AutocompleteListComponent
 
   @ViewChild('auto') auto!: AutocompleteListComponent;
 
+  literals = {
+    en: {
+      placeholder: 'new item',
+      deleteLabelTemplate: 'Delete <<label>>',
+      addMessage: 'Add'
+    },
+    es: {
+      placeholder: 'nuevo elemento',
+      deleteLabelTemplate: 'Eliminar <<label>>',
+      addMessage: 'Añadir'
+    }
+  };
+
   public internalDataSource: DataSource<any, string> = [];
   private autoPopulate = false;
 
@@ -67,12 +81,25 @@ export class AutocompleteListComponent
   canAdd = false;
   touched = false;
 
+  private _lang = languageDetector();
+  @Input()
+  get lang(): string {
+    return this._lang;
+  }
+  set lang(l: string) {
+    if (Object.keys(this.literals).includes(l)) {
+      this._lang = l;
+    } else {
+      this._lang = 'en';
+    }
+  }
+
   @Input() inputId: string;
   @Input() dataSource: DataSource<any, any> = [];
-  @Input() placeholder = 'new item';
+  @Input() placeholder?: string;
   @Input() disabled = false;
-  @Input() deleteLabelTemplate = 'Delete <<label>>';
-  @Input() addMessage = 'Add';
+  @Input() deleteLabelTemplate?: string;
+  @Input() addMessage?: string;
   @Input() required = false;
 
   @Input() resolveLabelsFunction?: (
@@ -219,6 +246,8 @@ export class AutocompleteListComponent
   }
 
   getDeleteMessage(label: string): string {
-    return this.deleteLabelTemplate.replace('<<label>>', label);
+    return (
+      this.deleteLabelTemplate ?? this.literals[this.lang].deleteLabelTemplate
+    ).replace('<<label>>', label);
   }
 }
