@@ -244,6 +244,15 @@
     >
   </div>
   <div>
+    <label for="t1">
+      <input
+        type="checkbox"
+        name="t1"
+        [(ngModel)]="f1.disabled"
+      />Disabled</label
+    >
+  </div>
+  <div>
     <label for="inlineErrors">
       <input
         type="checkbox"
@@ -262,6 +271,7 @@
       inputId="field1"
       [type]="f1.type"
       [required]="f1.required"
+      [disabled]="f1.disabled"
       [inlineErrors]="f1.inlineErrors"
       [(ngModel)]="f1.formValues.field1"
       #f1Val="ngModel"
@@ -274,8 +284,10 @@
 </div>
 
 <h2>Documentation</h2>
-<p>The LuxInput component implements <code>ControlValueAccessor</code>,
-  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
+<p>
+  The LuxInput component implements <code>ControlValueAccessor</code>, therefore
+  binding using <code>ngModel</code> and <code>name</code> is supported.
+</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li>

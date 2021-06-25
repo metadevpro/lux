@@ -25,6 +25,7 @@ export class InputSampleComponent implements AfterContentInit {
   f1 = {
     type: 'email',
     required: true,
+    disabled: false,
     inlineErrors: false,
     value: 'a',
     formValues: {

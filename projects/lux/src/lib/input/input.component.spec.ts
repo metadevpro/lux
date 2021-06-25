@@ -96,6 +96,27 @@ describe('InputComponent', () => {
     expect(element.getAttribute('disabled')).toBeTruthy();
   });
 
+  it('Disable, enable: should show as enable', () => {
+    spectator = createHost('<lux-input></lux-input>');
+    spectator.component.disabled = true;
+    spectator.component.disabled = false;
+
+    spectator.detectChanges();
+
+    const element = spectator.query('input');
+    expect(element.getAttribute('disabled')).toBeNull();
+  });
+  it('Enable, disable: should show as disable', () => {
+    spectator = createHost('<lux-input></lux-input>');
+    spectator.component.disabled = false;
+    spectator.component.disabled = true;
+
+    spectator.detectChanges();
+
+    const element = spectator.query('input');
+    expect(element.getAttribute('disabled')).toBe('true');
+  });
+
   it('When aria-label is applied it gets forwarded to the input', () => {
     spectator = createHost('<lux-input aria-label="Some label"></lux-input>');
 
