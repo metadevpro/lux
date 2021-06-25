@@ -42,7 +42,7 @@ describe('PaginationComponent', () => {
     spectator.detectChanges();
     let numberButtons = spectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons
-    expect(numberButtons.length).toEqual(5);
+    expect(numberButtons.length).toEqual(3);
     expect(component.pages.length).toEqual(5);
     expect(component.totalPages).toEqual(5);
   });
@@ -87,7 +87,7 @@ describe('PaginationComponent', () => {
     spectator.detectChanges();
     let numberButtons = spectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons
-    expect(numberButtons.length).toEqual(4);
+    expect(numberButtons.length).toEqual(2);
     expect(component.pages.length).toEqual(4);
     expect(component.totalPages).toEqual(4);
   });
@@ -123,9 +123,12 @@ describe('PaginationComponent', () => {
   });
 
   it('With 20 items, in page 8 and 2 items per page, Previous ellipsis should be displayed', () => {
-    component.paginationInfo.total = 20;
-    component.paginationInfo.page = 7;
-    component.paginationInfo.pageSize = 2;
+    component.paginationInfo = {
+      ...component.paginationInfo,
+      total: 20,
+      page: 7,
+      pageSize: 2
+    };
     expect(component.displayPreviousEllipsis).toBeTruthy();
   });
 

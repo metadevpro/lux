@@ -31,6 +31,7 @@ describe('CheckboxComponent', () => {
 
   it('should render Yes when value = true', () => {
     // Arrange
+    component.lang = 'en';
     component.value = true;
     // Act
     spectator.detectChanges();
@@ -38,8 +39,19 @@ describe('CheckboxComponent', () => {
     expect(spectator.element.textContent).toContain('Yes');
   });
 
+  it('should render Sí when value = true and lang=es', () => {
+    // Arrange
+    component.lang = 'es';
+    component.value = true;
+    // Act
+    spectator.detectChanges();
+    // Assert
+    expect(spectator.element.textContent).toContain('Sí');
+  });
+
   it('should render slider when enabled', () => {
     // Arrange
+    component.lang = 'en';
     component.value = true;
     component.disabled = false;
     // Act
@@ -52,6 +64,7 @@ describe('CheckboxComponent', () => {
 
   it('should render no slider when disabled', () => {
     // Arrange
+    component.lang = 'en';
     component.value = true;
     component.disabled = true;
     // Act
@@ -64,6 +77,7 @@ describe('CheckboxComponent', () => {
 
   it('should render label if pressent', () => {
     // Arrange
+    component.lang = 'en';
     component.value = true;
     component.label = 'Chanell';
     // Act
@@ -137,7 +151,7 @@ describe('CheckboxComponent', () => {
     spectator.detectChanges();
     spectator.focus();
     spectator.detectChanges();
-    component.onKey({ key: ' ', preventDefault: () => { } } as KeyboardEvent);
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
     spectator.detectChanges();
     // Assert
     expect(component.value).toBe(false);
@@ -151,7 +165,7 @@ describe('CheckboxComponent', () => {
     spectator.detectChanges();
     spectator.focus();
     spectator.detectChanges();
-    component.onKey({ key: ' ', preventDefault: () => { } } as KeyboardEvent);
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
     spectator.detectChanges();
 
     // Assert
@@ -166,7 +180,7 @@ describe('CheckboxComponent', () => {
     spectator.detectChanges();
     spectator.focus();
     spectator.detectChanges();
-    component.onKey({ key: ' ', preventDefault: () => { } } as KeyboardEvent);
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
     spectator.detectChanges();
 
     // Assert
@@ -180,7 +194,7 @@ describe('CheckboxComponent', () => {
     spectator.detectChanges();
     spectator.focus();
     spectator.detectChanges();
-    component.onKey({ key: ' ', preventDefault: () => { } } as KeyboardEvent);
+    component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
     spectator.detectChanges();
 
     // Assert
