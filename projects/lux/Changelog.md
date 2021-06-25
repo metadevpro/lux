@@ -5,6 +5,7 @@
 2021.06.27
 
 - Ignore accents on search: autocomplete
+- Limit max & min dates to year 2100 and 1900 by default.
 
 ## Version 0.7.1
 
