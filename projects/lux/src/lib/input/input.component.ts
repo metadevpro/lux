@@ -69,9 +69,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   @Input()
   public step?: number;
   @Input()
-  public min?: number;
+  public min?: number | string;
   @Input()
-  public max?: number;
+  public max?: number | string;
 
   get className(): string {
     return this.checkClassName();
@@ -208,13 +208,39 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       result.email = { value, reason: 'Invalid email.' };
     }
     if (
-      this.type === 'percentage' ||
-      this.type === 'permillage' ||
-      this.type === 'number' ||
-      this.type === 'currency' ||
       this.type === 'date' ||
       this.type === 'time' ||
       this.type === 'timestamp'
+    ) {
+      if (
+        typeof this.min === 'string' &&
+        String(value).localeCompare(this.min) === -1
+      ) {
+        result = result || {};
+        result.min = {
+          value,
+          min: this.min,
+          reason: `Value is lower than minimum value: ${this.min}.`
+        };
+      }
+      if (
+        typeof this.max === 'string' &&
+        String(value).localeCompare(this.max) !== -1
+      ) {
+        result = result || {};
+        result.max = {
+          value,
+          max: this.max,
+          reason: `Value is greater than than maximum value: ${this.max}.`
+        };
+      }
+    }
+
+    if (
+      this.type === 'percentage' ||
+      this.type === 'permillage' ||
+      this.type === 'number' ||
+      this.type === 'currency'
     ) {
       if (this.min !== undefined && this.min !== null && value < this.min) {
         result = result || {};
@@ -304,7 +330,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   setEmailPatterns(): void {}
 
-  setDatePatterns(): void {}
+  setDatePatterns(): void {
+    this.min = this.min || '1900-01-01';
+    this.max = this.max || '2100-01-01';
+  }
 
   setTimePatterns(): void {}
 
