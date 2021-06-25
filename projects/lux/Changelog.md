@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.7.2
+
+2021.06.27
+
+- Ignore accents on search: autocomplete
+
 ## Version 0.7.1
 
 2021.06.26
