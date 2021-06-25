@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.7.1
+
+2021.06.26
+
+- Fix disabled on input
+
 ## Version 0.7.0
 
 2021.06.26
