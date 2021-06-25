@@ -16,7 +16,7 @@ import {
   Validator,
   NG_VALIDATORS
 } from '@angular/forms';
-
+import { languageDetector } from '../lang';
 @Component({
   selector: 'lux-input',
   templateUrl: './input.component.html',
@@ -344,14 +344,6 @@ const validEmail = (email: string): boolean => {
   const re =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
   return re.test(String(email).toLowerCase());
-};
-
-const languageDetector = (): string => {
-  const lang = navigator.language.split('-')[0];
-  if (lang === 'es' || lang === 'en') {
-    return lang;
-  }
-  return 'en'; // default
 };
 
 const normalizeDate = (v: any): string => {

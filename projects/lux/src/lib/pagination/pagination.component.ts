@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { languageDetector } from '../lang';
 import { PaginationInfo } from './pagination';
 
 @Component({
@@ -6,71 +7,79 @@ import { PaginationInfo } from './pagination';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnInit {
+  literals = {
+    en: {
+      first: 'First',
+      previous: 'Previous',
+      next: 'Next',
+      last: 'Last'
+    },
+    es: {
+      first: 'Primero',
+      previous: 'Anterior',
+      next: 'Siguiente',
+      last: 'Último'
+    }
+  };
+
+  public first: string;
+  public previous: string;
+  public next: string;
+  public last: string;
+
+  public showPagination = false;
+  public hidePrevious = false;
+  public lastPage = false;
+  public totalPages = 0;
+  public displayNextEllipsis = false;
+  public displayPreviousEllipsis = false;
+
+  public pages: number[] = [];
+
   @Output() goToPage = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
 
   /** Current page, total items and items to show per page */
   private paginationInfoValue: PaginationInfo;
-  /** Disable or not the previous button */
-  private hidePreviousValue: boolean;
-  /** It is or not the last page */
-  private lastPageValue: boolean;
-  /** Show or not next ellipsis */
-  private displayNextEllipsisValue: boolean;
-  /** Show or not previous ellipsis */
-  private displayPreviousEllipsisValue: boolean;
-  /** Total number of pages */
-  private totalPagesValue: number;
+
+  private _lang: string;
+  @Input()
+  set lang(l: string) {
+    if (l === this._lang) {
+      return;
+    }
+    if (Object.keys(this.literals).includes(l)) {
+      this._lang = l;
+    } else {
+      this._lang = 'en';
+    }
+    this.loadLanguage();
+  }
+  get lang(): string {
+    return this._lang;
+  }
 
   @Input()
   set paginationInfo(value: PaginationInfo) {
     this.paginationInfoValue = value;
+    this.syncState();
   }
   get paginationInfo(): PaginationInfo {
     return this.paginationInfoValue;
   }
 
-  constructor() {}
-
-  get showPagination(): boolean {
-    return this.paginationInfo.total > this.paginationInfo.pageSize;
+  constructor() {
+    this.lang = languageDetector();
   }
 
-  get hidePrevious(): boolean {
-    this.hidePreviousValue = this.paginationInfo.page === 0;
-    return this.hidePreviousValue;
-  }
-
-  get lastPage(): boolean {
-    this.lastPageValue =
-      this.paginationInfo.pageSize * (this.paginationInfo.page + 1) >=
-      this.paginationInfo.total;
-    return this.lastPageValue;
-  }
-
-  get totalPages(): number {
-    this.totalPagesValue =
-      Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) || 0;
-    return this.totalPagesValue;
-  }
-
-  get displayNextEllipsis(): boolean {
-    const pagesShowed = this.getPages();
-    this.displayNextEllipsisValue = pagesShowed.includes(this.totalPages - 1)
-      ? false
-      : true;
-    return this.displayNextEllipsisValue;
-  }
-
-  get displayPreviousEllipsis(): boolean {
-    const pagesShowed = this.getPages();
-    this.displayPreviousEllipsisValue = pagesShowed.includes(1) ? false : true;
-    return this.displayPreviousEllipsisValue;
+  ngOnInit(): void {
+    this.calculatePages();
   }
 
   pageSizeChanged(pageSize: number): void {
     this.paginationInfo.pageSize = pageSize;
+    this.syncState();
     this.pageSizeChange.emit(pageSize);
   }
 
@@ -86,9 +95,24 @@ export class PaginationComponent {
     this.goToPage.emit(this.totalPages - 1);
   }
 
-  getPages(): number[] {
-    const c =
-      Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) - 1; // base 0
+  private syncState(): void {
+    this.pages = this.calculatePages();
+
+    this.showPagination =
+      this.paginationInfo.total > this.paginationInfo.pageSize;
+    this.hidePrevious = this.paginationInfo.page === 0;
+    this.lastPage =
+      this.paginationInfo.pageSize * (this.paginationInfo.page + 1) >=
+      this.paginationInfo.total;
+    this.totalPages =
+      Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) || 0;
+    this.displayNextEllipsis = !this.pages.includes(this.totalPages - 1);
+    this.displayPreviousEllipsis = !this.pages.includes(0);
+  }
+
+  private calculatePages(): number[] {
+    const totalPages =
+      Math.ceil(this.paginationInfo.total / this.paginationInfo.pageSize) - 1; // 0-index
     const p = this.paginationInfo.page || 0;
     const pagesToShow = this.paginationInfo.pagesToShow;
     const pages: number[] = [];
@@ -96,17 +120,25 @@ export class PaginationComponent {
     const times = pagesToShow - 1;
     for (let i = 0; i < times; i++) {
       if (pages.length < pagesToShow) {
-        if (Math.min(...pages) > 1) {
-          pages.push(Math.min(...pages) - 1);
+        if (Math.min(...pages) > 0) {
+          pages.unshift(Math.min(...pages) - 1);
         }
       }
       if (pages.length < pagesToShow) {
-        if (Math.max(...pages) < c) {
+        if (Math.max(...pages) < totalPages) {
           pages.push(Math.max(...pages) + 1);
         }
       }
     }
     pages.sort((a, b) => a - b);
     return pages;
+  }
+
+  private loadLanguage(): void {
+    const l = this.literals[this.lang];
+    this.first = l.first;
+    this.previous = l.previous;
+    this.next = l.next;
+    this.last = l.last;
   }
 }

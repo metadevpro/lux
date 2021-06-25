@@ -1,177 +1,139 @@
 $lightgrey: grey;
-$blue: #325C81;
+$blue: #325c81;
 
-:host {
-	flex: 0 0 30px;
-	display: flex;
-	margin: 2% 0;
-
-	.pagination {
-		width: 100%;
-		position: relative;
-		flex: 1;
-		background: white;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
-
+.lux-pagination {
+  display: flex;
+  flex-direction: row;
+  margin: 2% 0;
+  width: 100%;
+  background: white;
+  align-items: center;
 }
 
 .disabled {
-	cursor: not-allowed;
-	border: 1px solid $blue;
-    border-radius: 10%;
-    padding: 1% 1%;
-    color: white;
-    margin: 0 .7%;
-    font-family: sans-serif;
-    background-color: $blue;
-	text-decoration: none;
-	pointer-events: none;
+  cursor: not-allowed;
+  border: 1px solid $blue;
+  border-radius: 10%;
+  padding: 1% 1%;
+  color: white;
+  margin: 0 0.7%;
+  background-color: $blue;
+  text-decoration: none;
+  pointer-events: none;
 }
 
 .enabled {
-	border: 1px solid rgb(207, 207, 207);
-    border-radius: 10%;
-    padding: 1% 1%;
-    color: $blue;
-    margin: 0 .7%;
-    font-family: sans-serif;
-	width: min-content;
-	cursor: pointer;
-}
-
-.disabledFirstLast {
-	cursor: not-allowed;
-	border: 1px solid rgb(197, 197, 195);
-    border-radius: 10%;
-    padding: 1% 1%;
-    color: rgb(197, 197, 195);
-	margin: 0 .7%;
-	opacity: .5;
-	text-decoration: none;
-	pointer-events: none;
-
-	&:first-child {
-		margin-left: auto;
-	}
-
-	&:last-child {
-		margin-right: auto;
-	}
+  border: 1px solid rgb(207, 207, 207);
+  border-radius: 10%;
+  padding: 1% 1%;
+  color: $blue;
+  margin: 0 0.7%;
+  width: min-content;
+  cursor: pointer;
 }
 
 .enabledFirstLast {
-	border: 1px solid rgb(207, 207, 207);
-    border-radius: 10%;
-    padding: 1% 1%;
-    color: $blue;
-	margin: 0 .7%;
-	width: min-content;
-	cursor: pointer;
-
-	&:first-child {
-		margin-left: auto;
-	}
-
-	&:last-child {
-		margin-right: auto;
-	}
+  border: 1px solid rgb(207, 207, 207);
+  border-radius: 10%;
+  padding: 1% 1%;
+  color: $blue;
+  margin: 0 0.7%;
+  width: min-content;
+  cursor: pointer;
 }
 
 .ellipsis {
-	padding: 1% 1%;
-    color: $blue;
-	margin: 0 .7%;
-	width: min-content;
+  margin: 0rem 0.5rem;
+  padding: 0rem;
+  color: $blue;
+  width: min-content;
 }
 
 .button-pagination {
-	width: 1em;
-	height: 1.2em;
-	font-size: 80%;
-	text-align: center;
+  width: 1em;
+  height: 1.2em;
+  font-size: 80%;
+  text-align: center;
 }
 
 .icon {
-	background-size: 1.3em 1.4em;
-	background-position: center;
-	background-repeat: no-repeat;
+  background-size: 1.3em 1.4em;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .arrow-right {
-	background-image: url('../assets/img/arrow.svg');
-	background-position: .4em;
+  background-image: url('../assets/img/arrow.svg');
+  background-position: 0.4em;
 }
 
 .arrow-left {
-	background-image: url('../assets/img/arrow.svg');
-	transform: rotate(180deg);
-	background-position: .4em;
+  background-image: url('../assets/img/arrow.svg');
+  transform: rotate(180deg);
+  background-position: 0.4em;
 }
 
 .arrow-right-end {
-	background-image: url('../assets/img/arrow-end.svg');
-	background-position: .1em;
+  background-image: url('../assets/img/arrow-end.svg');
+  background-position: 0.1em;
 }
 
 .arrow-left-end {
-	background-image: url('../assets/img/arrow-end.svg');
-	background-position: .1em;
-	transform: rotate(180deg);
+  background-image: url('../assets/img/arrow-end.svg');
+  background-position: 0.1em;
+  transform: rotate(180deg);
 }
 
-@media only screen and (min-width: 300px) and (max-width: 500px){
-	.arrow-right {
-		background-position: .2em;
-	}
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+  .arrow-right {
+    background-position: 0.2em;
+  }
 
-	.arrow-left {
-		background-position: .2em;
-	}
+  .arrow-left {
+    background-position: 0.2em;
+  }
 
-	.arrow-right-end {
-		background-position: 0em;
-	}
+  .arrow-right-end {
+    background-position: 0em;
+  }
 
-	.arrow-left-end {
-		background-position: 0em;
-	}
+  .arrow-left-end {
+    background-position: 0em;
+  }
 }
 
-@media only screen and (min-width: 500px) and (max-width: 850px){
-	.arrow-right {
-		background-position: .3em;
-	}
+@media only screen and (min-width: 500px) and (max-width: 850px) {
+  .arrow-right {
+    background-position: 0.3em;
+  }
 
-	.arrow-left {
-		background-position: .3em;
-	}
+  .arrow-left {
+    background-position: 0.3em;
+  }
 
-	.arrow-right-end {
-		background-position: 0em;
-	}
+  .arrow-right-end {
+    background-position: 0em;
+  }
 
-	.arrow-left-end {
-		background-position: 0em;
-	}
+  .arrow-left-end {
+    background-position: 0em;
+  }
 }
 
 @media only screen and (min-width: 900px) {
-	.arrow-right {
-		background-position: .2em;
-	}
+  .arrow-right {
+    background-position: 0.2em;
+  }
 
-	.arrow-left {
-		background-position: .2em;
-	}
+  .arrow-left {
+    background-position: 0.2em;
+  }
 
-	.arrow-right-end {
-		background-position: 0em;
-	}
+  .arrow-right-end {
+    background-position: 0em;
+  }
 
-	.arrow-left-end {
-		background-position: 0em;
-	}
+  .arrow-left-end {
+    background-position: 0em;
+  }
 }
