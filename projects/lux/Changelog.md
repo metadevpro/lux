@@ -1,5 +1,12 @@
 # Lux Changelog
 
+## Version 0.7.4
+
+2021.06.27
+
+- Triger touch on autocomplete and autocmplete-list, input.
+- Convert undefined in input into null
+
 ## Version 0.7.2
 
 2021.06.27
