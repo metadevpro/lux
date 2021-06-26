@@ -125,7 +125,7 @@ export class AutocompleteComponent
     this.onTouched = onTouched;
   }
   markAsTouched(): void {
-    if (!this.touched) {
+    if (!this.touched && !this.disabled) {
       this.onTouched();
       this.touched = true;
     }
@@ -195,6 +195,7 @@ export class AutocompleteComponent
         this.pickFirstMatch(label);
         break;
     }
+    this.markAsTouched();
   }
   onKeypress(event: KeyboardEvent, label: string): void {
     switch (event.key) {
@@ -204,6 +205,7 @@ export class AutocompleteComponent
         event.preventDefault();
         break;
     }
+    this.markAsTouched();
   }
   onKeyup(event: KeyboardEvent, label: string): void {
     switch (event.key) {
@@ -231,6 +233,7 @@ export class AutocompleteComponent
         this.showCompletionList(label);
       // event.preventDefault();
     }
+    this.markAsTouched();
   }
   private focusOnNext(offset: number): void {
     const list = this.completionList || [];
@@ -269,6 +272,7 @@ export class AutocompleteComponent
     }
     this.showCompletion = false;
     this.cd.markForCheck();
+    this.markAsTouched();
   }
   toogleCompletion(show: boolean, label: string): void {
     if (show) {

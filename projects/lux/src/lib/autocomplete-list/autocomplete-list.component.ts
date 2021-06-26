@@ -132,7 +132,7 @@ export class AutocompleteListComponent
     this.onTouched = onTouched;
   }
   markAsTouched(): void {
-    if (!this.touched) {
+    if (!this.touched && !this.disabled) {
       this.onTouched();
       this.touched = true;
     }
@@ -202,6 +202,7 @@ export class AutocompleteListComponent
       const label = this.labels.splice(index, 1)[0];
       this.internalDataSource.push({ key, label });
     }
+    this.markAsTouched();
   }
   onValueChange(): void {
     this.updateCanAdd();
@@ -246,6 +247,7 @@ export class AutocompleteListComponent
     this.internalDataSource = this.internalDataSource.filter(
       (it) => !this._value.includes(it.key)
     );
+    this.markAsTouched();
   }
 
   getDeleteMessage(label: string): string {

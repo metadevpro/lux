@@ -44,7 +44,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   lastErrors: ValidationErrors | null = null;
 
   private _disabled: string | boolean;
-  private _value: any;
+  private _value: any = '';
   private _type: string;
   private _placeholder: string;
   private _currency: string;
@@ -128,6 +128,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   @Input()
   set value(v: any) {
+    v = v === undefined ? null : v;
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
@@ -275,6 +276,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
   onChangeValue(newValue: string): void {
     this.value = newValue;
+    this.markAsTouched();
   }
   onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);
