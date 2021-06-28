@@ -192,7 +192,10 @@ export class AutocompleteComponent
   onKeydown(event: KeyboardEvent, label: string): void {
     switch (event.key) {
       case 'Tab':
-        this.pickFirstMatch(label);
+        if (label) {
+          this.pickFirstMatch(label);
+        }
+        this.showCompletion = false;
         break;
     }
     this.markAsTouched();

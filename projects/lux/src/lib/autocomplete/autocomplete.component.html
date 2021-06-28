@@ -23,7 +23,7 @@
       [attr.aria-activedescendant]="selectedOption"
     />
     <button
-      *ngIf="!disabled && value; else dropdown"
+      *ngIf="!disabled && i0.value; else dropdown"
       class="icon-clear"
       aria-label="Clear"
       (click)="clear()"
