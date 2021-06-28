@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.7.6
+
+2021.06.28
+
+- Do not trigger autocomplete on emptry value and Tab.
+
 ## Version 0.7.5
 
 2021.06.28
