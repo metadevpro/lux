@@ -197,14 +197,11 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (
-      this.required &&
-      (value === '' || value === null || value === undefined)
-    ) {
+    if (this.required && !hasValue(hasValue)) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (this.type === 'email' && value && !validEmail(value)) {
+    if (this.type === 'email' && hasValue(value) && !validEmail(value)) {
       result = result || {};
       result.email = { value, reason: 'Invalid email.' };
     }
@@ -215,6 +212,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     ) {
       if (
         typeof this.min === 'string' &&
+        hasValue(value) &&
         String(value).localeCompare(this.min) === -1
       ) {
         result = result || {};
@@ -226,6 +224,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       }
       if (
         typeof this.max === 'string' &&
+        hasValue(value) &&
         String(value).localeCompare(this.max) !== -1
       ) {
         result = result || {};
@@ -243,7 +242,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       this.type === 'number' ||
       this.type === 'currency'
     ) {
-      if (this.min !== undefined && this.min !== null && value < this.min) {
+      if (hasValue(this.min) && hasValue(value) && value < this.min) {
         result = result || {};
         result.min = {
           value,
@@ -251,7 +250,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
           reason: `Value is lower than minimum value: ${this.min}.`
         };
       }
-      if (this.max !== undefined && this.max !== null && value > this.max) {
+      if (hasValue(this.max) && hasValue(value) && value > this.max) {
         result = result || {};
         result.max = {
           value,
@@ -383,3 +382,4 @@ const normalizeDate = (v: any): string => {
   }
   return v ? v.toString() : '';
 };
+const hasValue = (v: any): boolean => v !== null && v !== undefined && v !== '';

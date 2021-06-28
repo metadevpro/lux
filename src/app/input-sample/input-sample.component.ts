@@ -29,7 +29,7 @@ export class InputSampleComponent implements AfterContentInit {
     inlineErrors: false,
     value: 'a',
     formValues: {
-      field1: undefined // 'initial@value.com'
+      field1: null // 'initial@value.com'
     }
   };
 

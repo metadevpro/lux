@@ -11,6 +11,9 @@ import { PrismService } from '../core/services/prism-service.service';
 export class AutoCompleteSampleComponent implements AfterContentInit {
   value = 'ES';
   value2 = 'JP';
+  value3 = null;
+  value4 = 'JP';
+  value5 = 'ES';
   disabled1 = false;
   disabled2 = false;
 
