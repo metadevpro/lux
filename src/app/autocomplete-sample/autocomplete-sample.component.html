@@ -135,11 +135,51 @@
       {{ disabled2 }}
     </label>
   </div>
+
+  <div>
+    <h3>Stack sample</h3>
+    <div class="content p50">
+      <label for="country3">API Wired Sample for Countries:</label>
+      <lux-autocomplete
+        inputId="country3"
+        name="country3"
+        [(ngModel)]="value3"
+        [instance]="self"
+        [resolveLabelsFunction]="getLabels"
+        [populateFunction]="getData"
+        [disabled]="disabled2"
+      >
+      </lux-autocomplete>
+      <lux-autocomplete
+        inputId="country4"
+        name="country4"
+        [(ngModel)]="value4"
+        [instance]="self"
+        [resolveLabelsFunction]="getLabels"
+        [populateFunction]="getData"
+        [disabled]="disabled2"
+      >
+      </lux-autocomplete>
+      <lux-autocomplete
+        inputId="country5"
+        name="country5"
+        [(ngModel)]="value5"
+        [instance]="self"
+        [resolveLabelsFunction]="getLabels"
+        [populateFunction]="getData"
+        [disabled]="disabled2"
+      >
+      </lux-autocomplete>
+    </div>
+  </div>
 </div>
 
 <h2>Documentation</h2>
-<p>The AutocompleteList component implements <code>ControlValueAccessor</code>,
-  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
+<p>
+  The AutocompleteList component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is
+  supported.
+</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li>
@@ -170,4 +210,3 @@
     <span class="inline">valueChange</span>Fired whenever the value changes.
   </li>
 </ul>
-
