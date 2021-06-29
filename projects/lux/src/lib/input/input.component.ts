@@ -242,7 +242,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       this.type === 'number' ||
       this.type === 'currency'
     ) {
-      if (hasValue(this.min) && hasValue(value) && value < this.min) {
+      if (hasValue(this.min) && hasValue(value) && value < +this.min) {
         result = result || {};
         result.min = {
           value,
@@ -250,7 +250,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
           reason: `Value is lower than minimum value: ${this.min}.`
         };
       }
-      if (hasValue(this.max) && hasValue(value) && value > this.max) {
+      if (hasValue(this.max) && hasValue(value) && value > +this.max) {
         result = result || {};
         result.max = {
           value,
