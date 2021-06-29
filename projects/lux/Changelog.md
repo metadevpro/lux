@@ -1,5 +1,32 @@
 # Lux Changelog
 
+## Version 0.7.6
+
+2021.06.28
+
+- Do not trigger autocomplete on emptry value and Tab.
+
+## Version 0.7.5
+
+2021.06.28
+
+- Fix expand on autocomplete (z-index)
+- Refactor validation logic on input
+
+## Version 0.7.4
+
+2021.06.27
+
+- Trigger touch on autocomplete and autocmplete-list, input.
+- Convert undefined in input into null
+
+## Version 0.7.2
+
+2021.06.27
+
+- Ignore accents on search: autocomplete
+- Limit max & min dates to year 2100 and 1900 by default.
+
 ## Version 0.7.1
 
 2021.06.26

@@ -125,7 +125,7 @@ export class AutocompleteComponent
     this.onTouched = onTouched;
   }
   markAsTouched(): void {
-    if (!this.touched) {
+    if (!this.touched && !this.disabled) {
       this.onTouched();
       this.touched = true;
     }
@@ -192,9 +192,13 @@ export class AutocompleteComponent
   onKeydown(event: KeyboardEvent, label: string): void {
     switch (event.key) {
       case 'Tab':
-        this.pickFirstMatch(label);
+        if (label) {
+          this.pickFirstMatch(label);
+        }
+        this.showCompletion = false;
         break;
     }
+    this.markAsTouched();
   }
   onKeypress(event: KeyboardEvent, label: string): void {
     switch (event.key) {
@@ -204,6 +208,7 @@ export class AutocompleteComponent
         event.preventDefault();
         break;
     }
+    this.markAsTouched();
   }
   onKeyup(event: KeyboardEvent, label: string): void {
     switch (event.key) {
@@ -231,6 +236,7 @@ export class AutocompleteComponent
         this.showCompletionList(label);
       // event.preventDefault();
     }
+    this.markAsTouched();
   }
   private focusOnNext(offset: number): void {
     const list = this.completionList || [];
@@ -269,6 +275,7 @@ export class AutocompleteComponent
     }
     this.showCompletion = false;
     this.cd.markForCheck();
+    this.markAsTouched();
   }
   toogleCompletion(show: boolean, label: string): void {
     if (show) {
@@ -325,14 +332,14 @@ export class AutocompleteComponent
     const searchText = (text || '').toLowerCase();
     if (this.dataSource) {
       const ds = (this.dataSource || [])
-        .filter((it) => it.label.toLowerCase().includes(searchText))
+        .filter((it) => ignoreAccentsInclude(it.label, searchText))
         .sort((a, b) => a.label.localeCompare(b.label));
       return of(decorateDataSource(ds, searchText));
     } else if (this.instance && this.populateFunction) {
       return this.populateFunction(this.instance, searchText).pipe(
         first(),
         map((ds) => {
-          ds.filter((it) => it.label.toLowerCase().includes(searchText)).sort(
+          ds.filter((it) => ignoreAccentsInclude(it.label, searchText)).sort(
             (a, b) => a.label.localeCompare(b.label)
           );
           return decorateDataSource(ds, searchText);
@@ -344,6 +351,17 @@ export class AutocompleteComponent
   }
 }
 
+/** Returns true if text includes substring. No accents considered. Ignorecase */
+const ignoreAccentsInclude = (text: string, substring: string): boolean => {
+  text = normalizedString(text).toLowerCase();
+  substring = normalizedString(substring).toLowerCase();
+  return text.includes(substring);
+};
+
+/** Returns a normalized string with no accents: used for comparison */
+const normalizedString = (a: string): string =>
+  (a || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
 const decorateDataSource = (
   dataSource: DataSource<any, string>,
   subString: string
@@ -353,7 +371,9 @@ const decorateItem = (
   item: DataSourceItem<any, string>,
   tx: string
 ): DecoratedDataSourceItem => {
-  const index = item.label.toLowerCase().indexOf(tx.toLowerCase());
+  const index = normalizedString(item.label)
+    .toLowerCase()
+    .indexOf(normalizedString(tx).toLowerCase());
   const labelPrefix = index === -1 ? item.label : item.label.substr(0, index);
   const labelMatch = index === -1 ? '' : item.label.substr(index, tx.length);
   const labelPostfix = index === -1 ? '' : item.label.substr(index + tx.length);

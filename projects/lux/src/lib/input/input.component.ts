@@ -44,7 +44,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   lastErrors: ValidationErrors | null = null;
 
   private _disabled: string | boolean;
-  private _value: any;
+  private _value: any = '';
   private _type: string;
   private _placeholder: string;
   private _currency: string;
@@ -69,9 +69,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   @Input()
   public step?: number;
   @Input()
-  public min?: number;
+  public min?: number | string;
   @Input()
-  public max?: number;
+  public max?: number | string;
 
   get className(): string {
     return this.checkClassName();
@@ -128,6 +128,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   @Input()
   set value(v: any) {
+    v = v === undefined ? null : v;
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
@@ -196,27 +197,24 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (
-      this.required &&
-      (value === '' || value === null || value === undefined)
-    ) {
+    if (this.required && !hasValue(hasValue)) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (this.type === 'email' && value && !validEmail(value)) {
+    if (this.type === 'email' && hasValue(value) && !validEmail(value)) {
       result = result || {};
       result.email = { value, reason: 'Invalid email.' };
     }
     if (
-      this.type === 'percentage' ||
-      this.type === 'permillage' ||
-      this.type === 'number' ||
-      this.type === 'currency' ||
       this.type === 'date' ||
       this.type === 'time' ||
       this.type === 'timestamp'
     ) {
-      if (this.min !== undefined && this.min !== null && value < this.min) {
+      if (
+        typeof this.min === 'string' &&
+        hasValue(value) &&
+        String(value).localeCompare(this.min) === -1
+      ) {
         result = result || {};
         result.min = {
           value,
@@ -224,7 +222,35 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
           reason: `Value is lower than minimum value: ${this.min}.`
         };
       }
-      if (this.max !== undefined && this.max !== null && value > this.max) {
+      if (
+        typeof this.max === 'string' &&
+        hasValue(value) &&
+        String(value).localeCompare(this.max) !== -1
+      ) {
+        result = result || {};
+        result.max = {
+          value,
+          max: this.max,
+          reason: `Value is greater than than maximum value: ${this.max}.`
+        };
+      }
+    }
+
+    if (
+      this.type === 'percentage' ||
+      this.type === 'permillage' ||
+      this.type === 'number' ||
+      this.type === 'currency'
+    ) {
+      if (hasValue(this.min) && hasValue(value) && value < this.min) {
+        result = result || {};
+        result.min = {
+          value,
+          min: this.min,
+          reason: `Value is lower than minimum value: ${this.min}.`
+        };
+      }
+      if (hasValue(this.max) && hasValue(value) && value > this.max) {
         result = result || {};
         result.max = {
           value,
@@ -249,6 +275,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
   onChangeValue(newValue: string): void {
     this.value = newValue;
+    this.markAsTouched();
   }
   onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);
@@ -304,7 +331,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   setEmailPatterns(): void {}
 
-  setDatePatterns(): void {}
+  setDatePatterns(): void {
+    this.min = this.min || '1900-01-01';
+    this.max = this.max || '2100-01-01';
+  }
 
   setTimePatterns(): void {}
 
@@ -352,3 +382,4 @@ const normalizeDate = (v: any): string => {
   }
   return v ? v.toString() : '';
 };
+const hasValue = (v: any): boolean => v !== null && v !== undefined && v !== '';
