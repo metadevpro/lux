@@ -380,6 +380,6 @@ const normalizeDate = (v: any): string => {
   if (typeof v === 'string' && v.length > 10) {
     return v.substr(0, 10);
   }
-  return v ? v.toString() : '';
+  return v ? v.toString() : null;
 };
 const hasValue = (v: any): boolean => v !== null && v !== undefined && v !== '';
