@@ -282,7 +282,7 @@ export class AutocompleteComponent
     this.markAsTouched();
   }
   toogleCompletion(show: boolean, label: string): void {
-    if (show) {
+    if (show && !this.disabled) {
       this.showCompletionList(label);
     } else {
       this.showCompletion = false;
