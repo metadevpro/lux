@@ -12,23 +12,29 @@ declare const ol: any;
 export class MapComponent implements OnInit {
   private _map: any;
 
-  _zoom: number = 18;
+  _zoom: number;
   @Input()
   set zoom(zoom: number) {
     if (!isNaN(zoom)) {
       this._zoom = zoom;
+      if (this._map) {
+        this._map.getView().setZoom(zoom);
+      }
     }
   }
   get zoom(): number {
     return this._zoom;
   }
 
-  _center: Geopoint = { type: 'Point', coordinates: [0, 0] };
+  _center: Geopoint;
   @Input()
   set center(center: Geopoint) {
-    if (center !== undefined && center !== null) {
+    if (center) {
       if (center.coordinates && center.coordinates.length === 2) {
         this._center = center;
+        if (this._map) {
+          this._map.getView().setCenter(ol.proj.fromLonLat(center.coordinates));
+        }
       }
     }
   }
@@ -42,10 +48,14 @@ export class MapComponent implements OnInit {
   set currentMarkerCoordinates(currentMarkerCoordinates: number[]) {
     if (currentMarkerCoordinates && currentMarkerCoordinates.length === 2) {
       this._currentMarkerCoordinates = currentMarkerCoordinates;
-      this.addMarkerAtCoordinates(currentMarkerCoordinates);
+      if (this._map) {
+        this.addMarkerAtCoordinates(currentMarkerCoordinates);
+      }
     } else {
       this._currentMarkerCoordinates = undefined;
-      this.removeCurrentMarker();
+      if (this._map) {
+        this.removeCurrentMarker();
+      }
     }
   }
   get currentMarkerCoordinates(): number[] {
@@ -81,6 +91,36 @@ export class MapComponent implements OnInit {
       // alternatively: const lonLat = ol.proj.transform(args.coordinate,'EPSG:3857','EPSG:4326');
       this.addMarkerAtCoordinates(coordinates);
     });
+
+    if (this.center === undefined || this.center === null) {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.center = {
+              type: 'Point',
+              coordinates: [position.coords.longitude, position.coords.latitude]
+            };
+          },
+          (error) => {
+            this.center = {
+              type: 'Point',
+              coordinates: [0, 0]
+            };
+          }
+        );
+      } else {
+        this.center = {
+          type: 'Point',
+          coordinates: [0, 0]
+        };
+      }
+    }
+    this._map.getView().setCenter(ol.proj.fromLonLat(this.center.coordinates));
+
+    if (this.zoom === undefined || this.zoom === null) {
+      this.zoom = 18;
+    }
+    this._map.getView().setZoom(this.zoom);
   }
 
   addMarkerAtCoordinates(coordinates: number[]): void {
@@ -124,11 +164,5 @@ export class MapComponent implements OnInit {
     const coordinates = this._currentMarker.getGeometry().getCoordinates();
     // coordinates is in EPSG:3857 (meters), we transform it into EPSG:4326 (degrees)
     return ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
-  }
-
-  setCenter(): void {
-    const view = this._map.getView();
-    view.setCenter(ol.proj.fromLonLat(this.center.coordinates));
-    view.setZoom(this.zoom);
   }
 }
