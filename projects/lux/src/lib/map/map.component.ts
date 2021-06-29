@@ -12,18 +12,24 @@ declare const ol: any;
 export class MapComponent implements OnInit {
   private _map: any;
 
-  @Input() zoom: number;
+  _zoom: number = 18;
+  @Input()
+  set zoom(zoom: number) {
+    if (!isNaN(zoom)) {
+      this._zoom = zoom;
+    }
+  }
+  get zoom(): number {
+    return this._zoom;
+  }
 
-  _center: Geopoint;
+  _center: Geopoint = { type: 'Point', coordinates: [0, 0] };
   @Input()
   set center(center: Geopoint) {
-    if (center === this._center) {
-      return;
-    }
-    if (center.coordinates && center.coordinates.length === 2) {
-      this._center = center;
-    } else {
-      this._center = undefined;
+    if (center !== undefined && center !== null) {
+      if (center.coordinates && center.coordinates.length === 2) {
+        this._center = center;
+      }
     }
   }
   get center(): Geopoint {
@@ -49,12 +55,6 @@ export class MapComponent implements OnInit {
   private _markerSource = new ol.source.Vector();
 
   ngOnInit(): void {
-    this.center =
-      this.center !== undefined && this.center !== null
-        ? this.center
-        : { type: 'Point', coordinates: [0, 0] };
-    this.zoom = this.zoom !== undefined && this.zoom !== null ? this.zoom : 16;
-
     this._map = new ol.Map({
       target: 'map',
       layers: [
