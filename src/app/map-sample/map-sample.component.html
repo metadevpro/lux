@@ -4,13 +4,13 @@
 
 <div>
 
-    <h3>geopoint and zoom</h3>
+    <h3>center and zoom</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-        &lt;lux-map aria-label="Geopoint example" [geopoint]="geopoint" [zoom]="zoom"&gt;&lt;/lux-map&gt;</code>
+        &lt;lux-map aria-label="Center example" [center]="geopoint" [zoom]="zoom"&gt;&lt;/lux-map&gt;</code>
     </pre>
     <div class="sample">
-        <lux-map aria-label="Geopoint example" [geopoint]="geopoint1" [zoom]="zoom1"></lux-map>
+        <lux-map aria-label="Center example" [center]="geopoint1" [zoom]="zoom1"></lux-map>
     </div>
 
 </div>
@@ -20,6 +20,6 @@
 <h3>Properties</h3>
 
 <ul class="properties">
-    <li><span class="inline">geopoint</span> The point the map is centered in.</li>
+    <li><span class="inline">center</span> The point the map is centered in.</li>
     <li><span class="inline">zoom</span> The zoom level of the map, with 0 representing the whole world and each level doubling the size. By default it's 16, which is enough to pinpoint an address.</li>
 </ul>
