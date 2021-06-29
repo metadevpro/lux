@@ -259,6 +259,12 @@ export class GeolocationComponent implements OnInit {
       coordinates: [+newLongitude, this.latitudeValue]
     };
   }
+  updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
+    this.value = {
+      type: 'Point',
+      coordinates: newLatitudeAndLongitude
+    };
+  }
 
   onKeyUpLatitude(newLatitude: string): void {
     this.updateLatitude(+newLatitude);
@@ -286,10 +292,12 @@ export class GeolocationComponent implements OnInit {
   openModal(modal: TemplateRef<any>): void {
     this.modalService.open(modal).result.then(
       (result) => {
-        console.log(result);
+        if (result !== 'cancel') {
+          this.updateLatitudeAndLongitude(result);
+        }
       },
       (reason) => {
-        console.log(reason);
+        //
       }
     );
   }

@@ -81,7 +81,7 @@
     </button>
   </div>
   <div class="lux-modal-body">
-    <lux-map #map [geopoint]="value" [zoom]="zoom"> </lux-map>
+    <lux-map #map [center]="value" [zoom]="zoom"></lux-map>
   </div>
   <div class="lux-modal-footer">
     <button
@@ -94,7 +94,7 @@
     <button
       type="button"
       class="btn btn-outline-dark"
-      (click)="modal.close(map.geopoint)"
+      (click)="modal.close(map.getCoordinatesOfCurrentMarker())"
     >
       Select
     </button>
