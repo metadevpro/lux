@@ -36,16 +36,6 @@ export class MapComponent implements OnInit {
 
   markerSource = new ol.source.Vector();
 
-  /*
-  static markerStyle = new ol.style.Style({
-    image: new ol.style.Icon({
-      anchor: [0.5, 0.5],
-      opacity: 0.75,
-      src: '../assets/img/geopoint-marker.png'
-    })
-  });
-  */
-
   ngOnInit(): void {
     this.geopoint =
       this.geopoint !== undefined && this.geopoint !== null
@@ -53,24 +43,8 @@ export class MapComponent implements OnInit {
         : { type: 'Point', coordinates: [0, 0] };
     this.zoom = this.zoom !== undefined && this.zoom !== null ? this.zoom : 16;
 
-    const mousePositionControl = new ol.control.MousePosition({
-      coordinateFormat: ol.coordinate.createStringXY(4),
-      projection: 'EPSG:4326',
-      // comment the following two lines to have the mouse position be placed within the map
-      className: 'custom-mouse-position',
-      target: document.getElementById('mouse-position'),
-      undefinedHTML: '&nbsp;'
-    });
-
     this.map = new ol.Map({
       target: 'map',
-      controls: ol.control
-        .defaults({
-          attributionOptions: {
-            collapsible: false
-          }
-        })
-        .extend([mousePositionControl]),
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM()
@@ -94,6 +68,8 @@ export class MapComponent implements OnInit {
       const coordinates = ol.proj.toLonLat(args.coordinate);
       // alternatively: const lonLat = ol.proj.transform(args.coordinate,'EPSG:3857','EPSG:4326');
       this.addMarkerAtCoordinates(coordinates);
+      // for debugging purposes, log updates to the current marker's position when creating a new marker
+      // console.log(coordinates);
     });
   }
 
@@ -117,7 +93,16 @@ export class MapComponent implements OnInit {
         style: null
       });
       this.map.addInteraction(dragInteraction);
-      // this.currentMarker.on('change', function, this.currentMarker);
+      /*
+      // for debugging purposes, log updates to the current marker's position when dragging the current marker
+      this.currentMarker.on(
+        'change',
+        () => {
+          console.log(this.getCoordinatesOfCurrentMarker());
+        },
+        this.currentMarker
+      );
+      */
     }
   }
 
