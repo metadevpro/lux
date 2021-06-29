@@ -34,8 +34,19 @@ export class MapComponent implements OnInit {
     return this._geopoint;
   }
 
+  markerSource = new ol.source.Vector();
+
+  /*
+  static markerStyle = new ol.style.Style({
+    image: new ol.style.Icon({
+      anchor: [0.5, 0.5],
+      opacity: 0.75,
+      src: '../assets/img/geopoint-marker.png'
+    })
+  });
+  */
+
   ngOnInit(): void {
-    console.log(this.geopoint);
     this.geopoint =
       this.geopoint !== undefined && this.geopoint !== null
         ? this.geopoint
@@ -45,8 +56,7 @@ export class MapComponent implements OnInit {
     const mousePositionControl = new ol.control.MousePosition({
       coordinateFormat: ol.coordinate.createStringXY(4),
       projection: 'EPSG:4326',
-      // comment the following two lines to have the mouse position
-      // be placed within the map.
+      // comment the following two lines to have the mouse position be placed within the map
       className: 'custom-mouse-position',
       target: document.getElementById('mouse-position'),
       undefinedHTML: '&nbsp;'
@@ -64,28 +74,67 @@ export class MapComponent implements OnInit {
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM()
+        }),
+        new ol.layer.Vector({
+          source: this.markerSource
+          // commented the following line to use default style
+          // style: MapComponent.markerStyle
         })
       ],
       view: new ol.View({
-        center: ol.proj.fromLonLat(this.geopoint.coordinates),
+        center: ol.proj.fromLonLat(
+          this.geopoint !== undefined ? this.geopoint.coordinates : [0, 0]
+        ),
         zoom: this.zoom
       })
     });
 
-    this.map.on('click', (args) => {
-      console.log(args.coordinate);
-      const lonlat = ol.proj.transform(
-        args.coordinate,
-        'EPSG:3857',
-        'EPSG:4326'
-      );
-      console.log(lonlat);
-
-      const lon = lonlat[0];
-      const lat = lonlat[1];
-      alert(`lat: ${lat} long: ${lon}`);
+    this.map.on('click', (args: any) => {
+      // args.coordinate is in EPSG:3857 (meters), we transform it into EPSG:4326 (degrees)
+      const coordinates = ol.proj.toLonLat(args.coordinate);
+      // alternatively: const lonLat = ol.proj.transform(args.coordinate,'EPSG:3857','EPSG:4326');
+      this.addMarkerAtCoordinates(coordinates);
     });
   }
+
+  private currentMarker: any;
+
+  addMarkerAtCoordinates(coordinates: number[]): void {
+    if (coordinates && coordinates.length === 2) {
+      if (this.currentMarker) {
+        this.removeCurrentMarker();
+      }
+      this.currentMarker = new ol.Feature({
+        geometry: new ol.geom.Point(
+          // [lon, lat] is in EPSG:4326 (degrees), we transform it into EPSG:3857 (meters)
+          ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857')
+        )
+      });
+      this.markerSource.addFeature(this.currentMarker);
+
+      const dragInteraction = new ol.interaction.Modify({
+        features: new ol.Collection([this.currentMarker]),
+        style: null
+      });
+      this.map.addInteraction(dragInteraction);
+      // this.currentMarker.on('change', function, this.currentMarker);
+    }
+  }
+
+  removeCurrentMarker(): void {
+    this.markerSource.removeFeature(this.currentMarker);
+    this.currentMarker = undefined;
+  }
+
+  getCoordinatesOfCurrentMarker(): void {
+    if (this.currentMarker === undefined || this.currentMarker == null) {
+      return this.currentMarker;
+    }
+    const coordinates = this.currentMarker.getGeometry().getCoordinates();
+    // coordinates is in EPSG:3857 (meters), we transform it into EPSG:4326 (degrees)
+    return ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
+  }
+
   setCenter(): void {
     const view = this.map.getView();
     view.setCenter(ol.proj.fromLonLat(this.geopoint.coordinates));
