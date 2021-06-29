@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { DataSource } from '../datasource';
+import { isInitialAndEmpty } from '../helperFns';
 import { languageDetector } from '../lang';
 
 @Component({
@@ -67,11 +68,14 @@ export class AutocompleteListComponent
     if (val === this._value) {
       return;
     }
+    const initialAndEmpty = isInitialAndEmpty(this._value, val);
     this._value = val;
     this.ensureLabelsForIds();
     this.populateWith('');
-    this.valueChange.emit(this._value);
     this.onChange(this._value);
+    if (!initialAndEmpty) {
+      this.valueChange.emit(this._value);
+    }
   }
   get value(): any[] {
     return this._value;
