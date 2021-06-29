@@ -284,6 +284,7 @@
     <button [disabled]="!form.valid">Fake sumbit</button>
     <div>Form values: {{ f1.formValues | json }}</div>
   </form>
+  <button (click)="setEmpty()">Set to empty</button>
 </div>
 
 <h2>Documentation</h2>
