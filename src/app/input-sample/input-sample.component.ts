@@ -38,4 +38,8 @@ export class InputSampleComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
+
+  setEmpty(): void {
+    this.f1.formValues.field1 = '';
+  }
 }

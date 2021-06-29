@@ -1,5 +1,18 @@
 # Lux Changelog
 
+## Version 0.7.8
+
+2021.06.29
+
+- Fix: Pagination Next. Proect from invalid values.
+
+## Version 0.7.7
+
+2021.06.29
+
+- Fix: empty incomplete dates should succeed.
+- Fix: max value validation.
+
 ## Version 0.7.6
 
 2021.06.28

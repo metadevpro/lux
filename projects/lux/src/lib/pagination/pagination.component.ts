@@ -94,6 +94,14 @@ export class PaginationComponent implements OnInit {
   onLast(): void {
     this.goToPage.emit(this.totalPages - 1);
   }
+  onNext(): void {
+    const page = (this.paginationInfo.page || 0) + 1;
+    this.goToPage.emit(page);
+  }
+  onPrevious(): void {
+    const page = (this.paginationInfo.page || 0) - 1;
+    this.goToPage.emit(page);
+  }
 
   private syncState(): void {
     this.pages = this.calculatePages();
