@@ -1,5 +1,5 @@
 import { Component, AfterContentInit } from '@angular/core';
-import { Geopoint } from 'lux/lib/geolocation/geopoint';
+import { Geopoint } from 'lux/lib/map/geopoint';
 
 import { PrismService } from '../core/services/prism-service.service';
 @Component({
