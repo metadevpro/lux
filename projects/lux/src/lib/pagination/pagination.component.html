@@ -16,7 +16,7 @@
       [content]="previous"
       placement="top"
       delay="500"
-      (click)="onPage(paginationInfo.page - 1)"
+      (click)="onPrevious()"
       [ngClass]="{
         enabledFirstLast: !hidePrevious
       }"
@@ -50,7 +50,7 @@
       [content]="next"
       placement="top"
       delay="500"
-      (click)="onPage(paginationInfo.page + 1)"
+      (click)="onNext()"
       [ngClass]="{
         enabledFirstLast: !lastPage
       }"

@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.7.8
+
+2021.06.29
+
+- Fix: Pagination Next. Proect from invalid values.
+
 ## Version 0.7.7
 
 2021.06.29
