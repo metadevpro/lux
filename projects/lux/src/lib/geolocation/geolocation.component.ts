@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { isInitialAndEmpty } from '../helperFns';
 import { ModalService } from '../modal/modal.service';
 import { Geopoint } from './geopoint';
 
@@ -68,6 +69,7 @@ export class GeolocationComponent implements OnInit {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
+    const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (v.coordinates && v.coordinates.length === 2) {
       this._value = v;
       this.latitudeValue = +v.coordinates[1];
@@ -81,7 +83,9 @@ export class GeolocationComponent implements OnInit {
       this.latitudeFormControl.setValue(this.latitudeValue);
       this.longitudeFormControl.setValue(this.longitudeValue);
     }
-    this.valueChange.emit(v);
+    if (!initialAndEmpty) {
+      this.valueChange.emit(v);
+    }
   }
   get value(): Geopoint {
     if (

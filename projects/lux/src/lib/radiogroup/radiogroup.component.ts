@@ -13,6 +13,7 @@ import {
   ValidationErrors,
   Validator
 } from '@angular/forms';
+import { isInitialAndEmpty } from '../helperFns';
 
 export interface RadioItem {
   name?: string;
@@ -62,9 +63,12 @@ export class RadiogroupComponent implements ControlValueAccessor, Validator {
     if (v === this._value) {
       return;
     }
+    const initialAndEmpty = isInitialAndEmpty(this._value, v);
     this._value = v;
-    this.valueChange.emit(v);
     this.onChange(v);
+    if (!initialAndEmpty) {
+      this.valueChange.emit(v);
+    }
   }
   get value(): any {
     return this._value;

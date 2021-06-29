@@ -16,6 +16,7 @@ import {
   Validator,
   NG_VALIDATORS
 } from '@angular/forms';
+import { isInitialAndEmpty } from '../helperFns';
 import { languageDetector } from '../lang';
 @Component({
   selector: 'lux-input',
@@ -132,13 +133,16 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
+    const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (this.type === 'date') {
       v = normalizeDate(v);
     }
 
     this._value = v;
     this.onChange(v);
-    this.valueChange.emit(v);
+    if (!initialAndEmpty) {
+      this.valueChange.emit(v);
+    }
   }
   get value(): any {
     if (this.isPercentage() || this.isPermillage() || this.isNumber()) {

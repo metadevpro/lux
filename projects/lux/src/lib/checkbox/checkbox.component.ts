@@ -10,6 +10,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { isInitialAndEmpty } from '../helperFns';
 import { languageDetector } from '../lang';
 
 const KEY_SPACE = ' ';
@@ -57,10 +58,13 @@ export class CheckboxComponent
     if (this.internalValue === v) {
       return;
     }
+    const initialAndEmpty = isInitialAndEmpty(this.internalValue, v);
     this.internalValue = v;
     this.syncModel();
-    this.valueChange.emit(v);
     this.onChange(v);
+    if (!initialAndEmpty) {
+      this.valueChange.emit(v);
+    }
   }
 
   get tabindexValue(): string {

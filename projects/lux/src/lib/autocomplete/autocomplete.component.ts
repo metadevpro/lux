@@ -27,6 +27,7 @@ import {
   DecoratedDataSource,
   DecoratedDataSourceItem
 } from '../datasource';
+import { isInitialAndEmpty } from '../helperFns';
 
 @Component({
   selector: 'lux-autocomplete',
@@ -75,10 +76,13 @@ export class AutocompleteComponent
     return this._value;
   }
   set value(v: any) {
+    const initialAndEmpty = isInitialAndEmpty(this._value, v);
     this._value = v;
-    this.valueChange.emit(v);
     this.onChange(v);
     this.completeLabel();
+    if (!initialAndEmpty) {
+      this.valueChange.emit(v);
+    }
   }
   @Input()
   get dataSource(): DataSource<any, string> {
