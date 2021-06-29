@@ -304,7 +304,7 @@ export class GeolocationComponent implements OnInit {
 
   setPatterns(): void {
     this.step = this.step || 0.00001; // 0.00001 degrees = 1.11 meters
-    this.zoom = this.zoom || 16; // (360/2^16) degrees = 0.0055 degrees = 610 meters
+    this.zoom = this.zoom || 18; // (360/2^18) degrees ~ 0.00137 degrees ~ 153 meters
     this.minLatitude = this.minLatitude || -90;
     this.maxLatitude = this.maxLatitude || +90;
     this.minLongitude = this.minLongitude || -180;
