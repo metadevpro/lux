@@ -61,6 +61,16 @@ export class MapComponent implements OnInit {
   get currentMarkerCoordinates(): number[] {
     return this._currentMarkerCoordinates;
   }
+  @Input()
+  set currentMarkerGeopoint(currentMarkerGeopoint: Geopoint) {
+    this.currentMarkerCoordinates = currentMarkerGeopoint.coordinates;
+  }
+  get currentMarkerGeopoint(): Geopoint {
+    return {
+      type: 'Point',
+      coordinates: this.currentMarkerCoordinates
+    };
+  }
 
   private _markerSource = new ol.source.Vector();
 
@@ -93,6 +103,7 @@ export class MapComponent implements OnInit {
     });
 
     if (this.center === undefined || this.center === null) {
+      // if the center is not set, we set its default value
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -114,13 +125,29 @@ export class MapComponent implements OnInit {
           coordinates: [0, 0]
         };
       }
+    } else {
+      // the center needs the map to be properly set, so if it was set before the map was initialized,
+      // we set the center again to perform necessary adjustements
+      this.center = this.center;
     }
-    this._map.getView().setCenter(ol.proj.fromLonLat(this.center.coordinates));
 
     if (this.zoom === undefined || this.zoom === null) {
+      // if the zoom is not set, we set its default value
       this.zoom = 18;
+    } else {
+      // the zoom needs the map to be properly set, so if it was set before the map was initialized,
+      // we set the zoom again to perform necessary adjustements
+      this.zoom = this.zoom;
     }
-    this._map.getView().setZoom(this.zoom);
+
+    if (
+      this.currentMarkerCoordinates !== undefined &&
+      this.currentMarkerCoordinates !== null
+    ) {
+      // the marker coordinates need the map to be properly set, so if they were set before the map was initialized,
+      // we set the marker coordinates again to perform necessary adjustements
+      this.currentMarkerCoordinates = this.currentMarkerCoordinates;
+    }
   }
 
   addMarkerAtCoordinates(coordinates: number[]): void {
