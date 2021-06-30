@@ -129,7 +129,6 @@ export class GeolocationComponent implements OnInit {
       this.setLatitudeInControl(this.latitudeValue);
       this.setLongitudeInControl(this.longitudeValue);
     }
-    this.onChange(v);
     if (!initialAndEmpty) {
       this.valueChange.emit(v);
     }
