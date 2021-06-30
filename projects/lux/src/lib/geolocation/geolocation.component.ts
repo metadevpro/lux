@@ -15,6 +15,7 @@ import {
   ValidationErrors,
   NG_VALIDATORS
 } from '@angular/forms';
+import { isInitialAndEmpty } from '../helperFns';
 import { ModalService } from '../modal/modal.service';
 import { Geopoint } from '../map/geopoint';
 
@@ -114,6 +115,7 @@ export class GeolocationComponent implements OnInit {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
+    const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (v.coordinates && v.coordinates.length === 2) {
       this._value = v;
       this.latitudeValue = +v.coordinates[1];
@@ -128,7 +130,9 @@ export class GeolocationComponent implements OnInit {
       this.setLongitudeInControl(this.longitudeValue);
     }
     this.onChange(v);
-    this.valueChange.emit(v);
+    if (!initialAndEmpty) {
+      this.valueChange.emit(v);
+    }
   }
   get value(): Geopoint {
     return this._value;

@@ -1,5 +1,12 @@
 # Lux Changelog
 
+## Version 0.7.9
+
+2021.06.29
+
+- Fix: Do not open drowdown on autocomplete when disabled.
+- Fix: Do valueChange at the end if there are meaningful changes (#109)
+
 ## Version 0.7.8
 
 2021.06.29
