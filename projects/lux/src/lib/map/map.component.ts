@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { Geopoint } from './geopoint';
 
+// @dynamic
 declare const ol: any;
 
 @Component({
