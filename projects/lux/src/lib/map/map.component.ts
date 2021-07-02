@@ -73,6 +73,17 @@ export class MapComponent implements OnInit {
   }
 
   private _markerSource = new ol.source.Vector();
+  private static _markerStyle = new ol.style.Style({
+    /*
+    image: new ol.style.Icon({
+      anchor: [0.5, 1],
+      opacity: 0.75,
+      size: [20, 20],
+      imgSize: [20, 20],
+      src: '/assets/img/marker.png'
+    })
+    */
+  });
 
   ngOnInit(): void {
     this._map = new ol.Map({
@@ -82,9 +93,8 @@ export class MapComponent implements OnInit {
           source: new ol.source.OSM()
         }),
         new ol.layer.Vector({
-          source: this._markerSource
-          // commented the following line to use default style
-          // style: MapComponent.markerStyle
+          source: this._markerSource,
+          style: MapComponent._markerStyle
         })
       ],
       view: new ol.View({
@@ -166,7 +176,7 @@ export class MapComponent implements OnInit {
 
       const dragInteraction = new ol.interaction.Modify({
         features: new ol.Collection([this._currentMarker]),
-        style: null
+        style: MapComponent._markerStyle
       });
       this._map.addInteraction(dragInteraction);
       this._currentMarker.on(
