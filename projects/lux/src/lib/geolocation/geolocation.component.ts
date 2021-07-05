@@ -53,6 +53,8 @@ export class GeolocationComponent implements OnInit {
   public latitudeValue?: number = null;
   public longitudeValue?: number = null;
 
+  public searchResults: any;
+
   public userErrors = {
     en: {
       required: 'Required field.',
@@ -293,7 +295,7 @@ export class GeolocationComponent implements OnInit {
     return '';
   }
 
-  openModal(modal: TemplateRef<any>): void {
+  openModalMap(modal: TemplateRef<any>): void {
     this.modalService.open(modal).result.then(
       (result) => {
         if (result !== 'cancel') {
@@ -304,6 +306,32 @@ export class GeolocationComponent implements OnInit {
         //
       }
     );
+  }
+
+  openModalSearch(modal: TemplateRef<any>): void {
+    this.modalService.open(modal).result.then(
+      (result) => {
+        if (result !== 'cancel') {
+          this.updateLatitudeAndLongitude(result);
+        }
+      },
+      (reason) => {
+        //
+      }
+    );
+  }
+
+  searchLocation(query: string): void {
+    const searchResults = fetch(
+      'https://nominatim.openstreetmap.org/search?format=json&q=' + query
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      response.json().then((data) => {
+        this.searchResults = data;
+      });
+    });
   }
 
   setPatterns(): void {

@@ -20,7 +20,8 @@
   />
   <div class="infix symbol">
     <span *ngIf="latitudeValue >= 0" >N</span>
-	<span *ngIf="latitudeValue < 0" >S</span>
+	  <span *ngIf="latitudeValue < 0" >S</span>
+    <span *ngIf="latitudeValue === undefined || latitudeValue === null">?</span>
   </div>
   <input
     #longitude
@@ -44,8 +45,12 @@
   <div class="infix symbol">
     <span *ngIf="longitudeValue >= 0">E</span>
     <span *ngIf="longitudeValue < 0">W</span>
+    <span *ngIf="longitudeValue === undefined || longitudeValue === null">?</span>
   </div>
-  <button class="postfix" (click)="openModal(modalMap)">
+  <button class="infix" (click)="openModalSearch(modalSearch)">
+    <span>🔎</span>
+  </button>
+  <button class="postfix" (click)="openModalMap(modalMap)">
     <span>🌐</span>
   </button>
 </div>
@@ -68,6 +73,51 @@
   </div>
 </div>
 
+<ng-template #modalSearch let-modal>
+  <div class="lux-modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Search</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="lux-modal-body">
+    <input
+      #query
+      type="text"
+      placeholder="Enter query here"
+      (change)="searchLocation(query.value)"
+    />
+    <div class="search-results">
+      <ol>
+        <li *ngFor="let result of searchResults">
+          {{ result.display_name }}
+          <button
+            type="button"
+            class="btn btn-select btn-outline-dark"
+            (click)="modal.close([result.lon, result.lat])"
+          >
+          Select
+          </button>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="lux-modal-footer">
+    <button
+      type="button"
+      class="btn btn-cancel btn-outline-dark"
+      (click)="modal.close('cancel')"
+    >
+    Cancel
+    </button>
+  </div>
+</ng-template>
+
 <ng-template #modalMap let-modal>
   <div class="lux-modal-header">
     <h4 class="modal-title" id="modal-basic-title">Map</h4>
@@ -86,17 +136,17 @@
   <div class="lux-modal-footer">
     <button
       type="button"
-      class="btn btn-outline-dark"
+      class="btn btn-cancel btn-outline-dark"
       (click)="modal.close('cancel')"
     >
-      Cancel
+    Cancel
     </button>
     <button
       type="button"
-      class="btn btn-outline-dark"
+      class="btn btn-select btn-outline-dark"
       (click)="modal.close(map.getCoordinatesOfCurrentMarker())"
     >
-      Select
+    Select
     </button>
   </div>
 </ng-template>

@@ -55,6 +55,20 @@
   border-bottom-left-radius: 0;
 }
 
+.btn {
+  margin: 0.2em;
+}
+
+.btn-select {
+  @extend .btn;
+  background-color: mediumspringgreen;
+}
+
+.btn-cancel {
+  @extend .btn;
+  background-color: pink;
+}
+
 .readonly {
   border: none;
 
