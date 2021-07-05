@@ -1,6 +1,11 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { InputComponent } from './input.component';
+import {
+  InputComponent,
+  normalizeDate,
+  validEmail,
+  validNumber
+} from './input.component';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { TooltipService } from '../tooltip/tooltip.service';
 import { byLabel, createHostFactory, SpectatorHost } from '@ngneat/spectator';
@@ -148,5 +153,57 @@ describe('InputComponent', () => {
     expect(spectator.component.value).toBe(0);
     expect(input.value).toBe('0');
     expect(hostComponent.valueNumber).toBe('0');
+  });
+});
+describe('validEmail', () => {
+  it('should return true for valid emails', () => {
+    expect(validEmail('a@acme.com')).toBeTrue();
+    expect(validEmail('a+b@acme.com')).toBeTrue();
+    expect(validEmail('a+b@acme.br.com')).toBeTrue();
+    expect(validEmail('a_b@acme.br.com')).toBeTrue();
+    expect(validEmail('a-b@acme.br.com')).toBeTrue();
+    expect(validEmail('a23@acme.br.com')).toBeTrue();
+  });
+  it('should return false for invalid emails', () => {
+    expect(validEmail('a')).toBeFalse();
+    expect(validEmail('a+b')).toBeFalse();
+    expect(validEmail('a+b@acme')).toBeFalse();
+    expect(validEmail('a_b@acme.')).toBeFalse();
+    expect(validEmail('a-b@acme.br.')).toBeFalse();
+    expect(validEmail('a23@acme.br.com asd')).toBeFalse();
+  });
+});
+
+describe('validNumber', () => {
+  it('should return true for numbers', () => {
+    expect(validNumber('1')).toBeTrue();
+    expect(validNumber('2')).toBeTrue();
+    expect(validNumber('3')).toBeTrue();
+    expect(validNumber('-45')).toBeTrue();
+    expect(validNumber('3.1')).toBeTrue();
+    expect(validNumber('3.1e2')).toBeTrue();
+    expect(validNumber('3.1e-2')).toBeTrue();
+    expect(validNumber('-3.1e-2')).toBeTrue();
+  });
+  it('should return false for non numbers', () => {
+    expect(validNumber('e')).toBeFalse();
+    expect(validNumber('e10')).toBeFalse();
+    expect(validNumber('ee')).toBeFalse();
+    expect(validNumber('-')).toBeFalse();
+    expect(validNumber('e-e')).toBeFalse();
+  });
+  it('empty values should return false', () => {
+    expect(validNumber(undefined)).toBeFalse();
+    expect(validNumber(null)).toBeFalse();
+    expect(validNumber('')).toBeFalse();
+  });
+});
+
+describe('normalizeDate', () => {
+  it('should return a normalized Date for strings', () => {
+    expect(normalizeDate('2021-05-01')).toBe('2021-05-01');
+    expect(normalizeDate('2021-05-01T00:23:34')).toBe('2021-05-01');
+    expect(normalizeDate('2021-05-01T00:23:34Z')).toBe('2021-05-01');
+    expect(normalizeDate('2021-05-01T00:23:34+02:00')).toBe('2021-05-01');
   });
 });
