@@ -209,6 +209,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       result = result || {};
       result.email = { value, reason: 'Invalid email.' };
     }
+    if (this.type === 'number' && hasValue(value) && !validNumber(value)) {
+      result = result || {};
+      result.numeric = { value, reason: 'Invalid number.' };
+    }
     if (
       this.type === 'date' ||
       this.type === 'time' ||
@@ -374,16 +378,27 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
 }
 
-const validEmail = (email: string): boolean => {
+export const validEmail = (email: string): boolean => {
   const re =
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  return re.test(String(email).toLowerCase());
+    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+  return re.test(String(email).toLowerCase().trim());
+};
+export const validNumber = (input: string): boolean => {
+  const value = Number(input);
+  return (
+    input !== null &&
+    input !== undefined &&
+    input !== '' &&
+    !Number.isNaN(value)
+  );
 };
 
-const normalizeDate = (v: any): string => {
+export const normalizeDate = (v: any): string => {
   if (typeof v === 'string' && v.length > 10) {
     return v.substr(0, 10);
   }
   return v ? v.toString() : null;
 };
-const hasValue = (v: any): boolean => v !== null && v !== undefined && v !== '';
+
+export const hasValue = (v: any): boolean =>
+  v !== null && v !== undefined && v !== '';

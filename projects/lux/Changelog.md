@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.7.10
+
+2021.07.05
+
+- Fix: Validation for `number`: Do not allow 'e' as a valid number.
+
 ## Version 0.7.9
 
 2021.06.29
