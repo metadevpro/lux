@@ -75,15 +75,11 @@ export class MapComponent implements OnInit {
 
   private _markerSource = new ol.source.Vector();
   private static _markerStyle = new ol.style.Style({
-    /*
     image: new ol.style.Icon({
       anchor: [0.5, 1],
-      opacity: 0.75,
-      size: [20, 20],
-      imgSize: [20, 20],
+      scale: 0.25,
       src: '/assets/img/marker.png'
     })
-    */
   });
 
   ngOnInit(): void {
