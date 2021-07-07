@@ -178,7 +178,7 @@
     <lux-map
       #map
       [center]="value"
-      [currentMarkerGeopoint]="value"
+      [markerGeoPoint]="value"
       [zoom]="zoom"
     ></lux-map>
   </div>
@@ -195,7 +195,7 @@
       *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-select btn-outline-dark"
-      (click)="modal.close(map.getCoordinatesOfCurrentMarker())"
+      (click)="modal.close(map.getMarkerCoordinates())"
     >
       Select
     </button>

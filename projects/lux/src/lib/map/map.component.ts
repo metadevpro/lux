@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { Geopoint } from './geopoint';
+import { GeoPoint } from './geopoint';
 
 // @dynamic
 declare const ol: any;
@@ -31,9 +31,9 @@ export class MapComponent implements OnInit {
     return this._zoom;
   }
 
-  _center: Geopoint;
+  _center: GeoPoint;
   @Input()
-  set center(center: Geopoint) {
+  set center(center: GeoPoint) {
     if (center) {
       if (center.coordinates && center.coordinates.length === 2) {
         this._center = center;
@@ -43,37 +43,37 @@ export class MapComponent implements OnInit {
       }
     }
   }
-  get center(): Geopoint {
+  get center(): GeoPoint {
     return this._center;
   }
 
-  private _currentMarker: any;
-  private _currentMarkerCoordinates: number[];
+  private _marker: any;
+  private _markerCoordinates: number[];
   @Input()
-  set currentMarkerCoordinates(currentMarkerCoordinates: number[]) {
-    if (currentMarkerCoordinates && currentMarkerCoordinates.length === 2) {
-      this._currentMarkerCoordinates = currentMarkerCoordinates;
+  set markerCoordinates(markerCoordinates: number[]) {
+    if (markerCoordinates && markerCoordinates.length === 2) {
+      this._markerCoordinates = markerCoordinates;
       if (this._map) {
-        this.addMarkerAtCoordinates(currentMarkerCoordinates);
+        this.addMarkerAtCoordinates(markerCoordinates);
       }
     } else {
-      this._currentMarkerCoordinates = undefined;
+      this._markerCoordinates = undefined;
       if (this._map) {
-        this.removeCurrentMarker();
+        this.removeMarker();
       }
     }
   }
-  get currentMarkerCoordinates(): number[] {
-    return this._currentMarkerCoordinates;
+  get markerCoordinates(): number[] {
+    return this._markerCoordinates;
   }
   @Input()
-  set currentMarkerGeopoint(currentMarkerGeopoint: Geopoint) {
-    this.currentMarkerCoordinates = currentMarkerGeopoint.coordinates;
+  set markerGeoPoint(markerGeoPoint: GeoPoint) {
+    this.markerCoordinates = markerGeoPoint.coordinates;
   }
-  get currentMarkerGeopoint(): Geopoint {
+  get markerGeoPoint(): GeoPoint {
     return {
       type: 'Point',
-      coordinates: this.currentMarkerCoordinates
+      coordinates: this.markerCoordinates
     };
   }
 
@@ -157,55 +157,55 @@ export class MapComponent implements OnInit {
     }
 
     if (
-      this.currentMarkerCoordinates !== undefined &&
-      this.currentMarkerCoordinates !== null
+      this.markerCoordinates !== undefined &&
+      this.markerCoordinates !== null
     ) {
       // the marker coordinates need the map to be properly set, so if they were set before the map was initialized,
       // we set the marker coordinates again to perform necessary adjustements
-      this.currentMarkerCoordinates = this.currentMarkerCoordinates;
+      this.markerCoordinates = this.markerCoordinates;
     }
   }
 
   addMarkerAtCoordinates(coordinates: number[]): void {
     if (coordinates && coordinates.length === 2) {
-      if (this._currentMarker) {
-        this.removeCurrentMarker();
+      if (this._marker) {
+        this.removeMarker();
       }
-      this._currentMarker = new ol.Feature({
+      this._marker = new ol.Feature({
         geometry: new ol.geom.Point(
           // [lon, lat] is in EPSG:4326 (degrees), we transform it into EPSG:3857 (meters)
           ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857')
         )
       });
-      this._markerSource.addFeature(this._currentMarker);
-      this._currentMarkerCoordinates = this.getCoordinatesOfCurrentMarker();
+      this._markerSource.addFeature(this._marker);
+      this._markerCoordinates = this.getMarkerCoordinates();
 
       const dragInteraction = new ol.interaction.Modify({
-        features: new ol.Collection([this._currentMarker]),
+        features: new ol.Collection([this._marker]),
         style: MapComponent._markerStyle
       });
       this._map.addInteraction(dragInteraction);
-      this._currentMarker.on(
+      this._marker.on(
         'change',
         () => {
-          this._currentMarkerCoordinates = this.getCoordinatesOfCurrentMarker();
+          this._markerCoordinates = this.getMarkerCoordinates();
         },
-        this._currentMarker
+        this._marker
       );
     }
   }
 
-  removeCurrentMarker(): void {
-    this._markerSource.removeFeature(this._currentMarker);
-    this._currentMarker = undefined;
+  removeMarker(): void {
+    this._markerSource.removeFeature(this._marker);
+    this._marker = undefined;
   }
 
   // TODO make private
-  public getCoordinatesOfCurrentMarker(): number[] {
-    if (this._currentMarker === undefined || this._currentMarker == null) {
-      return this._currentMarker;
+  public getMarkerCoordinates(): number[] {
+    if (this._marker === undefined || this._marker == null) {
+      return this._marker;
     }
-    const coordinates = this._currentMarker.getGeometry().getCoordinates();
+    const coordinates = this._marker.getGeometry().getCoordinates();
     // coordinates is in EPSG:3857 (meters), we transform it into EPSG:4326 (degrees)
     return ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
   }

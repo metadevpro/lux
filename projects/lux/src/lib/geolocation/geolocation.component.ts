@@ -17,7 +17,7 @@ import {
 } from '@angular/forms';
 import { isInitialAndEmpty } from '../helperFns';
 import { ModalService } from '../modal/modal.service';
-import { Geopoint } from '../map/geopoint';
+import { GeoPoint } from '../map/geopoint';
 
 @Component({
   selector: 'lux-geolocation',
@@ -114,7 +114,7 @@ export class GeolocationComponent implements OnInit {
   }
 
   @Input()
-  set value(v: Geopoint) {
+  set value(v: GeoPoint) {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
@@ -137,7 +137,7 @@ export class GeolocationComponent implements OnInit {
       this.valueChange.emit(v);
     }
   }
-  get value(): Geopoint {
+  get value(): GeoPoint {
     return this._value;
   }
 
