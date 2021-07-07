@@ -47,7 +47,7 @@
 	  <span *ngIf="validNumber(longitudeValue) && longitudeValue < 0" >W</span>
     <span *ngIf="!validNumber(longitudeValue)">?</span>
   </div>
-  <button class="infix" (click)="openModalSearch(modalSearch)">
+  <button *ngIf="!disabled && !readonly" class="infix" (click)="openModalSearch(modalSearch)">
     <span>🔎</span>
   </button>
   <button class="postfix" (click)="openModalMap(modalMap)">
@@ -134,14 +134,14 @@
     <lux-map #map [center]="value" [currentMarkerGeopoint]="value" [zoom]="zoom"></lux-map>
   </div>
   <div class="lux-modal-footer">
-    <button
+    <button *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-cancel btn-outline-dark"
       (click)="modal.close('cancel')"
     >
     Cancel
     </button>
-    <button
+    <button *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-select btn-outline-dark"
       (click)="modal.close(map.getCoordinatesOfCurrentMarker())"

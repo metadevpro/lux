@@ -254,18 +254,27 @@ export class GeolocationComponent implements OnInit {
   }
 
   updateLatitude(newLatitude: number): void {
+    if (this.disabled || this.readonly) {
+      return;
+    }
     this.value = {
       type: 'Point',
       coordinates: [this.longitudeValue, +newLatitude]
     };
   }
   updateLongitude(newLongitude: number): void {
+    if (this.disabled || this.readonly) {
+      return;
+    }
     this.value = {
       type: 'Point',
       coordinates: [+newLongitude, this.latitudeValue]
     };
   }
   updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
+    if (this.disabled || this.readonly) {
+      return;
+    }
     this.value = {
       type: 'Point',
       coordinates: newLatitudeAndLongitude
