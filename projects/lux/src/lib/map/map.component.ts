@@ -109,6 +109,11 @@ export class MapComponent implements OnInit {
       this.addMarkerAtCoordinates(coordinates);
     });
 
+    // TODO
+    // this._map.on('resize', () => {
+    //   this._map.redraw();
+    // });
+
     if (this.center === undefined || this.center === null) {
       // if the center is not set, we set its default value
       if ('geolocation' in navigator) {
@@ -191,7 +196,8 @@ export class MapComponent implements OnInit {
     this._currentMarker = undefined;
   }
 
-  getCoordinatesOfCurrentMarker(): number[] {
+  // TODO make private
+  public getCoordinatesOfCurrentMarker(): number[] {
     if (this._currentMarker === undefined || this._currentMarker == null) {
       return this._currentMarker;
     }

@@ -54,6 +54,7 @@ export class GeolocationComponent implements OnInit {
   public longitudeValue?: number = null;
 
   public searchResults: any;
+  validNumber = validNumber;
 
   public userErrors = {
     en: {
@@ -120,8 +121,8 @@ export class GeolocationComponent implements OnInit {
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (v.coordinates && v.coordinates.length === 2) {
       this._value = v;
-      this.latitudeValue = +v.coordinates[1];
-      this.longitudeValue = +v.coordinates[0];
+      this.latitudeValue = v.coordinates[1];
+      this.longitudeValue = v.coordinates[0];
       this.setLatitudeInControl(this.latitudeValue);
       this.setLongitudeInControl(this.longitudeValue);
     } else {
@@ -253,22 +254,22 @@ export class GeolocationComponent implements OnInit {
     this.setPatterns();
   }
 
-  updateLatitude(newLatitude: number): void {
+  updateLatitude(newLatitude: number | null): void {
     if (this.disabled || this.readonly) {
       return;
     }
     this.value = {
       type: 'Point',
-      coordinates: [this.longitudeValue, +newLatitude]
+      coordinates: [this.longitudeValue, newLatitude]
     };
   }
-  updateLongitude(newLongitude: number): void {
+  updateLongitude(newLongitude: number | null): void {
     if (this.disabled || this.readonly) {
       return;
     }
     this.value = {
       type: 'Point',
-      coordinates: [+newLongitude, this.latitudeValue]
+      coordinates: [newLongitude, this.latitudeValue]
     };
   }
   updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
@@ -282,16 +283,16 @@ export class GeolocationComponent implements OnInit {
   }
 
   onKeyUpLatitude(newLatitude: string): void {
-    this.updateLatitude(+newLatitude);
+    this.updateLatitude(isNumber(newLatitude) ? +newLatitude : null);
   }
   onChangeLatitude(newLatitude: string): void {
-    this.updateLatitude(+newLatitude);
+    this.updateLatitude(isNumber(newLatitude) ? +newLatitude : null);
   }
   onKeyUpLongitude(newLongitude: string): void {
-    this.updateLongitude(+newLongitude);
+    this.updateLongitude(isNumber(newLongitude) ? +newLongitude : null);
   }
   onChangeLongitude(newLongitude: string): void {
-    this.updateLongitude(+newLongitude);
+    this.updateLongitude(isNumber(newLongitude) ? +newLongitude : null);
   }
   onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);
@@ -351,10 +352,6 @@ export class GeolocationComponent implements OnInit {
     this.minLongitude = this.minLongitude || -180;
     this.maxLongitude = this.maxLongitude || +180;
   }
-
-  validNumber(value: number): boolean {
-    return value !== null && value !== undefined && !Number.isNaN(value);
-  }
 }
 
 const languageDetector = (): string => {
@@ -363,4 +360,17 @@ const languageDetector = (): string => {
     return lang;
   }
   return 'en'; // default
+};
+
+export const validNumber = (value: number | null | undefined): boolean =>
+  value !== null && value !== undefined && !Number.isNaN(value);
+
+export const isNumber = (input: string): boolean => {
+  const v = parseFloat(input);
+  return (
+    input !== undefined &&
+    input !== null &&
+    (input || '').trim() !== '' &&
+    !Number.isNaN(v)
+  );
 };

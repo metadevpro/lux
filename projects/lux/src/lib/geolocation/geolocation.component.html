@@ -4,13 +4,23 @@
     class="prefix"
     type="number"
     [id]="inputId + '$latitude'"
-    [attr.value]="latitudeValue"
+    [(ngModel)]="latitudeValue"
     [attr.aria-label]="ariaLabel"
     [attr.disabled]="disabled === true ? 'true' : undefined"
     [attr.readonly]="readonly === true ? 'true' : undefined"
-    [attr.min]="minLatitude !== undefined && minLatitude !== null ? minLatitude.toString() : undefined"
-    [attr.max]="maxLatitude !== undefined && maxLatitude !== null ? maxLatitude.toString() : undefined"
-    [attr.step]="step !== undefined && step !== null ? step.toString() : undefined"
+    [attr.min]="
+      minLatitude !== undefined && minLatitude !== null
+        ? minLatitude.toString()
+        : undefined
+    "
+    [attr.max]="
+      maxLatitude !== undefined && maxLatitude !== null
+        ? maxLatitude.toString()
+        : undefined
+    "
+    [attr.step]="
+      step !== undefined && step !== null ? step.toString() : undefined
+    "
     placeholder="lat"
     [ngClass]="className"
     (focus)="markAsTouched()"
@@ -19,8 +29,8 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="validNumber(latitudeValue) && latitudeValue >= 0" >N</span>
-	  <span *ngIf="validNumber(latitudeValue) && latitudeValue < 0" >S</span>
+    <span *ngIf="validNumber(latitudeValue) && latitudeValue >= 0">N</span>
+    <span *ngIf="validNumber(latitudeValue) && latitudeValue < 0">S</span>
     <span *ngIf="!validNumber(latitudeValue)">?</span>
   </div>
   <input
@@ -28,13 +38,23 @@
     class="infix"
     type="number"
     [id]="inputId + '$longitude'"
-    [attr.value]="longitudeValue"
+    [(ngModel)]="longitudeValue"
     [attr.aria-label]="ariaLabel"
     [attr.disabled]="disabled === true ? 'true' : undefined"
     [attr.readonly]="readonly === true ? 'true' : undefined"
-    [attr.min]="minLongitude !== undefined && minLongitude !== null ? minLongitude.toString() : undefined"
-    [attr.max]="maxLongitude !== undefined && maxLongitude !== null ? maxLongitude.toString() : undefined"
-    [attr.step]="step !== undefined && step !== null ? step.toString() : undefined"
+    [attr.min]="
+      minLongitude !== undefined && minLongitude !== null
+        ? minLongitude.toString()
+        : undefined
+    "
+    [attr.max]="
+      maxLongitude !== undefined && maxLongitude !== null
+        ? maxLongitude.toString()
+        : undefined
+    "
+    [attr.step]="
+      step !== undefined && step !== null ? step.toString() : undefined
+    "
     placeholder="lon"
     [ngClass]="className"
     (focus)="markAsTouched()"
@@ -43,11 +63,15 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="validNumber(longitudeValue) && longitudeValue >= 0" >E</span>
-	  <span *ngIf="validNumber(longitudeValue) && longitudeValue < 0" >W</span>
+    <span *ngIf="validNumber(longitudeValue) && longitudeValue >= 0">E</span>
+    <span *ngIf="validNumber(longitudeValue) && longitudeValue < 0">W</span>
     <span *ngIf="!validNumber(longitudeValue)">?</span>
   </div>
-  <button *ngIf="!disabled && !readonly" class="infix" (click)="openModalSearch(modalSearch)">
+  <button
+    *ngIf="!disabled && !readonly"
+    class="infix"
+    (click)="openModalSearch(modalSearch)"
+  >
     <span>🔎</span>
   </button>
   <button class="postfix" (click)="openModalMap(modalMap)">
@@ -60,16 +84,36 @@
     {{ userErrors[this.lang].required }}
   </div>
   <div *ngIf="lastErrors.minLatitude">
-    {{ userErrors[this.lang].minLatitude.replace('$minLatitude', lastErrors.minLatitude.min) }}
+    {{
+      userErrors[this.lang].minLatitude.replace(
+        '$minLatitude',
+        lastErrors.minLatitude.min
+      )
+    }}
   </div>
   <div *ngIf="lastErrors.maxLatitude">
-    {{ userErrors[this.lang].maxLatitude.replace('$maxLatitude', lastErrors.maxLatitude.max) }}
+    {{
+      userErrors[this.lang].maxLatitude.replace(
+        '$maxLatitude',
+        lastErrors.maxLatitude.max
+      )
+    }}
   </div>
   <div *ngIf="lastErrors.minLongitude">
-    {{ userErrors[this.lang].minLongitude.replace('$minLongitude', lastErrors.minLongitude.min) }}
+    {{
+      userErrors[this.lang].minLongitude.replace(
+        '$minLongitude',
+        lastErrors.minLongitude.min
+      )
+    }}
   </div>
   <div *ngIf="lastErrors.maxLongitude">
-    {{ userErrors[this.lang].maxLongitude.replace('$maxLongitude', lastErrors.maxLongitude.max) }}
+    {{
+      userErrors[this.lang].maxLongitude.replace(
+        '$maxLongitude',
+        lastErrors.maxLongitude.max
+      )
+    }}
   </div>
 </div>
 
@@ -101,7 +145,7 @@
             class="btn btn-select btn-outline-dark"
             (click)="modal.close([result.lon, result.lat])"
           >
-          Select
+            Select
           </button>
         </li>
       </ol>
@@ -113,7 +157,7 @@
       class="btn btn-cancel btn-outline-dark"
       (click)="modal.close('cancel')"
     >
-    Cancel
+      Cancel
     </button>
   </div>
 </ng-template>
@@ -131,22 +175,29 @@
     </button>
   </div>
   <div class="lux-modal-body">
-    <lux-map #map [center]="value" [currentMarkerGeopoint]="value" [zoom]="zoom"></lux-map>
+    <lux-map
+      #map
+      [center]="value"
+      [currentMarkerGeopoint]="value"
+      [zoom]="zoom"
+    ></lux-map>
   </div>
   <div class="lux-modal-footer">
-    <button *ngIf="!disabled && !readonly"
+    <button
+      *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-cancel btn-outline-dark"
       (click)="modal.close('cancel')"
     >
-    Cancel
+      Cancel
     </button>
-    <button *ngIf="!disabled && !readonly"
+    <button
+      *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-select btn-outline-dark"
       (click)="modal.close(map.getCoordinatesOfCurrentMarker())"
     >
-    Select
+      Select
     </button>
   </div>
 </ng-template>
