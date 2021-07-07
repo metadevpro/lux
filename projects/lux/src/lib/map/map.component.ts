@@ -5,6 +5,8 @@ import { Geopoint } from './geopoint';
 // @dynamic
 declare const ol: any;
 
+let idSequencer = 0;
+
 @Component({
   selector: 'lux-map',
   templateUrl: './map.component.html',
@@ -12,6 +14,8 @@ declare const ol: any;
 })
 export class MapComponent implements OnInit {
   private _map: any;
+
+  @Input() inputId = 'map'; // TODO + idSequencer++;
 
   _zoom: number;
   @Input()
@@ -84,7 +88,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this._map = new ol.Map({
-      target: 'map',
+      target: this.inputId,
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM()
