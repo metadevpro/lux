@@ -342,6 +342,10 @@ export class GeolocationComponent implements OnInit {
     this.minLongitude = this.minLongitude || -180;
     this.maxLongitude = this.maxLongitude || +180;
   }
+
+  validNumber(value: number): boolean {
+    return value !== null && value !== undefined && !Number.isNaN(value);
+  }
 }
 
 const languageDetector = (): string => {
