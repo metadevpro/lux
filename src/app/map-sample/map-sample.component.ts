@@ -13,6 +13,10 @@ export class MapSampleComponent implements AfterContentInit {
   readonly = true;
   geopoint1: GeoPoint = { type: 'Point', coordinates: [-5.99238, 37.38614] };
   zoom1 = 16;
+  mapId1 = 'map1';
+  mapId2 = 'map2';
+  mapId3 = 'map3';
+  mapId4 = 'map4';
 
   constructor(private prismService: PrismService) {}
 
