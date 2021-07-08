@@ -74,6 +74,7 @@ export class MapComponent implements OnInit {
   }
 
   private _marker: any;
+  private _markerInteraction: any;
   private _markerCoordinates: number[];
   @Input()
   private set markerCoordinates(markerCoordinates: number[]) {
@@ -196,7 +197,7 @@ export class MapComponent implements OnInit {
 
   private addMarkerAtCoordinates(coordinates: number[]): void {
     if (coordinates && coordinates.length === 2) {
-      if (this._marker) {
+      if (this._marker !== undefined) {
         this.removeMarker();
       }
       this._marker = new ol.Feature({
@@ -213,6 +214,7 @@ export class MapComponent implements OnInit {
           features: new ol.Collection([this._marker]),
           style: MapComponent._markerStyle
         });
+        this._markerInteraction = dragInteraction;
         this._map.addInteraction(dragInteraction);
       }
 
@@ -229,6 +231,10 @@ export class MapComponent implements OnInit {
   private removeMarker(): void {
     this._markerSource.removeFeature(this._marker);
     this._marker = undefined;
+    if (this._markerInteraction !== undefined) {
+      this._map.getInteractions().pop();
+      this._markerInteraction = undefined;
+    }
   }
 
   private getMarkerCoordinates(): number[] | null {
