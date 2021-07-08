@@ -121,6 +121,7 @@ export class MapComponent implements OnInit {
 
     this._map = new ol.Map({
       target: this.mapId,
+      controls: ol.control.defaults({ attribution: false }),
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM()
