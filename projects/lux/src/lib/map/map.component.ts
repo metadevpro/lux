@@ -248,4 +248,10 @@ export class MapComponent implements OnInit {
     // coordinates is in EPSG:3857 (meters), we transform it into EPSG:4326 (degrees)
     return ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
   }
+
+  onResize(): void {
+    if (this._map) {
+      this._map.updateSize();
+    }
+  }
 }
