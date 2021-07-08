@@ -96,6 +96,7 @@ export class MapComponent implements OnInit {
   @Input()
   set markerPoint(markerPoint: GeoPoint) {
     this.markerCoordinates = markerPoint.coordinates;
+    this.valueChange.emit(markerPoint);
   }
   get markerPoint(): GeoPoint {
     return {
@@ -103,6 +104,7 @@ export class MapComponent implements OnInit {
       coordinates: this.markerCoordinates
     };
   }
+  @Output() valueChange = new EventEmitter<GeoPoint>();
 
   private _markerSource = new ol.source.Vector();
   private static _markerStyle = new ol.style.Style({
