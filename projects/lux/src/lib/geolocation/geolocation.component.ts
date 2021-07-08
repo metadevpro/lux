@@ -141,7 +141,7 @@ export class GeolocationComponent implements OnInit {
     return this._value;
   }
 
-  @Output() valueChange = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<GeoPoint>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
   onChange = (value: any): void => {};
