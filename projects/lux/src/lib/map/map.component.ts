@@ -50,7 +50,7 @@ export class MapComponent implements OnInit {
   private _marker: any;
   private _markerCoordinates: number[];
   @Input()
-  set markerCoordinates(markerCoordinates: number[]) {
+  private set markerCoordinates(markerCoordinates: number[]) {
     if (markerCoordinates && markerCoordinates.length === 2) {
       this._markerCoordinates = markerCoordinates;
       if (this._map) {
@@ -63,14 +63,14 @@ export class MapComponent implements OnInit {
       }
     }
   }
-  get markerCoordinates(): number[] {
+  private get markerCoordinates(): number[] {
     return this._markerCoordinates;
   }
   @Input()
-  set markerGeoPoint(markerGeoPoint: GeoPoint) {
-    this.markerCoordinates = markerGeoPoint.coordinates;
+  set markerPoint(markerPoint: GeoPoint) {
+    this.markerCoordinates = markerPoint.coordinates;
   }
-  get markerGeoPoint(): GeoPoint {
+  get markerPoint(): GeoPoint {
     return {
       type: 'Point',
       coordinates: this.markerCoordinates
@@ -166,7 +166,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  addMarkerAtCoordinates(coordinates: number[]): void {
+  private addMarkerAtCoordinates(coordinates: number[]): void {
     if (coordinates && coordinates.length === 2) {
       if (this._marker) {
         this.removeMarker();
@@ -195,13 +195,12 @@ export class MapComponent implements OnInit {
     }
   }
 
-  removeMarker(): void {
+  private removeMarker(): void {
     this._markerSource.removeFeature(this._marker);
     this._marker = undefined;
   }
 
-  // TODO make private
-  public getMarkerCoordinates(): number[] {
+  private getMarkerCoordinates(): number[] | null {
     if (this._marker === undefined || this._marker == null) {
       return this._marker;
     }
