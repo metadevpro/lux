@@ -95,7 +95,11 @@ export class MapComponent implements OnInit {
   }
   @Input()
   set markerPoint(markerPoint: GeoPoint) {
-    this.markerCoordinates = markerPoint.coordinates;
+    if (markerPoint === undefined) {
+      this.markerCoordinates = undefined;
+    } else {
+      this.markerCoordinates = markerPoint.coordinates;
+    }
     this.valueChange.emit(markerPoint);
   }
   get markerPoint(): GeoPoint {
