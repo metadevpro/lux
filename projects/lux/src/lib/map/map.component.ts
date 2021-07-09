@@ -143,11 +143,6 @@ export class MapComponent implements OnInit {
       })
     });
 
-    // TODO
-    // this._map.on('resize', () => {
-    //   this._map.redraw();
-    // });
-
     if (this.center === undefined || this.center === null) {
       // if the center is not set, we set its default value
       if ('geolocation' in navigator) {
