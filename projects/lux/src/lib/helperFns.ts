@@ -1,42 +1,44 @@
 // undefined and null functions
 
-export const exists = (v: any): boolean => v !== null && v !== undefined;
+export const exists = (value: any): boolean =>
+  value !== null && value !== undefined;
 
-export const hasValue = (v: any): boolean =>
-  v !== null &&
-  v !== undefined &&
-  (typeof v === 'string' ? isEmptyString(v) : true);
+export const hasValue = (value: any): boolean =>
+  exists(value) && (typeof value === 'string' ? isEmptyString(value) : true);
 
 // string functions
 
-export const isEmptyString = (input: string): boolean => input.trim() === '';
+export const isEmptyString = (value: string): boolean => value.trim() === '';
 
-export const isValidEmail = (email: string): boolean => {
+export const isValidEmail = (value: string): boolean => {
   const re =
     /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-  return re.test(String(email).toLowerCase().trim());
+  return re.test(String(value).toLowerCase().trim());
 };
 
 // date functions
 
-export const normalizeDate = (v: any): string => {
-  if (typeof v === 'string' && v.length > 10) {
-    return v.substr(0, 10);
+export const normalizeDate = (value: any): string => {
+  if (typeof value === 'string' && value.length > 10) {
+    return value.substr(0, 10);
   }
-  return v ? v.toString() : null;
+  return value ? value.toString() : null;
 };
 
 // other functions
 
 export const isValidNumber = (
-  input: string | number | undefined | null
-): boolean => (hasValue(input) ? !Number.isNaN(Number(input)) : false);
+  value: string | number | undefined | null
+): boolean => (hasValue(value) ? !Number.isNaN(Number(value)) : false);
 
-export const isInitialAndEmpty = (prevValue: any, newValue: any): boolean => {
-  const isPrevArray = Array.isArray(prevValue);
+export const isInitialAndEmpty = (
+  previousValue: any,
+  newValue: any
+): boolean => {
+  const isPrevArray = Array.isArray(previousValue);
   const isNewArray = Array.isArray(newValue);
   return !(
-    (isPrevArray ? prevValue.length !== 0 : Boolean(prevValue)) ||
+    (isPrevArray ? previousValue.length !== 0 : Boolean(previousValue)) ||
     (isNewArray ? newValue.length !== 0 : Boolean(newValue))
   );
 };
