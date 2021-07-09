@@ -234,8 +234,10 @@ export class MapComponent implements OnInit {
   }
 
   private removeMarker(): void {
-    this._markerSource.removeFeature(this._marker);
-    this._marker = undefined;
+    if (this._marker !== undefined) {
+      this._markerSource.removeFeature(this._marker);
+      this._marker = undefined;
+    }
     if (this._markerInteraction !== undefined) {
       this._map.getInteractions().pop();
       this._markerInteraction = undefined;
