@@ -282,17 +282,15 @@ export class GeolocationComponent implements OnInit {
     };
   }
 
-  onKeyUpLatitude(newLatitude: string): void {
-    this.updateLatitude(isNumber(newLatitude) ? +newLatitude : null);
+  onEventLatitude(newLatitude: string): void {
+    if (isNumber(newLatitude)) {
+      this.updateLatitude(+newLatitude);
+    }
   }
-  onChangeLatitude(newLatitude: string): void {
-    this.updateLatitude(isNumber(newLatitude) ? +newLatitude : null);
-  }
-  onKeyUpLongitude(newLongitude: string): void {
-    this.updateLongitude(isNumber(newLongitude) ? +newLongitude : null);
-  }
-  onChangeLongitude(newLongitude: string): void {
-    this.updateLongitude(isNumber(newLongitude) ? +newLongitude : null);
+  onEventLongitude(newLongitude: string): void {
+    if (isNumber(newLongitude)) {
+      this.updateLongitude(+newLongitude);
+    }
   }
   onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);

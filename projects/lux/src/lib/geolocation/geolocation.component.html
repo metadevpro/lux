@@ -24,8 +24,8 @@
     placeholder="lat"
     [ngClass]="className"
     (focus)="markAsTouched()"
-    (keyup)="onKeyUpLatitude(latitude.value)"
-    (change)="onChangeLatitude(latitude.value)"
+    (keyup)="onEventLatitude(latitude.value)"
+    (change)="onEventLatitude(latitude.value)"
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
@@ -58,8 +58,8 @@
     placeholder="lon"
     [ngClass]="className"
     (focus)="markAsTouched()"
-    (keyup)="onKeyUpLongitude(longitude.value)"
-    (change)="onChangeLongitude(longitude.value)"
+    (keyup)="onEventLongitude(longitude.value)"
+    (change)="onEventLongitude(longitude.value)"
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
