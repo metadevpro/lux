@@ -3,6 +3,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  OnInit,
   AfterViewInit
 } from '@angular/core';
 
@@ -16,7 +17,7 @@ declare const ol: any;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit {
   static idCounter = 0;
 
   private _map: any;
@@ -125,10 +126,11 @@ export class MapComponent implements AfterViewInit {
     })
   });
 
-  ngAfterViewInit(): void {
-    //this.mapId = this.mapId ? this.mapId : 'map' + MapComponent.idCounter++;
-    // this.mapId = 'map';
+  ngOnInit(): void {
+    this.mapId = this.mapId ? this.mapId : 'map' + MapComponent.idCounter++;
+  }
 
+  ngAfterViewInit(): void {
     this._map = new ol.Map({
       target: this.mapId,
       controls: ol.control.defaults({ attribution: false }),
