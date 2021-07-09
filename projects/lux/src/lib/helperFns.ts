@@ -4,7 +4,7 @@ export const exists = (value: any): boolean =>
   value !== null && value !== undefined;
 
 export const hasValue = (value: any): boolean =>
-  exists(value) && (typeof value === 'string' ? isEmptyString(value) : true);
+  exists(value) && (typeof value === 'string' ? !isEmptyString(value) : true);
 
 // string functions
 
