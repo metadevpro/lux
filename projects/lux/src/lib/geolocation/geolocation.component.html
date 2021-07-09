@@ -29,9 +29,9 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="validNumber(latitudeValue) && latitudeValue >= 0">N</span>
-    <span *ngIf="validNumber(latitudeValue) && latitudeValue < 0">S</span>
-    <span *ngIf="!validNumber(latitudeValue)">?</span>
+    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">N</span>
+    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">S</span>
+    <span *ngIf="!isValidNumber(latitudeValue)">?</span>
   </div>
   <input
     #longitude
@@ -63,9 +63,9 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="validNumber(longitudeValue) && longitudeValue >= 0">E</span>
-    <span *ngIf="validNumber(longitudeValue) && longitudeValue < 0">W</span>
-    <span *ngIf="!validNumber(longitudeValue)">?</span>
+    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">E</span>
+    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">W</span>
+    <span *ngIf="!isValidNumber(longitudeValue)">?</span>
   </div>
   <button
     *ngIf="!disabled && !readonly"

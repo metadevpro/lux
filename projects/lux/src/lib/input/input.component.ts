@@ -16,7 +16,13 @@ import {
   Validator,
   NG_VALIDATORS
 } from '@angular/forms';
-import { isInitialAndEmpty } from '../helperFns';
+import {
+  hasValue,
+  isInitialAndEmpty,
+  isValidEmail,
+  isValidNumber,
+  normalizeDate
+} from '../helperFns';
 import { languageDetector } from '../lang';
 @Component({
   selector: 'lux-input',
@@ -205,11 +211,11 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (this.type === 'email' && hasValue(value) && !validEmail(value)) {
+    if (this.type === 'email' && hasValue(value) && !isValidEmail(value)) {
       result = result || {};
       result.email = { value, reason: 'Invalid email.' };
     }
-    if (this.type === 'number' && hasValue(value) && !validNumber(value)) {
+    if (this.type === 'number' && hasValue(value) && !isValidNumber(value)) {
       result = result || {};
       result.numeric = { value, reason: 'Invalid number.' };
     }
@@ -377,28 +383,3 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     this.placeholder = '0.00';
   }
 }
-
-export const validEmail = (email: string): boolean => {
-  const re =
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-  return re.test(String(email).toLowerCase().trim());
-};
-export const validNumber = (input: string): boolean => {
-  const value = Number(input);
-  return (
-    input !== null &&
-    input !== undefined &&
-    input !== '' &&
-    !Number.isNaN(value)
-  );
-};
-
-export const normalizeDate = (v: any): string => {
-  if (typeof v === 'string' && v.length > 10) {
-    return v.substr(0, 10);
-  }
-  return v ? v.toString() : null;
-};
-
-export const hasValue = (v: any): boolean =>
-  v !== null && v !== undefined && v !== '';

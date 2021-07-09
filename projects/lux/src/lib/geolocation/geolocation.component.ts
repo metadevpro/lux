@@ -15,7 +15,7 @@ import {
   ValidationErrors,
   NG_VALIDATORS
 } from '@angular/forms';
-import { isInitialAndEmpty } from '../helperFns';
+import { isInitialAndEmpty, isValidNumber } from '../helperFns';
 import { ModalService } from '../modal/modal.service';
 import { GeoPoint } from '../map/geopoint';
 
@@ -54,7 +54,7 @@ export class GeolocationComponent implements OnInit {
   public longitudeValue?: number = null;
 
   public searchResults: any;
-  validNumber = validNumber;
+  isValidNumber = isValidNumber;
 
   public userErrors = {
     en: {
@@ -283,12 +283,12 @@ export class GeolocationComponent implements OnInit {
   }
 
   onEventLatitude(newLatitude: string): void {
-    if (isNumber(newLatitude)) {
+    if (isValidNumber(newLatitude)) {
       this.updateLatitude(+newLatitude);
     }
   }
   onEventLongitude(newLongitude: string): void {
-    if (isNumber(newLongitude)) {
+    if (isValidNumber(newLongitude)) {
       this.updateLongitude(+newLongitude);
     }
   }
@@ -358,17 +358,4 @@ const languageDetector = (): string => {
     return lang;
   }
   return 'en'; // default
-};
-
-export const validNumber = (value: number | null | undefined): boolean =>
-  value !== null && value !== undefined && !Number.isNaN(value);
-
-export const isNumber = (input: string): boolean => {
-  const v = parseFloat(input);
-  return (
-    input !== undefined &&
-    input !== null &&
-    (input || '').trim() !== '' &&
-    !Number.isNaN(v)
-  );
 };
