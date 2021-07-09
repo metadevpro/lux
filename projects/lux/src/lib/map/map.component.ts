@@ -1,4 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewInit
+} from '@angular/core';
 
 import { GeoPoint } from './geopoint';
 
@@ -10,7 +16,7 @@ declare const ol: any;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements AfterViewInit {
   static idCounter = 0;
 
   private _map: any;
@@ -119,9 +125,9 @@ export class MapComponent implements OnInit {
     })
   });
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     //this.mapId = this.mapId ? this.mapId : 'map' + MapComponent.idCounter++;
-    this.mapId = 'map';
+    // this.mapId = 'map';
 
     this._map = new ol.Map({
       target: this.mapId,
