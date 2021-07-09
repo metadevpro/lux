@@ -180,6 +180,7 @@
       [center]="value"
       [markerPoint]="value"
       [zoom]="zoom"
+      [attr.readonly]="readonly === true || disabled === true ? 'true' : undefined"
     ></lux-map>
   </div>
   <div class="lux-modal-footer">
