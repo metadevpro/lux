@@ -73,6 +73,23 @@ export class GeolocationComponent implements OnInit {
     }
   };
 
+  public cardinalPoints = {
+    en: {
+      north: 'N',
+      south: 'S',
+      east: 'E',
+      west: 'W',
+      unknown: '?'
+    },
+    es: {
+      north: 'N',
+      south: 'S',
+      east: 'E',
+      west: 'O',
+      unknown: '?'
+    }
+  };
+
   @Input()
   public minLatitude: number;
   @Input()

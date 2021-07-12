@@ -29,9 +29,9 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">N</span>
-    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">S</span>
-    <span *ngIf="!isValidNumber(latitudeValue)">?</span>
+    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{ cardinalPoints[this.lang].north }}</span>
+    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{ cardinalPoints[this.lang].south }}</span>
+    <span *ngIf="!isValidNumber(latitudeValue)">{{ cardinalPoints[this.lang].unknown }}</span>
   </div>
   <input
     #longitude
@@ -63,9 +63,9 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">E</span>
-    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">W</span>
-    <span *ngIf="!isValidNumber(longitudeValue)">?</span>
+    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{ cardinalPoints[this.lang].east }}</span>
+    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{ cardinalPoints[this.lang].west }}</span>
+    <span *ngIf="!isValidNumber(longitudeValue)">{{ cardinalPoints[this.lang].unknown }}</span>
   </div>
   <button
     *ngIf="!disabled && !readonly"
