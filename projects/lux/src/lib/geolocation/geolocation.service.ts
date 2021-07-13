@@ -23,7 +23,6 @@ export class GeolocationService {
     if (this.lastQuery === query) {
       return of(this.lastSearchResults);
     }
-    this.lastQuery = query;
     const url =
       'https://nominatim.openstreetmap.org/search?format=json&q=' +
       encodeURIComponent(query);
@@ -33,6 +32,7 @@ export class GeolocationService {
     return this.http.get(url, { headers }).pipe(
       map((response) => {
         this.lastSearchResults = response as unknown as SearchResult[];
+        this.lastQuery = query;
         return this.lastSearchResults;
       })
     );
