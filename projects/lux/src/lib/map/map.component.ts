@@ -102,10 +102,14 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
   @Input()
   set markerPoint(markerPoint: GeoPoint) {
+    console.log(markerPoint);
     if (markerPoint === undefined) {
       this.markerCoordinates = undefined;
     } else {
-      this.markerCoordinates = markerPoint.coordinates;
+      this.markerCoordinates = [
+        +markerPoint.coordinates[0],
+        +markerPoint.coordinates[1]
+      ];
     }
     this.valueChange.emit(markerPoint);
   }

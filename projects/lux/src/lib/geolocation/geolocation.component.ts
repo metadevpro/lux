@@ -15,9 +15,17 @@ import {
   ValidationErrors,
   NG_VALIDATORS
 } from '@angular/forms';
+import {
+  DataSource,
+  DataSourceItem,
+  DecoratedDataSource,
+  DecoratedDataSourceItem
+} from '../datasource';
 import { isInitialAndEmpty, isValidNumber } from '../helperFns';
 import { ModalService } from '../modal/modal.service';
 import { GeoPoint } from '../map/geopoint';
+import { Observable } from 'rxjs';
+import { GeolocationService } from './geolocation.service';
 
 @Component({
   selector: 'lux-geolocation',
@@ -53,7 +61,6 @@ export class GeolocationComponent implements OnInit {
   public latitudeValue?: number = null;
   public longitudeValue?: number = null;
 
-  public searchResults: any;
   isValidNumber = isValidNumber;
 
   public userErrors = {
@@ -164,7 +171,10 @@ export class GeolocationComponent implements OnInit {
   onChange = (value: any): void => {};
   onTouched = (): void => {};
 
-  constructor(private modalService: ModalService) {}
+  constructor(
+    private modalService: ModalService,
+    public locationService: GeolocationService
+  ) {}
 
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {
@@ -333,30 +343,22 @@ export class GeolocationComponent implements OnInit {
     );
   }
 
-  openModalSearch(modal: TemplateRef<any>): void {
-    this.modalService.open(modal).result.then(
-      (result) => {
-        if (result !== 'cancel') {
-          this.updateLatitudeAndLongitude(result);
-        }
-      },
-      (reason) => {
-        //
-      }
-    );
+  get self(): GeolocationComponent {
+    return this;
   }
 
-  searchLocation(query: string): void {
-    const searchResults = fetch(
-      'https://nominatim.openstreetmap.org/search?format=json&q=' + query
-    ).then((response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      response.json().then((data) => {
-        this.searchResults = data;
-      });
-    });
+  getLabels(
+    instance: GeolocationComponent,
+    keys: number[][]
+  ): Observable<DataSource<number[], string>> {
+    return instance.locationService.getLabels(instance.locationService, keys);
+  }
+
+  getData(
+    instance: GeolocationComponent,
+    search: string
+  ): Observable<DataSource<number[], string>> {
+    return instance.locationService.getData(instance.locationService, search);
   }
 
   setPatterns(): void {

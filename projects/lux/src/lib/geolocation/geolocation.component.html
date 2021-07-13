@@ -67,13 +67,6 @@
     <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{ cardinalPoints[this.lang].west }}</span>
     <span *ngIf="!isValidNumber(longitudeValue)">{{ cardinalPoints[this.lang].unknown }}</span>
   </div>
-  <button
-    *ngIf="!disabled && !readonly"
-    class="infix"
-    (click)="openModalSearch(modalSearch)"
-  >
-    <span>🔎</span>
-  </button>
   <button class="postfix" (click)="openModalMap(modalMap)">
     <span>🌐</span>
   </button>
@@ -117,51 +110,6 @@
   </div>
 </div>
 
-<ng-template #modalSearch let-modal>
-  <div class="lux-modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Search</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="lux-modal-body">
-    <input
-      #query
-      type="text"
-      placeholder="Enter query here"
-      (change)="searchLocation(query.value)"
-    />
-    <div class="search-results">
-      <ol>
-        <li *ngFor="let result of searchResults">
-          {{ result.display_name }}
-          <button
-            type="button"
-            class="btn btn-select btn-outline-dark"
-            (click)="modal.close([result.lon, result.lat])"
-          >
-            Select
-          </button>
-        </li>
-      </ol>
-    </div>
-  </div>
-  <div class="lux-modal-footer">
-    <button
-      type="button"
-      class="btn btn-cancel btn-outline-dark"
-      (click)="modal.close('cancel')"
-    >
-      Cancel
-    </button>
-  </div>
-</ng-template>
-
 <ng-template #modalMap let-modal>
   <div class="lux-modal-header">
     <h4 class="modal-title" id="modal-basic-title">Map</h4>
@@ -175,13 +123,21 @@
     </button>
   </div>
   <div class="lux-modal-body content">
-    <lux-map
-      #map
-      [center]="value"
-      [markerPoint]="value"
-      [zoom]="zoom"
-      [attr.readonly]="readonly === true || disabled === true ? 'true' : undefined"
-    ></lux-map>
+    <lux-autocomplete #searchBar *ngIf="!disabled && !readonly"
+      [instance]="self"
+      [resolveLabelsFunction]="getLabels"
+      [populateFunction]="getData"
+      (valueChange)="map.markerPoint = {type: 'Point', coordinates: searchBar.value}; map.center = map.markerPoint"
+    ></lux-autocomplete>
+    <div class="map-container">
+      <lux-map
+        #map
+        [center]="value"
+        [markerPoint]="value"
+        [zoom]="zoom"
+        [attr.readonly]="readonly === true || disabled === true ? 'true' : undefined"
+      ></lux-map>
+    </div>
   </div>
   <div class="lux-modal-footer">
     <button
