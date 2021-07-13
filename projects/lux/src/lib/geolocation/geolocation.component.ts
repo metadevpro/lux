@@ -22,6 +22,7 @@ import {
   DecoratedDataSourceItem
 } from '../datasource';
 import { isInitialAndEmpty, isValidNumber } from '../helperFns';
+import { languageDetector } from '../lang';
 import { ModalService } from '../modal/modal.service';
 import { GeoPoint } from '../map/geopoint';
 import { Observable } from 'rxjs';
@@ -370,11 +371,3 @@ export class GeolocationComponent implements OnInit {
     this.maxLongitude = this.maxLongitude || +180;
   }
 }
-
-const languageDetector = (): string => {
-  const lang = navigator.language.split('-')[0];
-  if (lang === 'es' || lang === 'en') {
-    return lang;
-  }
-  return 'en'; // default
-};
