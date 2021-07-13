@@ -23,6 +23,8 @@ export class GeolocationService {
     if (this.lastQuery === query) {
       return of(this.lastSearchResults);
     }
+    // Nominatim search documentation:
+    // https://nominatim.org/release-docs/develop/api/Search/
     const url =
       'https://nominatim.openstreetmap.org/search?format=json&q=' +
       encodeURIComponent(query);
