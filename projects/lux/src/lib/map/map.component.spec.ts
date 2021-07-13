@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 import { MapComponent } from './map.component';
 
-describe('map', () => {
+describe('MapComponent', () => {
   let component: MapComponent;
   let spectator: SpectatorRouting<MapComponent>;
   const createComponent = createRoutingFactory({

@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 import { GeolocationComponent } from './geolocation.component';
 
-describe('geoloation', () => {
+describe('GeolocationComponent', () => {
   let component: GeolocationComponent;
   let spectator: SpectatorRouting<GeolocationComponent>;
   const createComponent = createRoutingFactory({
