@@ -19,7 +19,7 @@ export class GeolocationService {
 
   constructor(private http: HttpClient) {}
 
-  searchAddress(query: string): Observable<SearchResult[]> {
+  searchGeolocation(query: string): Observable<SearchResult[]> {
     if (this.lastQuery === query) {
       return of(this.lastSearchResults);
     }
@@ -60,7 +60,7 @@ export class GeolocationService {
     instance: GeolocationService,
     search: string
   ): Observable<DataSource<number[], string>> {
-    return instance.searchAddress(search).pipe(
+    return instance.searchGeolocation(search).pipe(
       map((searchResults) =>
         searchResults.map((searchResult) => {
           const key = [searchResult.lon, searchResult.lat];
