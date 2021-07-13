@@ -16,6 +16,7 @@ export class InputSampleComponent implements AfterContentInit {
   valueDate: string = null;
   valueTime: string = null;
   valuePassword = '';
+  valueTextarea = '';
   valueNumber = 7;
   valueCurrencyUsd = 97.01;
   valueCurrencyEur = 123.45;
