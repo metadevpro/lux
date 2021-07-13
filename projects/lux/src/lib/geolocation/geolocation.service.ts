@@ -14,14 +14,17 @@ interface SearchResult {
 
 @Injectable({ providedIn: 'root' })
 export class GeolocationService {
-  private lastQuery: string;
-  private lastSearchResults: SearchResult[] = [];
+  private static cacheSize = 10;
+  private lastQueriesWithResults = new Map<string, SearchResult[]>();
+  private lastQueries: string[] = [];
 
   constructor(private http: HttpClient) {}
 
   searchGeolocation(query: string): Observable<SearchResult[]> {
-    if (this.lastQuery === query) {
-      return of(this.lastSearchResults);
+    if (this.lastQueriesWithResults.has(query)) {
+      this.lastQueries.splice(this.lastQueries.indexOf(query), 1);
+      this.lastQueries.push(query);
+      return of(this.lastQueriesWithResults.get(query));
     }
     // Nominatim search documentation:
     // https://nominatim.org/release-docs/develop/api/Search/
@@ -33,9 +36,15 @@ export class GeolocationService {
     };
     return this.http.get(url, { headers }).pipe(
       map((response) => {
-        this.lastSearchResults = response as unknown as SearchResult[];
-        this.lastQuery = query;
-        return this.lastSearchResults;
+        const searchResults = response as unknown as SearchResult[];
+        if (this.lastQueries.length >= GeolocationService.cacheSize) {
+          const deletedQuery = this.lastQueries[0];
+          this.lastQueries.splice(0, 1);
+          this.lastQueriesWithResults.delete(deletedQuery);
+        }
+        this.lastQueries.push(query);
+        this.lastQueriesWithResults.set(query, searchResults);
+        return searchResults;
       })
     );
   }
@@ -44,9 +53,9 @@ export class GeolocationService {
     instance: GeolocationService,
     keys: number[][]
   ): Observable<DataSource<number[], string>> {
-    const searchResults = instance.lastSearchResults.filter((searchResult) =>
-      samePosition(searchResult, keys)
-    );
+    const searchResults = instance.lastQueriesWithResults
+      .get(instance.lastQueries[instance.lastQueries.length - 1])
+      .filter((searchResult) => samePosition(searchResult, keys));
     return of(
       searchResults.map((searchResult) => {
         const key = [searchResult.lon, searchResult.lat];
