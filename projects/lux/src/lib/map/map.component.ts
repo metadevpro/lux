@@ -228,7 +228,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       if (!this.readonly) {
         const dragInteraction = new ol.interaction.Modify({
           features: new ol.Collection([this._marker]),
-          style: MapComponent._markerStyle
+          style: MapComponent._markerStyle,
+          pixelTolerance: 50
         });
         this._markerInteraction = dragInteraction;
         this._map.addInteraction(dragInteraction);
