@@ -139,6 +139,23 @@
     Bind value: {{ valuePassword }}
   </div>
 
+  <h3>Textarea</h3>
+  <pre class="language-html" rel="html">
+            <code class="language-html">
+    &lt;lux-input <span class="text-underlined">type="textarea"</span> <span class="text-underlined">cols="32"</span> <span class="text-underlined">rows="4"</span>&gt;&lt;/lux-input&gt;</code>
+    </pre>
+  <div class="sample">
+    <label for="textarea">Textarea contents: </label>
+    <lux-input
+      inputId="textarea"
+      type="textarea"
+      cols="32"
+      rows="4"
+      [(ngModel)]="valueTextarea"
+    ></lux-input>
+    Bind value: {{ valueTextarea }}
+  </div>
+
   <h3>Number</h3>
   <pre class="language-html" rel="html">
             <code class="language-html">
@@ -222,6 +239,7 @@
     <select name="t1" [(ngModel)]="f1.type">
       <option value="string">string</option>
       <option value="email">email</option>
+      <option value="textarea">textarea</option>
       <option value="date">date</option>
       <option value="time">time</option>
       <option value="currency">currency</option>
@@ -302,6 +320,8 @@
     <span class="inline">aria-label</span> Custom aria label forwarded to the
     input.
   </li>
+  <li><span class="inline">cols</span> For textareas: number of columns.</li>
+  <li><span class="inline">rows</span> For textareas: number of rows.</li>
   <li>
     <span class="inline">step</span> For numeric types: the discrete
     increment/decrement when using the arrows.
