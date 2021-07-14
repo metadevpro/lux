@@ -2,7 +2,8 @@
   <span>$</span>
 </div>
 <input
-  #i1
+  #input
+  *ngIf="type !== 'textarea'"
   placement="top"
   [id]="inputId"
   [type]="domain"
@@ -17,10 +18,27 @@
   "
   [placeholder]="placeholder"
   [ngClass]="className"
-  (keyup)="onKeyUp(i1.value)"
-  (change)="onChangeValue(i1.value)"
+  (keyup)="onKeyUp(input.value)"
+  (change)="onChangeValue(input.value)"
   (keypress)="onKeyPress($event)"
 />
+<textarea
+  #textarea
+  *ngIf="type === 'textarea'"
+  placement="top"
+  [id]="inputId"
+  [attr.value]="value"
+  [attr.aria-label]="ariaLabel"
+  [attr.disabled]="disabled === true ? 'true' : undefined"
+  [attr.readonly]="readonly === true ? 'true' : undefined"
+  [attr.cols]="cols !== undefined && cols !== null ? cols.toString() : undefined"
+  [attr.rows]="rows !== undefined && rows !== null ? rows.toString() : undefined"
+  [placeholder]="placeholder"
+  [ngClass]="className"
+  (keyup)="onKeyUp(textarea.value)"
+  (change)="onChangeValue(textarea.value)"
+  (keypress)="onKeyPress($event)"
+></textarea>
 <div *ngIf="currency && currency === 'EUR'" class="postfix">
   <span>€</span>
 </div>

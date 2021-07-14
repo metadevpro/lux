@@ -44,7 +44,8 @@ import { languageDetector } from '../lang';
 export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   static idCounter = 0;
 
-  @ViewChild('i1', { static: true }) i1: ElementRef;
+  @ViewChild('input', { static: false }) input: ElementRef;
+  @ViewChild('textarea', { static: false }) textarea: ElementRef;
 
   touched = false;
   dirty = false;
@@ -73,6 +74,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   };
 
   public domain: string;
+  @Input()
+  public rows?: number | string;
+  @Input()
+  public cols?: number | string;
   @Input()
   public step?: number;
   @Input()
@@ -197,7 +202,12 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     if (this.domain === 'date') {
       v = normalizeDate(v);
     }
-    this.i1.nativeElement.value = v;
+    if (this.input) {
+      this.input.nativeElement.value = v;
+    }
+    if (this.textarea) {
+      this.textarea.nativeElement.value = v;
+    }
   }
 
   // Validator interface
