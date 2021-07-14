@@ -65,10 +65,17 @@ export class MapComponent implements OnInit, AfterViewInit {
           // alternatively: const lonLat = ol.proj.transform(args.coordinate,'EPSG:3857','EPSG:4326');
           this.addMarkerAtCoordinates(coordinates);
         });
+        this._map.on('pointermove', (event: any) => {
+          const pixel = this._map.getEventPixel(event.originalEvent);
+          const hit = this._map.hasFeatureAtPixel(pixel);
+          this._map.getViewport().style.cursor = hit ? 'move' : 'grab';
+        });
       }
     } else {
       if (this._map) {
         this._map.on('click', (args: any) => {});
+        this._map.on('pointermove', (event: any) => {});
+        this._map.getViewport().style.cursor = 'grab';
       }
     }
     this._readonly = readonly;
@@ -229,7 +236,9 @@ export class MapComponent implements OnInit, AfterViewInit {
         const dragInteraction = new ol.interaction.Modify({
           features: new ol.Collection([this._marker]),
           style: MapComponent._markerStyle,
-          pixelTolerance: 50
+          pixelTolerance: 50,
+          hitDetection: true,
+          snapToPointer: true
         });
         this._markerInteraction = dragInteraction;
         this._map.addInteraction(dragInteraction);
