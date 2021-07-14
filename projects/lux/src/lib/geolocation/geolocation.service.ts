@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataSource, DataSourceItem } from '../datasource';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { debounce, debounceTime, map } from 'rxjs/operators';
 
 interface SearchResult {
   place_id: number;
@@ -14,6 +14,7 @@ interface SearchResult {
 
 @Injectable({ providedIn: 'root' })
 export class GeolocationService {
+  private static debounce = 500; // ms
   private static cacheSize = 10;
   private lastQueriesWithResults = new Map<string, SearchResult[]>();
   private lastQueries: string[] = [];
@@ -34,19 +35,22 @@ export class GeolocationService {
     const headers = {
       'Content-Type': 'application/json'
     };
-    return this.http.get(url, { headers }).pipe(
-      map((response) => {
-        const searchResults = response as unknown as SearchResult[];
-        if (this.lastQueries.length >= GeolocationService.cacheSize) {
-          const deletedQuery = this.lastQueries[0];
-          this.lastQueries.splice(0, 1);
-          this.lastQueriesWithResults.delete(deletedQuery);
-        }
-        this.lastQueries.push(query);
-        this.lastQueriesWithResults.set(query, searchResults);
-        return searchResults;
-      })
-    );
+    return this.http
+      .get(url, { headers })
+      .pipe(debounceTime(GeolocationService.debounce))
+      .pipe(
+        map((response) => {
+          const searchResults = response as unknown as SearchResult[];
+          if (this.lastQueries.length >= GeolocationService.cacheSize) {
+            const deletedQuery = this.lastQueries[0];
+            this.lastQueries.splice(0, 1);
+            this.lastQueriesWithResults.delete(deletedQuery);
+          }
+          this.lastQueries.push(query);
+          this.lastQueriesWithResults.set(query, searchResults);
+          return searchResults;
+        })
+      );
   }
 
   getLabels(
