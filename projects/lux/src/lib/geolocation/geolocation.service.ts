@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DataSource, DataSourceItem } from '../datasource';
+import { DataSource } from '../datasource';
 import { Observable, of, Subject } from 'rxjs';
 import {
-  debounce,
   debounceTime,
+  distinctUntilChanged,
   map,
-  mergeMap,
   switchMap
 } from 'rxjs/operators';
 
@@ -20,53 +19,77 @@ interface SearchResult {
 
 @Injectable({ providedIn: 'root' })
 export class GeolocationService {
-  private static debounce = 300; // ms
-  private static cacheSize = 10;
+  private debouncePeriodMs = 300; // ms
+  private cacheSize = 10;
   private lastQueriesWithResults = new Map<string, SearchResult[]>();
   private lastQueries: string[] = [];
-  private currentQuery = new Subject<string>();
-  private currentQuery$ = this.currentQuery
-    .asObservable()
-    .pipe(debounceTime(GeolocationService.debounce));
+  private currentSearch$: Subject<string>;
+  private currentQuery$: Observable<SearchResult[]>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.currentSearch$ = new Subject<string>();
 
-  searchGeolocation(query: string): Observable<SearchResult[]> {
-    if (this.lastQueriesWithResults.has(query)) {
-      this.lastQueries.splice(this.lastQueries.indexOf(query), 1);
-      this.lastQueries.push(query);
-      return of(this.lastQueriesWithResults.get(query));
-    }
-    this.currentQuery.next(query);
-    return this.currentQuery$.pipe(
+    const typed$ = this.currentSearch$
+      .asObservable()
+      .pipe(distinctUntilChanged());
+
+    this.currentQuery$ = typed$.pipe(
+      debounceTime(this.debouncePeriodMs),
+
       switchMap((currentQuery) => {
+        const data = this.getFromCache(currentQuery);
+        if (data !== undefined) {
+          return of(data);
+        }
         // Nominatim search documentation:
         // https://nominatim.org/release-docs/develop/api/Search/
         const url =
           'https://nominatim.openstreetmap.org/search?format=json&q=' +
-          encodeURIComponent(query);
+          encodeURIComponent(currentQuery);
         const headers = {
           'Content-Type': 'application/json'
         };
-        return this.http
-          .get(url, { headers })
-          .pipe(
-            map((response) => {
-              const searchResults = response as unknown as SearchResult[];
-              if (this.lastQueries.length >= GeolocationService.cacheSize) {
-                const deletedQuery = this.lastQueries[0];
-                this.lastQueries.splice(0, 1);
-                this.lastQueriesWithResults.delete(deletedQuery);
-              }
-              this.lastQueries.push(query);
-              this.lastQueriesWithResults.set(query, searchResults);
-              return searchResults;
-            })
-          )
-          .toPromise();
+        console.log('Before call: ', currentQuery);
+
+        this.addToCache(currentQuery, []);
+
+        return this.http.get(url, { headers }).pipe(
+          map((response) => {
+            const searchResults = response as unknown as SearchResult[];
+            this.addToCache(currentQuery, searchResults);
+            return searchResults;
+          })
+        );
       })
     );
   }
+
+  searchGeolocation(query: string): Observable<SearchResult[]> {
+    console.log('SearchLocation: ', query);
+
+    this.currentSearch$.next(query);
+    return this.currentQuery$;
+  }
+
+  // Cache implemementation ---
+  getFromCache(query: string): SearchResult[] {
+    if (this.lastQueriesWithResults.has(query)) {
+      return this.lastQueriesWithResults.get(query);
+    }
+    return undefined;
+  }
+  addToCache(query: string, data: SearchResult[]): SearchResult[] {
+    if (this.lastQueriesWithResults.keys.length >= this.cacheSize) {
+      const deletedQuery = this.lastQueriesWithResults.keys[0];
+      this.revomeFromCache(deletedQuery);
+    }
+    this.lastQueriesWithResults.set(query, data);
+    return data;
+  }
+  revomeFromCache(query: string): void {
+    this.lastQueriesWithResults.delete(query);
+  }
+  // End cache implemementation ---
 
   getLabels(
     instance: GeolocationService,
