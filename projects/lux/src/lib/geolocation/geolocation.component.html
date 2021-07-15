@@ -143,7 +143,7 @@
     <button
       *ngIf="!disabled && !readonly"
       type="button"
-      class="btn btn-cancel btn-outline-dark"
+      class="btn btn-cancel"
       (click)="modal.close('cancel')"
     >
       Cancel
@@ -151,7 +151,7 @@
     <button
       *ngIf="!disabled && !readonly"
       type="button"
-      class="btn btn-select btn-outline-dark"
+      class="btn btn-select"
       (click)="modal.close(map.markerPoint.coordinates)"
     >
       Select
