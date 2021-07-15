@@ -44,7 +44,7 @@ export class GeolocationService {
         // Nominatim search documentation:
         // https://nominatim.org/release-docs/develop/api/Search/
         const url =
-          'https://nominatim.openstreetmap.org/search?format=json&q=' +
+          'https://nominatim.openstreetmap.org/search?format=json&limit=20&q=' +
           encodeURIComponent(currentQuery);
         const headers = {
           'Content-Type': 'application/json'
@@ -54,8 +54,8 @@ export class GeolocationService {
         return this.http.get(url, { headers }).pipe(
           map((response) => {
             const searchResults = response as unknown as SearchResult[];
-            this.addToCache(currentQuery, searchResults);
-            return searchResults;
+            const uniqueResults = distinct(searchResults);
+            return this.addToCache(currentQuery, uniqueResults);
           })
         );
       })
@@ -137,4 +137,15 @@ const samePosition = (
     (item) => searchResult.lon === item[0] && searchResult.lat === item[1]
   );
   return !!found;
+};
+
+const distinct = (data: SearchResult[]): SearchResult[] => {
+  const unique: { [key: string]: number } = {};
+  return data.filter((r) => {
+    if (unique[r.display_name]) {
+      return false;
+    }
+    unique[r.display_name] = 1;
+    return true;
+  });
 };
