@@ -49,8 +49,6 @@ export class GeolocationService {
         const headers = {
           'Content-Type': 'application/json'
         };
-        console.log('Before call: ', currentQuery);
-
         this.addToCache(currentQuery, []);
 
         return this.http.get(url, { headers }).pipe(
@@ -65,39 +63,9 @@ export class GeolocationService {
   }
 
   searchGeolocation(query: string): Observable<SearchResult[]> {
-    console.log('SearchLocation: ', query);
-
     this.currentSearch$.next(query);
     return this.currentQuery$;
   }
-
-  // Cache implemementation ---
-  getFromCache(query: string): SearchResult[] {
-    if (this.lastQueriesWithResults.has(query)) {
-      return this.lastQueriesWithResults.get(query);
-    }
-    return undefined;
-  }
-  addToCache(query: string, data: SearchResult[]): SearchResult[] {
-    if (this.lastQueriesWithResults.keys.length >= this.cacheSize) {
-      const deletedQuery = this.lastQueriesLru[0];
-      this.revomeFromCache(deletedQuery);
-    }
-    this.lastQueriesWithResults.set(query, data);
-    this.lastQueriesLru.push(query);
-    return data;
-  }
-  revomeFromCache(query: string): void {
-    this.lastQueriesWithResults.delete(query);
-    const index = this.lastQueriesLru.findIndex((it) => it === query);
-    this.lastQueriesLru.splice(index, 1);
-  }
-  getLatestQuery(): string | null {
-    return this.lastQueriesLru.length
-      ? this.lastQueriesLru[this.lastQueriesLru.length - 1]
-      : null;
-  }
-  // End cache implemementation ---
 
   getLabels(
     instance: GeolocationService,
@@ -131,6 +99,34 @@ export class GeolocationService {
       )
     );
   }
+
+  // Cache implemementation ---
+  private getFromCache(query: string): SearchResult[] {
+    if (this.lastQueriesWithResults.has(query)) {
+      return this.lastQueriesWithResults.get(query);
+    }
+    return undefined;
+  }
+  private addToCache(query: string, data: SearchResult[]): SearchResult[] {
+    if (this.lastQueriesWithResults.keys.length >= this.cacheSize) {
+      const deletedQuery = this.lastQueriesLru[0];
+      this.revomeFromCache(deletedQuery);
+    }
+    this.lastQueriesWithResults.set(query, data);
+    this.lastQueriesLru.push(query);
+    return data;
+  }
+  private revomeFromCache(query: string): void {
+    this.lastQueriesWithResults.delete(query);
+    const index = this.lastQueriesLru.findIndex((it) => it === query);
+    this.lastQueriesLru.splice(index, 1);
+  }
+  private getLatestQuery(): string | null {
+    return this.lastQueriesLru.length
+      ? this.lastQueriesLru[this.lastQueriesLru.length - 1]
+      : null;
+  }
+  // End cache implemementation ---
 }
 
 const samePosition = (
