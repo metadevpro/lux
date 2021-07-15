@@ -29,9 +29,15 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{ cardinalPoints[this.lang].north }}</span>
-    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{ cardinalPoints[this.lang].south }}</span>
-    <span *ngIf="!isValidNumber(latitudeValue)">{{ cardinalPoints[this.lang].unknown }}</span>
+    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
+      cardinalPoints[this.lang].north
+    }}</span>
+    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
+      cardinalPoints[this.lang].south
+    }}</span>
+    <span *ngIf="!isValidNumber(latitudeValue)">{{
+      cardinalPoints[this.lang].unknown
+    }}</span>
   </div>
   <input
     #longitude
@@ -63,9 +69,15 @@
     (keypress)="onKeyPress($event)"
   />
   <div class="infix symbol">
-    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{ cardinalPoints[this.lang].east }}</span>
-    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{ cardinalPoints[this.lang].west }}</span>
-    <span *ngIf="!isValidNumber(longitudeValue)">{{ cardinalPoints[this.lang].unknown }}</span>
+    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
+      cardinalPoints[this.lang].east
+    }}</span>
+    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
+      cardinalPoints[this.lang].west
+    }}</span>
+    <span *ngIf="!isValidNumber(longitudeValue)">{{
+      cardinalPoints[this.lang].unknown
+    }}</span>
   </div>
   <button class="postfix" (click)="openModalMap(modalMap)">
     <span>🌐</span>
@@ -112,7 +124,7 @@
 
 <ng-template #modalMap let-modal>
   <div class="lux-modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Map</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ mapTitle }}</h4>
     <button
       type="button"
       class="close"
@@ -123,11 +135,16 @@
     </button>
   </div>
   <div class="lux-modal-body content">
-    <lux-autocomplete #searchBar *ngIf="!disabled && !readonly"
+    <lux-autocomplete
+      #searchBar
+      *ngIf="!disabled && !readonly"
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
-      (valueChange)="map.markerPoint = {type: 'Point', coordinates: searchBar.value}; map.center = map.markerPoint"
+      (valueChange)="
+        map.markerPoint = { type: 'Point', coordinates: searchBar.value };
+        map.center = map.markerPoint
+      "
     ></lux-autocomplete>
     <div class="map-container">
       <lux-map

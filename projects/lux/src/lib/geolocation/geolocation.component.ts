@@ -368,6 +368,10 @@ export class GeolocationComponent implements OnInit {
     );
   }
 
+  get mapTitle(): string {
+    return this._disabled || !!this.readonly ? 'Location:' : 'Select location:';
+  }
+
   get self(): GeolocationComponent {
     return this;
   }
