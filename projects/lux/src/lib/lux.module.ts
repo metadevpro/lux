@@ -10,10 +10,12 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { InputComponent } from './input/input.component';
 import { FilterComponent } from './filter/filter.component';
 import { GeolocationComponent } from './geolocation/geolocation.component';
+import { HttpClientModule } from '@angular/common/http';
 import { LuxTooltipDirective } from './tooltip/tooltip.directive';
 import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { LuxModalWindowComponent } from './modal/modal-window';
 import { LuxModalBackdropComponent } from './modal/modal-backdrop';
+import { MapComponent } from './map/map.component';
 import { ModalService } from './modal/modal.service';
 import { PaginationComponent } from './pagination/pagination.component';
 import { RadiogroupComponent } from './radiogroup/radiogroup.component';
@@ -35,6 +37,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     LuxModalWindowComponent,
     LuxModalBackdropComponent,
     LuxBreadcrumbComponent,
+    MapComponent,
     SelectComponent,
     TooltipComponent,
     PaginationComponent,
@@ -50,6 +53,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
   imports: [
     AngularResizedEventModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
     CommonModule
@@ -64,6 +68,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     LuxTooltipDirective,
     LuxBreadcrumbComponent,
     LuxBreadcrumbComponent,
+    MapComponent,
     SelectComponent,
     PaginationComponent,
     RadiogroupComponent,
