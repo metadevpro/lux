@@ -21,7 +21,11 @@ import {
   DecoratedDataSource,
   DecoratedDataSourceItem
 } from '../datasource';
-import { isInitialAndEmpty, isValidNumber } from '../helperFns';
+import {
+  isInitialAndEmpty,
+  isValidNumber,
+  roundToMultipleOf
+} from '../helperFns';
 import { languageDetector } from '../lang';
 import { ModalService } from '../modal/modal.service';
 import { GeoPoint } from '../map/geopoint';
@@ -204,10 +208,10 @@ export class GeolocationComponent implements OnInit {
   }
   // End of ControlValueAccessor Interface implementation
 
-  private setLatitudeInControl(latitude: any): void {
+  private setLatitudeInControl(latitude: number): void {
     this.latitude.nativeElement.value = latitude;
   }
-  private setLongitudeInControl(longitude: any): void {
+  private setLongitudeInControl(longitude: number): void {
     this.longitude.nativeElement.value = longitude;
   }
 
@@ -310,6 +314,26 @@ export class GeolocationComponent implements OnInit {
     };
   }
 
+  roundToStepAndUpdateLatitudeAndLongitude(
+    newLatitudeAndLongitude: number[]
+  ): void {
+    const newLatitude = roundToMultipleOf(
+      newLatitudeAndLongitude[1],
+      this.step
+    );
+    const newLongitude = roundToMultipleOf(
+      newLatitudeAndLongitude[0],
+      this.step
+    );
+    if (this.disabled || this.readonly) {
+      return;
+    }
+    this.value = {
+      type: 'Point',
+      coordinates: [newLongitude, newLatitude]
+    };
+  }
+
   onEventLatitude(newLatitude: string): void {
     if (isValidNumber(newLatitude)) {
       this.updateLatitude(+newLatitude);
@@ -335,7 +359,7 @@ export class GeolocationComponent implements OnInit {
     this.modalService.open(modal).result.then(
       (result) => {
         if (result !== 'cancel') {
-          this.updateLatitudeAndLongitude(result);
+          this.roundToStepAndUpdateLatitudeAndLongitude(result);
         }
       },
       (reason) => {
