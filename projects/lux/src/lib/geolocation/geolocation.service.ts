@@ -1,8 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataSource, DataSourceItem } from '../datasource';
-import { Observable, of } from 'rxjs';
-import { debounce, debounceTime, map } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import {
+  debounce,
+  debounceTime,
+  map,
+  mergeMap,
+  switchMap
+} from 'rxjs/operators';
 
 interface SearchResult {
   place_id: number;
@@ -14,10 +20,14 @@ interface SearchResult {
 
 @Injectable({ providedIn: 'root' })
 export class GeolocationService {
-  private static debounce = 500; // ms
+  private static debounce = 300; // ms
   private static cacheSize = 10;
   private lastQueriesWithResults = new Map<string, SearchResult[]>();
   private lastQueries: string[] = [];
+  private currentQuery = new Subject<string>();
+  private currentQuery$ = this.currentQuery
+    .asObservable()
+    .pipe(debounceTime(GeolocationService.debounce));
 
   constructor(private http: HttpClient) {}
 
@@ -27,30 +37,35 @@ export class GeolocationService {
       this.lastQueries.push(query);
       return of(this.lastQueriesWithResults.get(query));
     }
-    // Nominatim search documentation:
-    // https://nominatim.org/release-docs/develop/api/Search/
-    const url =
-      'https://nominatim.openstreetmap.org/search?format=json&q=' +
-      encodeURIComponent(query);
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-    return this.http
-      .get(url, { headers })
-      .pipe(debounceTime(GeolocationService.debounce))
-      .pipe(
-        map((response) => {
-          const searchResults = response as unknown as SearchResult[];
-          if (this.lastQueries.length >= GeolocationService.cacheSize) {
-            const deletedQuery = this.lastQueries[0];
-            this.lastQueries.splice(0, 1);
-            this.lastQueriesWithResults.delete(deletedQuery);
-          }
-          this.lastQueries.push(query);
-          this.lastQueriesWithResults.set(query, searchResults);
-          return searchResults;
-        })
-      );
+    this.currentQuery.next(query);
+    return this.currentQuery$.pipe(
+      switchMap((currentQuery) => {
+        // Nominatim search documentation:
+        // https://nominatim.org/release-docs/develop/api/Search/
+        const url =
+          'https://nominatim.openstreetmap.org/search?format=json&q=' +
+          encodeURIComponent(query);
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        return this.http
+          .get(url, { headers })
+          .pipe(
+            map((response) => {
+              const searchResults = response as unknown as SearchResult[];
+              if (this.lastQueries.length >= GeolocationService.cacheSize) {
+                const deletedQuery = this.lastQueries[0];
+                this.lastQueries.splice(0, 1);
+                this.lastQueriesWithResults.delete(deletedQuery);
+              }
+              this.lastQueries.push(query);
+              this.lastQueriesWithResults.set(query, searchResults);
+              return searchResults;
+            })
+          )
+          .toPromise();
+      })
+    );
   }
 
   getLabels(
