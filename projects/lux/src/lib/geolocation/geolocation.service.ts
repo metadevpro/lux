@@ -20,9 +20,9 @@ interface SearchResult {
 @Injectable({ providedIn: 'root' })
 export class GeolocationService {
   private debouncePeriodMs = 300; // ms
-  private cacheSize = 10;
+  private cacheSize = 20;
   private lastQueriesWithResults = new Map<string, SearchResult[]>();
-  private lastQueries: string[] = [];
+  private lastQueriesLru: string[] = [];
   private currentSearch$: Subject<string>;
   private currentQuery$: Observable<SearchResult[]>;
 
@@ -80,14 +80,22 @@ export class GeolocationService {
   }
   addToCache(query: string, data: SearchResult[]): SearchResult[] {
     if (this.lastQueriesWithResults.keys.length >= this.cacheSize) {
-      const deletedQuery = this.lastQueriesWithResults.keys[0];
+      const deletedQuery = this.lastQueriesLru[0];
       this.revomeFromCache(deletedQuery);
     }
     this.lastQueriesWithResults.set(query, data);
+    this.lastQueriesLru.push(query);
     return data;
   }
   revomeFromCache(query: string): void {
     this.lastQueriesWithResults.delete(query);
+    const index = this.lastQueriesLru.findIndex((it) => it === query);
+    this.lastQueriesLru.splice(index, 1);
+  }
+  getLatestQuery(): string | null {
+    return this.lastQueriesLru.length
+      ? this.lastQueriesLru[this.lastQueriesLru.length - 1]
+      : null;
   }
   // End cache implemementation ---
 
@@ -96,7 +104,7 @@ export class GeolocationService {
     keys: number[][]
   ): Observable<DataSource<number[], string>> {
     const searchResults = instance.lastQueriesWithResults
-      .get(instance.lastQueries[instance.lastQueries.length - 1])
+      .get(instance.getLatestQuery())
       .filter((searchResult) => samePosition(searchResult, keys));
     return of(
       searchResults.map((searchResult) => {
