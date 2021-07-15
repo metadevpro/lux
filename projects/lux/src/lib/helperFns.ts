@@ -25,11 +25,78 @@ export const normalizeDate = (value: any): string => {
   return value ? value.toString() : null;
 };
 
-// other functions
+// number functions
 
 export const isValidNumber = (
   value: string | number | undefined | null
 ): boolean => (hasValue(value) ? !Number.isNaN(Number(value)) : false);
+
+export const numberOfDecimalDigits = (
+  x: number | string
+): number | undefined => {
+  if (isValidNumber(x)) {
+    const xString = String(Number(x));
+    if (xString === 'Infinity') {
+      return 0;
+    }
+    const indexOfE = xString.indexOf('e');
+    if (indexOfE >= 0) {
+      return 0;
+    }
+    const indexOfDecimalPoint = xString.indexOf('.');
+    if (indexOfDecimalPoint < 0) {
+      return 0;
+    } else {
+      return xString.length - indexOfDecimalPoint - 1;
+    }
+  }
+  return undefined;
+};
+
+export const numberOfWholeDigits = (x: number | string): number | undefined => {
+  if (isValidNumber(x)) {
+    let xString = String(Number(x));
+    if (xString.indexOf('-') === 0) {
+      xString = xString.slice(1, xString.length);
+    }
+    if (xString === 'Infinity') {
+      return Infinity;
+    }
+    if (xString.indexOf('0') === 0) {
+      xString = xString.slice(1, xString.length);
+    }
+    const indexOfE = xString.indexOf('e');
+    if (indexOfE >= 0) {
+      return Number(xString.slice(indexOfE + 1, xString.length)) + 1;
+    }
+    const indexOfDecimalPoint = xString.indexOf('.');
+    if (indexOfDecimalPoint < 0) {
+      return xString.length;
+    } else {
+      return indexOfDecimalPoint;
+    }
+  }
+  return undefined;
+};
+
+export const roundToMultipleOf = (x: number, modulo: number): number => {
+  const moduloString = String(modulo);
+  // approximates the result
+  // prone to inexactitude because of floating point arithmetic
+  const approximation = Math.round(x / modulo) * modulo;
+  const approximationString = String(approximation);
+  // remove useless decimals
+  const uselessDecimalsInApproximation =
+    numberOfDecimalDigits(approximationString) -
+    numberOfDecimalDigits(moduloString);
+  const resultString = approximationString.slice(
+    0,
+    approximationString.length - uselessDecimalsInApproximation
+  );
+  return Number(resultString);
+};
+
+// other functions
 
 export const isInitialAndEmpty = (
   previousValue: any,
