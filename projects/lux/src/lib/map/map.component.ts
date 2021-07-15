@@ -237,8 +237,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           features: new ol.Collection([this._marker]),
           style: MapComponent._markerStyle,
           pixelTolerance: 50,
-          hitDetection: true,
-          snapToPointer: true
+          hitDetection: true
         });
         this._markerInteraction = dragInteraction;
         this._map.addInteraction(dragInteraction);
