@@ -72,8 +72,6 @@ export class GeolocationService {
     instance: GeolocationService,
     keys: GeoPoint[]
   ): Observable<DataSource<GeoPoint, string>> {
-    console.log('get labels for:');
-    console.log(keys);
     const searchResults = instance.lastQueriesWithResults
       .get(instance.getLatestQuery())
       .filter((searchResult) => samePosition(searchResult, keys));
