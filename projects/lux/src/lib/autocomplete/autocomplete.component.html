@@ -1,4 +1,4 @@
-<div class="lux-autocomplete" (blur)="toogleCompletion(false, i0.value)">
+<div class="lux-autocomplete" (blur)="toggleCompletion(false, i0.value)">
   <div class="lux-autocomplete-box">
     <input
       #i0
@@ -11,8 +11,8 @@
       (keypress)="onKeypress($event, i0.value)"
       (keyup)="onKeyup($event, i0.value)"
       (blur)="onLostFocus()"
-      (focus)="toogleCompletion(true, i0.value)"
-      (click)="toogleCompletion(true, i0.value)"
+      (focus)="toggleCompletion(true, i0.value)"
+      (click)="toggleCompletion(true, i0.value)"
       (resized)="onInputResized()"
       (window:resize)="onInputResized()"
       role="combobox"
@@ -31,7 +31,7 @@
     <ng-template #dropdown>
       <div
         class="icon-dropdown"
-        (click)="toogleCompletion(!showCompletion, i0.value)"
+        (click)="toggleCompletion(!showCompletion, i0.value)"
       ></div>
     </ng-template>
   </div>

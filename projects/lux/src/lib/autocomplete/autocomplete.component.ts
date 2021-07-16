@@ -157,7 +157,7 @@ export class AutocompleteComponent
 
   clear(): void {
     this.value = null;
-    this.toogleCompletion(true, '');
+    this.toggleCompletion(true, '');
   }
 
   private completeLabel(): void {
@@ -266,7 +266,7 @@ export class AutocompleteComponent
   }
   onLostFocus(): void {
     setTimeout(() => {
-      this.toogleCompletion(false, null);
+      this.toggleCompletion(false, null);
     }, 200);
   }
   complete(item: DataSourceItem<Record<string, unknown>, string>): void {
@@ -281,7 +281,7 @@ export class AutocompleteComponent
     this.cd.markForCheck();
     this.markAsTouched();
   }
-  toogleCompletion(show: boolean, label: string): void {
+  toggleCompletion(show: boolean, label: string): void {
     if (show && !this.disabled) {
       this.showCompletionList(label);
     } else {
