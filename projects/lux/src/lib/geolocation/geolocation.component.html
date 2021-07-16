@@ -142,7 +142,7 @@
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
       (valueChange)="
-        map.markerPoint = { type: 'Point', coordinates: searchBar.value };
+        map.markerPoint = searchBar.value;
         map.center = map.markerPoint
       "
     ></lux-autocomplete>

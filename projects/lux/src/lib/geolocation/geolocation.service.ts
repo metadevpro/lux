@@ -8,6 +8,7 @@ import {
   map,
   switchMap
 } from 'rxjs/operators';
+import { GeoPoint } from '../map/geopoint';
 
 interface SearchResult {
   place_id: number;
@@ -69,14 +70,19 @@ export class GeolocationService {
 
   getLabels(
     instance: GeolocationService,
-    keys: number[][]
-  ): Observable<DataSource<number[], string>> {
+    keys: GeoPoint[]
+  ): Observable<DataSource<GeoPoint, string>> {
+    console.log('get labels for:');
+    console.log(keys);
     const searchResults = instance.lastQueriesWithResults
       .get(instance.getLatestQuery())
       .filter((searchResult) => samePosition(searchResult, keys));
     return of(
       searchResults.map((searchResult) => {
-        const key = [searchResult.lon, searchResult.lat];
+        const key: GeoPoint = {
+          type: 'Point',
+          coordinates: [searchResult.lon, searchResult.lat]
+        };
         return {
           key,
           label: searchResult.display_name
@@ -88,11 +94,14 @@ export class GeolocationService {
   getData(
     instance: GeolocationService,
     search: string
-  ): Observable<DataSource<number[], string>> {
+  ): Observable<DataSource<GeoPoint, string>> {
     return instance.searchGeolocation(search).pipe(
       map((searchResults) =>
         searchResults.map((searchResult) => {
-          const key = [searchResult.lon, searchResult.lat];
+          const key: GeoPoint = {
+            type: 'Point',
+            coordinates: [searchResult.lon, searchResult.lat]
+          };
           const label = searchResult.display_name;
           return { key, label };
         })
@@ -131,12 +140,24 @@ export class GeolocationService {
 
 const samePosition = (
   searchResult: SearchResult,
-  keys: number[][]
+  keys: GeoPoint[] | GeoPoint
 ): boolean => {
-  const found = keys.find(
-    (item) => searchResult.lon === item[0] && searchResult.lat === item[1]
-  );
-  return !!found;
+  if ((keys as GeoPoint).coordinates) {
+    return (
+      searchResult.lon === (keys as GeoPoint).coordinates[0] &&
+      searchResult.lat === (keys as GeoPoint).coordinates[1]
+    );
+  }
+  let found = false;
+  (keys as GeoPoint[]).forEach((item) => {
+    if (
+      searchResult.lon === item.coordinates[0] &&
+      searchResult.lat === item.coordinates[1]
+    ) {
+      found = true;
+    }
+  });
+  return found;
 };
 
 const distinct = (data: SearchResult[]): SearchResult[] => {

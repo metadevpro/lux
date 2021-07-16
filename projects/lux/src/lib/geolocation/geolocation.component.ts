@@ -378,15 +378,15 @@ export class GeolocationComponent implements OnInit {
 
   getLabels(
     instance: GeolocationComponent,
-    keys: number[][]
-  ): Observable<DataSource<number[], string>> {
+    keys: GeoPoint[]
+  ): Observable<DataSource<GeoPoint, string>> {
     return instance.locationService.getLabels(instance.locationService, keys);
   }
 
   getData(
     instance: GeolocationComponent,
     search: string
-  ): Observable<DataSource<number[], string>> {
+  ): Observable<DataSource<GeoPoint, string>> {
     return instance.locationService.getData(instance.locationService, search);
   }
 
