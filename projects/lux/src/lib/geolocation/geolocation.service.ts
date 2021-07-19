@@ -138,16 +138,10 @@ export class GeolocationService {
 
 const samePosition = (
   searchResult: SearchResult,
-  keys: GeoPoint[] | GeoPoint
+  keys: GeoPoint[]
 ): boolean => {
-  if ((keys as GeoPoint).coordinates) {
-    return (
-      searchResult.lon === (keys as GeoPoint).coordinates[0] &&
-      searchResult.lat === (keys as GeoPoint).coordinates[1]
-    );
-  }
   let found = false;
-  (keys as GeoPoint[]).forEach((item) => {
+  keys.forEach((item) => {
     if (
       searchResult.lon === item.coordinates[0] &&
       searchResult.lat === item.coordinates[1]
