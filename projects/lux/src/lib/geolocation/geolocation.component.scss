@@ -61,12 +61,12 @@
 
 .btn-select {
   @extend .btn;
-  background-color: mediumspringgreen;
+  background-color: rgb(180, 184, 240);
 }
 
 .btn-cancel {
   @extend .btn;
-  background-color: pink;
+  background-color: rgb(255, 206, 215);
 }
 
 .lux-modal-body {
