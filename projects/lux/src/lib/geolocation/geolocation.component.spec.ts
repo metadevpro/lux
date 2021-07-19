@@ -1,3 +1,4 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 import { GeolocationComponent } from './geolocation.component';
@@ -7,7 +8,8 @@ describe('GeolocationComponent', () => {
   let spectator: SpectatorRouting<GeolocationComponent>;
   const createComponent = createRoutingFactory({
     component: GeolocationComponent,
-    imports: [FormsModule],
+    imports: [FormsModule, HttpClientModule],
+    providers: [HttpClient],
     params: {},
     data: {}
   });
