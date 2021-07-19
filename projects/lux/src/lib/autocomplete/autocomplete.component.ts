@@ -197,7 +197,7 @@ export class AutocompleteComponent
     switch (event.key) {
       case 'Tab':
         if (label) {
-          this.pickFirstMatch(label);
+          this.pickSelectionOrFirstMatch(label);
         }
         this.showCompletion = false;
         break;
@@ -208,7 +208,7 @@ export class AutocompleteComponent
     switch (event.key) {
       case 'Intro':
       case 'Enter':
-        this.pickFirstMatch(label);
+        this.pickSelectionOrFirstMatch(label);
         event.preventDefault();
         break;
     }
@@ -234,6 +234,10 @@ export class AutocompleteComponent
         break;
       case 'Escape':
         this.complete(null);
+        event.preventDefault();
+        break;
+      case 'Intro':
+      case 'Enter':
         event.preventDefault();
         break;
       default:
@@ -277,8 +281,7 @@ export class AutocompleteComponent
       this.value = null;
       this.label = '';
     }
-    this.showCompletion = false;
-    this.cd.markForCheck();
+    this.toggleCompletion(false, null);
     this.markAsTouched();
   }
   toggleCompletion(show: boolean, label: string): void {
@@ -306,12 +309,12 @@ export class AutocompleteComponent
       target.scrollIntoView({ block: 'center' });
     }
   }
-  private pickFirstMatch(text: string): void {
-    const source = (
-      (this.focusItem && this.focusItem.label) ||
-      text ||
-      ''
-    ).trim();
+  private pickSelectionOrFirstMatch(text: string): void {
+    if (this.focusItem && this.focusItem.label) {
+      this.complete(this.focusItem);
+      return;
+    }
+    const source = (text || '').trim();
     if (source === '') {
       this.showCompletion = false;
       return;
