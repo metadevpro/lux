@@ -165,7 +165,7 @@ export class AutocompleteComponent
       if (this.dataSource) {
         this.label = findLabelForId(this.dataSource, this.value) || '';
       } else if (this.instance && this.resolveLabelsFunction) {
-        this.resolveLabelsFunction(this.instance, this.value)
+        this.resolveLabelsFunction(this.instance, [this.value])
           .pipe(first())
           .subscribe((data) => {
             this.label = findLabelForId(data, this.value) || '';
