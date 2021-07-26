@@ -6,6 +6,8 @@ import {
   OnInit,
   AfterViewInit
 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { OpenLayerLoaderService } from '../geolocation/openlayer-loader.service';
 
 import { GeoPoint } from './geopoint';
 
@@ -19,6 +21,8 @@ declare const ol: any;
 })
 export class MapComponent implements OnInit, AfterViewInit {
   static idCounter = 0;
+
+  private loaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   private _map: any;
 
@@ -130,20 +134,36 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
   @Output() valueChange = new EventEmitter<GeoPoint>();
 
-  private _markerSource = new ol.source.Vector();
-  private static _markerStyle = new ol.style.Style({
-    image: new ol.style.Icon({
-      anchor: [0.5, 1],
-      scale: 0.25,
-      src: '/assets/img/marker.png'
-    })
-  });
+  private _markerSource: any;
+  private _markerStyle: any;
+
+  constructor(olLoader: OpenLayerLoaderService) {
+    olLoader.load().subscribe((_) => {
+      // Initialize
+      this._markerSource = new ol.source.Vector();
+      this._markerStyle = new ol.style.Style({
+        image: new ol.style.Icon({
+          anchor: [0.5, 1],
+          scale: 0.25,
+          src: '/assets/img/marker.png'
+        })
+      });
+      this.loaded$.next(true);
+    });
+  }
 
   ngOnInit(): void {
     this.mapId = this.mapId ? this.mapId : 'map' + MapComponent.idCounter++;
   }
 
   ngAfterViewInit(): void {
+    this.loaded$.subscribe((loaded) => {
+      if (loaded) {
+        this.initMap();
+      }
+    });
+  }
+  private initMap(): void {
     this._map = new ol.Map({
       target: this.mapId,
       controls: ol.control.defaults({ attribution: false }),
@@ -153,7 +173,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         }),
         new ol.layer.Vector({
           source: this._markerSource,
-          style: MapComponent._markerStyle
+          style: this._markerStyle
         })
       ],
       view: new ol.View({
@@ -238,7 +258,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       if (!this.readonly) {
         const dragInteraction = new ol.interaction.Modify({
           features: new ol.Collection([this._marker]),
-          style: MapComponent._markerStyle,
+          style: this._markerStyle,
           pixelTolerance: 50,
           hitDetection: true
         });

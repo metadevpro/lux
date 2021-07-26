@@ -15,12 +15,7 @@ import {
   ValidationErrors,
   NG_VALIDATORS
 } from '@angular/forms';
-import {
-  DataSource,
-  DataSourceItem,
-  DecoratedDataSource,
-  DecoratedDataSourceItem
-} from '../datasource';
+import { DataSource } from '../datasource';
 import {
   isInitialAndEmpty,
   isValidNumber,
@@ -362,9 +357,7 @@ export class GeolocationComponent implements OnInit {
           this.roundToStepAndUpdateLatitudeAndLongitude(result);
         }
       },
-      (reason) => {
-        //
-      }
+      (_) => {}
     );
   }
 
