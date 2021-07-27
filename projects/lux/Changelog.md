@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.8.0
+
+2021.07.27
+
+- Added new `Map` and `Geolocation` components based in OpenLayers.
+
 ## Version 0.7.10
 
 2021.07.05

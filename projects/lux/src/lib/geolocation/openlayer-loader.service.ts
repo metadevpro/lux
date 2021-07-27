@@ -10,8 +10,8 @@ export class OpenLayerLoaderService {
       return of(true);
     }
 
-    const openLayerJsUrl = 'https://openlayers.org/en/v4.6.5/build/ol.js';
-    const openLayerCssUrl = 'https://openlayers.org/en/v4.6.5/css/ol.css';
+    const openLayerJsUrl = 'https://openlayers.org/en/v5.3.0/build/ol.js';
+    const openLayerCssUrl = 'https://openlayers.org/en/v5.3.0/css/ol.css';
 
     if (!openLayersIsInstalled) {
       openLayersIsInstalled = true; // only try to install it once
