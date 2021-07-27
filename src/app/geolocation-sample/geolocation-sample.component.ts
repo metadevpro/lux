@@ -1,5 +1,5 @@
 import { Component, AfterContentInit } from '@angular/core';
-import { Geopoint } from 'lux/lib/geolocation/geopoint';
+import { GeoPoint } from 'lux/lib/map/geopoint';
 
 import { PrismService } from '../core/services/prism-service.service';
 @Component({
@@ -11,23 +11,23 @@ export class GeolocationSampleComponent implements AfterContentInit {
   name = 'Lux';
   disabled = true;
   readonly = true;
-  valueGeolocation1: Geopoint = {
+  valueGeolocation1: GeoPoint = {
     type: 'Point',
     coordinates: [-5.97, 37.99]
   };
-  valueGeolocation2: Geopoint = {
+  valueGeolocation2: GeoPoint = {
     type: 'Point',
     coordinates: [-5.97, 37.99]
   };
-  valueGeolocation3: Geopoint = {
+  valueGeolocation3: GeoPoint = {
     type: 'Point',
     coordinates: [-5.97, 37.99]
   };
-  valueGeolocation4: Geopoint = {
+  valueGeolocation4: GeoPoint = {
     type: 'Point',
     coordinates: [-5.97, 37.99]
   };
-  valueGeolocation5: Geopoint = {
+  valueGeolocation5: GeoPoint = {
     type: 'Point',
     coordinates: [-5.97, 37.99]
   };

@@ -3,7 +3,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  width: 20rem;
+  width: 30rem;
 }
 
 .alert {
@@ -28,32 +28,57 @@
   text-align: center;
   white-space: nowrap;
   background-color: #e9ecef;
+}
+
+.rounded {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
 
 .prefix {
-  @extend .symbol;
+  @extend .rounded;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.infix {
+  @extend .rounded;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .postfix {
-  @extend .symbol;
+  @extend .rounded;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.readonly {
-  border: none;
-
-  &:focus {
-    border: none;
-    outline: none;
-  }
+.btn {
+  margin: 0.2em;
 }
 
-.map {
-  height: 45rem;
-  width: 70rem;
+.btn-select {
+  @extend .btn;
+  background-color: rgb(180, 184, 240);
+}
+
+.btn-cancel {
+  @extend .btn;
+  background-color: rgb(255, 206, 215);
+}
+
+.lux-modal-body {
+  padding: 0px;
+}
+.map-container {
+  width: 90vw;
+  height: 45vh;
+}
+
+.readonly {
+  &:focus {
+    outline: none;
+  }
 }

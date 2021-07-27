@@ -157,7 +157,7 @@ export class AutocompleteComponent
 
   clear(): void {
     this.value = null;
-    this.toogleCompletion(true, '');
+    this.toggleCompletion(true, '');
   }
 
   private completeLabel(): void {
@@ -165,7 +165,7 @@ export class AutocompleteComponent
       if (this.dataSource) {
         this.label = findLabelForId(this.dataSource, this.value) || '';
       } else if (this.instance && this.resolveLabelsFunction) {
-        this.resolveLabelsFunction(this.instance, this.value)
+        this.resolveLabelsFunction(this.instance, [this.value])
           .pipe(first())
           .subscribe((data) => {
             this.label = findLabelForId(data, this.value) || '';
@@ -197,7 +197,7 @@ export class AutocompleteComponent
     switch (event.key) {
       case 'Tab':
         if (label) {
-          this.pickFirstMatch(label);
+          this.pickSelectionOrFirstMatch(label);
         }
         this.showCompletion = false;
         break;
@@ -208,7 +208,7 @@ export class AutocompleteComponent
     switch (event.key) {
       case 'Intro':
       case 'Enter':
-        this.pickFirstMatch(label);
+        this.pickSelectionOrFirstMatch(label);
         event.preventDefault();
         break;
     }
@@ -234,6 +234,10 @@ export class AutocompleteComponent
         break;
       case 'Escape':
         this.complete(null);
+        event.preventDefault();
+        break;
+      case 'Intro':
+      case 'Enter':
         event.preventDefault();
         break;
       default:
@@ -266,7 +270,7 @@ export class AutocompleteComponent
   }
   onLostFocus(): void {
     setTimeout(() => {
-      this.toogleCompletion(false, null);
+      this.toggleCompletion(false, null);
     }, 200);
   }
   complete(item: DataSourceItem<Record<string, unknown>, string>): void {
@@ -277,11 +281,10 @@ export class AutocompleteComponent
       this.value = null;
       this.label = '';
     }
-    this.showCompletion = false;
-    this.cd.markForCheck();
+    this.toggleCompletion(false, null);
     this.markAsTouched();
   }
-  toogleCompletion(show: boolean, label: string): void {
+  toggleCompletion(show: boolean, label: string): void {
     if (show && !this.disabled) {
       this.showCompletionList(label);
     } else {
@@ -306,12 +309,12 @@ export class AutocompleteComponent
       target.scrollIntoView({ block: 'center' });
     }
   }
-  private pickFirstMatch(text: string): void {
-    const source = (
-      (this.focusItem && this.focusItem.label) ||
-      text ||
-      ''
-    ).trim();
+  private pickSelectionOrFirstMatch(text: string): void {
+    if (this.focusItem && this.focusItem.label) {
+      this.complete(this.focusItem);
+      return;
+    }
+    const source = (text || '').trim();
     if (source === '') {
       this.showCompletion = false;
       return;
