@@ -174,6 +174,44 @@
   </div>
 </div>
 
+<h3>Adding new items</h3>
+If the property <code>canAddNewValues</code> is set, the data-completion is just
+a suggestion. The user can always add a new value. <strong>Note:</strong> For
+this use case to work, the component has to be configured to use the same value
+for <b>key</b>and <b>label</b>.
+<pre class="language-typescript" rel="typescript">
+  <code class="typescript">
+import &#123; DataSource &#125; from '@lux';
+
+countryCodes: DataSource&lt;string, string&gt; = [
+  &#123; key: 'ES', label: 'ES' &#125;,
+  &#123; key: 'IT', label: 'IT' &#125;,
+  // ...
+  &#123; key: 'FR', label: 'FR' &#125;
+];
+myPlaces = [ 'ES', 'IT', 'CR' ];
+  </code>
+</pre>
+
+<pre class="language-html" rel="html">
+  <code class="language-html">
+&lt;lux-autocomplete name="countries" [(ngModel)]="myPlaces" [dataSource]="countryCodes" [canAddNewValues]="true"&gt;
+&lt;/lux-autocomplete&gt;
+  </code>
+</pre>
+<div class="content">
+  <label for="countryCodesInput">Country Codes with suggestions:</label>
+  <lux-autocomplete
+    inputId="countryCodesInput"
+    name="countryCodesInput"
+    [canAddNewValues]="true"
+    [(ngModel)]="countryCode"
+    [dataSource]="countryCodes"
+  >
+  </lux-autocomplete>
+  <span>Binded value: {{ countryCode }}</span>
+</div>
+
 <h2>Documentation</h2>
 <p>
   The AutocompleteList component implements <code>ControlValueAccessor</code>,
@@ -202,6 +240,10 @@
   <li>
     <span class="inline">populateFunction</span> Function to retrieve data based
     on a substring query. Returns an observable of a DataSource.
+  </li>
+  <li>
+    <span class="inline">canAddNewValues</span> Allows the user to enter new
+    values (datasource is a suggestion only).
   </li>
 </ul>
 <h3>Events</h3>

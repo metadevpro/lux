@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.9.0
+
+2021.08.09
+
+- Added new `Autocomplete.canAddNewValue`. When activated canAddNewValue this flag allows to pick any value. (The datasource is a set of suggestions but not enforced). [#117](https://github.com/metadevpro/lux/issues/117).
+
 ## Version 0.8.0
 
 2021.07.27

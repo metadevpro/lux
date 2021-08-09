@@ -16,6 +16,7 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
   value5 = 'ES';
   disabled1 = false;
   disabled2 = false;
+  countryCode = 'JP';
 
   countries: DataSource<string, string> = [
     { key: 'ES', label: 'Spain' },
@@ -42,6 +43,8 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
       label: 'Very long Fake Country where its title does not fit on editor'
     }
   ];
+
+  countryCodes = this.countries.map((it) => ({ key: it.key, label: it.key }));
 
   constructor(private prismService: PrismService) {}
 

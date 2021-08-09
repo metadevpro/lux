@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
+// Do not remove this import: needed in the template
 import { ResizedEvent } from 'angular-resize-event';
 import {
   AbstractControl,
@@ -70,6 +71,8 @@ export class AutocompleteComponent
   @Input() public disabled: boolean | null = null;
   @Input() public readonly: boolean | null = null;
   @Input() label = '';
+  /** If canAddNewValues, user can type items not present in the data-source. */
+  @Input() canAddNewValues = false;
 
   @Input()
   get value(): any {
@@ -310,6 +313,11 @@ export class AutocompleteComponent
     }
   }
   private pickSelectionOrFirstMatch(text: string): void {
+    if (this.canAddNewValues) {
+      this.value = text;
+      this.label = text;
+      return;
+    }
     if (this.focusItem && this.focusItem.label) {
       this.complete(this.focusItem);
       return;
