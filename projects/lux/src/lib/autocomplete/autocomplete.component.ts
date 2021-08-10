@@ -292,6 +292,10 @@ export class AutocompleteComponent
       this.showCompletionList(label);
     } else {
       this.showCompletion = false;
+      if (this.canAddNewValues) {
+        this.syncCustomValue(this.label);
+        return;
+      }
     }
     this.cd.markForCheck();
   }
@@ -312,10 +316,13 @@ export class AutocompleteComponent
       target.scrollIntoView({ block: 'center' });
     }
   }
+  private syncCustomValue(text: string): void {
+    this.value = text;
+    this.label = text;
+  }
   private pickSelectionOrFirstMatch(text: string): void {
     if (this.canAddNewValues) {
-      this.value = text;
-      this.label = text;
+      this.syncCustomValue(text);
       return;
     }
     if (this.focusItem && this.focusItem.label) {
