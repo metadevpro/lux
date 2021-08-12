@@ -55,6 +55,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   private _value: any = '';
   private _type: string;
   private _placeholder: string;
+  private _pattern?: string = undefined;
+  private _regexp?: RegExp = undefined;
   private _currency: string;
   private _required: boolean;
 
@@ -102,6 +104,24 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
   get disabled(): string | boolean {
     return this._disabled;
+  }
+
+  @Input()
+  set pattern(p: string | undefined) {
+    this._pattern = p;
+    if (p === undefined) {
+      this._regexp = undefined;
+    } else {
+      try {
+        this._regexp = new RegExp(p);
+      } catch (e) {
+        this._pattern = undefined;
+        this._regexp = undefined;
+      }
+    }
+  }
+  get pattern(): string | undefined {
+    return this._pattern;
   }
 
   @Input()
@@ -220,6 +240,13 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     if (this.required && !hasValue(hasValue)) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
+    }
+    if (hasValue(value) && !this._regexp.test(value)) {
+      result = result || {};
+      result.pattern = {
+        value,
+        reason: `Value must follow the pattern: ${this._pattern}`
+      };
     }
     if (this.type === 'email' && hasValue(value) && !isValidEmail(value)) {
       result = result || {};
