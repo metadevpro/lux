@@ -44,14 +44,10 @@ label {
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
-// input:checked + .slider,
-// input.slider
+.slider.on:before {
+  transform: translateX(26px);
+}
 
 input:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
-}
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
 }
