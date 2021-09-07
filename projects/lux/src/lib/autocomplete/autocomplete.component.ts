@@ -11,7 +11,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { debounceTime, first, map } from 'rxjs/operators';
 // Do not remove this import: needed in the template
 import { ResizedEvent } from 'angular-resize-event';
 import {
@@ -59,6 +59,7 @@ export class AutocompleteComponent
   private _placeholder: string;
   private _value: any;
 
+  showSpinner = false;
   touched = false;
   completionList: DecoratedDataSource = [];
   showCompletion = false;
@@ -174,7 +175,7 @@ export class AutocompleteComponent
         this.label = findLabelForId(this.dataSource, this.value) || '';
       } else if (this.instance && this.resolveLabelsFunction) {
         this.resolveLabelsFunction(this.instance, [this.value])
-          .pipe(first())
+          .pipe(debounceTime(1), first())
           .subscribe((data) => {
             this.label = findLabelForId(data, this.value) || '';
           });
@@ -348,12 +349,34 @@ export class AutocompleteComponent
   }
   private showCompletionList(text: string): void {
     this.setSameWidth();
-    this.computeCompletionList(text).subscribe((cl) => {
-      this.completionList = cl;
-      this.focusItem =
-        this.completionList.length > 0 ? this.completionList[0] : null;
-      this.showCompletion = true;
-    });
+    const useSpinner = this.hasExternalDataSource();
+    this.spinnerVisibility(useSpinner, true);
+    setTimeout(() => {
+      // for spinner to be shown
+      this.computeCompletionList(text).subscribe({
+        next: (cl) => {
+          this.completionList = cl;
+          this.focusItem =
+            this.completionList.length > 0 ? this.completionList[0] : null;
+          this.showCompletion = true;
+          this.spinnerVisibility(useSpinner, false);
+        },
+        error: () => {
+          this.spinnerVisibility(useSpinner, false);
+        },
+        complete: () => {
+          this.spinnerVisibility(useSpinner, false);
+        }
+      });
+    }, 1);
+  }
+  private spinnerVisibility(useSpinner: boolean, value: boolean): void {
+    if (useSpinner) {
+      this.showSpinner = value;
+    }
+  }
+  private hasExternalDataSource(): boolean {
+    return !this.dataSource && !!this.instance && !!this.populateFunction;
   }
   private computeCompletionList(text: string): Observable<DecoratedDataSource> {
     const searchText = (text || '').toLowerCase();
@@ -364,6 +387,7 @@ export class AutocompleteComponent
       return of(decorateDataSource(ds, searchText));
     } else if (this.instance && this.populateFunction) {
       return this.populateFunction(this.instance, searchText).pipe(
+        debounceTime(1),
         first(),
         map((ds) => {
           ds.filter((it) => ignoreAccentsInclude(it.label, searchText)).sort(

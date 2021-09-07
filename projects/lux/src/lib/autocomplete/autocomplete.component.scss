@@ -43,6 +43,16 @@
     background-size: 0.5rem 0.5rem;
     z-index: 1;
   }
+  .icon-spinner {
+    grid-row: 1;
+    grid-column: 2;
+    width: 1.5rem;
+    border: none;
+    background-color: transparent;
+    background: url(/assets/img/spinner.svg) no-repeat center;
+    background-size: 1.2rem 1.2rem;
+    z-index: 1;
+  }
 }
 .lux-completion-list {
   visibility: collapse;
