@@ -73,6 +73,11 @@ export class AutocompleteComponent
   @Input() label = '';
   /** If canAddNewValues, user can type items not present in the data-source. */
   @Input() canAddNewValues = false;
+  /** After cleaning the selection should the completion list remain open or closed:
+   *  false: (default) close on filters, to clean a filter and select all.
+   *  true: keep open (when the action most likely is to pick another one).
+   */
+  @Input() keepOpenAfterDelete = false;
 
   @Input()
   get value(): any {
@@ -160,7 +165,7 @@ export class AutocompleteComponent
 
   clear(): void {
     this.value = null;
-    this.toggleCompletion(true, '');
+    this.toggleCompletion(this.keepOpenAfterDelete, '');
   }
 
   private completeLabel(): void {
