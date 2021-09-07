@@ -22,6 +22,7 @@
       attr.aria-owns="{{ inputId + '_list' }}"
       [attr.aria-activedescendant]="selectedOption"
     />
+    <div *ngIf="canAddNewValues" class="icon-suggestions"></div>
     <button
       *ngIf="!disabled && i0.value; else dropdown"
       class="icon-clear"
