@@ -1,7 +1,7 @@
 # Lux Demo
 
 [![npm version](https://badge.fury.io/js/%40metadev%2Flux.svg)](https://badge.fury.io/js/%40metadev%2Flux)
-[![Build Status](https://travis-ci.org/metadevpro/lux.svg?branch=devel)](https://travis-ci.org/metadevpro/lux)
+[![Build Status](https://travis-ci.com/metadevpro/lux.svg?branch=devel)](https://travis-ci.com/metadevpro/lux)
 [![Dependencies Status](https://david-dm.org/metadevpro/lux/status.svg)](https://david-dm.org/metadevpro/lux)
 [![codecov](https://codecov.io/gh/metadevpro/lux/branch/devel/graph/badge.svg)](https://codecov.io/gh/metadevpro/lux)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
