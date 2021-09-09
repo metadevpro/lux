@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.10.1
+
+2021.09.09
+
+- Fix pattern. undefined check [#133](https://github.com/metadevpro/lux/issues/133).
+
 ## Version 0.10.0
 
 2021.09.09
