@@ -241,7 +241,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (hasValue(value) && !this._regexp.test(value)) {
+    if (this._regexp && hasValue(value) && !this._regexp.test(value)) {
       result = result || {};
       result.pattern = {
         value,
