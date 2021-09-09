@@ -1,5 +1,15 @@
 # Lux Changelog
 
+## Version 0.10.0
+
+2021.09.09
+
+- Added autocomplete.keepOpenAfterDelete [#124](https://github.com/metadevpro/lux/issues/124).
+- Added to autocomplete suggestions indicator [#127](https://github.com/metadevpro/lux/issues/127).
+- Added spinner to autocomplete [#128](https://github.com/metadevpro/lux/issues/128).
+- Added input pattern [#119](https://github.com/metadevpro/lux/issues/119).
+- Fix checkbox [#125](https://github.com/metadevpro/lux/issues/125).
+
 ## Version 0.9.0
 
 2021.08.09

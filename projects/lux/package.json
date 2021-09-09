@@ -1,7 +1,7 @@
 {
   "name": "@metadev/lux",
   "description": "Lux: Library with User Interface components for Angular.",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "author": {
     "name": "Metadev S.L.",
     "url": "https://metadev.pro"
