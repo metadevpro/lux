@@ -1,7 +1,8 @@
 import { Component, AfterContentInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { DataSourceItem } from 'lux/public-api';
 import { DataSource } from 'projects/lux/src/lib/datasource';
-import { Observable, of } from 'rxjs';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
@@ -64,6 +65,8 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
       instance.countries.filter((c: DataSourceItem<string, string>) =>
         keys.includes(c.key)
       )
+    ).pipe(
+      debounceTime(3000) // simulate api call
     );
   }
   getData(instance: any, search: string): Observable<DataSource<any, string>> {
@@ -72,6 +75,8 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
       instance.countries.filter((c: DataSourceItem<string, string>) =>
         c.label.toLowerCase().includes(searchKey)
       )
+    ).pipe(
+      debounceTime(10000) // simulate api call
     );
   }
 }

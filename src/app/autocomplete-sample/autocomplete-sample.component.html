@@ -245,6 +245,20 @@ myPlaces = [ 'ES', 'IT', 'CR' ];
     <span class="inline">canAddNewValues</span> Allows the user to enter new
     values (datasource is a suggestion only).
   </li>
+  <li>
+    <span class="inline">keepOpenAfterDelete</span> After cleaning the
+    selection, should the completion list remain open or closed?
+    <ul>
+      <li>
+        <span class="inline">false</span> Default. Close on filters, to clean a
+        filter and select all
+      </li>
+      <li>
+        <span class="inline">true</span> Keep open (when the action most likely
+        is to pick another one)
+      </li>
+    </ul>
+  </li>
 </ul>
 <h3>Events</h3>
 <ul class="properties">
