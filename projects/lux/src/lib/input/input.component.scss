@@ -1,8 +1,8 @@
 @import '../styles/lux';
 
-$postfix-line-height: var(--lux-postfix-line-height, 1.5px);
-$postfix-font-size: var(--lux-postfix-font-size, 1rem);
-$postfix-height: var(--lux-postfix-height, inherit);
+$input-postfix-line-height: var(--lux-input-postfix-line-height, 1.5px);
+$input-postfix-font-size: var(--lux-input-postfix-font-size, 1rem);
+$input-postfix-height: var(--lux-input-postfix-height, inherit);
 
 :host {
   position: relative;
@@ -40,9 +40,9 @@ textarea {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 
-  line-height: $postfix-line-height;
-  font-size: $postfix-font-size;
-  height: $postfix-height;
+  line-height: $input-postfix-line-height;
+  font-size: $input-postfix-font-size;
+  height: $input-postfix-height;
 }
 
 .prefix {
