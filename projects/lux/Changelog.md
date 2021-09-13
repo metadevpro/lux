@@ -1,5 +1,10 @@
 # Lux Changelog
 
+## Version 0.11.0
+
+2021.09.13
+
+- Export customizaable settings as CSS variables
 ## Version 0.10.1
 
 2021.09.09
