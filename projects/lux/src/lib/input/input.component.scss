@@ -1,8 +1,20 @@
+@import '../styles/lux';
+
+$postfix-line-height: var(--lux-postfix-line-height, 1.5px);
+$postfix-font-size: var(--lux-postfix-font-size, 1rem);
+$postfix-height: var(--lux-postfix-height, inherit);
+
 :host {
   position: relative;
   display: flex;
   align-items: stretch;
   width: 20rem;
+}
+
+input,
+textarea {
+  margin: $input-margin;
+  padding: $input-padding;
 }
 
 .alert {
@@ -20,15 +32,17 @@
   align-items: center;
   padding: 0.375rem 0.75rem;
   margin-bottom: 0;
-  font-size: 1rem;
   font-weight: 400;
-  line-height: 1.5;
   color: #495057;
   text-align: center;
   white-space: nowrap;
   background-color: #e9ecef;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+
+  line-height: $postfix-line-height;
+  font-size: $postfix-font-size;
+  height: $postfix-height;
 }
 
 .prefix {

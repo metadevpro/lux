@@ -1,4 +1,4 @@
-@import '../styles';
+@import '../styles/lux';
 
 $icon-clear: var(
   --lux-autocomplete-icon-clear,
@@ -12,13 +12,18 @@ $icon-bg-size: var(--lux-autocomplete-icon-bg-size, 0.5rem 0.5rem);
 $icon-height: var(--lux-autocomplete-icon-height, 1.3rem);
 $icon-width: var(--lux-autocomplete-icon-width, 1.5rem);
 
+$autocomplete-input-padding: var(
+  --lux-autocomplete-input-padding,
+  0.1rem 1.5rem 0.1rem 0.5rem
+);
+
 .lux-autocomplete {
   .lux-autocomplete-box {
     display: grid;
     grid-template-columns: 1fr max-content;
   }
   input {
-    padding: 0.1rem 1.5rem 0.1rem 0.5rem;
+    padding: $autocomplete-input-padding;
     text-overflow: ellipsis;
     grid-row: 1;
     grid-column-start: 1;
