@@ -1,28 +1,40 @@
+@import '../styles/lux';
+
+$padding: var(--lux-radiogroup-padding, 0rem 0.5rem);
+$label-font-size: var(--lux-radiogroup-label-font-size, initial);
+$label-color: var(--lux-radiogroup-label-color, initial);
+$background-color-selected: var(
+  --lux-radiogroup-background-color-selected,
+  rgb(46, 46, 172)
+);
+
 .radiogroup {
   display: flex;
 }
 .radio-item {
   border-radius: 0px;
   border: 1px solid #ccc;
-  padding: 0rem .5rem;
+  padding: $padding;
   input {
     display: none;
   }
   label {
-    margin-top: .3rem;
-    margin-bottom: .3rem;
+    font-size: $label-font-size;
+    color: $label-color;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
   }
 }
 .radio-start {
-  border-top-left-radius: .5rem;
-  border-bottom-left-radius: .5rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 .radio-end {
-  border-top-right-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 .selected {
-  background-color: rgb(46, 46, 172);
+  background-color: $background-color-selected;
   color: white;
 }
 .disabled {
