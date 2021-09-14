@@ -1,5 +1,28 @@
+@import '../styles/lux';
+
 $lightgrey: grey;
 $blue: #325c81;
+
+$anchor-border: var(--lux-pagination-anchor-border, initial);
+$anchor-border-radius: var(--lux-pagination-anchor-border-radius, initial);
+$anchor-color: var(--lux-pagination-anchor-color, initial);
+$anchor-font-size: var(--lux-pagination-anchor-font-size, initial);
+$anchor-width: var(--lux-pagination-anchor-width, initial);
+$anchor-height: var(--lux-pagination-anchor-height, initial);
+$disabled-color: var(--lux-pagination-disabled-color, white);
+$disabled-background-color: var(
+  --lux-pagination-disabled-background-color,
+  $blue
+);
+
+a {
+  border: $anchor-border;
+  border-radius: $anchor-border-radius;
+  color: $anchor-color;
+  font-size: $anchor-font-size;
+  width: $anchor-width;
+  height: $anchor-height;
+}
 
 .lux-pagination {
   display: flex;
@@ -15,9 +38,9 @@ $blue: #325c81;
   border: 1px solid $blue;
   border-radius: 10%;
   padding: 1% 1%;
-  color: white;
+  color: $disabled-color;
   margin: 0 0.7%;
-  background-color: $blue;
+  background-color: $disabled-background-color;
   text-decoration: none;
   pointer-events: none;
 }
