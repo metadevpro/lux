@@ -1,7 +1,23 @@
+$add-icon: var(
+  --lux-autocomplete-list-add-icon,
+  url(/assets/img/create.png) no-repeat 0.2rem 0.2rem
+);
+$add-icon-bg-size: var(--lux-autocomplete-list-add-icon-size, 1.1rem);
+$add-icon-width: var(--lux-autocomplete-list-add-icon-width, 1.4rem);
+$add-icon-height: var(--lux-autocomplete-list-add-icon-height, 1.4rem);
+$remove-icon: var(
+  --lux-autocomplete-list-remove-icon,
+  url(/assets/img/delete.svg) no-repeat 0.2rem 0.1rem
+);
+$remove-icon-bg-size: var(--lux-autocomplete-list-remove-icon-size, 1rem 1rem);
+$remove-icon-width: var(--lux-autocomplete-list-remove-icon-width, 1.3rem);
+$remove-icon-height: var(--lux-autocomplete-list-remove-icon-height, 1.2rem);
+$remove-icon-top: var(--lux-autocomplete-list-remove-icon-top, 0.2rem);
+
 .new-entry {
   margin-left: 1.5rem;
   display: grid;
-  grid-template-columns: auto 1.5rem;
+  grid-template-columns: max-content max-content;
   lux-autocomplete {
     grid-column: 1;
     grid-row: 1;
@@ -10,19 +26,19 @@
     grid-column: 2;
     grid-row: 1;
     border: none;
-    background: url(/assets/img/create.png) no-repeat .2rem .2rem;
-    background-size: 1.1rem;
-    height: 1.4rem;
-    width: 1.4rem;
+    background: $add-icon;
+    background-size: $add-icon-bg-size;
+    height: $add-icon-height;
+    width: $add-icon-width;
   }
 }
 .remove-item {
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   border: none;
-  background: url(/assets/img/delete.svg) no-repeat .2rem .1rem;
-  height: 1.2rem;
-  width: 1.3rem;
+  background: $remove-icon;
+  height: $remove-icon-height;
+  width: $remove-icon-width;
   position: relative;
-  top: .2rem;
-  background-size: 1rem 1rem;
+  top: $remove-icon-top;
+  background-size: $remove-icon-bg-size;
 }

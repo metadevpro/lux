@@ -3,20 +3,17 @@
 $lightgrey: grey;
 $blue: #325c81;
 
+$font-size: var(--lux-pagination-font-size, 80%);
+$button-width: var(--lux-pagination-button-width, 1em);
+$button-height: var(--lux-pagination-button-height, 1.2em);
 $enabled-border: var(
   --lux-pagination-enabled-border,
   1px solid rgb(207, 207, 207)
 );
 $enabled-border-radius: var(--lux-pagination-enabled-border-radius, 10%);
-$enabled-font-size: var(--lux-pagination-enabled-font-size, initial);
-$enabled-width: var(--lux-pagination-enabled-width, initial);
-$enabled-height: var(--lux-pagination-enabled-height, initial);
-$enabled-color: var(--lux-pagination-enabled-color, initial);
+$enabled-color: var(--lux-pagination-enabled-color, $blue);
 $disabled-border: var(--lux-pagination-disabled-border, 1px solid $blue);
 $disabled-border-radius: var(--lux-pagination-disabled-border-radius, 10%);
-$disabled-font-size: var(--lux-pagination-disabled-font-size, initial);
-$disabled-width: var(--lux-pagination-disabled-width, initial);
-$disabled-height: var(--lux-pagination-disabled-height, initial);
 $disabled-color: var(--lux-pagination-disabled-color, white);
 $disabled-background-color: var(
   --lux-pagination-disabled-background-color,
@@ -38,9 +35,6 @@ $disabled-background-color: var(
   border-radius: $disabled-border-radius;
   padding: 1% 1%;
   margin: 0 0.7%;
-  width: $disabled-width;
-  height: $disabled-height;
-  font-size: $disabled-font-size;
   color: $disabled-color;
   background-color: $disabled-background-color;
   text-decoration: none;
@@ -52,9 +46,6 @@ $disabled-background-color: var(
   border-radius: $enabled-border-radius;
   padding: 1% 1%;
   margin: 0 0.7%;
-  width: $enabled-width;
-  height: $enabled-height;
-  font-size: $enabled-font-size;
   color: $enabled-color;
   width: min-content;
   cursor: pointer;
@@ -78,9 +69,9 @@ $disabled-background-color: var(
 }
 
 .button-pagination {
-  width: 1em;
-  height: 1.2em;
-  font-size: 80%;
+  width: $button-width;
+  height: $button-height;
+  font-size: $font-size;
   text-align: center;
 }
 

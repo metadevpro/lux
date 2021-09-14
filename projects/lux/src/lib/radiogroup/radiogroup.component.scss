@@ -1,7 +1,8 @@
 @import '../styles/lux';
 
 $padding: var(--lux-radiogroup-padding, 0rem 0.5rem);
-$selected-font-size: var(--lux-radiogroup-selected-font-size, initial);
+$font-color: var(--lux-radiogroup-color, initial);
+$font-size: var(--lux-radiogroup-font-size, initial);
 $selected-color: var(--lux-radiogroup-selected-color, white);
 $selected-background-color: var(
   --lux-radiogroup-selected-background-color,
@@ -28,8 +29,18 @@ $selected-disabled-background-color: var(
     display: none;
   }
   label {
+    color: $font-color;
+    font-size: $font-size;
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
+  }
+
+  &.selected {
+    background-color: $selected-background-color;
+    label {
+      font-size: $font-size;
+      color: $selected-color;
+    }
   }
 }
 .radio-start {
@@ -40,11 +51,7 @@ $selected-disabled-background-color: var(
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-.selected {
-  font-size: $selected-font-size;
-  color: $selected-color;
-  background-color: $selected-background-color;
-}
+
 .disabled {
   .radio-item {
     background-color: #f0f0f0;
