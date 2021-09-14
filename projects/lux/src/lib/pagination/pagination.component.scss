@@ -1,5 +1,24 @@
+@import '../styles/lux';
+
 $lightgrey: grey;
 $blue: #325c81;
+
+$font-size: var(--lux-pagination-font-size, 80%);
+$button-width: var(--lux-pagination-button-width, 1em);
+$button-height: var(--lux-pagination-button-height, 1.2em);
+$enabled-border: var(
+  --lux-pagination-enabled-border,
+  1px solid rgb(207, 207, 207)
+);
+$enabled-border-radius: var(--lux-pagination-enabled-border-radius, 10%);
+$enabled-color: var(--lux-pagination-enabled-color, $blue);
+$disabled-border: var(--lux-pagination-disabled-border, 1px solid $blue);
+$disabled-border-radius: var(--lux-pagination-disabled-border-radius, 10%);
+$disabled-color: var(--lux-pagination-disabled-color, white);
+$disabled-background-color: var(
+  --lux-pagination-disabled-background-color,
+  $blue
+);
 
 .lux-pagination {
   display: flex;
@@ -12,22 +31,22 @@ $blue: #325c81;
 
 .disabled {
   cursor: not-allowed;
-  border: 1px solid $blue;
-  border-radius: 10%;
+  border: $disabled-border;
+  border-radius: $disabled-border-radius;
   padding: 1% 1%;
-  color: white;
   margin: 0 0.7%;
-  background-color: $blue;
+  color: $disabled-color;
+  background-color: $disabled-background-color;
   text-decoration: none;
   pointer-events: none;
 }
 
 .enabled {
-  border: 1px solid rgb(207, 207, 207);
-  border-radius: 10%;
+  border: $enabled-border;
+  border-radius: $enabled-border-radius;
   padding: 1% 1%;
-  color: $blue;
   margin: 0 0.7%;
+  color: $enabled-color;
   width: min-content;
   cursor: pointer;
 }
@@ -50,9 +69,9 @@ $blue: #325c81;
 }
 
 .button-pagination {
-  width: 1em;
-  height: 1.2em;
-  font-size: 80%;
+  width: $button-width;
+  height: $button-height;
+  font-size: $font-size;
   text-align: center;
 }
 

@@ -1,7 +1,21 @@
+@import '../styles/lux';
+
+$icon-clear: var(
+  --lux-filter-icon-clear,
+  url(/assets/img/filter-clear.png) no-repeat center
+);
+$icon-search: var(
+  --lux-filter-icon-search,
+  url(/assets/img/filter-search.png) no-repeat center
+);
+$icon-bg-size: var(--lux-filter-icon-bg-size, 1rem);
+$icon-height: var(--lux-filter-icon-height, 1rem);
+$icon-width: var(--lux-filter-icon-width, 1rem);
+
 //  align-self: baseline;
 .filter {
   display: grid;
-  grid-template-columns: auto 1.5rem 1.5rem .5rem auto;
+  grid-template-columns: auto 1.5rem 1.5rem 0.5rem auto;
 
   input {
     grid-row: 1;
@@ -25,14 +39,14 @@
     grid-column: 5;
   }
   .icon-search {
-    background: url(/assets/img/filter-search.png) no-repeat;
-    background-size: 1rem;
+    background: $icon-search;
+    background-size: $icon-bg-size;
     background-position: center;
-    width: 1rem;
+    width: $icon-width;
   }
   .icon-clear {
-    background: url(/assets/img/filter-clear.png) no-repeat;
-    background-size: 1rem;
+    background: $icon-clear;
+    background-size: $icon-bg-size;
     background-position: center;
   }
 }

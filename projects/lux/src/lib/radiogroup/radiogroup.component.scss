@@ -1,38 +1,66 @@
+@import '../styles/lux';
+
+$padding: var(--lux-radiogroup-padding, 0rem 0.5rem);
+$font-color: var(--lux-radiogroup-color, initial);
+$font-size: var(--lux-radiogroup-font-size, initial);
+$selected-color: var(--lux-radiogroup-selected-color, white);
+$selected-background-color: var(
+  --lux-radiogroup-selected-background-color,
+  rgb(46, 46, 172)
+);
+$selected-disabled-font-size: var(
+  --lux-radiogroup-selected-disabled-font-size,
+  initial
+);
+$selected-disabled-color: var(--lux-radiogroup-selected-disabled-color, white);
+$selected-disabled-background-color: var(
+  --lux-radiogroup-selected-disabled-background-color,
+  rgb(152, 152, 236)
+);
+
 .radiogroup {
   display: flex;
 }
 .radio-item {
   border-radius: 0px;
   border: 1px solid #ccc;
-  padding: 0rem .5rem;
+  padding: $padding;
   input {
     display: none;
   }
   label {
-    margin-top: .3rem;
-    margin-bottom: .3rem;
+    color: $font-color;
+    font-size: $font-size;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+
+  &.selected {
+    background-color: $selected-background-color;
+    label {
+      font-size: $font-size;
+      color: $selected-color;
+    }
   }
 }
 .radio-start {
-  border-top-left-radius: .5rem;
-  border-bottom-left-radius: .5rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 .radio-end {
-  border-top-right-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
-.selected {
-  background-color: rgb(46, 46, 172);
-  color: white;
-}
+
 .disabled {
   .radio-item {
     background-color: #f0f0f0;
     color: #444;
   }
   .selected {
-    background-color: rgb(152, 152, 236);
-    color: white;
+    font-size: $selected-disabled-font-size;
+    color: $selected-disabled-color;
+    background-color: $selected-disabled-background-color;
   }
 }
 .unselectable {
