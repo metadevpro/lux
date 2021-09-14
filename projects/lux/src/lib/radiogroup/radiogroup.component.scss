@@ -1,11 +1,23 @@
 @import '../styles/lux';
 
 $padding: var(--lux-radiogroup-padding, 0rem 0.5rem);
-$label-font-size: var(--lux-radiogroup-label-font-size, initial);
-$label-color: var(--lux-radiogroup-label-color, initial);
-$background-color-selected: var(
-  --lux-radiogroup-background-color-selected,
+$selected-font-size: var(--lux-radiogroup-selected-font-size, initial);
+$selected-color: var(--lux-radiogroup-selected-color, initial);
+$selected-background-color: var(
+  --lux-radiogroup-selected-background-color,
   rgb(46, 46, 172)
+);
+$selected-disabled-font-size: var(
+  --lux-radiogroup-selected-disabled-font-size,
+  initial
+);
+$selected-disabled-color: var(
+  --lux-radiogroup-selected-disabled-color,
+  initial
+);
+$selected-disabled-background-color: var(
+  --lux-radiogroup-selected-disabled-background-color,
+  rgb(152, 152, 236)
 );
 
 .radiogroup {
@@ -19,8 +31,6 @@ $background-color-selected: var(
     display: none;
   }
   label {
-    font-size: $label-font-size;
-    color: $label-color;
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
   }
@@ -34,7 +44,9 @@ $background-color-selected: var(
   border-bottom-right-radius: 0.5rem;
 }
 .selected {
-  background-color: $background-color-selected;
+  font-size: $selected-font-size;
+  color: $selected-font-size;
+  background-color: $selected-background-color;
   color: white;
 }
 .disabled {
@@ -43,7 +55,9 @@ $background-color-selected: var(
     color: #444;
   }
   .selected {
-    background-color: rgb(152, 152, 236);
+    font-size: $selected-disabled-font-size;
+    color: $selected-disabled-font-size;
+    background-color: $selected-disabled-background-color;
     color: white;
   }
 }
