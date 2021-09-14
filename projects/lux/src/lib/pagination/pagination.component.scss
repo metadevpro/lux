@@ -3,26 +3,25 @@
 $lightgrey: grey;
 $blue: #325c81;
 
-$anchor-border: var(--lux-pagination-anchor-border, initial);
-$anchor-border-radius: var(--lux-pagination-anchor-border-radius, initial);
-$anchor-color: var(--lux-pagination-anchor-color, initial);
-$anchor-font-size: var(--lux-pagination-anchor-font-size, initial);
-$anchor-width: var(--lux-pagination-anchor-width, initial);
-$anchor-height: var(--lux-pagination-anchor-height, initial);
+$enabled-border: var(
+  --lux-pagination-enabled-border,
+  1px solid rgb(207, 207, 207)
+);
+$enabled-border-radius: var(--lux-pagination-enabled-border-radius, 10%);
+$enabled-font-size: var(--lux-pagination-enabled-font-size, initial);
+$enabled-width: var(--lux-pagination-enabled-width, initial);
+$enabled-height: var(--lux-pagination-enabled-height, initial);
+$enabled-color: var(--lux-pagination-enabled-color, initial);
+$disabled-border: var(--lux-pagination-disabled-border, 1px solid $blue);
+$disabled-border-radius: var(--lux-pagination-disabled-border-radius, 10%);
+$disabled-font-size: var(--lux-pagination-disabled-font-size, initial);
+$disabled-width: var(--lux-pagination-disabled-width, initial);
+$disabled-height: var(--lux-pagination-disabled-height, initial);
 $disabled-color: var(--lux-pagination-disabled-color, white);
 $disabled-background-color: var(
   --lux-pagination-disabled-background-color,
   $blue
 );
-
-a {
-  border: $anchor-border;
-  border-radius: $anchor-border-radius;
-  color: $anchor-color;
-  font-size: $anchor-font-size;
-  width: $anchor-width;
-  height: $anchor-height;
-}
 
 .lux-pagination {
   display: flex;
@@ -35,22 +34,28 @@ a {
 
 .disabled {
   cursor: not-allowed;
-  border: 1px solid $blue;
-  border-radius: 10%;
+  border: $disabled-border;
+  border-radius: $disabled-border-radius;
   padding: 1% 1%;
-  color: $disabled-color;
   margin: 0 0.7%;
+  width: $disabled-width;
+  height: $disabled-height;
+  font-size: $disabled-font-size;
+  color: $disabled-color;
   background-color: $disabled-background-color;
   text-decoration: none;
   pointer-events: none;
 }
 
 .enabled {
-  border: 1px solid rgb(207, 207, 207);
-  border-radius: 10%;
+  border: $enabled-border;
+  border-radius: $enabled-border-radius;
   padding: 1% 1%;
-  color: $blue;
   margin: 0 0.7%;
+  width: $enabled-width;
+  height: $enabled-height;
+  font-size: $enabled-font-size;
+  color: $enabled-color;
   width: min-content;
   cursor: pointer;
 }
