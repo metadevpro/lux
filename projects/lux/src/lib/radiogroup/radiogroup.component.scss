@@ -2,7 +2,7 @@
 
 $padding: var(--lux-radiogroup-padding, 0rem 0.5rem);
 $selected-font-size: var(--lux-radiogroup-selected-font-size, initial);
-$selected-color: var(--lux-radiogroup-selected-color, initial);
+$selected-color: var(--lux-radiogroup-selected-color, white);
 $selected-background-color: var(
   --lux-radiogroup-selected-background-color,
   rgb(46, 46, 172)
@@ -11,10 +11,7 @@ $selected-disabled-font-size: var(
   --lux-radiogroup-selected-disabled-font-size,
   initial
 );
-$selected-disabled-color: var(
-  --lux-radiogroup-selected-disabled-color,
-  initial
-);
+$selected-disabled-color: var(--lux-radiogroup-selected-disabled-color, white);
 $selected-disabled-background-color: var(
   --lux-radiogroup-selected-disabled-background-color,
   rgb(152, 152, 236)
@@ -45,9 +42,8 @@ $selected-disabled-background-color: var(
 }
 .selected {
   font-size: $selected-font-size;
-  color: $selected-font-size;
+  color: $selected-color;
   background-color: $selected-background-color;
-  color: white;
 }
 .disabled {
   .radio-item {
@@ -56,9 +52,8 @@ $selected-disabled-background-color: var(
   }
   .selected {
     font-size: $selected-disabled-font-size;
-    color: $selected-disabled-font-size;
+    color: $selected-disabled-color;
     background-color: $selected-disabled-background-color;
-    color: white;
   }
 }
 .unselectable {
