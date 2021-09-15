@@ -1,10 +1,17 @@
 # Lux Changelog
 
+## Version 0.12.0
+
+2021.09.15
+
+- Fix lux.input to mark as touched on blur [#138](https://github.com/metadevpro/lux/issues/138).
+
 ## Version 0.11.0
 
 2021.09.13
 
-- Export customizaable settings as CSS variables
+- Export customizable settings as CSS variables.
+
 ## Version 0.10.1
 
 2021.09.09
