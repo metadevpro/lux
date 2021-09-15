@@ -320,7 +320,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       ? this.inputId
       : `${this.type}$${InputComponent.idCounter++}`;
   }
-
+  onLostFocus(): void {
+    this.markAsTouched();
+  }
   onKeyUp(newValue: string): void {
     this.value = newValue;
   }

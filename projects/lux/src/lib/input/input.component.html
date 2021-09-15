@@ -20,6 +20,7 @@
   (keyup)="onKeyUp(input.value)"
   (change)="onChangeValue(input.value)"
   (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
 />
 <textarea
   #textarea
@@ -37,6 +38,7 @@
   (keyup)="onKeyUp(textarea.value)"
   (change)="onChangeValue(textarea.value)"
   (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
 ></textarea>
 <div *ngIf="currency && currency === 'EUR'" class="postfix">
   <span>€</span>
