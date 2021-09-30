@@ -24,6 +24,7 @@ import {
   normalizeDate
 } from '../helperFns';
 import { languageDetector } from '../lang';
+import { RegexpService } from './regexp.service';
 @Component({
   selector: 'lux-input',
   templateUrl: './input.component.html',
@@ -190,7 +191,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   onChange = (value): void => {};
   onTouched = (): void => {};
 
-  constructor() {}
+  constructor(public regexpService: RegexpService) {}
 
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {
