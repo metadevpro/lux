@@ -143,7 +143,7 @@ export class GeolocationComponent implements OnInit {
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    if (v.coordinates && v.coordinates.length === 2) {
+    if (v && v.coordinates && v.coordinates.length === 2) {
       this._value = v;
       this.latitudeValue = v.coordinates[1];
       this.longitudeValue = v.coordinates[0];
