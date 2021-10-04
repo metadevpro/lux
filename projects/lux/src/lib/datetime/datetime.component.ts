@@ -139,8 +139,6 @@ export class DatetimeComponent
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {
     this.value = value;
-    this.setDateInControl(this.dateValue);
-    this.setTimeInControl(this.timeValue);
   }
 
   registerOnChange(onChange: any): void {
