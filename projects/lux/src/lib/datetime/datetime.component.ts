@@ -115,13 +115,13 @@ export class DatetimeComponent
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (!isNaN(datetime.getTime())) {
-      this._value = datetimeString;
       this.dateValue = datetimeString.slice(0, 10); // YYYY-MM-DD
       if (this.includeSeconds) {
         this.timeValue = datetimeString.slice(11, 19); // hh:mm:ss
       } else {
         this.timeValue = datetimeString.slice(11, 16); // hh:mm
       }
+      this._value = this.dateValue + 'T' + this.timeValue;
       this.setDateInControl(this.dateValue);
       this.setTimeInControl(this.timeValue);
     }
