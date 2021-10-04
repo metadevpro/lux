@@ -15,12 +15,9 @@
   (change)="onEventDatetime(dateInput.value, timeInput.value)"
   (keypress)="onKeyPress($event)"
 />
-<div class="infix symbol">
-  <span>📅</span>
-</div>
 <input
   #timeInput
-  class="infix"
+  class="postfix"
   type="time"
   [id]="inputId + '$time'"
   [(ngModel)]="timeValue"
@@ -35,9 +32,6 @@
   (change)="onEventDatetime(dateInput.value, timeInput.value)"
   (keypress)="onKeyPress($event)"
 />
-<div class="postfix symbol">
-  <span>🕒</span>
-</div>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
