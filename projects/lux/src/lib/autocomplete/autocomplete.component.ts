@@ -10,10 +10,6 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { debounceTime, first, map } from 'rxjs/operators';
-// Do not remove this import: needed in the template
-import { ResizedEvent } from 'angular-resize-event';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -22,6 +18,8 @@ import {
   ValidationErrors,
   Validator
 } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { debounceTime, first, map } from 'rxjs/operators';
 import {
   DataSource,
   DataSourceItem,
@@ -277,9 +275,12 @@ export class AutocompleteComponent
     this.focusItem = next;
     this.ensureItemVisible(index);
   }
-  onLostFocus(): void {
+  onLostFocus(label: string): void {
+    if (label) {
+      this.pickSelectionOrFirstMatch(label);
+    }
     setTimeout(() => {
-      this.toggleCompletion(false, null);
+      this.toggleCompletion(false, label);
     }, 200);
   }
   complete(item: DataSourceItem<Record<string, unknown>, string>): void {

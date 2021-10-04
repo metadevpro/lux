@@ -144,3 +144,11 @@ kbd {
 .p50 {
   width: 50%;
 }
+
+.two-cols {
+  display: grid;
+  grid-template-columns: 20rem auto;
+  div {
+    padding-right: 1rem;
+  }
+}

@@ -10,7 +10,7 @@
       (keydown)="onKeydown($event, i0.value)"
       (keypress)="onKeypress($event, i0.value)"
       (keyup)="onKeyup($event, i0.value)"
-      (blur)="onLostFocus()"
+      (blur)="onLostFocus(i0.value)"
       (focus)="toggleCompletion(true, i0.value)"
       (click)="toggleCompletion(true, i0.value)"
       (resized)="onInputResized()"

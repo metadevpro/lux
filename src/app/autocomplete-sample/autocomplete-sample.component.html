@@ -57,21 +57,28 @@
 &lt;/lux-autocomplete&gt;
     </code>
   </pre>
-  <div class="content w-20">
-    <label for="country">Direct Datasource sample for Countries:</label>
-    <lux-autocomplete
-      inputId="country"
-      name="country"
-      [(ngModel)]="value"
-      [dataSource]="countries"
-      [disabled]="disabled1"
-    >
-    </lux-autocomplete>
-    <p>Current value is: {{ value }} - {{ getLabel(value) }}.</p>
-    <label>
-      <input type="checkbox" [(ngModel)]="disabled1" /> Disabled:
-      {{ disabled1 }}
-    </label>
+  <div class="two-cols">
+    <div>
+      <label for="country">Direct Datasource sample for Countries:</label>
+      <lux-autocomplete
+        #la1
+        inputId="country"
+        name="country"
+        [(ngModel)]="value"
+        [dataSource]="countries"
+        [disabled]="disabled1"
+      >
+      </lux-autocomplete>
+      <label>
+        <input type="checkbox" [(ngModel)]="disabled1" /> Disabled:
+        {{ disabled1 }}
+      </label>
+    </div>
+    <div>
+      <p>Current value is: {{ value }} - {{ getLabel(value) }}.</p>
+      <button (click)="save(la1.value)">Simulate OK</button>
+      <p>{{ savedValue }}</p>
+    </div>
   </div>
 
   <h3>API Wired Sample</h3>
