@@ -76,6 +76,8 @@ export class DatetimeComponent
   public min?: string = '1900-01-01T00:00:00';
   @Input()
   public max?: string = '2100-01-01T00:00:00';
+  @Input()
+  public includeSeconds: boolean = true;
 
   get className(): string {
     return this.checkClassName();
@@ -115,7 +117,11 @@ export class DatetimeComponent
     if (!isNaN(datetime.getTime())) {
       this._value = datetimeString;
       this.dateValue = datetimeString.slice(0, 10); // YYYY-MM-DD
-      this.timeValue = datetimeString.slice(11, 19); // hh:mm:ss
+      if (this.includeSeconds) {
+        this.timeValue = datetimeString.slice(11, 19); // hh:mm:ss
+      } else {
+        this.timeValue = datetimeString.slice(11, 16); // hh:mm
+      }
       this.setDateInControl(this.dateValue);
       this.setTimeInControl(this.timeValue);
     }

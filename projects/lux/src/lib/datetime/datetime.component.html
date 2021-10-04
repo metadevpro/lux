@@ -25,6 +25,7 @@
   [attr.disabled]="disabled === true ? 'true' : undefined"
   [attr.readonly]="readonly === true ? 'true' : undefined"
   [placeholder]=""
+  [step]="includeSeconds ? 1 : 60"
 
   [ngClass]="className"
   (focus)="markAsTouched()"
