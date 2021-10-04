@@ -9,6 +9,7 @@ import { AutoCompleteListSampleComponent } from './autocomplete-list-sample/auto
 import { AppComponent } from './app.component';
 import { BreadcrumbSampleComponent } from './breadcrumb-sample/breadcrumb-sample.component';
 import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
+import { DatetimeSampleComponent } from './datetime-sample/datetime-sample.component';
 import { InputSampleComponent } from './input-sample/input-sample.component';
 import { FilterSampleComponent } from './filter-sample/filter-sample.component';
 import { GeolocationSampleComponent } from './geolocation-sample/geolocation-sample.component';
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'autocomplete-list', component: AutoCompleteListSampleComponent },
   { path: 'breadcrumb', component: BreadcrumbSampleComponent },
   { path: 'checkbox', component: CheckboxSampleComponent },
+  { path: 'datetime', component: DatetimeSampleComponent },
   { path: 'index', component: MainComponent },
   { path: 'filter', component: FilterSampleComponent },
   { path: 'geolocation', component: GeolocationSampleComponent },
@@ -51,6 +53,7 @@ const appRoutes: Routes = [
     MainComponent,
     AppComponent,
     CheckboxSampleComponent,
+    DatetimeSampleComponent,
     FilterSampleComponent,
     GeolocationSampleComponent,
     MapSampleComponent,

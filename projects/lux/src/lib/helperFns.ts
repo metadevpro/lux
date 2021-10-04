@@ -25,6 +25,20 @@ export const normalizeDate = (value: any): string => {
   return value ? value.toString() : null;
 };
 
+export const removeTimezoneOffset = (date: Date): Date =>
+  new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+
+export const dateToString = (date: Date): string => {
+  if (isNaN(date.getTime())) {
+    // invalid date
+    return '';
+  } else {
+    return removeTimezoneOffset(date)
+      .toISOString() // YYYY-MM-DDThh:mm:ss...
+      .slice(0, 19); // YYYY-MM-DDThh:mm:ss
+  }
+};
+
 // number functions
 
 export const isValidNumber = (
