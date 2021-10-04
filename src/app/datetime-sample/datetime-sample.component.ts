@@ -14,7 +14,8 @@ export class DatetimeSampleComponent implements AfterContentInit {
   value2: string = '2001-01-01T01:01:01';
   value3: string = '2001-01-01T01:01:01';
   value4: string = '2001-01-01T01:01:01';
-  value5: string = '2001-01-01T01:01:01';
+  value5: string = '2001-01-01T01:01';
+  value6: string = '2001-01-01T01:01:01';
 
   constructor(private prismService: PrismService) {}
 

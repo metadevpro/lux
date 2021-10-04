@@ -56,6 +56,16 @@
         <lux-datetime aria-label="Required example" [required]="true"></lux-datetime>
     </div>
 
+    <h3>IncludeSeconds</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+&lt;lux-datetime aria-label="Value example" [(value)]="value" [includeSeconds]="false"gt;&lt;/lux-datetime&gt;
+        </code>
+    </pre>
+    <div class="sample">
+        <lux-datetime aria-label="Value example" [(value)]="value5" [includeSeconds]="false"></lux-datetime> <span>Bind value: {{ value5 }}</span>
+    </div>
+
 </div>
 
 <h2>Sandbox</h2>
@@ -68,8 +78,8 @@
     </pre>
     <div class="sample">
       <label for="datetime">Datetime: </label>
-      <lux-datetime [(value)]="value5"></lux-datetime>
-      Bind value: {{ value5 }}
+      <lux-datetime [(value)]="value6"></lux-datetime>
+      Bind value: {{ value6 }}
     </div>
 </div>
 
