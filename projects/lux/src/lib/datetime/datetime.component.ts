@@ -246,7 +246,10 @@ export class DatetimeComponent
   }
 
   onEventDatetime(newDate: string, newTime: string): void {
-    this.updateDatetime(newDate + 'T' + newTime);
+    if (!newDate && !newTime) {
+      this.updateDatetime(undefined);
+    }
+    this.updateDatetime(newDate + ' ' + newTime);
   }
 
   checkClassName(): string {
