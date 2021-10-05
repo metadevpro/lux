@@ -1,9 +1,5 @@
 @import '../styles/lux';
 
-$input-postfix-line-height: var(--lux-input-postfix-line-height, 1.5px);
-$input-postfix-font-size: var(--lux-input-postfix-font-size, 1rem);
-$input-postfix-height: var(--lux-input-postfix-height, inherit);
-
 :host {
   position: relative;
   display: flex;

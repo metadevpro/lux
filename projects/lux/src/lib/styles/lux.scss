@@ -2,6 +2,7 @@
 // Can use this variables to override default values
 
 // Fonts
+$symbol-font-size: var(--lux-symbol-font-size, 1rem);
 
 // Colors
 
@@ -10,6 +11,10 @@ $input-margin: var(--lux-input-margin, inherit);
 
 // Paddings
 $input-padding: var(--lux-input-padding, inherit);
+
+// Sizes
+$symbol-line-height: var(--lux-symbol-line-height, 1.5px);
+$symbol-height: var(--lux-symbol-height, inherit);
 
 // Other
 
@@ -36,9 +41,9 @@ $input-padding: var(--lux-input-padding, inherit);
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 
-  line-height: $input-postfix-line-height;
-  font-size: $input-postfix-font-size;
-  height: $input-postfix-height;
+  line-height: $symbol-line-height;
+  font-size: $symbol-font-size;
+  height: $symbol-height;
 }
 
 .rounded {
