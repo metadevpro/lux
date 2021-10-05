@@ -36,27 +36,6 @@ export const addTimezoneOffset = (date: Date): Date => {
   }
 };
 
-export const dateToString = (date: Date): string => {
-  if (!isValidDate(date)) {
-    return '';
-  } else {
-    return date
-      .toISOString() // YYYY-MM-DDThh:mm:ss...
-      .slice(0, 19); // YYYY-MM-DDThh:mm:ss
-  }
-};
-
-export const dateToStringWithOffset = (date: Date): string => {
-  if (!date || isNaN(date.getTime())) {
-    // invalid date
-    return '';
-  } else {
-    return addTimezoneOffset(date)
-      .toISOString() // YYYY-MM-DDThh:mm:ss...
-      .slice(0, 19); // YYYY-MM-DDThh:mm:ss
-  }
-};
-
 // number functions
 
 export const isValidNumber = (
