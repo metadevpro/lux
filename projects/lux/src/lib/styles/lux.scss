@@ -13,6 +13,7 @@ $alert-background: var(--lux-alert-background, #fe2e2e);
 $symbol-color: var(--lux-symbol-color, #495057);
 $symbol-background: var(--lux-symbol-background, #e9ecef);
 $symbol-border-color: var(--lux-symbol-border-color, #ced4da);
+$input-border-color: var(--lux-input-border-color, #495057);
 
 // Borders
 $input-border: var(--lux-input-border, 1px solid);
@@ -24,7 +25,6 @@ $input-margin: var(--lux-input-margin, inherit);
 $input-padding: var(--lux-input-padding, inherit);
 
 // Sizes
-$input-height: var(--lux-input-height, 2rem);
 
 /////////
 // Styles
@@ -51,7 +51,6 @@ $input-height: var(--lux-input-height, 2rem);
   background: $symbol-background;
   border: 1px solid $symbol-border-color;
 
-  height: $input-height;
   font-size: $symbol-font-size;
 }
 
