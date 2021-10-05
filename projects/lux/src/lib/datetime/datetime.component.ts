@@ -166,13 +166,6 @@ export class DatetimeComponent
   }
   // End of ControlValueAccessor Interface implementation
 
-  private setDateInControl(value: any): void {
-    this.dateInput.nativeElement.value = value;
-  }
-  private setTimeInControl(value: any): void {
-    this.timeInput.nativeElement.value = value;
-  }
-
   // Validator interface
   registerOnValidatorChange(): void {}
 
