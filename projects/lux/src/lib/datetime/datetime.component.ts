@@ -17,10 +17,10 @@ import {
   NG_VALIDATORS
 } from '@angular/forms';
 import {
+  dateToString,
+  dateToStringWithOffset,
   hasValue,
-  isInitialAndEmpty,
-  normalizeDate,
-  dateToString
+  isInitialAndEmpty
 } from '../helperFns';
 import { languageDetector } from '../lang';
 @Component({
@@ -73,9 +73,9 @@ export class DatetimeComponent
   };
 
   @Input()
-  public min?: string = '1900-01-01T00:00:00';
+  public min?: string = '1900-01-01T00:00:00Z';
   @Input()
-  public max?: string = '2100-01-01T00:00:00';
+  public max?: string = '2100-01-01T00:00:00Z';
   @Input()
   public includeSeconds: boolean = true;
 
@@ -109,21 +109,20 @@ export class DatetimeComponent
   @Input()
   set value(v: string) {
     const datetime = new Date(v);
-    const datetimeString = dateToString(datetime); // YYYY-MM-DDThh:mm:ss
+    const datetimeString = dateToString(datetime) + 'Z'; // YYYY-MM-DDThh:mm:ssZ
     if (datetimeString === this._value) {
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (!isNaN(datetime.getTime())) {
-      this.dateValue = datetimeString.slice(0, 10); // YYYY-MM-DD
+      this._value = datetimeString;
+      const offsetDatetimeString = dateToStringWithOffset(datetime); // YYYY-MM-DDThh:mm:ss
+      this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
       if (this.includeSeconds) {
-        this.timeValue = datetimeString.slice(11, 19); // hh:mm:ss
+        this.timeValue = offsetDatetimeString.slice(11, 19); // hh:mm:ss
       } else {
-        this.timeValue = datetimeString.slice(11, 16); // hh:mm
+        this.timeValue = offsetDatetimeString.slice(11, 16); // hh:mm
       }
-      this._value = this.dateValue + 'T' + this.timeValue;
-      this.setDateInControl(this.dateValue);
-      this.setTimeInControl(this.timeValue);
     }
     this.onChange(v);
     if (!initialAndEmpty) {
@@ -167,11 +166,11 @@ export class DatetimeComponent
   }
   // End of ControlValueAccessor Interface implementation
 
-  private setDateInControl(date: any): void {
-    this.dateInput.nativeElement.value = date;
+  private setDateInControl(value: any): void {
+    this.dateInput.nativeElement.value = value;
   }
-  private setTimeInControl(time: any): void {
-    this.timeInput.nativeElement.value = time;
+  private setTimeInControl(value: any): void {
+    this.timeInput.nativeElement.value = value;
   }
 
   // Validator interface
@@ -225,11 +224,7 @@ export class DatetimeComponent
     if (this.disabled || this.readonly) {
       return;
     }
-    const datetime = new Date(newValue);
-    if (!isNaN(datetime.getTime())) {
-      const datetimeString = dateToString(datetime); // YYYY-MM-DDThh:mm:ss
-      this.value = newValue;
-    }
+    this.value = newValue;
   }
 
   onLostFocus(): void {
@@ -247,7 +242,7 @@ export class DatetimeComponent
   }
 
   onEventDatetime(newDate: string, newTime: string): void {
-    this.updateDatetime(normalizeDate(newDate) + 'T' + newTime);
+    this.updateDatetime(newDate + 'T' + newTime);
   }
 
   checkClassName(): string {

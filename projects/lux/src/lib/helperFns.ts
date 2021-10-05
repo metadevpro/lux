@@ -25,7 +25,7 @@ export const normalizeDate = (value: any): string => {
   return value ? value.toString() : null;
 };
 
-export const removeTimezoneOffset = (date: Date): Date =>
+export const addTimezoneOffset = (date: Date): Date =>
   new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 
 export const dateToString = (date: Date): string => {
@@ -34,6 +34,17 @@ export const dateToString = (date: Date): string => {
     return '';
   } else {
     return date
+      .toISOString() // YYYY-MM-DDThh:mm:ss...
+      .slice(0, 19); // YYYY-MM-DDThh:mm:ss
+  }
+};
+
+export const dateToStringWithOffset = (date: Date): string => {
+  if (isNaN(date.getTime())) {
+    // invalid date
+    return '';
+  } else {
+    return addTimezoneOffset(date)
       .toISOString() // YYYY-MM-DDThh:mm:ss...
       .slice(0, 19); // YYYY-MM-DDThh:mm:ss
   }
