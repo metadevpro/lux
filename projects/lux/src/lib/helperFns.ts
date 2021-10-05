@@ -19,7 +19,7 @@ export const isValidEmail = (value: string): boolean => {
 // date functions
 
 export const isValidDate = (date: Date): boolean =>
-  !date || isNaN(date.getTime());
+  date && !isNaN(date.getTime());
 
 export const normalizeDate = (value: any): string => {
   if (typeof value === 'string' && value.length > 10) {
