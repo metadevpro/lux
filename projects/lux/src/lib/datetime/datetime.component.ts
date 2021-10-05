@@ -115,7 +115,7 @@ export class DatetimeComponent
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    if (!isValidDate(datetime)) {
+    if (isValidDate(datetime)) {
       this._value = datetimeString;
       const offsetDatetimeString = dateToStringWithOffset(datetime); // YYYY-MM-DDThh:mm:ss
       this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
