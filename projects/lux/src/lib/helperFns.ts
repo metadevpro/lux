@@ -18,6 +18,9 @@ export const isValidEmail = (value: string): boolean => {
 
 // date functions
 
+export const isValidDate = (date: Date): boolean =>
+  !date || isNaN(date.getTime());
+
 export const normalizeDate = (value: any): string => {
   if (typeof value === 'string' && value.length > 10) {
     return value.substr(0, 10);
@@ -26,7 +29,7 @@ export const normalizeDate = (value: any): string => {
 };
 
 export const addTimezoneOffset = (date: Date): Date => {
-  if (!date || isNaN(date.getTime())) {
+  if (!isValidDate(date)) {
     return date;
   } else {
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
@@ -34,8 +37,7 @@ export const addTimezoneOffset = (date: Date): Date => {
 };
 
 export const dateToString = (date: Date): string => {
-  if (!date || isNaN(date.getTime())) {
-    // invalid date
+  if (!isValidDate(date)) {
     return '';
   } else {
     return date

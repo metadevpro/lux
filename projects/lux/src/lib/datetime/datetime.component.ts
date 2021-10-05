@@ -20,7 +20,8 @@ import {
   dateToString,
   dateToStringWithOffset,
   hasValue,
-  isInitialAndEmpty
+  isInitialAndEmpty,
+  isValidDate
 } from '../helperFns';
 import { languageDetector } from '../lang';
 @Component({
@@ -114,7 +115,7 @@ export class DatetimeComponent
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    if (!isNaN(datetime.getTime())) {
+    if (!isValidDate(datetime)) {
       this._value = datetimeString;
       const offsetDatetimeString = dateToStringWithOffset(datetime); // YYYY-MM-DDThh:mm:ss
       this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
