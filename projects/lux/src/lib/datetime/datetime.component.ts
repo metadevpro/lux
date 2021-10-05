@@ -108,13 +108,17 @@ export class DatetimeComponent
 
   @Input()
   set value(v: string) {
-    const datetime = new Date(v);
+    if (v === this._value) {
+      return; // prevent events when there is no changes
+    }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    if (isValidDate(datetime)) {
+    const datetime = new Date(v);
+    if (!isValidDate(datetime)) {
+      this._value = undefined;
+      this.dateValue = undefined;
+      this.timeValue = undefined;
+    } else {
       const datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
-      if (datetimeString === this._value) {
-        return; // prevent events when there is no changes
-      }
       this._value = datetimeString;
       const offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
       this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
@@ -217,7 +221,14 @@ export class DatetimeComponent
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = newValue;
+    if (newValue === undefined || newValue === null) {
+      this.value = newValue;
+    } else {
+      const datetime = new Date(newValue);
+      if (isValidDate(datetime)) {
+        this.value = datetime.toISOString();
+      }
+    }
   }
 
   onLostFocus(): void {

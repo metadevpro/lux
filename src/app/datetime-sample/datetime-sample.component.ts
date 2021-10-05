@@ -10,12 +10,12 @@ export class DatetimeSampleComponent implements AfterContentInit {
   name = 'Lux';
   disabled = true;
   readonly = true;
-  value1: string = '2001-01-01T01:01:01';
-  value2: string = '2001-01-01T01:01:01';
-  value3: string = '2001-01-01T01:01:01';
-  value4: string = '2001-01-01T01:01:01';
-  value5: string = '2001-01-01T01:01';
-  value6: string = '2001-01-01T01:01:01';
+  value1: string = new Date().toISOString();
+  value2: string = new Date().toISOString();
+  value3: string = new Date().toISOString();
+  value4: string = new Date().toISOString();
+  value5: string = new Date().toISOString();
+  value6: string = new Date().toISOString();
 
   constructor(private prismService: PrismService) {}
 
