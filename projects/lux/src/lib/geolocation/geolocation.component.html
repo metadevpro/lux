@@ -23,10 +23,10 @@
     "
     placeholder="lat"
     [ngClass]="className"
-    (focus)="markAsTouched()"
     (keyup)="onEventLatitude(latitude.value)"
     (change)="onEventLatitude(latitude.value)"
     (keypress)="onKeyPress($event)"
+    (blur)="onLostFocus()"
   />
   <div class="infix symbol">
     <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
@@ -63,10 +63,10 @@
     "
     placeholder="lon"
     [ngClass]="className"
-    (focus)="markAsTouched()"
     (keyup)="onEventLongitude(longitude.value)"
     (change)="onEventLongitude(longitude.value)"
     (keypress)="onKeyPress($event)"
+    (blur)="onLostFocus()"
   />
   <div class="infix symbol">
     <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{

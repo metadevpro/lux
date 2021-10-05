@@ -10,10 +10,10 @@
   [placeholder]=""
 
   [ngClass]="className"
-  (focus)="markAsTouched()"
   (keyup)="onEventDatetime(dateInput.value, timeInput.value)"
   (change)="onEventDatetime(dateInput.value, timeInput.value)"
   (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
 />
 <input
   #timeInput
@@ -28,10 +28,10 @@
   [step]="includeSeconds ? 1 : 60"
 
   [ngClass]="className"
-  (focus)="markAsTouched()"
   (keyup)="onEventDatetime(dateInput.value, timeInput.value)"
   (change)="onEventDatetime(dateInput.value, timeInput.value)"
   (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
 />
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
