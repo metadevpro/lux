@@ -14,6 +14,9 @@ $symbol-color: var(--lux-symbol-color, #495057);
 $symbol-background: var(--lux-symbol-background, #e9ecef);
 $symbol-border-color: var(--lux-symbol-border-color, #ced4da);
 
+// Borders
+$input-border: var(--lux-input-border, 1px solid);
+
 // Margins
 $input-margin: var(--lux-input-margin, inherit);
 
@@ -21,8 +24,7 @@ $input-margin: var(--lux-input-margin, inherit);
 $input-padding: var(--lux-input-padding, inherit);
 
 // Sizes
-$symbol-line-height: var(--lux-symbol-line-height, 1.5px);
-$symbol-height: var(--lux-symbol-height, inherit);
+$input-height: var(--lux-input-height, 2rem);
 
 /////////
 // Styles
@@ -48,11 +50,9 @@ $symbol-height: var(--lux-symbol-height, inherit);
   white-space: nowrap;
   background: $symbol-background;
   border: 1px solid $symbol-border-color;
-  border-radius: 0.25rem;
 
-  line-height: $symbol-line-height;
+  height: $input-height;
   font-size: $symbol-font-size;
-  height: $symbol-height;
 }
 
 .rounded {

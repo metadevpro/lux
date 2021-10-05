@@ -1,11 +1,17 @@
 @import '../styles/lux';
 
-.lux-geolocation {
+:host {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
   align-items: stretch;
   width: 30rem;
+}
+
+input {
+  height: $input-height;
+  border: $input-border;
+  margin: $input-margin;
+  padding: $input-padding;
 }
 
 .btn {

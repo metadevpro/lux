@@ -8,6 +8,8 @@
 }
 
 input {
+  height: $input-height;
+  border: $input-border;
   margin: $input-margin;
   padding: $input-padding;
 }
