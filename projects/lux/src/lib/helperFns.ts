@@ -33,7 +33,7 @@ export const dateToString = (date: Date): string => {
     // invalid date
     return '';
   } else {
-    return removeTimezoneOffset(date)
+    return date
       .toISOString() // YYYY-MM-DDThh:mm:ss...
       .slice(0, 19); // YYYY-MM-DDThh:mm:ss
   }
