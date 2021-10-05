@@ -136,7 +136,7 @@ export class DatetimeComponent
   @Output() valueChange = new EventEmitter<any>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
-  onChange = (value): void => {};
+  onChange = (_value): void => {};
   onTouched = (): void => {};
 
   constructor() {}
