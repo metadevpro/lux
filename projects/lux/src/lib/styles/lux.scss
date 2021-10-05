@@ -1,10 +1,18 @@
 // Common styles for Lux library
 // Can use this variables to override default values
 
+////////////
+// Variables
+
 // Fonts
 $symbol-font-size: var(--lux-symbol-font-size, 1rem);
 
 // Colors
+$alert-color: var(--lux-alert-color, white);
+$alert-background: var(--lux-alert-background, #fe2e2e);
+$symbol-color: var(--lux-symbol-color, #495057);
+$symbol-background: var(--lux-symbol-background, #e9ecef);
+$symbol-border-color: var(--lux-symbol-border-color, #ced4da);
 
 // Margins
 $input-margin: var(--lux-input-margin, inherit);
@@ -16,12 +24,13 @@ $input-padding: var(--lux-input-padding, inherit);
 $symbol-line-height: var(--lux-symbol-line-height, 1.5px);
 $symbol-height: var(--lux-symbol-height, inherit);
 
-// Other
+/////////
+// Styles
 
 .alert {
   padding: 0.2rem 2rem;
-  background: #fe2e2e;
-  color: white;
+  background: $alert-background;
+  color: $alert-color;
   font-family: Consolas, monospace;
   width: 45%;
   margin-right: 1rem;
@@ -34,11 +43,11 @@ $symbol-height: var(--lux-symbol-height, inherit);
   padding: 0.375rem 0.75rem;
   margin-bottom: 0;
   font-weight: 400;
-  color: #495057;
+  color: $symbol-color;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: 1px solid #ced4da;
+  background: $symbol-background;
+  border: 1px solid $symbol-border-color;
   border-radius: 0.25rem;
 
   line-height: $symbol-line-height;
@@ -47,7 +56,6 @@ $symbol-height: var(--lux-symbol-height, inherit);
 }
 
 .rounded {
-  border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
 
