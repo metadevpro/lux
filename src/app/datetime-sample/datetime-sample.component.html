@@ -71,16 +71,74 @@
 <h2>Sandbox</h2>
 
 <div>
-    <pre class="language-html" rel="html">
-        <code class="language-html">
-&lt;lux-datetime&gt;&lt;/lux-datetime&gt;
-        </code>
-    </pre>
-    <div class="sample">
-      <label for="datetime">Datetime: </label>
-      <lux-datetime [(value)]="value6"></lux-datetime>
-      Bind value: {{ value6 | toString }}
+  <div>
+    <label for="sandboxFormF1">Value: </label>
+    <input type="string" name="sandboxFormF1" [(ngModel)]="sandboxForm.formValues.field1" />
+  </div>
+  <div>
+    <label for="sandboxFormMin">Minimum value: </label>
+    <lux-datetime type="date" name="sandboxFormMin" [(ngModel)]="sandboxForm.min" ></lux-datetime>
+  </div>
+  <div>
+    <label for="sandboxFormMax">Maximum value: </label>
+    <lux-datetime type="date" name="sandboxFormMax" [(ngModel)]="sandboxForm.max" ></lux-datetime>
+  </div>
+  <div>
+    <label for="sandboxFormIncludeSeconds">
+      <input
+        type="checkbox"
+        name="sandboxFormIncludeSeconds"
+        [(ngModel)]="sandboxForm.includeSeconds"
+      />Include seconds</label>
+  </div>
+  <div>
+    <label for="sandboxFormRequired">
+      <input
+        type="checkbox"
+        name="sandboxFormRequired"
+        [(ngModel)]="sandboxForm.required"
+      />Required</label>
+  </div>
+  <div>
+    <label for="sandboxFormDisabled">
+      <input
+        type="checkbox"
+        name="sandboxFormDisabled"
+        [(ngModel)]="sandboxForm.disabled"
+      />Disabled</label>
+  </div>
+  <div>
+    <label for="sandboxFormInlineErrors">
+      <input
+        type="checkbox"
+        name="sandboxFormInlineErrors"
+        [(ngModel)]="sandboxForm.inlineErrors"
+      />Show inline errors</label>
+  </div>
+  <hr />
+  <h3>Form</h3>
+  <form #form="ngForm">
+    <label for="sandboxFormField1">Field 1:</label>
+    <lux-datetime
+      name="sandboxFormField1"
+      inputId="sandboxFormField1"
+      [min]="sandboxForm.min"
+      [max]="sandboxForm.max"
+      [includeSeconds]="sandboxForm.includeSeconds"
+      [required]="sandboxForm.required"
+      [disabled]="sandboxForm.disabled"
+      [inlineErrors]="sandboxForm.inlineErrors"
+      [(ngModel)]="sandboxForm.formValues.field1"
+      #field1Val="ngModel"
+    >
+    </lux-datetime>
+    <div *ngIf="!field1Val.valid">
+      Debug: {{ field1Val.errors | json }} touched: {{ field1Val.touched }} dirty:
+      {{ field1Val.dirty }}
     </div>
+    <button [disabled]="!form.valid">Fake sumbit</button>
+    <div>Form values: {{ sandboxForm.formValues | json }}</div>
+  </form>
 </div>
 
 <h2>Documentation</h2>

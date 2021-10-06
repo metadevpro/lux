@@ -16,7 +16,18 @@ export class DatetimeSampleComponent implements AfterContentInit {
   value3: string = new Date().toISOString();
   value4: string = new Date().toISOString();
   value5: string = new Date().toISOString().slice(0, 17) + '00.000Z';
-  value6: string = new Date().toISOString();
+
+  sandboxForm = {
+    min: '1900-01-01T00:00:00Z',
+    max: '2100-01-01T00:00:00Z',
+    includeSeconds: true,
+    required: true,
+    disabled: false,
+    inlineErrors: false,
+    formValues: {
+      field1: null // 'initial@value.com'
+    }
+  };
 
   constructor(private prismService: PrismService) {}
 
