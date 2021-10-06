@@ -11,10 +11,10 @@ export class DatetimeSampleComponent implements AfterContentInit {
   name = 'Lux';
   disabled = true;
   readonly = true;
-  value1: string = new Date().toISOString();
-  value2: string = new Date().toISOString();
-  value3: string = new Date().toISOString();
-  value4: string = new Date().toISOString();
+  value1: string = new Date().toISOString().slice(0, 19) + 'Z';
+  value2: string = new Date().toISOString().slice(0, 19) + 'Z';
+  value3: string = new Date().toISOString().slice(0, 19) + 'Z';
+  value4: string = new Date().toISOString().slice(0, 19) + 'Z';
   value5: string = new Date().toISOString().slice(0, 16) + 'Z';
 
   sandboxForm = {
