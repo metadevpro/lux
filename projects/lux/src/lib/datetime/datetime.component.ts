@@ -114,9 +114,9 @@ export class DatetimeComponent
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     const datetime = new Date(v);
     if (!isValidDate(datetime)) {
-      this._value = undefined;
-      this.dateValue = undefined;
-      this.timeValue = undefined;
+      this._value = null;
+      this.dateValue = null;
+      this.timeValue = null;
     } else {
       const datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
       this._value = datetimeString;
@@ -221,8 +221,8 @@ export class DatetimeComponent
     if (this.disabled || this.readonly) {
       return;
     }
-    if (newValue === undefined || newValue === null) {
-      this.value = newValue;
+    if (!newValue) {
+      this.value = null;
     } else {
       const datetime = new Date(newValue);
       if (isValidDate(datetime)) {
@@ -254,7 +254,7 @@ export class DatetimeComponent
 
   onEventDatetime(newDate: string, newTime: string): void {
     if (!newDate && !newTime) {
-      this.updateDatetime(undefined);
+      this.updateDatetime(null);
     }
     this.updateDatetime(newDate + ' ' + newTime);
   }
