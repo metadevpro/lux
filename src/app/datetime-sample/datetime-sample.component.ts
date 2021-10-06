@@ -1,6 +1,7 @@
 import { Component, AfterContentInit } from '@angular/core';
 
 import { PrismService } from '../core/services/prism-service.service';
+import { toString } from './toString.pipe';
 @Component({
   selector: 'app-datetime-sample',
   styleUrls: ['datetime-sample.component.scss'],
@@ -14,7 +15,7 @@ export class DatetimeSampleComponent implements AfterContentInit {
   value2: string = new Date().toISOString();
   value3: string = new Date().toISOString();
   value4: string = new Date().toISOString();
-  value5: string = new Date().toISOString();
+  value5: string = new Date().toISOString().slice(0, 17) + '00.000Z';
   value6: string = new Date().toISOString();
 
   constructor(private prismService: PrismService) {}
