@@ -56,8 +56,8 @@ export class DatetimeComponent
   private _required: boolean;
   private _value: string;
 
-  public dateValue?: string = null;
-  public timeValue?: string = null;
+  public dateValue?: string = undefined;
+  public timeValue?: string = undefined;
 
   public userErrors = {
     en: {
@@ -113,10 +113,10 @@ export class DatetimeComponent
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     const datetime = new Date(v);
-    if (!isValidDate(datetime)) {
+    if (!v || !isValidDate(datetime)) {
       this._value = null;
-      this.dateValue = null;
-      this.timeValue = null;
+      this.dateValue = undefined;
+      this.timeValue = undefined;
     } else {
       const datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
       this._value = datetimeString;
