@@ -226,7 +226,14 @@ export class DatetimeComponent
     } else {
       const datetime = new Date(newValue);
       if (isValidDate(datetime)) {
-        this.value = datetime.toISOString();
+        // IF WE ARE TO INPUT UTC TIME INSTEAD OF LOCAL TIMEZONE, WE SHOULD USE INSTEAD:
+        // const datetimeString = addTimezoneOffset(datetime).toISOString()
+        const datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+        if (this.includeSeconds) {
+          this.value = datetimeString.slice(0, 19) + 'Z'; // YYYY-MM-DDThh:mm:ssZ
+        } else {
+          this.value = datetimeString.slice(0, 16) + 'Z'; // YYYY-MM-DDThh:mmZ
+        }
       }
     }
   }
