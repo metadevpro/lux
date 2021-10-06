@@ -19,6 +19,7 @@ import { PaginationSampleComponent } from './pagination-sample/pagination-sample
 import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
 import { CoreModule } from './core/core.module';
 import { PrismService } from './core/services/prism-service.service';
+import { toString } from './datetime-sample/toString.pipe';
 import { ModalSampleComponent } from './modal-sample/modal-sample.component';
 import { SelectSampleComponent } from './select-sample/select-sample.component';
 import { TooltipComponent } from './tooltip-sample/tooltip';
@@ -65,7 +66,8 @@ const appRoutes: Routes = [
     BreadcrumbSampleComponent,
     ModalSampleComponent,
     RadiogroupSampleComponent,
-    VoicerecognitionSampleComponent
+    VoicerecognitionSampleComponent,
+    toString
   ],
   imports: [
     CoreModule,

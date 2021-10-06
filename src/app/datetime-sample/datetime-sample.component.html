@@ -11,7 +11,7 @@
         </code>
     </pre>
     <div class="sample">
-        <lux-datetime aria-label="Value example" [(value)]="value1"></lux-datetime> <span>Bind value: {{ value1 }}</span>
+        <lux-datetime aria-label="Value example" [(value)]="value1"></lux-datetime> <span>Bind value: {{ value1 | toString }}</span>
     </div>
 
     <h3>inputId</h3>
@@ -23,7 +23,7 @@
     </pre>
     <div class="sample">
         <label for="someid">inputId example:</label>
-        <lux-datetime inputId="someid" [(value)]="value2"></lux-datetime> <span>Bind value: {{ value2 }}</span>
+        <lux-datetime inputId="someid" [(value)]="value2"></lux-datetime> <span>Bind value: {{ value2 | toString }}</span>
     </div>
 
     <h3>Disabled</h3>
@@ -63,7 +63,7 @@
         </code>
     </pre>
     <div class="sample">
-        <lux-datetime aria-label="Value example" [includeSeconds]="false" [(value)]="value5"></lux-datetime> <span>Bind value: {{ value5 }}</span>
+        <lux-datetime aria-label="Value example" [includeSeconds]="false" [(value)]="value5"></lux-datetime> <span>Bind value: {{ value5 | toString }}</span>
     </div>
 
 </div>
@@ -79,7 +79,7 @@
     <div class="sample">
       <label for="datetime">Datetime: </label>
       <lux-datetime [(value)]="value6"></lux-datetime>
-      Bind value: {{ value6 }}
+      Bind value: {{ value6 | toString }}
     </div>
 </div>
 
