@@ -7,6 +7,22 @@ import { Injectable } from '@angular/core';
 export class RegexpService {
   constructor() {}
 
+  private joinStrings(
+    stringArray: string[],
+    startIndex: number,
+    endIndex: number
+  ): string {
+    let result = '';
+    for (
+      let joinStringsIndex = startIndex;
+      joinStringsIndex < endIndex;
+      ++joinStringsIndex
+    ) {
+      result += stringArray[joinStringsIndex];
+    }
+    return result;
+  }
+
   private removeOuterRoundBrackets(regularExpressionString: string): string {
     while (
       regularExpressionString[0] === '(' &&
@@ -39,9 +55,18 @@ export class RegexpService {
       case '+':
         return 1;
       case '{':
-        for (let index = 1; index < quantifier.length; ++index) {
-          if (quantifier[index] < '0' || quantifier[index] > '9') {
-            return Number(quantifier.slice(1, index));
+        for (
+          let parseMinimalAmountOfQuantifierIndex = 1;
+          parseMinimalAmountOfQuantifierIndex < quantifier.length;
+          ++parseMinimalAmountOfQuantifierIndex
+        ) {
+          if (
+            quantifier[parseMinimalAmountOfQuantifierIndex] < '0' ||
+            quantifier[parseMinimalAmountOfQuantifierIndex] > '9'
+          ) {
+            return Number(
+              quantifier.slice(1, parseMinimalAmountOfQuantifierIndex)
+            );
           }
         }
     }
@@ -55,12 +80,16 @@ export class RegexpService {
     let roundBracketCount = 0;
     let squareBracketCount = 0;
     let curlyBracketCount = 0;
-    let index = 0;
-    for (; index < regularExpressionString.length; ++index) {
-      switch (regularExpressionString[index]) {
+    let sliceRegexByOrIndex = 0;
+    for (
+      ;
+      sliceRegexByOrIndex < regularExpressionString.length;
+      ++sliceRegexByOrIndex
+    ) {
+      switch (regularExpressionString[sliceRegexByOrIndex]) {
         case '\\':
           // escape sequence; skip the next character
-          ++index;
+          ++sliceRegexByOrIndex;
           break;
         case '(':
           roundBracketCount += 1;
@@ -87,34 +116,37 @@ export class RegexpService {
             curlyBracketCount === 0
           ) {
             slicedRegex = this.removeOuterRoundBrackets(
-              regularExpressionString.slice(lastSliceIndex, index)
+              regularExpressionString.slice(lastSliceIndex, sliceRegexByOrIndex)
             );
             result.push(slicedRegex);
-            lastSliceIndex = index + 1;
+            lastSliceIndex = sliceRegexByOrIndex + 1;
           }
           break;
       }
     }
     slicedRegex = this.removeOuterRoundBrackets(
-      regularExpressionString.slice(lastSliceIndex, index)
+      regularExpressionString.slice(lastSliceIndex, sliceRegexByOrIndex)
     );
     result.push(slicedRegex);
     return result;
   }
 
-  private sliceRegexByThen(regularExpressionString: string): string[][] {
-    // the actual result
-    const resultStart = [];
-    // the remainder of the regex in each case
-    const resultRemainder = [];
+  private sliceRegexByThen(regularExpressionString: string): string[] {
+    const result = [];
+    let slicedRegex = '';
+    let lastSliceIndex = 0;
     let roundBracketCount = 0;
     let squareBracketCount = 0;
     let curlyBracketCount = 0;
-    for (let index = 0; index < regularExpressionString.length; ++index) {
-      switch (regularExpressionString[index]) {
+    for (
+      let sliceRegexByThenIndex = 0;
+      sliceRegexByThenIndex < regularExpressionString.length;
+      ++sliceRegexByThenIndex
+    ) {
+      switch (regularExpressionString[sliceRegexByThenIndex]) {
         case '\\':
           // escape sequence; skip the next character
-          ++index;
+          ++sliceRegexByThenIndex;
           break;
         case '(':
           roundBracketCount += 1;
@@ -140,80 +172,144 @@ export class RegexpService {
         squareBracketCount === 0 &&
         curlyBracketCount === 0
       ) {
-        if (!this.isQuantifier(regularExpressionString[index + 1])) {
-          resultStart.push(regularExpressionString.slice(0, index + 1));
-          resultRemainder.push(regularExpressionString.slice(index + 1));
+        if (
+          !this.isQuantifier(regularExpressionString[sliceRegexByThenIndex + 1])
+        ) {
+          slicedRegex = this.removeOuterRoundBrackets(
+            regularExpressionString.slice(
+              lastSliceIndex,
+              sliceRegexByThenIndex + 1
+            )
+          );
+          result.push(slicedRegex);
+          lastSliceIndex = sliceRegexByThenIndex + 1;
         } else {
-          // let minimalAmountOfRepeats = parseMinimalAmountOfQuantifier(regularExpressionString.slice(index + 1));
-          // TODO
+          if (regularExpressionString[sliceRegexByThenIndex + 1] === '{') {
+            // regex without the quantifier
+            slicedRegex = this.removeOuterRoundBrackets(
+              regularExpressionString.slice(
+                lastSliceIndex,
+                sliceRegexByThenIndex + 1
+              )
+            );
+            // minimal amount of repeats that the regex allows
+            const minimalAmountOfRepeats = this.parseMinimalAmountOfQuantifier(
+              regularExpressionString.slice(sliceRegexByThenIndex + 1)
+            );
+            // skip the quantifier if it's of the form {,}
+            while (regularExpressionString[sliceRegexByThenIndex] !== '}') {
+              sliceRegexByThenIndex = sliceRegexByThenIndex + 1;
+            }
+            // turn a regex of the form x{a,b} into xxxxxx... repeated a times
+            for (let repeats = 0; repeats < minimalAmountOfRepeats; ++repeats) {
+              result.push(slicedRegex);
+            }
+            lastSliceIndex = sliceRegexByThenIndex + 1;
+          }
         }
       }
     }
-    return [resultStart, resultRemainder];
+    return result;
+  }
+
+  suggestOneCharacter(
+    regularExpressionString: string,
+    invert: boolean = false
+  ): string {
+    if (regularExpressionString[0] === '\\') {
+      switch (regularExpressionString[1]) {
+        case 'd':
+          return invert ? 'a' : '0';
+        case 'D':
+          return invert ? '0' : 'a';
+        case 's':
+          return invert ? '_' : ' ';
+        case 'S':
+          return invert ? ' ' : '_';
+        case 'w':
+          return invert ? ' ' : '_';
+        case 'W':
+          return invert ? '_' : ' ';
+        default:
+          return regularExpressionString[1];
+      }
+    }
+    if (
+      regularExpressionString[0] === '[' ||
+      regularExpressionString[0] === '('
+    ) {
+      return this.suggestOneCharacter(regularExpressionString.slice(1), invert);
+    }
+    if (regularExpressionString[0] === '^') {
+      return this.suggestOneCharacter(
+        regularExpressionString.slice(1),
+        !invert
+      );
+    }
+    return regularExpressionString[0];
+  }
+
+  suggestAllCharacters(regularExpressionString: string): string {
+    const regexOptions = this.sliceRegexByOr(regularExpressionString);
+    const regexParts = this.sliceRegexByThen(regexOptions[0]);
+    if (regexOptions.length > 1 || regexParts.length > 1) {
+      let suggestionResult = '';
+      for (const regexPart of regexParts) {
+        suggestionResult += this.suggestAllCharacters(regexPart);
+      }
+      return suggestionResult;
+    } else {
+      return this.suggestOneCharacter(regexParts[0]);
+    }
+    return '';
   }
 
   suggestion(beginning: string, regularExpressionString: string): string {
     if (new RegExp(regularExpressionString).test(beginning)) {
-      // TODO: RETURN AN EMPTY STRING
-      return 'YA ES IGUAL, NO HAY MÁS QUE SUGERIR';
+      return '';
     }
     const regexOptions = this.sliceRegexByOr(regularExpressionString);
-    if (regexOptions.length > 1) {
-      for (
-        let regexOptionIndex = 0;
-        regexOptionIndex < regexOptions.length;
-        ++regexOptionIndex
-      ) {
-        const regexParts = this.sliceRegexByThen(
-          regexOptions[regexOptionIndex]
-        );
-        const regexPartsStarts = regexParts[0];
-        const regexPartsRemainders = regexParts[1];
+    for (
+      let regexOptionIndex = 0;
+      regexOptionIndex < regexOptions.length;
+      ++regexOptionIndex
+    ) {
+      const regexParts = this.sliceRegexByThen(regexOptions[regexOptionIndex]);
+      if (regexOptions.length > 1 || regexParts.length > 1) {
         // for each option, test if the first part of the regex matches
         // if it doesn't, continue
         // if it does, keep checking until what part it matches
-        if (!new RegExp(regexPartsStarts[0]).test(beginning)) {
+        if (!new RegExp(regexParts[0]).test(beginning)) {
           // if there are no more options
           if (regexOptionIndex === regexOptions.length - 1) {
             // we return the first option, but we could return any option
-
-            // TODO: RETURN ANY TEXT THAT MATCHES regexOptions[0]
-            return regexOptions[0];
+            return this.suggestAllCharacters(regexOptions[0]);
           }
         } else {
           for (
             let regexPartIndex = 1;
-            regexPartIndex < regexPartsStarts.length;
+            regexPartIndex < regexParts.length;
             ++regexPartIndex
           ) {
-            if (!new RegExp(regexPartsStarts[regexPartIndex]).test(beginning)) {
-              // TODO: RETURN ANY TEXT THAT MATCHES regexPartsRemainders[regexPartIndex - 1]
-              return regexPartsRemainders[regexPartIndex - 1];
+            if (
+              !new RegExp(
+                this.joinStrings(regexParts, 0, regexPartIndex + 1)
+              ).test(beginning)
+            ) {
+              const remainingRegexToBeMatched = this.joinStrings(
+                regexParts,
+                regexPartIndex,
+                regexParts.length
+              );
+              return this.suggestAllCharacters(remainingRegexToBeMatched);
             }
           }
         }
-      }
-    } else if (regexOptions.length === 1) {
-      const regexParts = this.sliceRegexByThen(regexOptions[0]);
-      const regexPartsStarts = regexParts[0];
-      const regexPartsRemainders = regexParts[1];
-      if (!new RegExp(regexPartsStarts[0]).test(beginning)) {
-        // TODO: RETURN ANY TEXT THAT MATCHES regularExpressionString
-        return regularExpressionString;
       } else {
-        for (
-          let regexPartIndex = 1;
-          regexPartIndex < regexPartsStarts.length;
-          ++regexPartIndex
-        ) {
-          if (!new RegExp(regexPartsStarts[regexPartIndex]).test(beginning)) {
-            // TODO: RETURN ANY TEXT THAT MATCHES regexPartsRemainders[regexPartIndex - 1]
-            return regexPartsRemainders[regexPartIndex - 1];
-          }
-        }
+        // there's only one part and one option, so a suggestion can be trivial
+        return this.suggestOneCharacter(regexParts[0]);
       }
     }
-    // TODO: RETURN AN EMPTY STRING
-    return 'NO DEBERÍA SER POSIBLE';
+    return '';
   }
 }
