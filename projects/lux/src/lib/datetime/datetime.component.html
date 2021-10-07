@@ -17,7 +17,7 @@
 />
 <input
   #timeInput
-  class="postfix"
+  [class]="disabled || readonly ? 'postfix' : 'infix'"
   type="time"
   [id]="inputId + '$time'"
   [(ngModel)]="timeValue"
@@ -33,6 +33,14 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
+<button
+  #clearButton
+  *ngIf="!(disabled || readonly)"
+  class="postfix"
+  [id]="inputId + '$clear'"
+  [ngClass]="className"
+  (click)="updateDatetime(undefined)"
+>×</button>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
