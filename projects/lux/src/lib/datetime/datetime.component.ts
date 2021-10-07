@@ -78,6 +78,8 @@ export class DatetimeComponent
   public max?: string = '2100-01-01T00:00:00Z';
   @Input()
   public includeSeconds: boolean = true;
+  //@Input()
+  public localTime: boolean = true;
 
   get className(): string {
     return this.checkClassName();
@@ -120,7 +122,12 @@ export class DatetimeComponent
     } else {
       const datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
       this._value = datetimeString;
-      const offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+      let offsetDatetimeString;
+      if (this.localTime) {
+        offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+      } else {
+        offsetDatetimeString = datetimeString;
+      }
       this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
       if (this.includeSeconds) {
         this.timeValue = offsetDatetimeString.slice(11, 19); // hh:mm:ss
@@ -226,9 +233,12 @@ export class DatetimeComponent
     } else {
       const datetime = new Date(newValue);
       if (isValidDate(datetime)) {
-        // IF WE ARE TO INPUT UTC TIME INSTEAD OF LOCAL TIMEZONE, WE SHOULD USE INSTEAD:
-        // const datetimeString = addTimezoneOffset(datetime).toISOString()
-        const datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+        let datetimeString;
+        if (this.localTime) {
+          datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+        } else {
+          datetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+        }
         if (this.includeSeconds) {
           this.value = datetimeString.slice(0, 19) + 'Z'; // YYYY-MM-DDThh:mm:ssZ
         } else {
