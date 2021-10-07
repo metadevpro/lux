@@ -18,11 +18,22 @@ export const isValidEmail = (value: string): boolean => {
 
 // date functions
 
+export const isValidDate = (date: Date): boolean =>
+  exists(date) ? !isNaN(date.getTime()) : false;
+
 export const normalizeDate = (value: any): string => {
   if (typeof value === 'string' && value.length > 10) {
     return value.substr(0, 10);
   }
   return value ? value.toString() : null;
+};
+
+export const addTimezoneOffset = (date: Date): Date => {
+  if (!isValidDate(date)) {
+    return date;
+  } else {
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  }
 };
 
 // number functions

@@ -1,72 +1,23 @@
-.lux-geolocation {
+@import '../styles/lux';
+
+:host {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
   align-items: stretch;
-  width: 30rem;
-}
-
-.alert {
-  padding: 0.2rem 2rem;
-  background: #fe2e2e;
-  color: white;
-  font-family: Consolas, monospace;
-  width: 45%;
-  margin-right: 1rem;
-  display: inline-block;
-}
-
-.symbol {
-  display: inline-block;
-  align-items: center;
-  padding: 0.375rem 0.75rem;
-  margin-bottom: 0;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #495057;
-  text-align: center;
-  white-space: nowrap;
-  background-color: #e9ecef;
-}
-
-.rounded {
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-}
-
-.prefix {
-  @extend .rounded;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.infix {
-  @extend .rounded;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.postfix {
-  @extend .rounded;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.btn {
-  margin: 0.2em;
 }
 
 .btn-select {
-  @extend .btn;
   background-color: rgb(180, 184, 240);
 }
 
 .btn-cancel {
-  @extend .btn;
   background-color: rgb(255, 206, 215);
+}
+
+.readonly {
+  &:focus {
+    outline: none;
+  }
 }
 
 .lux-modal-body {
@@ -75,10 +26,4 @@
 .map-container {
   width: 90vw;
   height: 45vh;
-}
-
-.readonly {
-  &:focus {
-    outline: none;
-  }
 }

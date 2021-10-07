@@ -1,9 +1,10 @@
-<div *ngIf="currency && currency === 'USD'" class="prefix">
+<div *ngIf="currency && currency === 'USD'" class="prefix symbol">
   <span>$</span>
 </div>
 <input
   #input
   *ngIf="type !== 'textarea'"
+  class="infix"
   placement="top"
   [id]="inputId"
   [type]="domain"
@@ -25,6 +26,7 @@
 <textarea
   #textarea
   *ngIf="type === 'textarea'"
+  class="infix"
   placement="top"
   [id]="inputId"
   [attr.value]="value"
@@ -40,13 +42,13 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 ></textarea>
-<div *ngIf="currency && currency === 'EUR'" class="postfix">
+<div *ngIf="currency && currency === 'EUR'" class="postfix symbol">
   <span>€</span>
 </div>
-<div *ngIf="isPercentage()" class="postfix">
+<div *ngIf="isPercentage()" class="postfix symbol">
   <span>%</span>
 </div>
-<div *ngIf="isPermillage()" class="postfix">
+<div *ngIf="isPermillage()" class="postfix symbol">
   <span>‰</span>
 </div>
 

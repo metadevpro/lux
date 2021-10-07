@@ -179,8 +179,6 @@ export class GeolocationComponent implements OnInit {
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {
     this.value = value;
-    this.setLatitudeInControl(this.latitudeValue);
-    this.setLongitudeInControl(this.longitudeValue);
   }
 
   registerOnChange(onChange: any): void {
@@ -329,6 +327,9 @@ export class GeolocationComponent implements OnInit {
     };
   }
 
+  onLostFocus(): void {
+    this.markAsTouched();
+  }
   onEventLatitude(newLatitude: string): void {
     if (isValidNumber(newLatitude)) {
       this.updateLatitude(+newLatitude);
