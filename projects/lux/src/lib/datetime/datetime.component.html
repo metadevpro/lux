@@ -17,7 +17,7 @@
 />
 <input
   #timeInput
-  [class]="disabled || readonly ? 'postfix' : 'infix'"
+  class="infix"
   type="time"
   [id]="inputId + '$time'"
   [(ngModel)]="timeValue"
@@ -33,22 +33,17 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
+<div [class]="disabled || readonly ? 'postfix symbol' : 'infix symbol'">
+  <span>{{ localTime ? 'Local time' : 'UTC' }}</span>
+</div>
 <button
   #clearButton
   *ngIf="!(disabled || readonly)"
-  class="infix"
+  class="postfix"
   [id]="inputId + '$clear'"
   [ngClass]="className"
   (click)="updateDatetime(undefined)"
 >×</button>
-<button
-  #timezoneButton
-  *ngIf="!(disabled || readonly)"
-  class="postfix"
-  [id]="inputId + '$timezone'"
-  [ngClass]="className"
-  (click)="localTime = !localTime"
->{{localTime ? '📍' : '🌐'}}</button>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">

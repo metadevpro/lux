@@ -56,8 +56,6 @@ export class DatetimeComponent
   private _required: boolean;
   private _value: string;
 
-  private _localTime: boolean = true;
-
   public dateValue?: string = undefined;
   public timeValue?: string = undefined;
 
@@ -80,6 +78,8 @@ export class DatetimeComponent
   public max?: string = '2100-01-01T00:00:00Z';
   @Input()
   public includeSeconds: boolean = true;
+  @Input()
+  public localTime: boolean = true;
 
   get className(): string {
     return this.checkClassName();
@@ -132,17 +132,6 @@ export class DatetimeComponent
     return this._value;
   }
 
-  @Input()
-  set localTime(v: boolean) {
-    this._localTime = v;
-    if (this._value) {
-      this.setValueInControl(new Date(this._value));
-    }
-  }
-  get localTime(): boolean {
-    return this._localTime;
-  }
-
   @Output() valueChange = new EventEmitter<any>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
@@ -178,7 +167,7 @@ export class DatetimeComponent
 
   setValueInControl(datetime: Date): void {
     let offsetDatetimeString;
-    if (this._localTime) {
+    if (this.localTime) {
       offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
     } else {
       offsetDatetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
@@ -248,7 +237,7 @@ export class DatetimeComponent
       const datetime = new Date(newValue);
       if (isValidDate(datetime)) {
         let datetimeString;
-        if (this._localTime) {
+        if (this.localTime) {
           datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
         } else {
           datetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
