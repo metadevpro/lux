@@ -12,7 +12,6 @@ $alert-color: var(--lux-alert-color, white);
 $alert-background: var(--lux-alert-background, #fe2e2e);
 $symbol-color: var(--lux-symbol-color, #495057);
 $symbol-background: var(--lux-symbol-background, #e9ecef);
-$symbol-border-color: var(--lux-symbol-border-color, #ced4da);
 $input-border-color: var(--lux-input-border-color, #495057);
 
 // Borders
@@ -25,9 +24,30 @@ $input-margin: var(--lux-input-margin, 0rem);
 $input-padding: var(--lux-input-padding, 0rem 0.5rem);
 
 // Sizes
+$icon-bg-size: var(--lux-autocomplete-icon-bg-size, 0.5rem 0.5rem);
+$icon-height: var(--lux-autocomplete-icon-height, 1.3rem);
+$icon-width: var(--lux-autocomplete-icon-width, 1.5rem);
+
+// Icons
+$icon-clear: var(
+  --lux-autocomplete-icon-clear,
+  url(/assets/img/filter-clear.png) no-repeat center
+);
+$icon-dropdown: var(
+  --lux-autocomplete-icon-dropdown,
+  url(/assets/img/drop-down-arrow.svg) no-repeat center
+);
 
 /////////
 // Styles
+
+input,
+select,
+textarea {
+  border: solid 1px $input-border-color;
+  margin: $input-margin;
+  padding: $input-padding;
+}
 
 .alert {
   padding: 0.2rem 2rem;
@@ -41,7 +61,7 @@ $input-padding: var(--lux-input-padding, 0rem 0.5rem);
 
 .symbol {
   display: inline-block;
-  align-items: center;
+  align-items: baseline;
   padding: 0rem 0.5rem;
   margin-bottom: 0;
   font-weight: 400;
@@ -49,17 +69,19 @@ $input-padding: var(--lux-input-padding, 0rem 0.5rem);
   text-align: center;
   white-space: nowrap;
   background: $symbol-background;
-  border: 1px solid $symbol-border-color;
+  border: 1px solid $input-border-color;
 
   font-size: $symbol-font-size;
 }
 
 .rounded {
   border-radius: 0.25rem;
+  border: $input-border;
 }
 
 .prefix {
   @extend .rounded;
+  border-right: none;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -74,6 +96,7 @@ $input-padding: var(--lux-input-padding, 0rem 0.5rem);
 
 .postfix {
   @extend .rounded;
+  border-left: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }

@@ -6,13 +6,6 @@
   align-items: stretch;
 }
 
-input,
-textarea {
-  border: $input-border $input-border-color;
-  margin: $input-margin;
-  padding: $input-padding;
-}
-
 .readonly {
   border: none;
 

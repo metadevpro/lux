@@ -1,17 +1,5 @@
 @import '../styles/lux';
 
-$icon-clear: var(
-  --lux-autocomplete-icon-clear,
-  url(/assets/img/filter-clear.png) no-repeat center
-);
-$icon-dropdown: var(
-  --lux-autocomplete-icon-dropdown,
-  url(/assets/img/drop-down-arrow.svg) no-repeat center
-);
-$icon-bg-size: var(--lux-autocomplete-icon-bg-size, 0.5rem 0.5rem);
-$icon-height: var(--lux-autocomplete-icon-height, 1.3rem);
-$icon-width: var(--lux-autocomplete-icon-width, 1.5rem);
-
 $autocomplete-input-padding: var(
   --lux-autocomplete-input-padding,
   0.1rem 1.5rem 0.1rem 0.5rem

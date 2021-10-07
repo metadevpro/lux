@@ -6,12 +6,6 @@
   align-items: stretch;
 }
 
-input {
-  border: $input-border $input-border-color;
-  margin: $input-margin;
-  padding: $input-padding;
-}
-
 .readonly {
   border: none;
 
@@ -19,4 +13,12 @@ input {
     border: none;
     outline: none;
   }
+}
+.icon-clear {
+  grid-row: 1;
+  grid-column: 2;
+  width: $icon-width;
+  background: $icon-clear;
+  background-size: $icon-bg-size;
+  z-index: 1;
 }
