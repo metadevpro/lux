@@ -56,6 +56,8 @@ export class DatetimeComponent
   private _required: boolean;
   private _value: string;
 
+  private _localTime: boolean = true;
+
   public dateValue?: string = undefined;
   public timeValue?: string = undefined;
 
@@ -78,8 +80,6 @@ export class DatetimeComponent
   public max?: string = '2100-01-01T00:00:00Z';
   @Input()
   public includeSeconds: boolean = true;
-  //@Input()
-  public localTime: boolean = true;
 
   get className(): string {
     return this.checkClassName();
@@ -120,20 +120,8 @@ export class DatetimeComponent
       this.dateValue = undefined;
       this.timeValue = undefined;
     } else {
-      const datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
-      this._value = datetimeString;
-      let offsetDatetimeString;
-      if (this.localTime) {
-        offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
-      } else {
-        offsetDatetimeString = datetimeString;
-      }
-      this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
-      if (this.includeSeconds) {
-        this.timeValue = offsetDatetimeString.slice(11, 19); // hh:mm:ss
-      } else {
-        this.timeValue = offsetDatetimeString.slice(11, 16); // hh:mm
-      }
+      this._value = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+      this.setValueInControl(datetime);
     }
     this.onChange(v);
     if (!initialAndEmpty) {
@@ -142,6 +130,17 @@ export class DatetimeComponent
   }
   get value(): string {
     return this._value;
+  }
+
+  @Input()
+  set localTime(v: boolean) {
+    this._localTime = v;
+    if (this._value) {
+      this.setValueInControl(new Date(this._value));
+    }
+  }
+  get localTime(): boolean {
+    return this._localTime;
   }
 
   @Output() valueChange = new EventEmitter<any>();
@@ -176,6 +175,21 @@ export class DatetimeComponent
     this.disabled = disabled;
   }
   // End of ControlValueAccessor Interface implementation
+
+  setValueInControl(datetime: Date): void {
+    let offsetDatetimeString;
+    if (this._localTime) {
+      offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+    } else {
+      offsetDatetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+    }
+    this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
+    if (this.includeSeconds) {
+      this.timeValue = offsetDatetimeString.slice(11, 19); // hh:mm:ss
+    } else {
+      this.timeValue = offsetDatetimeString.slice(11, 16); // hh:mm
+    }
+  }
 
   // Validator interface
   registerOnValidatorChange(): void {}
@@ -234,7 +248,7 @@ export class DatetimeComponent
       const datetime = new Date(newValue);
       if (isValidDate(datetime)) {
         let datetimeString;
-        if (this.localTime) {
+        if (this._localTime) {
           datetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
         } else {
           datetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ

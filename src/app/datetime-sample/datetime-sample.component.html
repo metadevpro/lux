@@ -59,11 +59,21 @@
     <h3>IncludeSeconds</h3>
     <pre class="language-html" rel="html">
         <code class="language-html">
-&lt;lux-datetime aria-label="Value example" [includeSeconds]="false" [(value)]="value"&gt;&lt;/lux-datetime&gt;
+&lt;lux-datetime aria-label="IncludeSeconds example" [includeSeconds]="false" [(value)]="value"&gt;&lt;/lux-datetime&gt;
         </code>
     </pre>
     <div class="sample">
-        <lux-datetime aria-label="Value example" [includeSeconds]="false" [(value)]="value5"></lux-datetime> <span>Bind value: {{ value5 | toString }}</span>
+        <lux-datetime aria-label="IncludeSeconds example" [includeSeconds]="false" [(value)]="value5"></lux-datetime> <span>Bind value: {{ value5 | toString }}</span>
+    </div>
+
+    <h3>LocalTime</h3>
+    <pre class="language-html" rel="html">
+        <code class="language-html">
+&lt;lux-datetime aria-label="LocalTime example" [localTime]="false" [(value)]="value"&gt;&lt;/lux-datetime&gt;
+        </code>
+    </pre>
+    <div class="sample">
+        <lux-datetime aria-label="LocalTime example" [localTime]="false" [(value)]="value6"></lux-datetime> <span>Bind value: {{ value6 | toString }}</span>
     </div>
 
 </div>
@@ -150,7 +160,8 @@
     <li><span class="inline">aria-label</span> Custom aria label forwarded to the datetime.</li>
     <li><span class="inline">min</span> Minimum datetime allowed.</li>
     <li><span class="inline">max</span> Maximum datetime allowed.</li>
-    <li><span class="inline">includeSeconds</span> Whether seconds are included in the value.</li>
+    <li><span class="inline">includeSeconds</span> Whether seconds are included in the value. True by default.</li>
+    <li><span class="inline">localTime</span> If true use local time. If false, use UTC time. True by default.</li>
 </ul>
 
 <h3>Events</h3>

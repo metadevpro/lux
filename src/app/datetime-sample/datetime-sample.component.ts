@@ -16,6 +16,7 @@ export class DatetimeSampleComponent implements AfterContentInit {
   value3: string = new Date().toISOString().slice(0, 19) + 'Z';
   value4: string = new Date().toISOString().slice(0, 19) + 'Z';
   value5: string = new Date().toISOString().slice(0, 16) + 'Z';
+  value6: string = new Date().toISOString().slice(0, 19) + 'Z';
 
   sandboxForm = {
     min: '1900-01-01T00:00:00Z',

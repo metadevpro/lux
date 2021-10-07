@@ -36,11 +36,19 @@
 <button
   #clearButton
   *ngIf="!(disabled || readonly)"
-  class="postfix"
+  class="infix"
   [id]="inputId + '$clear'"
   [ngClass]="className"
   (click)="updateDatetime(undefined)"
 >×</button>
+<button
+  #timezoneButton
+  *ngIf="!(disabled || readonly)"
+  class="postfix"
+  [id]="inputId + '$timezone'"
+  [ngClass]="className"
+  (click)="localTime = !localTime"
+>{{localTime ? '📍' : '🌐'}}</button>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
