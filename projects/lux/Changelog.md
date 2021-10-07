@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.14.0
+
+2021.10.07
+
+- Feature: New control `lux-datetime`. Support for UTC/local time, and with or without seconds precission.
+
 ## Version 0.13.0
 
 2021.10.04
