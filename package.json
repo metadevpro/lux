@@ -38,7 +38,6 @@
     "tdd": "ng test lux",
     "lint": "ng lint",
     "lint:lux": "ng lint lux",
-    "npm-publish-no-test": "npm run lint:lux && ng build lux && npm publish --access public dist/lux",
     "npm-publish": "npm run lint:lux && npm run test:coverage && ng build lux && npm publish --access public dist/lux"
   },
   "private": true,
