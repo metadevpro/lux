@@ -7,6 +7,7 @@ import { AngularResizedEventModule } from 'angular-resize-event';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { AutocompleteListComponent } from './autocomplete-list/autocomplete-list.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
+import { DatetimeComponent } from './datetime/datetime.component';
 import { InputComponent } from './input/input.component';
 import { FilterComponent } from './filter/filter.component';
 import { GeolocationComponent } from './geolocation/geolocation.component';
@@ -31,6 +32,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     AutocompleteListComponent,
     FilterComponent,
     CheckboxComponent,
+    DatetimeComponent,
     InputComponent,
     GeolocationComponent,
     LuxTooltipDirective,
@@ -63,6 +65,7 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     AutocompleteListComponent,
     FilterComponent,
     CheckboxComponent,
+    DatetimeComponent,
     InputComponent,
     GeolocationComponent,
     LuxTooltipDirective,

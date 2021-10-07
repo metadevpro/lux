@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.13.0
+
+2021.10.04
+
+- Fix lux.autocomplete to trigger changed value on lostfocus (not 200ms later) [#150](https://github.com/metadevpro/lux/issues/150).
+
 ## Version 0.12.0
 
 2021.09.15

@@ -143,7 +143,7 @@ export class GeolocationComponent implements OnInit {
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    if (v.coordinates && v.coordinates.length === 2) {
+    if (v && v.coordinates && v.coordinates.length === 2) {
       this._value = v;
       this.latitudeValue = v.coordinates[1];
       this.longitudeValue = v.coordinates[0];
@@ -179,8 +179,6 @@ export class GeolocationComponent implements OnInit {
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {
     this.value = value;
-    this.setLatitudeInControl(this.latitudeValue);
-    this.setLongitudeInControl(this.longitudeValue);
   }
 
   registerOnChange(onChange: any): void {
@@ -329,6 +327,9 @@ export class GeolocationComponent implements OnInit {
     };
   }
 
+  onLostFocus(): void {
+    this.markAsTouched();
+  }
   onEventLatitude(newLatitude: string): void {
     if (isValidNumber(newLatitude)) {
       this.updateLatitude(+newLatitude);

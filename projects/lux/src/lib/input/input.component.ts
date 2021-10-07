@@ -238,7 +238,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (this.required && !hasValue(hasValue)) {
+    if (this.required && !hasValue(value)) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
