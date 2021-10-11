@@ -11,7 +11,10 @@
 }
 
 .masked {
-  top: 0px;
+  position: relative;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  bottom: 0px;
   left: 0px;
   background-color: transparent;
   z-index: 0;
@@ -19,7 +22,9 @@
 
 .mask {
   position: absolute;
-  top: 0px;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  bottom: 0px;
   left: 0px;
   border-color: transparent;
   color: gray;
