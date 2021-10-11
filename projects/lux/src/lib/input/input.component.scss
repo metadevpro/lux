@@ -6,6 +6,26 @@
   align-items: stretch;
 }
 
+.patterned {
+  font-family: monospace;
+}
+
+.masked {
+  top: 0px;
+  left: 0px;
+  background-color: transparent;
+  z-index: 0;
+}
+
+.mask {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-color: transparent;
+  color: gray;
+  z-index: -1;
+}
+
 .readonly {
   border: none;
 
