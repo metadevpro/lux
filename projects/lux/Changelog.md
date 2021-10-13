@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.15.0
+
+2021.10.13
+
+- Bug fix: unset width for modal map.
+
 ## Version 0.14.0
 
 2021.10.07

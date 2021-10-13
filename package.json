@@ -2,7 +2,7 @@
   "name": "lux-demo",
   "description": "Lux Library and documentation. User Interface components for Angular.",
   "license": "MIT",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "author": {
     "name": "Metadev S.L.",
     "url": "https://metadev.pro"
@@ -71,12 +71,12 @@
     "@ngneat/spectator": "^7.2.0",
     "@types/jasmine": "~3.9.1",
     "@types/jasminewd2": "~2.0.10",
-    "@types/node": "^16.10.3",
+    "@types/node": "^16.10.7",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-import": "2.24.2",
-    "eslint-plugin-jsdoc": "36.1.0",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-jsdoc": "36.1.1",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "jasmine-core": "~3.9.0",
     "jasmine-spec-reporter": "~7.0.0",
@@ -85,7 +85,7 @@
     "karma-coverage": "^2.0.3",
     "karma-jasmine": "~4.0.1",
     "karma-jasmine-html-reporter": "^1.7.0",
-    "ng-packagr": "^12.2.2",
+    "ng-packagr": "^12.2.3",
     "socket.io": ">=4.2.0",
     "ts-node": "~9.1.1",
     "typescript": "~4.2.4"
