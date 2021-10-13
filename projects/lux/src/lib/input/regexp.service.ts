@@ -282,8 +282,12 @@ export class RegexpService {
         if (!new RegExp(regexParts[0]).test(beginning)) {
           // if there are no more options
           if (regexOptionIndex === regexOptions.length - 1) {
-            // we return the first option, but we could return any option
-            return this.suggestAllCharacters(regexOptions[0]);
+            // we return the shortest option, assuming it's the simplest
+            return this.suggestAllCharacters(
+              regexOptions.reduce((a1, a2) =>
+                a1.length <= a2.length ? a1 : a2
+              )
+            );
           }
         } else {
           for (
