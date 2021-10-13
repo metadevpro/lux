@@ -33,6 +33,24 @@ ng serve
 1. Library source code is under `projects/lux/` folder.
 2. Sample project documenting the library under `src/` folder.
 
+## Debug
+
+In order to debug Lux in a target app by bringing local changes made to Lux's code to an app that uses Lux, run the following commands in Lux's directory:
+
+```bash
+npm run build:lux
+cd dist/lux
+npm pack
+```
+
+And then the following in the target app's directory, replacing `lux.directory` with Lux's directory:
+
+```bash
+npm install lux.directory/dist/lux/metadev-lux-version.tgz
+```
+
+And then build and run the target app.
+
 ## Contributors
 
 - [Channel Salas](https://github.com/Chanell13)

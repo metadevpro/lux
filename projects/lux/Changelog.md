@@ -1,5 +1,17 @@
 # Lux Changelog
 
+## Version 0.14.0
+
+2021.10.07
+
+- Feature: New control `lux-datetime`. Support for UTC/local time, and with or without seconds precission.
+
+## Version 0.13.0
+
+2021.10.04
+
+- Fix lux.autocomplete to trigger changed value on lostfocus (not 200ms later) [#150](https://github.com/metadevpro/lux/issues/150).
+
 ## Version 0.12.0
 
 2021.09.15

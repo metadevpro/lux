@@ -1,8 +1,8 @@
-import { Component, AfterContentInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { AfterContentInit, Component } from '@angular/core';
 import { DataSourceItem } from 'lux/public-api';
 import { DataSource } from 'projects/lux/src/lib/datasource';
+import { Observable, of } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
   disabled1 = false;
   disabled2 = false;
   countryCode = 'JP';
+  savedValue = '';
 
   countries: DataSource<string, string> = [
     { key: 'ES', label: 'Spain' },
@@ -78,5 +79,9 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
     ).pipe(
       debounceTime(10000) // simulate api call
     );
+  }
+
+  save(value: string): void {
+    this.savedValue = value;
   }
 }

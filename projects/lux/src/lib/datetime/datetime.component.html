@@ -1,0 +1,59 @@
+<input
+  #dateInput
+  class="prefix"
+  type="date"
+  [id]="inputId + '$date'"
+  [(ngModel)]="dateValue"
+  [attr.aria-label]="ariaLabel"
+  [attr.disabled]="disabled === true ? 'true' : undefined"
+  [attr.readonly]="readonly === true ? 'true' : undefined"
+  [placeholder]=""
+  [ngClass]="className"
+  (keyup)="onEventDatetime(dateInput.value, timeInput.value)"
+  (change)="onEventDatetime(dateInput.value, timeInput.value)"
+  (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
+/>
+<input
+  #timeInput
+  class="infix"
+  type="time"
+  [id]="inputId + '$time'"
+  [(ngModel)]="timeValue"
+  [attr.aria-label]="ariaLabel"
+  [attr.disabled]="disabled === true ? 'true' : undefined"
+  [attr.readonly]="readonly === true ? 'true' : undefined"
+  [placeholder]=""
+  [step]="includeSeconds ? 1 : 60"
+  [ngClass]="className"
+  (keyup)="onEventDatetime(dateInput.value, timeInput.value)"
+  (change)="onEventDatetime(dateInput.value, timeInput.value)"
+  (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
+/>
+<ng-container *ngIf="!localTime">
+  <div [class]="disabled || readonly ? 'postfix symbol' : 'infix symbol'">
+    <span>{{ localTime ? '' : 'UTC' }}</span>
+  </div>
+</ng-container>
+<button
+  #clearButton
+  *ngIf="!(disabled || readonly)"
+  class="postfix icon-clear"
+  [id]="inputId + '$clear'"
+  [ngClass]="className"
+  (click)="updateDatetime(undefined)"
+  aria-label="clear"
+></button>
+
+<div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
+  <div *ngIf="lastErrors.required">
+    {{ userErrors[this.lang].required }}
+  </div>
+  <div *ngIf="lastErrors.min">
+    {{ userErrors[this.lang].min.replace('$min', lastErrors.min.min) }}
+  </div>
+  <div *ngIf="lastErrors.max">
+    {{ userErrors[this.lang].max.replace('$max', lastErrors.max.max) }}
+  </div>
+</div>
