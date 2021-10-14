@@ -41,6 +41,10 @@ $icon-dropdown: var(
 /////////
 // Styles
 
+:focus {
+  z-index: 1;
+}
+
 input,
 select,
 textarea {
