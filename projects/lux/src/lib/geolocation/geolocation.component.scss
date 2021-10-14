@@ -20,6 +20,15 @@
   }
 }
 
+.icon-clear {
+  grid-row: 1;
+  grid-column: 2;
+  width: $icon-width;
+  background: $icon-clear;
+  background-size: $icon-bg-size;
+  z-index: 1;
+}
+
 .lux-modal-body {
   padding: 0px;
 }

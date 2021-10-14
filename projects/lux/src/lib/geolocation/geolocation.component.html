@@ -27,7 +27,7 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<div class="infix symbol">
+<div class="infix symbol" (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
     cardinalPoints[this.lang].north
   }}</span>
@@ -67,7 +67,7 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<div class="infix symbol">
+<div [class]="disabled || readonly ? 'rounded-right postfix symbol' : 'postfix symbol'" (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
     cardinalPoints[this.lang].east
   }}</span>
@@ -78,9 +78,15 @@
     cardinalPoints[this.lang].unknown
   }}</span>
 </div>
-<button class="rounded-right symbol" (click)="openModalMap(modalMap)">
-  <span>🌐</span>
-</button>
+<button
+  #clearButton
+  *ngIf="!(disabled || readonly)"
+  class="rounded-right postfix icon-clear"
+  [id]="inputId + '$clear'"
+  [ngClass]="className"
+  (click)="updateLatitudeAndLongitude(undefined)"
+  aria-label="clear"
+></button>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">

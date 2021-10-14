@@ -268,23 +268,40 @@ export class GeolocationComponent implements OnInit {
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = {
-      type: 'Point',
-      coordinates: [this.longitudeValue, newLatitude]
-    };
+    if (isValidNumber(this.longitudeValue)) {
+      this.value = {
+        type: 'Point',
+        coordinates: [this.longitudeValue, newLatitude]
+      };
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: [0, newLatitude]
+      };
+    }
   }
   updateLongitude(newLongitude: number | null): void {
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = {
-      type: 'Point',
-      coordinates: [newLongitude, this.latitudeValue]
-    };
+    if (isValidNumber(this.latitudeValue)) {
+      this.value = {
+        type: 'Point',
+        coordinates: [newLongitude, this.latitudeValue]
+      };
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: [newLongitude, 0]
+      };
+    }
   }
   updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
     if (this.disabled || this.readonly) {
       return;
+    }
+    if (!exists(newLatitudeAndLongitude)) {
+      this.value = undefined;
     }
     this.value = {
       type: 'Point',
@@ -305,6 +322,9 @@ export class GeolocationComponent implements OnInit {
     );
     if (this.disabled || this.readonly) {
       return;
+    }
+    if (!exists(newLatitudeAndLongitude)) {
+      this.value = undefined;
     }
     this.value = {
       type: 'Point',
