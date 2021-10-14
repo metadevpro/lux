@@ -344,6 +344,14 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   isPermillage(): boolean {
     return this.type === 'permillage';
   }
+  hasPrefix(): boolean {
+    return this.currency === 'USD';
+  }
+  hasPostfix(): boolean {
+    return (
+      this.currency === 'EUR' || this.isPercentage() || this.isPermillage()
+    );
+  }
 
   checkClassName(): string {
     if (this.readonly === true) {
