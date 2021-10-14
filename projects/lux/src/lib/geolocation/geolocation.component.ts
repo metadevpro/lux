@@ -87,14 +87,14 @@ export class GeolocationComponent implements OnInit {
       south: 'S',
       east: 'E',
       west: 'W',
-      unknown: '?'
+      unknown: ''
     },
     es: {
       north: 'N',
       south: 'S',
       east: 'E',
       west: 'O',
-      unknown: '?'
+      unknown: ''
     }
   };
 
