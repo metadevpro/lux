@@ -240,7 +240,7 @@ export class GeolocationComponent implements OnInit {
       result.maxLatitude = {
         value,
         max: this.maxLatitude,
-        reason: `Value is lower than maximum value: ${this.maxLatitude}.`
+        reason: `Value is higher than maximum value: ${this.maxLatitude}.`
       };
     }
     if (
@@ -264,7 +264,7 @@ export class GeolocationComponent implements OnInit {
       result.maxLongitude = {
         value,
         max: this.maxLongitude,
-        reason: `Value is lower than maximum value: ${this.maxLongitude}.`
+        reason: `Value is higher than maximum value: ${this.maxLongitude}.`
       };
     }
     this.lastErrors = result;
