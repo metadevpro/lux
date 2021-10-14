@@ -1,88 +1,86 @@
-<div class="lux-geolocation" [id]="inputId">
-  <input
-    #latitude
-    class="prefix"
-    type="number"
-    [id]="inputId + '$latitude'"
-    [(ngModel)]="latitudeValue"
-    [attr.aria-label]="ariaLabel"
-    [attr.disabled]="disabled === true ? 'true' : undefined"
-    [attr.readonly]="readonly === true ? 'true' : undefined"
-    [attr.min]="
-      minLatitude !== undefined && minLatitude !== null
-        ? minLatitude.toString()
-        : undefined
-    "
-    [attr.max]="
-      maxLatitude !== undefined && maxLatitude !== null
-        ? maxLatitude.toString()
-        : undefined
-    "
-    [attr.step]="
-      step !== undefined && step !== null ? step.toString() : undefined
-    "
-    placeholder="lat"
-    [ngClass]="className"
-    (keyup)="onEventLatitude(latitude.value)"
-    (change)="onEventLatitude(latitude.value)"
-    (keypress)="onKeyPress($event)"
-    (blur)="onLostFocus()"
-  />
-  <div class="infix symbol">
-    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
-      cardinalPoints[this.lang].north
-    }}</span>
-    <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
-      cardinalPoints[this.lang].south
-    }}</span>
-    <span *ngIf="!isValidNumber(latitudeValue)">{{
-      cardinalPoints[this.lang].unknown
-    }}</span>
-  </div>
-  <input
-    #longitude
-    class="infix"
-    type="number"
-    [id]="inputId + '$longitude'"
-    [(ngModel)]="longitudeValue"
-    [attr.aria-label]="ariaLabel"
-    [attr.disabled]="disabled === true ? 'true' : undefined"
-    [attr.readonly]="readonly === true ? 'true' : undefined"
-    [attr.min]="
-      minLongitude !== undefined && minLongitude !== null
-        ? minLongitude.toString()
-        : undefined
-    "
-    [attr.max]="
-      maxLongitude !== undefined && maxLongitude !== null
-        ? maxLongitude.toString()
-        : undefined
-    "
-    [attr.step]="
-      step !== undefined && step !== null ? step.toString() : undefined
-    "
-    placeholder="lon"
-    [ngClass]="className"
-    (keyup)="onEventLongitude(longitude.value)"
-    (change)="onEventLongitude(longitude.value)"
-    (keypress)="onKeyPress($event)"
-    (blur)="onLostFocus()"
-  />
-  <div class="infix symbol">
-    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
-      cardinalPoints[this.lang].east
-    }}</span>
-    <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
-      cardinalPoints[this.lang].west
-    }}</span>
-    <span *ngIf="!isValidNumber(longitudeValue)">{{
-      cardinalPoints[this.lang].unknown
-    }}</span>
-  </div>
-  <button class="postfix symbol" (click)="openModalMap(modalMap)">
-    <span>🌐</span>
-  </button>
+<input
+  #latitude
+  class="prefix"
+  type="number"
+  [id]="inputId + '$latitude'"
+  [(ngModel)]="latitudeValue"
+  [attr.aria-label]="ariaLabel"
+  [attr.disabled]="disabled === true ? 'true' : undefined"
+  [attr.readonly]="readonly === true ? 'true' : undefined"
+  [attr.min]="
+    minLatitude !== undefined && minLatitude !== null
+      ? minLatitude.toString()
+      : undefined
+  "
+  [attr.max]="
+    maxLatitude !== undefined && maxLatitude !== null
+      ? maxLatitude.toString()
+      : undefined
+  "
+  [attr.step]="
+    step !== undefined && step !== null ? step.toString() : undefined
+  "
+  placeholder="lat"
+  [ngClass]="className"
+  (keyup)="onEventLatitude(latitude.value)"
+  (change)="onEventLatitude(latitude.value)"
+  (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
+/>
+<div class="infix symbol">
+  <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
+    cardinalPoints[this.lang].north
+  }}</span>
+  <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
+    cardinalPoints[this.lang].south
+  }}</span>
+  <span *ngIf="!isValidNumber(latitudeValue)">{{
+    cardinalPoints[this.lang].unknown
+  }}</span>
 </div>
+<input
+  #longitude
+  class="infix"
+  type="number"
+  [id]="inputId + '$longitude'"
+  [(ngModel)]="longitudeValue"
+  [attr.aria-label]="ariaLabel"
+  [attr.disabled]="disabled === true ? 'true' : undefined"
+  [attr.readonly]="readonly === true ? 'true' : undefined"
+  [attr.min]="
+    minLongitude !== undefined && minLongitude !== null
+      ? minLongitude.toString()
+      : undefined
+  "
+  [attr.max]="
+    maxLongitude !== undefined && maxLongitude !== null
+      ? maxLongitude.toString()
+      : undefined
+  "
+  [attr.step]="
+    step !== undefined && step !== null ? step.toString() : undefined
+  "
+  placeholder="lon"
+  [ngClass]="className"
+  (keyup)="onEventLongitude(longitude.value)"
+  (change)="onEventLongitude(longitude.value)"
+  (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
+/>
+<div class="infix symbol">
+  <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
+    cardinalPoints[this.lang].east
+  }}</span>
+  <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
+    cardinalPoints[this.lang].west
+  }}</span>
+  <span *ngIf="!isValidNumber(longitudeValue)">{{
+    cardinalPoints[this.lang].unknown
+  }}</span>
+</div>
+<button class="postfix symbol" (click)="openModalMap(modalMap)">
+  <span>🌐</span>
+</button>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
