@@ -61,16 +61,85 @@
 <h2>Sandbox</h2>
 
 <div>
-    <pre class="language-html" rel="html">
-        <code class="language-html">
-&lt;lux-geolocation&gt;&lt;/lux-geolocation&gt;
-        </code>
-    </pre>
-    <div class="sample">
-      <label for="geolocation">Geolocation: </label>
-      <lux-geolocation [(value)]="valueGeolocation5"></lux-geolocation>
-      Bind value: {{ valueGeolocation5 | json }}
+  <div>
+    <label for="sandboxFormF1">Value: </label>
+    <input type="string" name="sandboxFormF1" [(ngModel)]="sandboxForm.formValues.field1" />
+  </div>
+  <div>
+    <label for="sandboxFormMinLatitude">Minimum latitude: </label>
+    <lux-input type="number" name="sandboxFormMinLatitude" [(ngModel)]="sandboxForm.minLatitude" ></lux-input>
+  </div>
+  <div>
+    <label for="sandboxFormMaxLatitude">Maximum latitude: </label>
+    <lux-input type="number" name="sandboxFormMaxLatitude" [(ngModel)]="sandboxForm.maxLatitude" ></lux-input>
+  </div>
+  <div>
+    <label for="sandboxFormMinLongitude">Minimum longitude: </label>
+    <lux-input type="number" name="sandboxFormMinLongitude" [(ngModel)]="sandboxForm.minLongitude" ></lux-input>
+  </div>
+  <div>
+    <label for="sandboxFormMaxLongitude">Maximum longitude: </label>
+    <lux-input type="number" name="sandboxFormMaxLongitude" [(ngModel)]="sandboxForm.maxLongitude" ></lux-input>
+  </div>
+  <div>
+    <label for="sandboxFormStep">Step: </label>
+    <lux-input type="number" name="sandboxFormStep" [(ngModel)]="sandboxForm.step" ></lux-input>
+  </div>
+  <div>
+    <label for="sandboxFormZoom">Zoom: </label>
+    <lux-input type="number" name="sandboxFormZoom" [(ngModel)]="sandboxForm.zoom" ></lux-input>
+  </div>
+  <div>
+    <label for="sandboxFormRequired">
+      <input
+        type="checkbox"
+        name="sandboxFormRequired"
+        [(ngModel)]="sandboxForm.required"
+      />Required</label>
+  </div>
+  <div>
+    <label for="sandboxFormDisabled">
+      <input
+        type="checkbox"
+        name="sandboxFormDisabled"
+        [(ngModel)]="sandboxForm.disabled"
+      />Disabled</label>
+  </div>
+  <div>
+    <label for="sandboxFormInlineErrors">
+      <input
+        type="checkbox"
+        name="sandboxFormInlineErrors"
+        [(ngModel)]="sandboxForm.inlineErrors"
+      />Show inline errors</label>
+  </div>
+  <hr />
+  <h3>Form</h3>
+  <form #form="ngForm">
+    <label for="sandboxFormField1">Field 1:</label>
+    <lux-geolocation
+      name="sandboxFormField1"
+      inputId="sandboxFormField1"
+      [minLatitude]="sandboxForm.minLatitude"
+      [maxLatitude]="sandboxForm.maxLatitude"
+      [minLongitude]="sandboxForm.minLongitude"
+      [maxLongitude]="sandboxForm.maxLongitude"
+      [step]="sandboxForm.step"
+      [zoom]="sandboxForm.zoom"
+      [required]="sandboxForm.required"
+      [disabled]="sandboxForm.disabled"
+      [inlineErrors]="sandboxForm.inlineErrors"
+      [(ngModel)]="sandboxForm.formValues.field1"
+      #field1Val="ngModel"
+    >
+    </lux-geolocation>
+    <div *ngIf="!field1Val.valid">
+      Debug: {{ field1Val.errors | json }} touched: {{ field1Val.touched }} dirty:
+      {{ field1Val.dirty }}
     </div>
+    <button [disabled]="!form.valid">Fake sumbit</button>
+    <div>Form values: {{ sandboxForm.formValues | json }}</div>
+  </form>
 </div>
 
 <h2>Documentation</h2>
