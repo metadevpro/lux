@@ -302,11 +302,12 @@ export class GeolocationComponent implements OnInit {
     }
     if (!exists(newLatitudeAndLongitude)) {
       this.value = undefined;
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: newLatitudeAndLongitude
+      };
     }
-    this.value = {
-      type: 'Point',
-      coordinates: newLatitudeAndLongitude
-    };
   }
 
   roundToStepAndUpdateLatitudeAndLongitude(
