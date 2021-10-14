@@ -10,8 +10,8 @@ $symbol-font-size: var(--lux-symbol-font-size, 1rem);
 // Colors
 $alert-color: var(--lux-alert-color, white);
 $alert-background: var(--lux-alert-background, #fe2e2e);
-$symbol-color: var(--lux-symbol-color, #495057);
-$symbol-background: var(--lux-symbol-background, #e9ecef);
+$symbol-color: var(--lux-symbol-color, default); // Formerly #495057
+$symbol-background: var(--lux-symbol-background, default); // Formerly #e9ecef
 $input-border-color: var(--lux-input-border-color, #495057);
 
 // Borders
@@ -83,24 +83,35 @@ textarea {
   border: $input-border;
 }
 
-.prefix {
+.rounded-left {
   @extend .rounded;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.rounded-middle {
+  @extend .rounded;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.rounded-right {
+  @extend .rounded;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.prefix {
+  border-right: none;
 }
 
 .infix {
-  @extend .rounded;
   border-left: none;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-right: none;
 }
 
 .postfix {
-  @extend .rounded;
   border-left: none;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
 }
