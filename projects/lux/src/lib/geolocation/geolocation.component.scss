@@ -37,7 +37,9 @@ $geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
   width: $icon-width;
   z-index: 1;
 }
-
+.clickable {
+  cursor: pointer;
+}
 .icon-globe {
   @extend .icon;
   background: $icon-globe;

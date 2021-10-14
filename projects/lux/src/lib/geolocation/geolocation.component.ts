@@ -1,20 +1,21 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
   ElementRef,
-  ViewChild,
+  EventEmitter,
   forwardRef,
-  TemplateRef
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
 import {
-  NG_VALUE_ACCESSOR,
   AbstractControl,
-  ValidationErrors,
-  NG_VALIDATORS
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors
 } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { DataSource } from '../datasource';
 import {
   exists,
@@ -23,9 +24,8 @@ import {
   roundToMultipleOf
 } from '../helperFns';
 import { languageDetector } from '../lang';
-import { ModalService } from '../modal/modal.service';
 import { GeoPoint } from '../map/geopoint';
-import { Observable } from 'rxjs';
+import { ModalService } from '../modal/modal.service';
 import { GeolocationService } from './geolocation.service';
 
 @Component({
@@ -59,12 +59,33 @@ export class GeolocationComponent implements OnInit {
   private _required: boolean;
   private _value: any;
 
-  public latitudeValue?: number = null;
-  public longitudeValue?: number = null;
+  latitudeValue?: number = null;
+  longitudeValue?: number = null;
 
   isValidNumber = isValidNumber;
 
-  public userErrors = {
+  i18n = {
+    en: {
+      lat: 'latitude',
+      lon: 'longitude',
+      selectLocation: 'Select location',
+      location: 'Location',
+      selectAction: 'Select',
+      cancelAction: 'Cancel',
+      closeAction: 'Close'
+    },
+    es: {
+      lat: 'latitud',
+      lon: 'longitud',
+      selectLocation: 'Seleccione ubicación',
+      location: 'Ubicación',
+      selectAction: 'Seleccionar',
+      cancelAction: 'Cancelar',
+      closeAction: 'Cerrar'
+    }
+  };
+
+  userErrors = {
     en: {
       required: 'Required field.',
       minLatitude: 'Minimum latitude is $minLatitude.',
@@ -225,7 +246,7 @@ export class GeolocationComponent implements OnInit {
       result.minLatitude = {
         value,
         min: this.minLatitude,
-        reason: `Value is lower than minimum value: ${this.minLatitude}.`
+        reason: `Latitude is lower than minimum value: ${this.minLatitude}.`
       };
     }
     if (exists(this.maxLatitude) && this.latitudeValue > this.maxLatitude) {
@@ -233,7 +254,7 @@ export class GeolocationComponent implements OnInit {
       result.maxLatitude = {
         value,
         max: this.maxLatitude,
-        reason: `Value is higher than maximum value: ${this.maxLatitude}.`
+        reason: `Latitude is higher than maximum value: ${this.maxLatitude}.`
       };
     }
     if (exists(this.minLongitude) && this.longitudeValue < this.minLongitude) {
@@ -241,7 +262,7 @@ export class GeolocationComponent implements OnInit {
       result.minLongitude = {
         value,
         min: this.minLongitude,
-        reason: `Value is lower than minimum value: ${this.minLongitude}.`
+        reason: `Longitude is lower than minimum value: ${this.minLongitude}.`
       };
     }
     if (exists(this.maxLongitude) && this.longitudeValue > this.maxLongitude) {
@@ -249,7 +270,7 @@ export class GeolocationComponent implements OnInit {
       result.maxLongitude = {
         value,
         max: this.maxLongitude,
-        reason: `Value is higher than maximum value: ${this.maxLongitude}.`
+        reason: `Longitude is higher than maximum value: ${this.maxLongitude}.`
       };
     }
     this.lastErrors = result;
@@ -369,7 +390,9 @@ export class GeolocationComponent implements OnInit {
   }
 
   get mapTitle(): string {
-    return this._disabled || !!this.readonly ? 'Location:' : 'Select location:';
+    return this._disabled || !!this.readonly
+      ? this.i18n[this.lang].location
+      : this.i18n[this.lang].selectLocation;
   }
 
   get self(): GeolocationComponent {

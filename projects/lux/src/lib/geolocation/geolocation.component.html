@@ -20,14 +20,14 @@
   [attr.step]="
     step !== undefined && step !== null ? step.toString() : undefined
   "
-  placeholder="lat"
+  [placeholder]="i18n[lang].lat"
   [ngClass]="className"
   (keyup)="onEventLatitude(latitude.value)"
   (change)="onEventLatitude(latitude.value)"
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<div class="infix symbol" (click)="openModalMap(modalMap)">
+<div class="infix symbol clickable" (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
     cardinalPoints[this.lang].north
   }}</span>
@@ -58,14 +58,21 @@
   [attr.step]="
     step !== undefined && step !== null ? step.toString() : undefined
   "
-  placeholder="lon"
+  [placeholder]="i18n[lang].lon"
   [ngClass]="className"
   (keyup)="onEventLongitude(longitude.value)"
   (change)="onEventLongitude(longitude.value)"
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<div [class]="disabled || readonly ? 'rounded-right postfix symbol' : 'postfix symbol'" (click)="openModalMap(modalMap)">
+<div
+  [class]="
+    disabled || readonly
+      ? 'clickable rounded-right postfix symbol'
+      : 'clickable postfix symbol'
+  "
+  (click)="openModalMap(modalMap)"
+>
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
     cardinalPoints[this.lang].east
   }}</span>
@@ -142,8 +149,7 @@
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
       (valueChange)="
-        map.markerPoint = searchBar.value;
-        map.center = map.markerPoint
+        map.markerPoint = searchBar.value; map.center = map.markerPoint
       "
     ></lux-autocomplete>
     <div class="map-container">
@@ -158,12 +164,20 @@
   </div>
   <div class="lux-modal-footer">
     <button
+      *ngIf="disabled || readonly"
+      type="button"
+      class="btn btn-cancel"
+      (click)="modal.close('cancel')"
+    >
+      {{ i18n[lang].closeAction }}
+    </button>
+    <button
       *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-cancel"
       (click)="modal.close('cancel')"
     >
-      Cancel
+      {{ i18n[lang].cancelAction }}
     </button>
     <button
       *ngIf="!disabled && !readonly"
@@ -171,7 +185,7 @@
       class="btn btn-select"
       (click)="modal.close(map.markerPoint.coordinates)"
     >
-      Select
+      {{ i18n[lang].selectAction }}
     </button>
   </div>
 </ng-template>
