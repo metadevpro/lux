@@ -81,14 +81,13 @@ textarea {
 
 .prefix {
   @extend .rounded;
-  border-right: none;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .infix {
   @extend .rounded;
-  border-right: none;
+  border-left: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 0;
@@ -97,6 +96,7 @@ textarea {
 
 .postfix {
   @extend .rounded;
+  border-left: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
