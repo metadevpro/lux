@@ -34,9 +34,7 @@
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
     cardinalPoints[this.lang].south
   }}</span>
-  <span *ngIf="!isValidNumber(latitudeValue)">{{
-    cardinalPoints[this.lang].unknown
-  }}</span>
+  <span *ngIf="!isValidNumber(latitudeValue)" class="icon-globe"></span>
 </div>
 <input
   #longitude
@@ -74,14 +72,12 @@
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
     cardinalPoints[this.lang].west
   }}</span>
-  <span *ngIf="!isValidNumber(longitudeValue)">{{
-    cardinalPoints[this.lang].unknown
-  }}</span>
+  <span *ngIf="!isValidNumber(longitudeValue)" class="icon-globe"></span>
 </div>
 <button
   #clearButton
   *ngIf="!(disabled || readonly)"
-  class="rounded-right postfix icon-clear"
+  class="rounded-right postfix icon icon-clear"
   [id]="inputId + '$clear'"
   [ngClass]="className"
   (click)="updateLatitudeAndLongitude(undefined)"
