@@ -4,7 +4,7 @@
 <input
   #input
   *ngIf="type !== 'textarea'"
-  class="infix"
+  [class]="hasPrefix() ? (hasPostfix() ? 'infix' : 'postfix') : (hasPostfix() ? 'prefix' : 'rounded')"
   placement="top"
   [id]="inputId"
   [type]="domain"
@@ -26,7 +26,6 @@
 <textarea
   #textarea
   *ngIf="type === 'textarea'"
-  class="infix"
   placement="top"
   [id]="inputId"
   [attr.value]="value"
