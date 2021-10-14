@@ -45,12 +45,11 @@ export class MapComponent implements OnInit, AfterViewInit {
   _center: GeoPoint;
   @Input()
   set center(center: GeoPoint) {
-    if (center) {
-      if (center.coordinates && center.coordinates.length === 2) {
-        this._center = center;
-        if (this._map) {
-          this._map.getView().setCenter(ol.proj.fromLonLat(center.coordinates));
-        }
+    console.log('center: ' + center);
+    if (center && center.coordinates && center.coordinates.length === 2) {
+      this._center = center;
+      if (this._map) {
+        this._map.getView().setCenter(ol.proj.fromLonLat(center.coordinates));
       }
     }
   }
