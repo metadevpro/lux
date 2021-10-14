@@ -17,6 +17,7 @@ import {
 } from '@angular/forms';
 import { DataSource } from '../datasource';
 import {
+  exists,
   isInitialAndEmpty,
   isValidNumber,
   roundToMultipleOf
@@ -215,15 +216,11 @@ export class GeolocationComponent implements OnInit {
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (this.required && (value === null || value === undefined)) {
+    if (this.required && !exists(value)) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (
-      this.minLatitude !== undefined &&
-      this.minLatitude !== null &&
-      this.latitudeValue < this.minLatitude
-    ) {
+    if (exists(this.minLatitude) && this.latitudeValue < this.minLatitude) {
       result = result || {};
       result.minLatitude = {
         value,
@@ -231,11 +228,7 @@ export class GeolocationComponent implements OnInit {
         reason: `Value is lower than minimum value: ${this.minLatitude}.`
       };
     }
-    if (
-      this.maxLatitude !== undefined &&
-      this.maxLatitude !== null &&
-      this.latitudeValue > this.maxLatitude
-    ) {
+    if (exists(this.maxLatitude) && this.latitudeValue > this.maxLatitude) {
       result = result || {};
       result.maxLatitude = {
         value,
@@ -243,11 +236,7 @@ export class GeolocationComponent implements OnInit {
         reason: `Value is higher than maximum value: ${this.maxLatitude}.`
       };
     }
-    if (
-      this.minLongitude !== undefined &&
-      this.minLongitude !== null &&
-      this.longitudeValue < this.minLongitude
-    ) {
+    if (exists(this.minLongitude) && this.longitudeValue < this.minLongitude) {
       result = result || {};
       result.minLongitude = {
         value,
@@ -255,11 +244,7 @@ export class GeolocationComponent implements OnInit {
         reason: `Value is lower than minimum value: ${this.minLongitude}.`
       };
     }
-    if (
-      this.maxLongitude !== undefined &&
-      this.maxLongitude !== null &&
-      this.longitudeValue > this.maxLongitude
-    ) {
+    if (exists(this.maxLongitude) && this.longitudeValue > this.maxLongitude) {
       result = result || {};
       result.maxLongitude = {
         value,
