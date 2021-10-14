@@ -27,10 +27,6 @@ export class GeolocationSampleComponent implements AfterContentInit {
     type: 'Point',
     coordinates: [-5.97, 37.99]
   };
-  valueGeolocation5: GeoPoint = {
-    type: 'Point',
-    coordinates: [-5.97, 37.99]
-  };
 
   sandboxForm = {
     minLatitude: -90,
