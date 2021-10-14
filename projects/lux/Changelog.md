@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.15.1
+
+2021.10.14
+
+- Bug fix: autocomplete selection when filtering. [#154](https://github.com/metadevpro/lux/issues/154).
+
 ## Version 0.15.0
 
 2021.10.13
