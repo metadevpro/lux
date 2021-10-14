@@ -234,7 +234,7 @@ export class GeolocationComponent implements OnInit {
     if (
       this.maxLatitude !== undefined &&
       this.maxLatitude !== null &&
-      this.latitudeValue < this.maxLatitude
+      this.latitudeValue > this.maxLatitude
     ) {
       result = result || {};
       result.maxLatitude = {
@@ -258,7 +258,7 @@ export class GeolocationComponent implements OnInit {
     if (
       this.maxLongitude !== undefined &&
       this.maxLongitude !== null &&
-      this.longitudeValue < this.maxLongitude
+      this.longitudeValue > this.maxLongitude
     ) {
       result = result || {};
       result.maxLongitude = {
