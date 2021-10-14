@@ -4,6 +4,8 @@ $icon-globe: var(
   --lux-autocomplete-icon-globe,
   url(/assets/img/globe.svg) no-repeat center
 );
+$geolocation-map-height: var(--lux-geolocation-map-height, 45vh);
+$geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
 
 :host {
   position: relative;
@@ -55,5 +57,6 @@ $icon-globe: var(
   padding: 0px;
 }
 .map-container {
-  height: 45vh;
+  height: $geolocation-map-height;
+  width: $geolocation-map-width;
 }
