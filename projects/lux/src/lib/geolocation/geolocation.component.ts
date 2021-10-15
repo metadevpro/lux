@@ -236,6 +236,26 @@ export class GeolocationComponent implements OnInit {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
+    if (
+      !exists(this.latitudeValue) &&
+      (this.required || exists(this.longitudeValue))
+    ) {
+      result = result || {};
+      result.existsLatitude = {
+        value,
+        reason: 'Latitude not specified.'
+      };
+    }
+    if (
+      !exists(this.longitudeValue) &&
+      (this.required || exists(this.latitudeValue))
+    ) {
+      result = result || {};
+      result.existsLongitude = {
+        value,
+        reason: 'Longitude not specified.'
+      };
+    }
     if (exists(this.minLatitude) && this.latitudeValue < this.minLatitude) {
       result = result || {};
       result.minLatitude = {
@@ -284,33 +304,19 @@ export class GeolocationComponent implements OnInit {
     if (this.disabled || this.readonly) {
       return;
     }
-    if (isValidNumber(this.longitudeValue)) {
-      this.value = {
-        type: 'Point',
-        coordinates: [this.longitudeValue, newLatitude]
-      };
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: [0, newLatitude]
-      };
-    }
+    this.value = {
+      type: 'Point',
+      coordinates: [this.longitudeValue, newLatitude]
+    };
   }
   updateLongitude(newLongitude: number | null): void {
     if (this.disabled || this.readonly) {
       return;
     }
-    if (isValidNumber(this.latitudeValue)) {
-      this.value = {
-        type: 'Point',
-        coordinates: [newLongitude, this.latitudeValue]
-      };
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: [newLongitude, 0]
-      };
-    }
+    this.value = {
+      type: 'Point',
+      coordinates: [newLongitude, this.latitudeValue]
+    };
   }
   updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
     if (this.disabled || this.readonly) {
