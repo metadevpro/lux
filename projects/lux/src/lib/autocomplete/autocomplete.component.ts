@@ -28,7 +28,7 @@ import {
 } from '../datasource';
 import { isInitialAndEmpty } from '../helperFns';
 
-export const LOST_FOCUS_TIME_WINDOW_MS = 100; // ms
+export const LOST_FOCUS_TIME_WINDOW_MS = 200; // ms
 @Component({
   selector: 'lux-autocomplete',
   templateUrl: './autocomplete.component.html',
@@ -58,6 +58,7 @@ export class AutocompleteComponent
   private _placeholder: string;
   private _value: any;
   private lostFocusHandled = false;
+  private ti: number;
 
   showSpinner = false;
   touched = false;
@@ -279,22 +280,43 @@ export class AutocompleteComponent
   }
   onLostFocus(label: string): void {
     this.lostFocusHandled = false;
+    const t0 = performance.now();
+    this.ti = t0;
+    console.log('Init LostFocus');
     setTimeout(() => {
       // needs to postpone actions some milliseconds to verify if
       // lost focus was followed by a list selection -> then cancel
       // if not -> make side effect
       if (!this.lostFocusHandled) {
+        console.log(
+          'Lost focus 2',
+          this.lostFocusHandled,
+          'SIDE EFFECT',
+          performance.now() - t0,
+          'label:',
+          label
+        );
         if (label) {
           this.pickSelectionOrFirstMatch(label);
         }
         this.toggleCompletion(false, label);
       } else {
         // do nothing (list selection took place)
+        console.log(
+          'onlost focus 2',
+          this.lostFocusHandled,
+          'nothing',
+          performance.now() - t0
+        );
       }
     }, LOST_FOCUS_TIME_WINDOW_MS);
   }
   complete(item: DataSourceItem<Record<string, unknown>, string>): void {
     this.lostFocusHandled = true; // prevent a previous lostFocus to trigger a side effect
+    console.log(
+      'complete. set to true. CANCELED side effect',
+      performance.now() - this.ti
+    );
     if (item !== null) {
       this.value = item.key;
       this.label = item.label;
