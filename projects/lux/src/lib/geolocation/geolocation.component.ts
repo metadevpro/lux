@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { DataSource } from '../datasource';
 import {
   exists,
+  isEmptyString,
   isInitialAndEmpty,
   isValidNumber,
   roundToMultipleOf
@@ -360,12 +361,16 @@ export class GeolocationComponent implements OnInit {
   onEventLatitude(newLatitude: string): void {
     if (isValidNumber(newLatitude)) {
       this.updateLatitude(+newLatitude);
+    } else {
+      this.updateLatitude(undefined);
     }
     this.markAsTouched();
   }
   onEventLongitude(newLongitude: string): void {
     if (isValidNumber(newLongitude)) {
       this.updateLongitude(+newLongitude);
+    } else {
+      this.updateLongitude(undefined);
     }
     this.markAsTouched();
   }
