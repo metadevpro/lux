@@ -1,67 +1,63 @@
 <div *ngIf="currency && currency === 'USD'" class="prefix symbol">
   <span>$</span>
 </div>
-<div
+<input
   *ngIf="type !== 'textarea'"
->
-  <input
-    #input
-    class="infix masked patterned"
-    placement="top"
-    [id]="inputId"
-    [type]="domain"
-    [attr.value]="value"
-    [attr.aria-label]="ariaLabel"
-    [attr.disabled]="disabled === true ? 'true' : undefined"
-    [attr.readonly]="readonly === true ? 'true' : undefined"
-    [attr.min]="min?.toString() || undefined"
-    [attr.max]="max?.toString() || undefined"
-    [attr.step]="step?.toString() || undefined"
-    [attr.pattern]="pattern || undefined"
-    [placeholder]="placeholder"
-    [ngClass]="className"
-    (keyup)="onKeyUp(input.value)"
-    (change)="onChangeValue(input.value)"
-    (keypress)="onKeyPress($event)"
-    (blur)="onLostFocus()"
-  />
-  <input
-    #inputMask
-    class="infix mask patterned"
-    [id]="inputId + '$mask'"
-    readonly="true"
-  />
-</div>
-<div
+  #input
+  class="infix masked patterned"
+  placement="top"
+  [id]="inputId"
+  [type]="domain"
+  [attr.value]="value"
+  [attr.aria-label]="ariaLabel"
+  [attr.disabled]="disabled === true ? 'true' : undefined"
+  [attr.readonly]="readonly === true ? 'true' : undefined"
+  [attr.min]="min?.toString() || undefined"
+  [attr.max]="max?.toString() || undefined"
+  [attr.step]="step?.toString() || undefined"
+  [attr.pattern]="pattern || undefined"
+  [placeholder]="placeholder"
+  [ngClass]="className"
+  (keyup)="onKeyUp(input.value)"
+  (change)="onChangeValue(input.value)"
+  (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
+/>
+<input
+  *ngIf="type !== 'textarea'"
+  #inputMask
+  class="infix mask patterned"
+  [id]="inputId + '$mask'"
+  readonly="true"
+/>
+<textarea
   *ngIf="type === 'textarea'"
->
-  <textarea
-    #textarea
-    class="infix masked patterned"
-    placement="top"
-    [id]="inputId"
-    [attr.value]="value"
-    [attr.aria-label]="ariaLabel"
-    [attr.disabled]="disabled === true ? 'true' : undefined"
-    [attr.readonly]="readonly === true ? 'true' : undefined"
-    [attr.cols]="cols?.toString() || undefined"
-    [attr.rows]="rows?.toString() || undefined"
-    [placeholder]="placeholder"
-    [ngClass]="className"
-    (keyup)="onKeyUp(textarea.value)"
-    (change)="onChangeValue(textarea.value)"
-    (keypress)="onKeyPress($event)"
-    (blur)="onLostFocus()"
-  ></textarea>
-  <textarea
-    #textareaMask
-    class="infix mask patterned"
-    [id]="inputId + '$mask'"
-    readonly="true"
-    [attr.cols]="cols?.toString() || undefined"
-    [attr.rows]="rows?.toString() || undefined"
-  ></textarea>
-</div>
+  #textarea
+  class="infix masked patterned"
+  placement="top"
+  [id]="inputId"
+  [attr.value]="value"
+  [attr.aria-label]="ariaLabel"
+  [attr.disabled]="disabled === true ? 'true' : undefined"
+  [attr.readonly]="readonly === true ? 'true' : undefined"
+  [attr.cols]="cols?.toString() || undefined"
+  [attr.rows]="rows?.toString() || undefined"
+  [placeholder]="placeholder"
+  [ngClass]="className"
+  (keyup)="onKeyUp(textarea.value)"
+  (change)="onChangeValue(textarea.value)"
+  (keypress)="onKeyPress($event)"
+  (blur)="onLostFocus()"
+></textarea>
+<textarea
+  *ngIf="type === 'textarea'"
+  #textareaMask
+  class="infix mask patterned"
+  [id]="inputId + '$mask'"
+  readonly="true"
+  [attr.cols]="cols?.toString() || undefined"
+  [attr.rows]="rows?.toString() || undefined"
+></textarea>
 <div *ngIf="currency && currency === 'EUR'" class="postfix symbol">
   <span>€</span>
 </div>
