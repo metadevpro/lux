@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.16.0
+
+2021.10.15
+
+- Bug fix: Improvements to validation in lux-geolocation and lux-map. [#152](https://github.com/metadevpro/lux/issues/152).
+
 ## Version 0.15.3
 
 2021.10.15
