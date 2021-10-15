@@ -19,7 +19,6 @@ import { Observable } from 'rxjs';
 import { DataSource } from '../datasource';
 import {
   exists,
-  isEmptyString,
   isInitialAndEmpty,
   isValidNumber,
   roundToMultipleOf
@@ -51,6 +50,7 @@ export class GeolocationComponent implements OnInit {
 
   @ViewChild('latitude', { static: true }) latitude: ElementRef;
   @ViewChild('longitude', { static: true }) longitude: ElementRef;
+  @ViewChild('map', { static: false }) map?: ElementRef;
 
   touched = false;
   dirty = false;
@@ -73,7 +73,8 @@ export class GeolocationComponent implements OnInit {
       location: 'Location',
       selectAction: 'Select',
       cancelAction: 'Cancel',
-      closeAction: 'Close'
+      closeAction: 'Close',
+      typeToSearch: 'type to search'
     },
     es: {
       lat: 'latitud',
@@ -82,7 +83,8 @@ export class GeolocationComponent implements OnInit {
       location: 'Ubicación',
       selectAction: 'Seleccionar',
       cancelAction: 'Cancelar',
-      closeAction: 'Cerrar'
+      closeAction: 'Cerrar',
+      typeToSearch: 'escribe para buscar'
     }
   };
 
@@ -394,6 +396,11 @@ export class GeolocationComponent implements OnInit {
       },
       (_) => {}
     );
+  }
+
+  onSearchLocationChanged(newValue: GeoPoint, map: any): void {
+    map.markerPoint = newValue;
+    map.center = map.markerPoint;
   }
 
   get mapTitle(): string {

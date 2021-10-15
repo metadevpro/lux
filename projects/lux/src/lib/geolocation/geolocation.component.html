@@ -144,13 +144,13 @@
   <div class="lux-modal-body content">
     <lux-autocomplete
       #searchBar
+      [attr.aria-label]="i18n[lang].typeToSearch"
+      [placeholder]="i18n[lang].typeToSearch"
       *ngIf="!disabled && !readonly"
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
-      (valueChange)="
-        map.markerPoint = searchBar.value; map.center = map.markerPoint
-      "
+      (valueChange)="onSearchLocationChanged(searchBar.value, map)"
     ></lux-autocomplete>
     <div class="map-container">
       <lux-map
