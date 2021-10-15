@@ -27,9 +27,20 @@ export class GeolocationSampleComponent implements AfterContentInit {
     type: 'Point',
     coordinates: [-5.97, 37.99]
   };
-  valueGeolocation5: GeoPoint = {
-    type: 'Point',
-    coordinates: [-5.97, 37.99]
+
+  sandboxForm = {
+    minLatitude: -90,
+    maxLatitude: +90,
+    minLongitude: -180,
+    maxLongitude: +180,
+    step: 0.0001,
+    zoom: 16,
+    required: true,
+    disabled: false,
+    inlineErrors: false,
+    formValues: {
+      field1: null // 'initial@value.com'
+    }
   };
 
   constructor(private prismService: PrismService) {}
