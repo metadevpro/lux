@@ -58,7 +58,7 @@ export class AutocompleteComponent
   private _placeholder: string;
   private _value: any;
   private lostFocusHandled = false;
-  private ti: number;
+  private t0 = 0;
 
   showSpinner = false;
   touched = false;
@@ -280,8 +280,7 @@ export class AutocompleteComponent
   }
   onLostFocus(label: string): void {
     this.lostFocusHandled = false;
-    const t0 = performance.now();
-    this.ti = t0;
+    this.t0 = performance.now();
     console.log('Init LostFocus');
     setTimeout(() => {
       // needs to postpone actions some milliseconds to verify if
@@ -292,7 +291,7 @@ export class AutocompleteComponent
           'Lost focus 2',
           this.lostFocusHandled,
           'SIDE EFFECT',
-          performance.now() - t0,
+          performance.now() - this.t0,
           'label:',
           label
         );
@@ -306,16 +305,26 @@ export class AutocompleteComponent
           'onlost focus 2',
           this.lostFocusHandled,
           'nothing',
-          performance.now() - t0
+          performance.now() - this.t0
         );
       }
     }, LOST_FOCUS_TIME_WINDOW_MS);
   }
   complete(item: DataSourceItem<Record<string, unknown>, string>): void {
     this.lostFocusHandled = true; // prevent a previous lostFocus to trigger a side effect
+    const ellapsed = performance.now() - this.t0;
+    if (ellapsed > LOST_FOCUS_TIME_WINDOW_MS) {
+      console.warn(
+        'complete. lostfocus->click timeout of ',
+        LOST_FOCUS_TIME_WINDOW_MS,
+        'ms exceed: ',
+        performance.now() - this.t0,
+        ' ms'
+      );
+    }
     console.log(
       'complete. set to true. CANCELED side effect',
-      performance.now() - this.ti
+      performance.now() - this.t0
     );
     if (item !== null) {
       this.value = item.key;
