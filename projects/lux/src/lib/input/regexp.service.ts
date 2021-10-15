@@ -1,9 +1,6 @@
-import { Injectable } from '@angular/core';
-
 /**
  * A service that holds the functionality for advanced handling of regular expressions
  */
-@Injectable({ providedIn: 'root' })
 export class RegexpService {
   constructor() {}
 
