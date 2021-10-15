@@ -16,7 +16,7 @@
 />
 <input
   #timeInput
-  class=""
+  [class]="(disabled || readonly) && localTime ? 'rounded-right' : ''"
   type="time"
   [id]="inputId + '$time'"
   [(ngModel)]="timeValue"
