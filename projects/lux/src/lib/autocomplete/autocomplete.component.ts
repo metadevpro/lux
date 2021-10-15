@@ -281,32 +281,32 @@ export class AutocompleteComponent
   onLostFocus(label: string): void {
     this.lostFocusHandled = false;
     this.t0 = performance.now();
-    console.log('Init LostFocus');
+    // console.log('Init LostFocus');
     setTimeout(() => {
       // needs to postpone actions some milliseconds to verify if
       // lost focus was followed by a list selection -> then cancel
       // if not -> make side effect
       if (!this.lostFocusHandled) {
-        console.log(
-          'Lost focus 2',
-          this.lostFocusHandled,
-          'SIDE EFFECT',
-          performance.now() - this.t0,
-          'label:',
-          label
-        );
+        // console.log(
+        //   'Lost focus 2',
+        //   this.lostFocusHandled,
+        //   'SIDE EFFECT',
+        //   performance.now() - this.t0,
+        //   'label:',
+        //   label
+        // );
         if (label) {
           this.pickSelectionOrFirstMatch(label);
         }
         this.toggleCompletion(false, label);
       } else {
         // do nothing (list selection took place)
-        console.log(
-          'onlost focus 2',
-          this.lostFocusHandled,
-          'nothing',
-          performance.now() - this.t0
-        );
+        // console.log(
+        //   'onlost focus 2',
+        //   this.lostFocusHandled,
+        //   'nothing',
+        //   performance.now() - this.t0
+        // );
       }
     }, LOST_FOCUS_TIME_WINDOW_MS);
   }
