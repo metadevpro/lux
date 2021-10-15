@@ -14,11 +14,14 @@ $geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
 }
 
 .btn-select {
-  background-color: rgb(180, 184, 240);
+  color: white;
+  background-color: #4242d1;
+  margin-left: 2rem;
 }
 
 .btn-cancel {
-  background-color: rgb(255, 206, 215);
+  color: white;
+  background-color: #c22929;
 }
 
 .readonly {
