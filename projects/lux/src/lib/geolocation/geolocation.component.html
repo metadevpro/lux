@@ -93,11 +93,11 @@
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
-    {{ userErrors[this.lang].required }}
+    {{ i18n[this.lang].userErrors.required }}
   </div>
   <div *ngIf="lastErrors.minLatitude">
     {{
-      userErrors[this.lang].minLatitude.replace(
+      i18n[this.lang].userErrors.minLatitude.replace(
         '$minLatitude',
         lastErrors.minLatitude.min
       )
@@ -105,7 +105,7 @@
   </div>
   <div *ngIf="lastErrors.maxLatitude">
     {{
-      userErrors[this.lang].maxLatitude.replace(
+      i18n[this.lang].userErrors.maxLatitude.replace(
         '$maxLatitude',
         lastErrors.maxLatitude.max
       )
@@ -113,7 +113,7 @@
   </div>
   <div *ngIf="lastErrors.minLongitude">
     {{
-      userErrors[this.lang].minLongitude.replace(
+      i18n[this.lang].userErrors.minLongitude.replace(
         '$minLongitude',
         lastErrors.minLongitude.min
       )
@@ -121,7 +121,7 @@
   </div>
   <div *ngIf="lastErrors.maxLongitude">
     {{
-      userErrors[this.lang].maxLongitude.replace(
+      i18n[this.lang].userErrors.maxLongitude.replace(
         '$maxLongitude',
         lastErrors.maxLongitude.max
       )

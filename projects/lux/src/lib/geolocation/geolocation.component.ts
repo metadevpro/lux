@@ -80,6 +80,13 @@ export class GeolocationComponent implements OnInit {
         south: 'S',
         east: 'E',
         west: 'W'
+      },
+      userErrors: {
+        required: 'Required field.',
+        minLatitude: 'Minimum latitude is $minLatitude.',
+        maxLatitude: 'Maximum latitude is $maxLatitude.',
+        minLongitude: 'Minimum longitude is $minLongitude.',
+        maxLongitude: 'Maximum longitude is $maxLongitude.'
       }
     },
     es: {
@@ -96,24 +103,14 @@ export class GeolocationComponent implements OnInit {
         south: 'S',
         east: 'E',
         west: 'O'
+      },
+      userErrors: {
+        required: 'El campo es obligatorio.',
+        minLatitude: 'La latitud mínima es $minLatitude.',
+        maxLatitude: 'La latitud máxima es $maxLatitude.',
+        minLongitude: 'La longitud mínima es $minLongitude.',
+        maxLongitude: 'La longitud máxima es $maxLongitude.'
       }
-    }
-  };
-
-  userErrors = {
-    en: {
-      required: 'Required field.',
-      minLatitude: 'Minimum latitude is $minLatitude.',
-      maxLatitude: 'Maximum latitude is $maxLatitude.',
-      minLongitude: 'Minimum longitude is $minLongitude.',
-      maxLongitude: 'Maximum longitude is $maxLongitude.'
-    },
-    es: {
-      required: 'El campo es obligatorio.',
-      minLatitude: 'La latitud mínima es $minLatitude.',
-      maxLatitude: 'La latitud máxima es $maxLatitude.',
-      minLongitude: 'La longitud mínima es $minLongitude.',
-      maxLongitude: 'La longitud máxima es $maxLongitude.'
     }
   };
 
