@@ -1,30 +1,31 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
   ElementRef,
-  ViewChild,
+  EventEmitter,
   forwardRef,
-  TemplateRef
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
 import {
-  NG_VALUE_ACCESSOR,
   AbstractControl,
-  ValidationErrors,
-  NG_VALIDATORS
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors
 } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { DataSource } from '../datasource';
 import {
+  exists,
   isInitialAndEmpty,
   isValidNumber,
   roundToMultipleOf
 } from '../helperFns';
 import { languageDetector } from '../lang';
-import { ModalService } from '../modal/modal.service';
 import { GeoPoint } from '../map/geopoint';
-import { Observable } from 'rxjs';
+import { ModalService } from '../modal/modal.service';
 import { GeolocationService } from './geolocation.service';
 
 @Component({
@@ -49,6 +50,7 @@ export class GeolocationComponent implements OnInit {
 
   @ViewChild('latitude', { static: true }) latitude: ElementRef;
   @ViewChild('longitude', { static: true }) longitude: ElementRef;
+  @ViewChild('map', { static: false }) map?: ElementRef;
 
   touched = false;
   dirty = false;
@@ -58,42 +60,57 @@ export class GeolocationComponent implements OnInit {
   private _required: boolean;
   private _value: any;
 
-  public latitudeValue?: number = null;
-  public longitudeValue?: number = null;
+  latitudeValue?: number = null;
+  longitudeValue?: number = null;
 
   isValidNumber = isValidNumber;
 
-  public userErrors = {
+  i18n = {
     en: {
-      required: 'Required field.',
-      minLatitude: 'Minimum latitude is $minLatitude.',
-      maxLatitude: 'Maximum latitude is $maxLatitude.',
-      minLongitude: 'Minimum longitude is $minLongitude.',
-      maxLongitude: 'Maximum longitude is $maxLongitude.'
+      lat: 'latitude',
+      lon: 'longitude',
+      selectLocation: 'Select location',
+      location: 'Location',
+      selectAction: 'Select',
+      cancelAction: 'Cancel',
+      closeAction: 'Close',
+      typeToSearch: 'type to search',
+      cardinalPoints: {
+        north: 'N',
+        south: 'S',
+        east: 'E',
+        west: 'W'
+      },
+      userErrors: {
+        required: 'Required field.',
+        minLatitude: 'Minimum latitude is $minLatitude.',
+        maxLatitude: 'Maximum latitude is $maxLatitude.',
+        minLongitude: 'Minimum longitude is $minLongitude.',
+        maxLongitude: 'Maximum longitude is $maxLongitude.'
+      }
     },
     es: {
-      required: 'El campo es obligatorio.',
-      minLatitude: 'La latitud mínima es $minLatitude.',
-      maxLatitude: 'La latitud máxima es $maxLatitude.',
-      minLongitude: 'La longitud mínima es $minLongitude.',
-      maxLongitude: 'La longitud máxima es $maxLongitude.'
-    }
-  };
-
-  public cardinalPoints = {
-    en: {
-      north: 'N',
-      south: 'S',
-      east: 'E',
-      west: 'W',
-      unknown: '?'
-    },
-    es: {
-      north: 'N',
-      south: 'S',
-      east: 'E',
-      west: 'O',
-      unknown: '?'
+      lat: 'latitud',
+      lon: 'longitud',
+      selectLocation: 'Seleccione ubicación',
+      location: 'Ubicación',
+      selectAction: 'Seleccionar',
+      cancelAction: 'Cancelar',
+      closeAction: 'Cerrar',
+      typeToSearch: 'escribe para buscar',
+      cardinalPoints: {
+        north: 'N',
+        south: 'S',
+        east: 'E',
+        west: 'O'
+      },
+      userErrors: {
+        required: 'El campo es obligatorio.',
+        minLatitude: 'La latitud mínima es $minLatitude.',
+        maxLatitude: 'La latitud máxima es $maxLatitude.',
+        minLongitude: 'La longitud mínima es $minLongitude.',
+        maxLongitude: 'La longitud máxima es $maxLongitude.'
+      }
     }
   };
 
@@ -215,56 +232,40 @@ export class GeolocationComponent implements OnInit {
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (this.required && (value === null || value === undefined)) {
+    if (this.required && !exists(value)) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (
-      this.minLatitude !== undefined &&
-      this.minLatitude !== null &&
-      this.latitudeValue < this.minLatitude
-    ) {
+    if (exists(this.minLatitude) && this.latitudeValue < this.minLatitude) {
       result = result || {};
       result.minLatitude = {
         value,
         min: this.minLatitude,
-        reason: `Value is lower than minimum value: ${this.minLatitude}.`
+        reason: `Latitude is lower than minimum value: ${this.minLatitude}.`
       };
     }
-    if (
-      this.maxLatitude !== undefined &&
-      this.maxLatitude !== null &&
-      this.latitudeValue < this.maxLatitude
-    ) {
+    if (exists(this.maxLatitude) && this.latitudeValue > this.maxLatitude) {
       result = result || {};
       result.maxLatitude = {
         value,
         max: this.maxLatitude,
-        reason: `Value is lower than maximum value: ${this.maxLatitude}.`
+        reason: `Latitude is higher than maximum value: ${this.maxLatitude}.`
       };
     }
-    if (
-      this.minLongitude !== undefined &&
-      this.minLongitude !== null &&
-      this.longitudeValue < this.minLongitude
-    ) {
+    if (exists(this.minLongitude) && this.longitudeValue < this.minLongitude) {
       result = result || {};
       result.minLongitude = {
         value,
         min: this.minLongitude,
-        reason: `Value is lower than minimum value: ${this.minLongitude}.`
+        reason: `Longitude is lower than minimum value: ${this.minLongitude}.`
       };
     }
-    if (
-      this.maxLongitude !== undefined &&
-      this.maxLongitude !== null &&
-      this.longitudeValue < this.maxLongitude
-    ) {
+    if (exists(this.maxLongitude) && this.longitudeValue > this.maxLongitude) {
       result = result || {};
       result.maxLongitude = {
         value,
         max: this.maxLongitude,
-        reason: `Value is lower than maximum value: ${this.maxLongitude}.`
+        reason: `Longitude is higher than maximum value: ${this.maxLongitude}.`
       };
     }
     this.lastErrors = result;
@@ -283,28 +284,46 @@ export class GeolocationComponent implements OnInit {
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = {
-      type: 'Point',
-      coordinates: [this.longitudeValue, newLatitude]
-    };
+    if (isValidNumber(this.longitudeValue)) {
+      this.value = {
+        type: 'Point',
+        coordinates: [this.longitudeValue, newLatitude]
+      };
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: [0, newLatitude]
+      };
+    }
   }
   updateLongitude(newLongitude: number | null): void {
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = {
-      type: 'Point',
-      coordinates: [newLongitude, this.latitudeValue]
-    };
+    if (isValidNumber(this.latitudeValue)) {
+      this.value = {
+        type: 'Point',
+        coordinates: [newLongitude, this.latitudeValue]
+      };
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: [newLongitude, 0]
+      };
+    }
   }
   updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = {
-      type: 'Point',
-      coordinates: newLatitudeAndLongitude
-    };
+    if (!exists(newLatitudeAndLongitude)) {
+      this.value = undefined;
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: newLatitudeAndLongitude
+      };
+    }
   }
 
   roundToStepAndUpdateLatitudeAndLongitude(
@@ -321,6 +340,9 @@ export class GeolocationComponent implements OnInit {
     if (this.disabled || this.readonly) {
       return;
     }
+    if (!exists(newLatitudeAndLongitude)) {
+      this.value = undefined;
+    }
     this.value = {
       type: 'Point',
       coordinates: [newLongitude, newLatitude]
@@ -333,12 +355,18 @@ export class GeolocationComponent implements OnInit {
   onEventLatitude(newLatitude: string): void {
     if (isValidNumber(newLatitude)) {
       this.updateLatitude(+newLatitude);
+    } else {
+      this.updateLatitude(undefined);
     }
+    this.markAsTouched();
   }
   onEventLongitude(newLongitude: string): void {
     if (isValidNumber(newLongitude)) {
       this.updateLongitude(+newLongitude);
+    } else {
+      this.updateLongitude(undefined);
     }
+    this.markAsTouched();
   }
   onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);
@@ -362,8 +390,15 @@ export class GeolocationComponent implements OnInit {
     );
   }
 
+  onSearchLocationChanged(newValue: GeoPoint, map: any): void {
+    map.markerPoint = newValue;
+    map.center = map.markerPoint;
+  }
+
   get mapTitle(): string {
-    return this._disabled || !!this.readonly ? 'Location:' : 'Select location:';
+    return this._disabled || !!this.readonly
+      ? this.i18n[this.lang].location
+      : this.i18n[this.lang].selectLocation;
   }
 
   get self(): GeolocationComponent {

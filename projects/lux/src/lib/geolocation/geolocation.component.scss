@@ -1,5 +1,12 @@
 @import '../styles/lux';
 
+$icon-globe: var(
+  --lux-autocomplete-icon-globe,
+  url(/assets/img/globe.svg) no-repeat center
+);
+$geolocation-map-height: var(--lux-geolocation-map-height, 45vh);
+$geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
+
 :host {
   position: relative;
   display: flex;
@@ -7,11 +14,14 @@
 }
 
 .btn-select {
-  background-color: rgb(180, 184, 240);
+  color: white;
+  background-color: #4242d1;
+  margin-left: 2rem;
 }
 
 .btn-cancel {
-  background-color: rgb(255, 206, 215);
+  color: white;
+  background-color: #c22929;
 }
 
 .readonly {
@@ -20,9 +30,38 @@
   }
 }
 
+.icon {
+  display: inline-block;
+  background-size: 1rem 1rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-width: 1rem;
+  min-height: 1rem;
+  width: $icon-width;
+  z-index: 1;
+}
+.clickable {
+  cursor: pointer;
+}
+.icon-globe {
+  @extend .icon;
+  background: $icon-globe;
+  background-size: 1rem;
+  height: 100%;
+}
+
+.icon-clear {
+  @extend .icon;
+  width: $icon-width;
+  background: $icon-clear;
+  background-size: $icon-bg-size;
+  z-index: 1;
+}
+
 .lux-modal-body {
   padding: 0px;
 }
 .map-container {
-  height: 45vh;
+  height: $geolocation-map-height;
+  width: $geolocation-map-width;
 }
