@@ -29,10 +29,10 @@
 />
 <div class="infix symbol clickable" (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
-    cardinalPoints[this.lang].north
+    i18n[this.lang].cardinalPoints.north
   }}</span>
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
-    cardinalPoints[this.lang].south
+    i18n[this.lang].cardinalPoints.south
   }}</span>
   <span *ngIf="!isValidNumber(latitudeValue)" class="icon-globe"></span>
 </div>
@@ -74,10 +74,10 @@
   (click)="openModalMap(modalMap)"
 >
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
-    cardinalPoints[this.lang].east
+    i18n[this.lang].cardinalPoints.east
   }}</span>
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
-    cardinalPoints[this.lang].west
+    i18n[this.lang].cardinalPoints.west
   }}</span>
   <span *ngIf="!isValidNumber(longitudeValue)" class="icon-globe"></span>
 </div>

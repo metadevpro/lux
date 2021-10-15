@@ -74,7 +74,13 @@ export class GeolocationComponent implements OnInit {
       selectAction: 'Select',
       cancelAction: 'Cancel',
       closeAction: 'Close',
-      typeToSearch: 'type to search'
+      typeToSearch: 'type to search',
+      cardinalPoints: {
+        north: 'N',
+        south: 'S',
+        east: 'E',
+        west: 'W'
+      }
     },
     es: {
       lat: 'latitud',
@@ -84,7 +90,13 @@ export class GeolocationComponent implements OnInit {
       selectAction: 'Seleccionar',
       cancelAction: 'Cancelar',
       closeAction: 'Cerrar',
-      typeToSearch: 'escribe para buscar'
+      typeToSearch: 'escribe para buscar',
+      cardinalPoints: {
+        north: 'N',
+        south: 'S',
+        east: 'E',
+        west: 'O'
+      }
     }
   };
 
@@ -102,23 +114,6 @@ export class GeolocationComponent implements OnInit {
       maxLatitude: 'La latitud máxima es $maxLatitude.',
       minLongitude: 'La longitud mínima es $minLongitude.',
       maxLongitude: 'La longitud máxima es $maxLongitude.'
-    }
-  };
-
-  public cardinalPoints = {
-    en: {
-      north: 'N',
-      south: 'S',
-      east: 'E',
-      west: 'W',
-      unknown: ''
-    },
-    es: {
-      north: 'N',
-      south: 'S',
-      east: 'E',
-      west: 'O',
-      unknown: ''
     }
   };
 
