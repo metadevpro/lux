@@ -6,6 +6,31 @@
   align-items: stretch;
 }
 
+.patterned {
+  font-family: monospace;
+}
+
+.masked {
+  position: relative;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  bottom: 0px;
+  left: 0px;
+  background-color: transparent;
+  z-index: 0;
+}
+
+.mask {
+  position: absolute;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  bottom: 0px;
+  left: 0px;
+  border-color: transparent;
+  color: gray;
+  z-index: -1;
+}
+
 .readonly {
   border: none;
 

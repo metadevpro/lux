@@ -2,9 +2,9 @@
   <span>$</span>
 </div>
 <input
-  #input
   *ngIf="type !== 'textarea'"
-  class="infix"
+  #input
+  class="infix masked patterned"
   placement="top"
   [id]="inputId"
   [type]="domain"
@@ -23,10 +23,17 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
+<input
+  *ngIf="type !== 'textarea'"
+  #inputMask
+  class="infix mask patterned"
+  [id]="inputId + '$mask'"
+  readonly="true"
+/>
 <textarea
-  #textarea
   *ngIf="type === 'textarea'"
-  class="infix"
+  #textarea
+  class="infix masked patterned"
   placement="top"
   [id]="inputId"
   [attr.value]="value"
@@ -41,6 +48,15 @@
   (change)="onChangeValue(textarea.value)"
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
+></textarea>
+<textarea
+  *ngIf="type === 'textarea'"
+  #textareaMask
+  class="infix mask patterned"
+  [id]="inputId + '$mask'"
+  readonly="true"
+  [attr.cols]="cols?.toString() || undefined"
+  [attr.rows]="rows?.toString() || undefined"
 ></textarea>
 <div *ngIf="currency && currency === 'EUR'" class="postfix symbol">
   <span>€</span>

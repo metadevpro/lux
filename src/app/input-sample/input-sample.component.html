@@ -81,6 +81,16 @@
   <div class="sample">
     <lux-input aria-label="Required example" [required]="true"></lux-input>
   </div>
+
+  <h3>Pattern</h3>
+  <pre class="language-html" rel="html">
+    <code class="language-html">
+      &lt;lux-input aria-label="Pattern example" <span class="text-underlined">pattern="\\w+@\\w+\\.[a-z]&lcub;2,3&rcub;"</span>&gt;&lt;/lux-input&gt;</code>
+      </pre>
+  <div class="sample">
+    <lux-input aria-label="Pattern example" [pattern]="'\\w+@\\w+\\.[a-z]{2,3}'"></lux-input>
+  </div>
+
 </div>
 
 <h2>Types</h2>

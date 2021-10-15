@@ -46,7 +46,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   static idCounter = 0;
 
   @ViewChild('input', { static: false }) input: ElementRef;
+  @ViewChild('inputMask', { static: false }) inputMask: ElementRef;
   @ViewChild('textarea', { static: false }) textarea: ElementRef;
+  @ViewChild('textareaMask', { static: false }) textareaMask: ElementRef;
 
   touched = false;
   dirty = false;
@@ -171,6 +173,15 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     }
 
     this._value = v;
+    if (this._regexp) {
+      let suggestion;
+      if (hasValue(v)) {
+        suggestion = this.regexpService.suggestion(v, this._pattern);
+      } else {
+        suggestion = this.regexpService.suggestion('', this._pattern);
+      }
+      this.setValueInMaskControl(' '.repeat(v.length) + suggestion);
+    }
     this.onChange(v);
     if (!initialAndEmpty) {
       this.valueChange.emit(v);
@@ -228,6 +239,15 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     }
     if (this.textarea) {
       this.textarea.nativeElement.value = v;
+    }
+  }
+
+  private setValueInMaskControl(v: any): void {
+    if (this.inputMask) {
+      this.inputMask.nativeElement.value = v;
+    }
+    if (this.textareaMask) {
+      this.textareaMask.nativeElement.value = v;
     }
   }
 
