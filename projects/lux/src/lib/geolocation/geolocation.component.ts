@@ -361,11 +361,13 @@ export class GeolocationComponent implements OnInit {
     if (isValidNumber(newLatitude)) {
       this.updateLatitude(+newLatitude);
     }
+    this.markAsTouched();
   }
   onEventLongitude(newLongitude: string): void {
     if (isValidNumber(newLongitude)) {
       this.updateLongitude(+newLongitude);
     }
+    this.markAsTouched();
   }
   onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);
