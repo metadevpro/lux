@@ -19,6 +19,8 @@ import { Observable } from 'rxjs';
 import { DataSource } from '../datasource';
 import {
   exists,
+  hasValue,
+  isEmptyString,
   isInitialAndEmpty,
   isValidNumber,
   roundToMultipleOf
@@ -160,18 +162,20 @@ export class GeolocationComponent implements OnInit {
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    if (v && v.coordinates && v.coordinates.length === 2) {
+    if (
+      v &&
+      v.coordinates &&
+      v.coordinates.length === 2 &&
+      exists(v.coordinates[0] && exists(v.coordinates[1]))
+    ) {
       this._value = v;
-      this.latitudeValue = v.coordinates[1];
-      this.longitudeValue = v.coordinates[0];
-      this.setLatitudeInControl(this.latitudeValue);
-      this.setLongitudeInControl(this.longitudeValue);
+      this.setLatitudeInControl(v.coordinates[1]);
+      this.setLongitudeInControl(v.coordinates[0]);
     } else {
       this._value = undefined;
-      this.latitudeValue = undefined;
-      this.longitudeValue = undefined;
-      this.setLatitudeInControl(this.latitudeValue);
-      this.setLongitudeInControl(this.longitudeValue);
+      // if we set value in control, the content of the control changes and erases what the user is typing
+      // this.setLatitudeInControl(undefined);
+      // this.setLongitudeInControl(undefined);
     }
     this.onChange(v);
     if (!initialAndEmpty) {
@@ -219,10 +223,12 @@ export class GeolocationComponent implements OnInit {
   // End of ControlValueAccessor Interface implementation
 
   private setLatitudeInControl(latitude: number): void {
-    this.latitude.nativeElement.value = latitude;
+    //this.latitude.nativeElement.value = latitude;
+    this.latitudeValue = latitude;
   }
   private setLongitudeInControl(longitude: number): void {
-    this.longitude.nativeElement.value = longitude;
+    //this.longitude.nativeElement.value = longitude;
+    this.longitudeValue = longitude;
   }
 
   // Validator interface
@@ -232,24 +238,23 @@ export class GeolocationComponent implements OnInit {
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (this.required && !exists(value)) {
+    if (
+      this.required &&
+      !hasValue(value) &&
+      !hasValue(this.latitudeValue) &&
+      !hasValue(this.longitudeValue)
+    ) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (
-      !exists(this.latitudeValue) &&
-      (this.required || exists(this.longitudeValue))
-    ) {
+    if (!hasValue(this.latitudeValue) && hasValue(this.longitudeValue)) {
       result = result || {};
       result.existsLatitude = {
         value,
         reason: 'Latitude not specified.'
       };
     }
-    if (
-      !exists(this.longitudeValue) &&
-      (this.required || exists(this.latitudeValue))
-    ) {
+    if (hasValue(this.latitudeValue) && !hasValue(this.longitudeValue)) {
       result = result || {};
       result.existsLongitude = {
         value,
