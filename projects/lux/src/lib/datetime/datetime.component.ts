@@ -111,9 +111,6 @@ export class DatetimeComponent
 
   @Input()
   set value(v: string) {
-    if (v === this._value) {
-      return; // prevent events when there is no changes
-    }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     const datetime = new Date(v);
     if (!v) {
