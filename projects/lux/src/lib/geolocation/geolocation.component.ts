@@ -158,9 +158,6 @@ export class GeolocationComponent implements OnInit {
 
   @Input()
   set value(v: GeoPoint) {
-    if (v === this._value) {
-      return; // prevent events when there is no changes
-    }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (
       v &&
@@ -171,6 +168,10 @@ export class GeolocationComponent implements OnInit {
       this._value = v;
       this.setLatitudeInControl(v.coordinates[1]);
       this.setLongitudeInControl(v.coordinates[0]);
+    } else if (!v) {
+      this._value = null;
+      this.setLatitudeInControl(undefined);
+      this.setLongitudeInControl(undefined);
     } else {
       this._value = undefined;
       // if we set value in control, the content of the control changes and erases what the user is typing
