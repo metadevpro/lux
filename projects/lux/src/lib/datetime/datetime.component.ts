@@ -281,6 +281,8 @@ export class DatetimeComponent
         } else {
           this.value = datetimeString.slice(0, 16) + 'Z'; // YYYY-MM-DDThh:mmZ
         }
+      } else {
+        this.value = newValue;
       }
     }
   }

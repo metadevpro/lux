@@ -312,7 +312,7 @@ export class GeolocationComponent implements OnInit {
     }
     this.value = {
       type: 'Point',
-      coordinates: [0, newLatitude]
+      coordinates: [this.longitudeValue, newLatitude]
     };
   }
   updateLongitude(newLongitude: number | null): void {
@@ -321,7 +321,7 @@ export class GeolocationComponent implements OnInit {
     }
     this.value = {
       type: 'Point',
-      coordinates: [newLongitude, 0]
+      coordinates: [newLongitude, this.latitudeValue]
     };
   }
   updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
