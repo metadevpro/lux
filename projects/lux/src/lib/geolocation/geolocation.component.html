@@ -87,7 +87,7 @@
   class="rounded-right postfix icon icon-clear"
   [id]="inputId + '$clear'"
   [ngClass]="className"
-  (click)="updateLatitudeAndLongitude(undefined)"
+  (click)="this.value = null"
   aria-label="clear"
 ></button>
 

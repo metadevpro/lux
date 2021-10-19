@@ -16,7 +16,7 @@
 />
 <input
   #timeInput
-  class=""
+  [class]="(disabled || readonly) && localTime ? 'rounded-right' : ''"
   type="time"
   [id]="inputId + '$time'"
   [(ngModel)]="timeValue"
@@ -42,7 +42,7 @@
   class="rounded-right postfix icon-clear"
   [id]="inputId + '$clear'"
   [ngClass]="className"
-  (click)="updateDatetime(undefined)"
+  (click)="value = null"
   aria-label="clear"
 ></button>
 
