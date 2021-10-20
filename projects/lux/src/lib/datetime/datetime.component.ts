@@ -111,6 +111,9 @@ export class DatetimeComponent
 
   @Input()
   set value(v: string) {
+    if (v === this._value) {
+      return; // prevent events when there is no changes
+    }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     const datetime = new Date(v);
     if (!v) {
@@ -118,7 +121,7 @@ export class DatetimeComponent
       this.setDateInControl(undefined);
       this.setTimeInControl(undefined);
     } else if (!isValidDate(datetime)) {
-      this._value = null;
+      this._value = v;
       // if we set value in control, the content of the control changes and erases what the user is typing
       // this.setDateInControl(undefined);
       // this.setTimeInControl(undefined);
@@ -169,11 +172,11 @@ export class DatetimeComponent
   // End of ControlValueAccessor Interface implementation
 
   private setDateInControl(date: string): void {
-    //this.dateInput.nativeElement.value = date;
+    // this.dateInput.nativeElement.value = date;
     this.dateValue = date;
   }
   private setTimeInControl(time: string): void {
-    //this.timeInput.nativeElement.value = time;
+    // this.timeInput.nativeElement.value = time;
     this.timeValue = time;
   }
   private setValueInControl(datetime: Date): void {
@@ -191,6 +194,8 @@ export class DatetimeComponent
     }
   }
   clear(): void {
+    this.setDateInControl(null);
+    this.setTimeInControl(null);
     this.value = null;
   }
 

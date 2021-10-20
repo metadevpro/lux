@@ -158,6 +158,9 @@ export class GeolocationComponent implements OnInit {
 
   @Input()
   set value(v: GeoPoint) {
+    if (v === this._value) {
+      return; // prevent events when there is no changes
+    }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     if (
       v &&
@@ -173,7 +176,7 @@ export class GeolocationComponent implements OnInit {
       this.setLatitudeInControl(undefined);
       this.setLongitudeInControl(undefined);
     } else {
-      this._value = undefined;
+      this._value = v;
       // if we set value in control, the content of the control changes and erases what the user is typing
       // this.setLatitudeInControl(undefined);
       // this.setLongitudeInControl(undefined);
@@ -224,14 +227,16 @@ export class GeolocationComponent implements OnInit {
   // End of ControlValueAccessor Interface implementation
 
   private setLatitudeInControl(latitude: number): void {
-    //this.latitude.nativeElement.value = latitude;
+    // this.latitude.nativeElement.value = latitude;
     this.latitudeValue = latitude;
   }
   private setLongitudeInControl(longitude: number): void {
-    //this.longitude.nativeElement.value = longitude;
+    // this.longitude.nativeElement.value = longitude;
     this.longitudeValue = longitude;
   }
   clear(): void {
+    this.setLatitudeInControl(null);
+    this.setLongitudeInControl(null);
     this.value = null;
   }
 
@@ -313,19 +318,27 @@ export class GeolocationComponent implements OnInit {
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = {
-      type: 'Point',
-      coordinates: [this.longitudeValue, newLatitude]
-    };
+    if (!exists(this.longitudeValue) && !exists(newLatitude)) {
+      this.value = undefined;
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: [this.longitudeValue, newLatitude]
+      };
+    }
   }
   updateLongitude(newLongitude: number | null): void {
     if (this.disabled || this.readonly) {
       return;
     }
-    this.value = {
-      type: 'Point',
-      coordinates: [newLongitude, this.latitudeValue]
-    };
+    if (!exists(newLongitude) && !exists(this.latitudeValue)) {
+      this.value = undefined;
+    } else {
+      this.value = {
+        type: 'Point',
+        coordinates: [newLongitude, this.latitudeValue]
+      };
+    }
   }
   updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
     if (this.disabled || this.readonly) {
