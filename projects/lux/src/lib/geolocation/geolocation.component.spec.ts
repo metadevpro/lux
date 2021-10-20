@@ -30,15 +30,6 @@ describe('GeolocationComponent', () => {
     expect(component.maxLongitude).toEqual(180);
   });
 
-  it('should update values', () => {
-    component.value = {
-      type: 'Point',
-      coordinates: [20, 10]
-    };
-    expect(component.latitudeValue).toEqual(10);
-    expect(component.longitudeValue).toEqual(20);
-  });
-
   it('should clear', () => {
     component.value = {
       type: 'Point',
@@ -48,5 +39,14 @@ describe('GeolocationComponent', () => {
     expect(component.value).toBeNull();
     expect(component.latitudeValue).toBeNull();
     expect(component.longitudeValue).toBeNull();
+  });
+
+  it('should update latitude and longitude', () => {
+    component.value = {
+      type: 'Point',
+      coordinates: [20, 10]
+    };
+    expect(component.latitudeValue).toEqual(10);
+    expect(component.longitudeValue).toEqual(20);
   });
 });
