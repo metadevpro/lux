@@ -22,4 +22,19 @@ describe('DatetimeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should update values', () => {
+    component.localTime = false;
+    component.value = '2010-10-10T10:10:10.000Z';
+    expect(component.dateValue).toEqual('2010-10-10');
+    expect(component.timeValue).toEqual('10:10:10');
+  });
+
+  it('should clear', () => {
+    component.value = new Date().toISOString();
+    component.clear();
+    expect(component.value).toBeNull();
+    expect(component.dateValue).toBeNull();
+    expect(component.timeValue).toBeNull();
+  });
 });
