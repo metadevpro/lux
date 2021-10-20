@@ -177,9 +177,8 @@ export class GeolocationComponent implements OnInit {
       this.setLongitudeInControl(undefined);
     } else {
       this._value = v;
-      // if we set value in control, the content of the control changes and erases what the user is typing
-      // this.setLatitudeInControl(undefined);
-      // this.setLongitudeInControl(undefined);
+      // we don't set value in control if the value is not valid
+      // if we do, the content of the control changes and can erase what the user is typing
     }
     this.onChange(v);
     if (!initialAndEmpty) {

@@ -122,9 +122,8 @@ export class DatetimeComponent
       this.setTimeInControl(undefined);
     } else if (!isValidDate(datetime)) {
       this._value = v;
-      // if we set value in control, the content of the control changes and erases what the user is typing
-      // this.setDateInControl(undefined);
-      // this.setTimeInControl(undefined);
+      // we don't set value in control if the value is not valid
+      // if we do, the content of the control changes and can erase what the user is typing
     } else {
       this._value = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
       this.setValueInControl(datetime);
