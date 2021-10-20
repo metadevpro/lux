@@ -141,7 +141,7 @@ export class GeolocationComponent implements OnInit {
 
   @Input()
   set disabled(v: string | boolean) {
-    v = typeof v === 'string' ? true : v;
+    v = typeof v === 'string' && v !== 'false' ? true : v;
     this._disabled = v;
   }
   get disabled(): string | boolean {
