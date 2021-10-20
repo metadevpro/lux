@@ -178,12 +178,10 @@ export class DatetimeComponent
     this.timeValue = time;
   }
   private setValueInControl(datetime: Date): void {
-    let offsetDatetimeString;
-    if (this.localTime) {
-      offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
-    } else {
-      offsetDatetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
-    }
+    const offsetDatetime = this.localTime
+      ? addTimezoneOffset(datetime)
+      : datetime;
+    const offsetDatetimeString = offsetDatetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
     this.setDateInControl(offsetDatetimeString.slice(0, 10)); // YYYY-MM-DD
     if (this.includeSeconds) {
       this.setTimeInControl(offsetDatetimeString.slice(11, 19)); // hh:mm:ss
