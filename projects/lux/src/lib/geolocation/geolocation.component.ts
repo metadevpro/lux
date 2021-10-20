@@ -61,8 +61,8 @@ export class GeolocationComponent implements OnInit {
   private _required: boolean;
   private _value: any;
 
-  latitudeValue?: number = null;
-  longitudeValue?: number = null;
+  latitudeValue?: number = undefined;
+  longitudeValue?: number = undefined;
 
   isValidNumber = isValidNumber;
 
@@ -172,8 +172,8 @@ export class GeolocationComponent implements OnInit {
       this.setLongitudeInControl(v.coordinates[0]);
     } else if (!v) {
       this._value = null;
-      this.setLatitudeInControl(undefined);
-      this.setLongitudeInControl(undefined);
+      this.setLatitudeInControl(null);
+      this.setLongitudeInControl(null);
     } else {
       this._value = v;
       // we don't set value in control if the value is not valid
@@ -327,7 +327,7 @@ export class GeolocationComponent implements OnInit {
       return;
     }
     if (!exists(newLatitudeAndLongitude)) {
-      this.value = undefined;
+      this.value = null;
     }
     this.value = {
       type: 'Point',
@@ -342,11 +342,9 @@ export class GeolocationComponent implements OnInit {
     if (this.disabled || this.readonly) {
       return;
     }
-    const newLatitudeValue = isValidNumber(newLatitude)
-      ? +newLatitude
-      : undefined;
+    const newLatitudeValue = isValidNumber(newLatitude) ? +newLatitude : null;
     if (!exists(this.longitudeValue) && !exists(newLatitudeValue)) {
-      this.value = undefined;
+      this.value = null;
     } else {
       this.value = {
         type: 'Point',
@@ -361,9 +359,9 @@ export class GeolocationComponent implements OnInit {
     }
     const newLongitudeValue = isValidNumber(newLongitude)
       ? +newLongitude
-      : undefined;
+      : null;
     if (!exists(newLongitudeValue) && !exists(this.latitudeValue)) {
-      this.value = undefined;
+      this.value = null;
     } else {
       this.value = {
         type: 'Point',

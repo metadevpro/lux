@@ -117,8 +117,8 @@ export class DatetimeComponent
     const datetime = new Date(v);
     if (!v) {
       this._value = null;
-      this.setDateInControl(undefined);
-      this.setTimeInControl(undefined);
+      this.setDateInControl(null);
+      this.setTimeInControl(null);
     } else if (!isValidDate(datetime)) {
       this._value = v;
       // we don't set value in control if the value is not valid
