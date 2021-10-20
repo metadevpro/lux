@@ -20,7 +20,6 @@ import { DataSource } from '../datasource';
 import {
   exists,
   hasValue,
-  isEmptyString,
   isInitialAndEmpty,
   isValidNumber,
   roundToMultipleOf
@@ -249,20 +248,20 @@ export class GeolocationComponent implements OnInit {
     if (
       this.required &&
       !hasValue(value) &&
-      !hasValue(this.latitudeValue) &&
-      !hasValue(this.longitudeValue)
+      !exists(this.latitudeValue) &&
+      !exists(this.longitudeValue)
     ) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
-    if (!hasValue(this.latitudeValue) && hasValue(this.longitudeValue)) {
+    if (!exists(this.latitudeValue) && exists(this.longitudeValue)) {
       result = result || {};
       result.existsLatitude = {
         value,
         reason: 'Latitude not specified.'
       };
     }
-    if (hasValue(this.latitudeValue) && !hasValue(this.longitudeValue)) {
+    if (exists(this.latitudeValue) && !exists(this.longitudeValue)) {
       result = result || {};
       result.existsLongitude = {
         value,
