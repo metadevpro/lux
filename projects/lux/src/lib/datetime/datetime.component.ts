@@ -190,6 +190,9 @@ export class DatetimeComponent
       this.setTimeInControl(offsetDatetimeString.slice(11, 16)); // hh:mm
     }
   }
+  clear(): void {
+    this.value = null;
+  }
 
   // Validator interface
   registerOnValidatorChange(): void {}

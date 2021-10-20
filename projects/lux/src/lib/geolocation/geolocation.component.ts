@@ -231,6 +231,9 @@ export class GeolocationComponent implements OnInit {
     //this.longitude.nativeElement.value = longitude;
     this.longitudeValue = longitude;
   }
+  clear(): void {
+    this.value = null;
+  }
 
   // Validator interface
   registerOnValidatorChange(): void {}
