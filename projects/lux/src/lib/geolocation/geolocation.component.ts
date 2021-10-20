@@ -313,46 +313,6 @@ export class GeolocationComponent implements OnInit {
     this.setPatterns();
   }
 
-  updateLatitude(newLatitude: number | null): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-    if (!exists(this.longitudeValue) && !exists(newLatitude)) {
-      this.value = undefined;
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: [this.longitudeValue, newLatitude]
-      };
-    }
-  }
-  updateLongitude(newLongitude: number | null): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-    if (!exists(newLongitude) && !exists(this.latitudeValue)) {
-      this.value = undefined;
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: [newLongitude, this.latitudeValue]
-      };
-    }
-  }
-  updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-    if (!exists(newLatitudeAndLongitude)) {
-      this.value = undefined;
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: newLatitudeAndLongitude
-      };
-    }
-  }
-
   roundToStepAndUpdateLatitudeAndLongitude(
     newLatitudeAndLongitude: number[]
   ): void {
@@ -380,18 +340,36 @@ export class GeolocationComponent implements OnInit {
     this.markAsTouched();
   }
   onEventLatitude(newLatitude: string): void {
-    if (isValidNumber(newLatitude)) {
-      this.updateLatitude(+newLatitude);
+    if (this.disabled || this.readonly) {
+      return;
+    }
+    const newLatitudeValue = isValidNumber(newLatitude)
+      ? +newLatitude
+      : undefined;
+    if (!exists(this.longitudeValue) && !exists(newLatitudeValue)) {
+      this.value = undefined;
     } else {
-      this.updateLatitude(undefined);
+      this.value = {
+        type: 'Point',
+        coordinates: [this.longitudeValue, newLatitudeValue]
+      };
     }
     this.markAsTouched();
   }
   onEventLongitude(newLongitude: string): void {
-    if (isValidNumber(newLongitude)) {
-      this.updateLongitude(+newLongitude);
+    if (this.disabled || this.readonly) {
+      return;
+    }
+    const newLongitudeValue = isValidNumber(newLongitude)
+      ? +newLongitude
+      : undefined;
+    if (!exists(newLongitudeValue) && !exists(this.latitudeValue)) {
+      this.value = undefined;
     } else {
-      this.updateLongitude(undefined);
+      this.value = {
+        type: 'Point',
+        coordinates: [newLongitudeValue, this.latitudeValue]
+      };
     }
     this.markAsTouched();
   }

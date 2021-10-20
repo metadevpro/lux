@@ -268,10 +268,18 @@ export class DatetimeComponent
     this.setPatterns();
   }
 
-  updateDatetime(newValue: string | null): void {
+  onLostFocus(): void {
+    this.markAsTouched();
+  }
+  onKeyPress(event: KeyboardEvent): void {
+    this.keyPress.emit(event);
+  }
+
+  onEventDatetime(newDate: string, newTime: string): void {
     if (this.disabled || this.readonly) {
       return;
     }
+    const newValue = '' + newDate + ' ' + newTime;
     if (!newValue) {
       this.value = null;
     } else {
@@ -292,17 +300,6 @@ export class DatetimeComponent
         this.value = newValue;
       }
     }
-  }
-
-  onLostFocus(): void {
-    this.markAsTouched();
-  }
-  onKeyPress(event: KeyboardEvent): void {
-    this.keyPress.emit(event);
-  }
-
-  onEventDatetime(newDate: string, newTime: string): void {
-    this.updateDatetime(newDate + ' ' + newTime);
   }
 
   checkClassName(): string {
