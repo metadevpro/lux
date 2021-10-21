@@ -22,6 +22,7 @@ export class DatetimeSampleComponent implements AfterContentInit {
     min: '1970-01-01T00:00:00Z',
     max: '2100-01-01T00:00:00Z',
     includeSeconds: true,
+    localTime: true,
     required: true,
     disabled: false,
     inlineErrors: false,
