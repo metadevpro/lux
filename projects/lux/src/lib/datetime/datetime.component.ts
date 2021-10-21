@@ -300,10 +300,13 @@ export class DatetimeComponent
   }
 
   checkClassName(): string {
-    if (this.readonly === true) {
-      return 'readonly';
-    }
-    return '';
+    return this.disabled
+      ? this.readonly
+        ? 'disabled readonly'
+        : 'disabled'
+      : this.readonly
+      ? 'readonly'
+      : '';
   }
 
   setPatterns(): void {
