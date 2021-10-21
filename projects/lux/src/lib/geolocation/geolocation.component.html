@@ -29,10 +29,10 @@
 />
 <div class="infix symbol clickable" (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
-    i18n[this.lang].cardinalPoints.north
+    i18n[lang].cardinalPoints.north
   }}</span>
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
-    i18n[this.lang].cardinalPoints.south
+    i18n[lang].cardinalPoints.south
   }}</span>
   <span *ngIf="!isValidNumber(latitudeValue)" class="icon-globe"></span>
 </div>
@@ -74,10 +74,10 @@
   (click)="openModalMap(modalMap)"
 >
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
-    i18n[this.lang].cardinalPoints.east
+    i18n[lang].cardinalPoints.east
   }}</span>
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
-    i18n[this.lang].cardinalPoints.west
+    i18n[lang].cardinalPoints.west
   }}</span>
   <span *ngIf="!isValidNumber(longitudeValue)" class="icon-globe"></span>
 </div>
@@ -93,11 +93,11 @@
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
-    {{ i18n[this.lang].userErrors.required }}
+    {{ i18n[lang].userErrors.required }}
   </div>
   <div *ngIf="lastErrors.minLatitude">
     {{
-      i18n[this.lang].userErrors.minLatitude.replace(
+      i18n[lang].userErrors.minLatitude.replace(
         '$minLatitude',
         lastErrors.minLatitude.min
       )
@@ -105,7 +105,7 @@
   </div>
   <div *ngIf="lastErrors.maxLatitude">
     {{
-      i18n[this.lang].userErrors.maxLatitude.replace(
+      i18n[lang].userErrors.maxLatitude.replace(
         '$maxLatitude',
         lastErrors.maxLatitude.max
       )
@@ -113,7 +113,7 @@
   </div>
   <div *ngIf="lastErrors.minLongitude">
     {{
-      i18n[this.lang].userErrors.minLongitude.replace(
+      i18n[lang].userErrors.minLongitude.replace(
         '$minLongitude',
         lastErrors.minLongitude.min
       )
@@ -121,7 +121,7 @@
   </div>
   <div *ngIf="lastErrors.maxLongitude">
     {{
-      i18n[this.lang].userErrors.maxLongitude.replace(
+      i18n[lang].userErrors.maxLongitude.replace(
         '$maxLongitude',
         lastErrors.maxLongitude.max
       )

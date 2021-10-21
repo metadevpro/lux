@@ -48,12 +48,12 @@
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
-    {{ userErrors[this.lang].required }}
+    {{ userErrors[lang].required }}
   </div>
   <div *ngIf="lastErrors.min">
-    {{ userErrors[this.lang].min.replace('$min', lastErrors.min.min) }}
+    {{ userErrors[lang].min.replace('$min', lastErrors.min.min) }}
   </div>
   <div *ngIf="lastErrors.max">
-    {{ userErrors[this.lang].max.replace('$max', lastErrors.max.max) }}
+    {{ userErrors[lang].max.replace('$max', lastErrors.max.max) }}
   </div>
 </div>
