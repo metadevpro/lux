@@ -14,6 +14,11 @@
   }
 }
 
+.disabled {
+  background-color: lightgray;
+  border-color: darkgray;
+}
+
 .icon-clear {
   grid-row: 1;
   grid-column: 2;

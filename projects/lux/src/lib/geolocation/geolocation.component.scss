@@ -24,9 +24,17 @@ $geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
 }
 
 .readonly {
+  border: none;
+
   &:focus {
+    border: none;
     outline: none;
   }
+}
+
+.disabled {
+  background-color: #e3e3e3;
+  border-color: #6d6d6d;
 }
 
 .icon {

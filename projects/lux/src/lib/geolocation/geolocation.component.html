@@ -1,6 +1,7 @@
 <input
   #latitude
   class="rounded-left prefix"
+  [ngClass]="className"
   type="number"
   [id]="inputId + '$latitude'"
   [(ngModel)]="latitudeValue"
@@ -21,13 +22,15 @@
     step !== undefined && step !== null ? step.toString() : undefined
   "
   [placeholder]="i18n[lang].lat"
-  [ngClass]="className"
   (keyup)="onEventLatitude(latitude.value)"
   (change)="onEventLatitude(latitude.value)"
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<div class="infix symbol clickable" (click)="openModalMap(modalMap)">
+<div
+  class="infix symbol clickable"
+  [ngClass]="className"
+  (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
     i18n[lang].cardinalPoints.north
   }}</span>
@@ -39,6 +42,7 @@
 <input
   #longitude
   class="prefix"
+  [ngClass]="className"
   type="number"
   [id]="inputId + '$longitude'"
   [(ngModel)]="longitudeValue"
@@ -59,7 +63,6 @@
     step !== undefined && step !== null ? step.toString() : undefined
   "
   [placeholder]="i18n[lang].lon"
-  [ngClass]="className"
   (keyup)="onEventLongitude(longitude.value)"
   (change)="onEventLongitude(longitude.value)"
   (keypress)="onKeyPress($event)"
@@ -71,6 +74,7 @@
       ? 'clickable rounded-right postfix symbol'
       : 'clickable postfix symbol'
   "
+  [ngClass]="className"
   (click)="openModalMap(modalMap)"
 >
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
@@ -86,7 +90,6 @@
   *ngIf="!(disabled || readonly)"
   class="rounded-right postfix icon icon-clear"
   [id]="inputId + '$clear'"
-  [ngClass]="className"
   (click)="clear()"
   aria-label="clear"
 ></button>
