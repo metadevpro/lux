@@ -33,8 +33,8 @@ $geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
 }
 
 .disabled {
-  background-color: #e3e3e3;
-  border-color: #6d6d6d;
+  background-color: $disabled-color;
+  border-color: $disabled-border-color;
 }
 
 .icon {

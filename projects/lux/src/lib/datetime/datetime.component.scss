@@ -15,8 +15,8 @@
 }
 
 .disabled {
-  background-color: lightgray;
-  border-color: darkgray;
+  background-color: $disabled-color;
+  border-color: $disabled-border-color;
 }
 
 .icon-clear {

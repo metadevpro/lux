@@ -13,6 +13,8 @@ $alert-background: var(--lux-alert-background, #fe2e2e);
 $symbol-color: var(--lux-symbol-color, default); // Formerly #495057
 $symbol-background: var(--lux-symbol-background, default); // Formerly #e9ecef
 $input-border-color: var(--lux-input-border-color, #495057);
+$disabled-color: var(--lux-disabled-color, #e3e3e3);
+$disabled-border-color: var(--lux-disabled-border-color, #6d6d6d);
 
 // Borders
 $input-border: var(--lux-input-border, 1px solid);
