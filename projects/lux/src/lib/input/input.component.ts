@@ -354,10 +354,13 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
 
   checkClassName(): string {
-    if (this.readonly === true) {
-      return 'readonly';
-    }
-    return '';
+    return this.disabled
+      ? this.readonly
+        ? 'disabled readonly'
+        : 'disabled'
+      : this.readonly
+      ? 'readonly'
+      : '';
   }
 
   checkType(type: string): void {

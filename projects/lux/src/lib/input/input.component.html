@@ -1,4 +1,4 @@
-<div *ngIf="currency && currency === 'USD'" class="prefix rounded-left symbol">
+<div *ngIf="currency && currency === 'USD'" class="prefix rounded-left symbol" [ngClass]="className">
   <span>$</span>
 </div>
 <input
@@ -41,13 +41,13 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 ></textarea>
-<div *ngIf="currency && currency === 'EUR'" class="postfix rounded-right symbol">
+<div *ngIf="currency && currency === 'EUR'" class="postfix rounded-right symbol" [ngClass]="className">
   <span>€</span>
 </div>
-<div *ngIf="isPercentage()" class="postfix rounded-right symbol">
+<div *ngIf="isPercentage()" class="postfix rounded-right symbol" [ngClass]="className">
   <span>%</span>
 </div>
-<div *ngIf="isPermillage()" class="postfix rounded-right symbol">
+<div *ngIf="isPermillage()" class="postfix rounded-right symbol" [ngClass]="className">
   <span>‰</span>
 </div>
 

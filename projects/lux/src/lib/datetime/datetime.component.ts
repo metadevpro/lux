@@ -93,7 +93,7 @@ export class DatetimeComponent
 
   @Input()
   set disabled(v: string | boolean) {
-    v = typeof v === 'string' ? true : v;
+    v = typeof v === 'string' && v !== 'false' ? true : v;
     this._disabled = v;
   }
   get disabled(): string | boolean {
@@ -115,10 +115,14 @@ export class DatetimeComponent
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
     const datetime = new Date(v);
-    if (!v || !isValidDate(datetime)) {
+    if (!v) {
       this._value = null;
-      this.dateValue = undefined;
-      this.timeValue = undefined;
+      this.setDateInControl(null);
+      this.setTimeInControl(null);
+    } else if (!isValidDate(datetime)) {
+      this._value = v;
+      // we don't set value in control if the value is not valid
+      // if we do, the content of the control changes and can erase what the user is typing
     } else {
       this._value = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
       this.setValueInControl(datetime);
@@ -165,19 +169,30 @@ export class DatetimeComponent
   }
   // End of ControlValueAccessor Interface implementation
 
-  setValueInControl(datetime: Date): void {
-    let offsetDatetimeString;
-    if (this.localTime) {
-      offsetDatetimeString = addTimezoneOffset(datetime).toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
-    } else {
-      offsetDatetimeString = datetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
-    }
-    this.dateValue = offsetDatetimeString.slice(0, 10); // YYYY-MM-DD
+  private setDateInControl(date: string): void {
+    // this.dateInput.nativeElement.value = date;
+    this.dateValue = date;
+  }
+  private setTimeInControl(time: string): void {
+    // this.timeInput.nativeElement.value = time;
+    this.timeValue = time;
+  }
+  private setValueInControl(datetime: Date): void {
+    const offsetDatetime = this.localTime
+      ? addTimezoneOffset(datetime)
+      : datetime;
+    const offsetDatetimeString = offsetDatetime.toISOString(); // YYYY-MM-DDThh:mm:ss.SSSZ
+    this.setDateInControl(offsetDatetimeString.slice(0, 10)); // YYYY-MM-DD
     if (this.includeSeconds) {
-      this.timeValue = offsetDatetimeString.slice(11, 19); // hh:mm:ss
+      this.setTimeInControl(offsetDatetimeString.slice(11, 19)); // hh:mm:ss
     } else {
-      this.timeValue = offsetDatetimeString.slice(11, 16); // hh:mm
+      this.setTimeInControl(offsetDatetimeString.slice(11, 16)); // hh:mm
     }
+  }
+  clear(): void {
+    this.setDateInControl(null);
+    this.setTimeInControl(null);
+    this.value = null;
   }
 
   // Validator interface
@@ -187,13 +202,34 @@ export class DatetimeComponent
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (this.required && !hasValue(value)) {
+    if (
+      this.required &&
+      !hasValue(value) &&
+      !hasValue(this.dateValue) &&
+      !hasValue(this.timeValue)
+    ) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
     }
+    if (!hasValue(this.dateValue) && hasValue(this.timeValue)) {
+      result = result || {};
+      result.existsDate = {
+        value,
+        reason: 'Date not specified.'
+      };
+    }
+    if (hasValue(this.dateValue) && !hasValue(this.timeValue)) {
+      result = result || {};
+      result.existsTime = {
+        value,
+        reason: 'Time not specified.'
+      };
+    }
     if (
-      typeof this.min === 'string' &&
+      hasValue(this.min) &&
       hasValue(value) &&
+      hasValue(this.dateValue) &&
+      hasValue(this.timeValue) &&
       String(value).localeCompare(this.min) === -1
     ) {
       result = result || {};
@@ -204,8 +240,10 @@ export class DatetimeComponent
       };
     }
     if (
-      typeof this.max === 'string' &&
+      hasValue(this.max) &&
       hasValue(value) &&
+      hasValue(this.dateValue) &&
+      hasValue(this.timeValue) &&
       String(value).localeCompare(this.max) !== -1
     ) {
       result = result || {};
@@ -227,10 +265,18 @@ export class DatetimeComponent
     this.setPatterns();
   }
 
-  updateDatetime(newValue: string | null): void {
+  onLostFocus(): void {
+    this.markAsTouched();
+  }
+  onKeyPress(event: KeyboardEvent): void {
+    this.keyPress.emit(event);
+  }
+
+  onEventDatetime(newDate: string, newTime: string): void {
     if (this.disabled || this.readonly) {
       return;
     }
+    const newValue = '' + newDate + ' ' + newTime;
     if (!newValue) {
       this.value = null;
     } else {
@@ -247,36 +293,20 @@ export class DatetimeComponent
         } else {
           this.value = datetimeString.slice(0, 16) + 'Z'; // YYYY-MM-DDThh:mmZ
         }
+      } else {
+        this.value = newValue;
       }
     }
   }
 
-  onLostFocus(): void {
-    this.markAsTouched();
-  }
-  onKeyUp(newValue: string): void {
-    this.updateDatetime(newValue);
-  }
-  onChangeValue(newValue: string): void {
-    this.updateDatetime(newValue);
-    this.markAsTouched();
-  }
-  onKeyPress(event: KeyboardEvent): void {
-    this.keyPress.emit(event);
-  }
-
-  onEventDatetime(newDate: string, newTime: string): void {
-    if (!newDate && !newTime) {
-      this.updateDatetime(null);
-    }
-    this.updateDatetime(newDate + ' ' + newTime);
-  }
-
   checkClassName(): string {
-    if (this.readonly === true) {
-      return 'readonly';
-    }
-    return '';
+    return this.disabled
+      ? this.readonly
+        ? 'disabled readonly'
+        : 'disabled'
+      : this.readonly
+      ? 'readonly'
+      : '';
   }
 
   setPatterns(): void {

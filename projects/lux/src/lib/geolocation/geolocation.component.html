@@ -1,6 +1,7 @@
 <input
   #latitude
   class="rounded-left prefix"
+  [ngClass]="className"
   type="number"
   [id]="inputId + '$latitude'"
   [(ngModel)]="latitudeValue"
@@ -21,24 +22,27 @@
     step !== undefined && step !== null ? step.toString() : undefined
   "
   [placeholder]="i18n[lang].lat"
-  [ngClass]="className"
   (keyup)="onEventLatitude(latitude.value)"
   (change)="onEventLatitude(latitude.value)"
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<div class="infix symbol clickable" (click)="openModalMap(modalMap)">
+<div
+  class="infix symbol clickable"
+  [ngClass]="className"
+  (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
-    i18n[this.lang].cardinalPoints.north
+    i18n[lang].cardinalPoints.north
   }}</span>
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
-    i18n[this.lang].cardinalPoints.south
+    i18n[lang].cardinalPoints.south
   }}</span>
   <span *ngIf="!isValidNumber(latitudeValue)" class="icon-globe"></span>
 </div>
 <input
   #longitude
   class="prefix"
+  [ngClass]="className"
   type="number"
   [id]="inputId + '$longitude'"
   [(ngModel)]="longitudeValue"
@@ -59,7 +63,6 @@
     step !== undefined && step !== null ? step.toString() : undefined
   "
   [placeholder]="i18n[lang].lon"
-  [ngClass]="className"
   (keyup)="onEventLongitude(longitude.value)"
   (change)="onEventLongitude(longitude.value)"
   (keypress)="onKeyPress($event)"
@@ -71,13 +74,14 @@
       ? 'clickable rounded-right postfix symbol'
       : 'clickable postfix symbol'
   "
+  [ngClass]="className"
   (click)="openModalMap(modalMap)"
 >
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
-    i18n[this.lang].cardinalPoints.east
+    i18n[lang].cardinalPoints.east
   }}</span>
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
-    i18n[this.lang].cardinalPoints.west
+    i18n[lang].cardinalPoints.west
   }}</span>
   <span *ngIf="!isValidNumber(longitudeValue)" class="icon-globe"></span>
 </div>
@@ -86,18 +90,17 @@
   *ngIf="!(disabled || readonly)"
   class="rounded-right postfix icon icon-clear"
   [id]="inputId + '$clear'"
-  [ngClass]="className"
-  (click)="updateLatitudeAndLongitude(undefined)"
+  (click)="clear()"
   aria-label="clear"
 ></button>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
-    {{ i18n[this.lang].userErrors.required }}
+    {{ i18n[lang].userErrors.required }}
   </div>
   <div *ngIf="lastErrors.minLatitude">
     {{
-      i18n[this.lang].userErrors.minLatitude.replace(
+      i18n[lang].userErrors.minLatitude.replace(
         '$minLatitude',
         lastErrors.minLatitude.min
       )
@@ -105,7 +108,7 @@
   </div>
   <div *ngIf="lastErrors.maxLatitude">
     {{
-      i18n[this.lang].userErrors.maxLatitude.replace(
+      i18n[lang].userErrors.maxLatitude.replace(
         '$maxLatitude',
         lastErrors.maxLatitude.max
       )
@@ -113,7 +116,7 @@
   </div>
   <div *ngIf="lastErrors.minLongitude">
     {{
-      i18n[this.lang].userErrors.minLongitude.replace(
+      i18n[lang].userErrors.minLongitude.replace(
         '$minLongitude',
         lastErrors.minLongitude.min
       )
@@ -121,7 +124,7 @@
   </div>
   <div *ngIf="lastErrors.maxLongitude">
     {{
-      i18n[this.lang].userErrors.maxLongitude.replace(
+      i18n[lang].userErrors.maxLongitude.replace(
         '$maxLongitude',
         lastErrors.maxLongitude.max
       )

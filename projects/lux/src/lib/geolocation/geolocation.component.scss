@@ -8,7 +8,6 @@ $geolocation-map-height: var(--lux-geolocation-map-height, 45vh);
 $geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
 
 :host {
-  position: relative;
   display: flex;
   align-items: stretch;
 }
@@ -25,9 +24,17 @@ $geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
 }
 
 .readonly {
+  border: none;
+
   &:focus {
+    border: none;
     outline: none;
   }
+}
+
+.disabled {
+  background-color: $disabled-color;
+  border-color: $disabled-border-color;
 }
 
 .icon {

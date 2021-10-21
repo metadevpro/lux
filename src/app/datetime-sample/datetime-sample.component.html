@@ -102,6 +102,14 @@
       />Include seconds</label>
   </div>
   <div>
+    <label for="sandboxFormLocalTime">
+      <input
+        type="checkbox"
+        name="sandboxFormLocalTime"
+        [(ngModel)]="sandboxForm.localTime"
+      />Local time</label>
+  </div>
+  <div>
     <label for="sandboxFormRequired">
       <input
         type="checkbox"
@@ -135,6 +143,7 @@
       [min]="sandboxForm.min"
       [max]="sandboxForm.max"
       [includeSeconds]="sandboxForm.includeSeconds"
+      [localTime]="sandboxForm.localTime"
       [required]="sandboxForm.required"
       [disabled]="sandboxForm.disabled"
       [inlineErrors]="sandboxForm.inlineErrors"

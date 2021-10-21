@@ -1,6 +1,7 @@
 <input
   #dateInput
   class="rounded-left prefix"
+  [ngClass]="className"
   type="date"
   [id]="inputId + '$date'"
   [(ngModel)]="dateValue"
@@ -8,7 +9,6 @@
   [attr.disabled]="disabled === true ? 'true' : undefined"
   [attr.readonly]="readonly === true ? 'true' : undefined"
   [placeholder]=""
-  [ngClass]="className"
   (keyup)="onEventDatetime(dateInput.value, timeInput.value)"
   (change)="onEventDatetime(dateInput.value, timeInput.value)"
   (keypress)="onKeyPress($event)"
@@ -16,7 +16,8 @@
 />
 <input
   #timeInput
-  class=""
+  [class]="(disabled || readonly) && localTime ? 'rounded-right' : ''"
+  [ngClass]="className"
   type="time"
   [id]="inputId + '$time'"
   [(ngModel)]="timeValue"
@@ -25,14 +26,18 @@
   [attr.readonly]="readonly === true ? 'true' : undefined"
   [placeholder]=""
   [step]="includeSeconds ? 1 : 60"
-  [ngClass]="className"
   (keyup)="onEventDatetime(dateInput.value, timeInput.value)"
   (change)="onEventDatetime(dateInput.value, timeInput.value)"
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<ng-container *ngIf="!localTime">
-  <div [class]="disabled || readonly ? 'rounded-right postfix symbol' : 'postfix symbol'">
+<ng-container
+  *ngIf="!localTime"
+>
+  <div
+    [class]="disabled || readonly ? 'rounded-right postfix symbol' : 'postfix symbol'"
+    [ngClass]="className"
+  >
     <span>{{ localTime ? '' : 'UTC' }}</span>
   </div>
 </ng-container>
@@ -41,19 +46,18 @@
   *ngIf="!(disabled || readonly)"
   class="rounded-right postfix icon-clear"
   [id]="inputId + '$clear'"
-  [ngClass]="className"
-  (click)="updateDatetime(undefined)"
+  (click)="clear()"
   aria-label="clear"
 ></button>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">
-    {{ userErrors[this.lang].required }}
+    {{ userErrors[lang].required }}
   </div>
   <div *ngIf="lastErrors.min">
-    {{ userErrors[this.lang].min.replace('$min', lastErrors.min.min) }}
+    {{ userErrors[lang].min.replace('$min', lastErrors.min.min) }}
   </div>
   <div *ngIf="lastErrors.max">
-    {{ userErrors[this.lang].max.replace('$max', lastErrors.max.max) }}
+    {{ userErrors[lang].max.replace('$max', lastErrors.max.max) }}
   </div>
 </div>

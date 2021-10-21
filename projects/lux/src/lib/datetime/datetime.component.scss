@@ -1,7 +1,6 @@
 @import '../styles/lux';
 
 :host {
-  position: relative;
   display: flex;
   align-items: stretch;
 }
@@ -13,6 +12,11 @@
     border: none;
     outline: none;
   }
+}
+
+.disabled {
+  background-color: $disabled-color;
+  border-color: $disabled-border-color;
 }
 
 .icon-clear {

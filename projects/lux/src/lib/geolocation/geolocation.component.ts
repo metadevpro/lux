@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { DataSource } from '../datasource';
 import {
   exists,
+  hasValue,
   isInitialAndEmpty,
   isValidNumber,
   roundToMultipleOf
@@ -60,8 +61,8 @@ export class GeolocationComponent implements OnInit {
   private _required: boolean;
   private _value: any;
 
-  latitudeValue?: number = null;
-  longitudeValue?: number = null;
+  latitudeValue?: number = undefined;
+  longitudeValue?: number = undefined;
 
   isValidNumber = isValidNumber;
 
@@ -139,7 +140,7 @@ export class GeolocationComponent implements OnInit {
 
   @Input()
   set disabled(v: string | boolean) {
-    v = typeof v === 'string' ? true : v;
+    v = typeof v === 'string' && v !== 'false' ? true : v;
     this._disabled = v;
   }
   get disabled(): string | boolean {
@@ -160,18 +161,23 @@ export class GeolocationComponent implements OnInit {
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    if (v && v.coordinates && v.coordinates.length === 2) {
+    if (
+      v &&
+      v.coordinates &&
+      v.coordinates.length === 2 &&
+      exists(v.coordinates[0] && exists(v.coordinates[1]))
+    ) {
       this._value = v;
-      this.latitudeValue = v.coordinates[1];
-      this.longitudeValue = v.coordinates[0];
-      this.setLatitudeInControl(this.latitudeValue);
-      this.setLongitudeInControl(this.longitudeValue);
+      this.setLatitudeInControl(v.coordinates[1]);
+      this.setLongitudeInControl(v.coordinates[0]);
+    } else if (!v) {
+      this._value = null;
+      this.setLatitudeInControl(null);
+      this.setLongitudeInControl(null);
     } else {
-      this._value = undefined;
-      this.latitudeValue = undefined;
-      this.longitudeValue = undefined;
-      this.setLatitudeInControl(this.latitudeValue);
-      this.setLongitudeInControl(this.longitudeValue);
+      this._value = v;
+      // we don't set value in control if the value is not valid
+      // if we do, the content of the control changes and can erase what the user is typing
     }
     this.onChange(v);
     if (!initialAndEmpty) {
@@ -219,10 +225,17 @@ export class GeolocationComponent implements OnInit {
   // End of ControlValueAccessor Interface implementation
 
   private setLatitudeInControl(latitude: number): void {
-    this.latitude.nativeElement.value = latitude;
+    // this.latitude.nativeElement.value = latitude;
+    this.latitudeValue = latitude;
   }
   private setLongitudeInControl(longitude: number): void {
-    this.longitude.nativeElement.value = longitude;
+    // this.longitude.nativeElement.value = longitude;
+    this.longitudeValue = longitude;
+  }
+  clear(): void {
+    this.setLatitudeInControl(null);
+    this.setLongitudeInControl(null);
+    this.value = null;
   }
 
   // Validator interface
@@ -232,9 +245,28 @@ export class GeolocationComponent implements OnInit {
     const value = control.value;
     let result: ValidationErrors | null = null;
 
-    if (this.required && !exists(value)) {
+    if (
+      this.required &&
+      !hasValue(value) &&
+      !exists(this.latitudeValue) &&
+      !exists(this.longitudeValue)
+    ) {
       result = result || {};
       result.required = { value, reason: 'Required field.' };
+    }
+    if (!exists(this.latitudeValue) && exists(this.longitudeValue)) {
+      result = result || {};
+      result.existsLatitude = {
+        value,
+        reason: 'Latitude not specified.'
+      };
+    }
+    if (exists(this.latitudeValue) && !exists(this.longitudeValue)) {
+      result = result || {};
+      result.existsLongitude = {
+        value,
+        reason: 'Longitude not specified.'
+      };
     }
     if (exists(this.minLatitude) && this.latitudeValue < this.minLatitude) {
       result = result || {};
@@ -280,52 +312,6 @@ export class GeolocationComponent implements OnInit {
     this.setPatterns();
   }
 
-  updateLatitude(newLatitude: number | null): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-    if (isValidNumber(this.longitudeValue)) {
-      this.value = {
-        type: 'Point',
-        coordinates: [this.longitudeValue, newLatitude]
-      };
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: [0, newLatitude]
-      };
-    }
-  }
-  updateLongitude(newLongitude: number | null): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-    if (isValidNumber(this.latitudeValue)) {
-      this.value = {
-        type: 'Point',
-        coordinates: [newLongitude, this.latitudeValue]
-      };
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: [newLongitude, 0]
-      };
-    }
-  }
-  updateLatitudeAndLongitude(newLatitudeAndLongitude: number[]): void {
-    if (this.disabled || this.readonly) {
-      return;
-    }
-    if (!exists(newLatitudeAndLongitude)) {
-      this.value = undefined;
-    } else {
-      this.value = {
-        type: 'Point',
-        coordinates: newLatitudeAndLongitude
-      };
-    }
-  }
-
   roundToStepAndUpdateLatitudeAndLongitude(
     newLatitudeAndLongitude: number[]
   ): void {
@@ -341,7 +327,7 @@ export class GeolocationComponent implements OnInit {
       return;
     }
     if (!exists(newLatitudeAndLongitude)) {
-      this.value = undefined;
+      this.value = null;
     }
     this.value = {
       type: 'Point',
@@ -353,18 +339,46 @@ export class GeolocationComponent implements OnInit {
     this.markAsTouched();
   }
   onEventLatitude(newLatitude: string): void {
-    if (isValidNumber(newLatitude)) {
-      this.updateLatitude(+newLatitude);
+    if (this.disabled || this.readonly) {
+      return;
+    }
+    const newLatitudeValue = isValidNumber(newLatitude) ? +newLatitude : null;
+    if (
+      !(exists(this.value) && exists(this.value.coordinates[0])) &&
+      !exists(newLatitudeValue)
+    ) {
+      this.value = null;
     } else {
-      this.updateLatitude(undefined);
+      this.value = {
+        type: 'Point',
+        coordinates: [
+          this.value ? this.value.coordinates[0] : undefined,
+          newLatitudeValue
+        ]
+      };
     }
     this.markAsTouched();
   }
   onEventLongitude(newLongitude: string): void {
-    if (isValidNumber(newLongitude)) {
-      this.updateLongitude(+newLongitude);
+    if (this.disabled || this.readonly) {
+      return;
+    }
+    const newLongitudeValue = isValidNumber(newLongitude)
+      ? +newLongitude
+      : null;
+    if (
+      !exists(newLongitudeValue) &&
+      !(exists(this.value) && exists(this._value.coordinates[1]))
+    ) {
+      this.value = null;
     } else {
-      this.updateLongitude(undefined);
+      this.value = {
+        type: 'Point',
+        coordinates: [
+          newLongitudeValue,
+          this.value ? this.value.coordinates[1] : undefined
+        ]
+      };
     }
     this.markAsTouched();
   }
@@ -373,10 +387,13 @@ export class GeolocationComponent implements OnInit {
   }
 
   checkClassName(): string {
-    if (this.readonly === true) {
-      return 'readonly';
-    }
-    return '';
+    return this.disabled
+      ? this.readonly
+        ? 'disabled readonly'
+        : 'disabled'
+      : this.readonly
+      ? 'readonly'
+      : '';
   }
 
   openModalMap(modal: TemplateRef<any>): void {
