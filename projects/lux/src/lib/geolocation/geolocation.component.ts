@@ -343,12 +343,18 @@ export class GeolocationComponent implements OnInit {
       return;
     }
     const newLatitudeValue = isValidNumber(newLatitude) ? +newLatitude : null;
-    if (!exists(this.longitudeValue) && !exists(newLatitudeValue)) {
+    if (
+      !(exists(this.value) && exists(this.value.coordinates[0])) &&
+      !exists(newLatitudeValue)
+    ) {
       this.value = null;
     } else {
       this.value = {
         type: 'Point',
-        coordinates: [this.longitudeValue, newLatitudeValue]
+        coordinates: [
+          this.value ? this.value.coordinates[0] : undefined,
+          newLatitudeValue
+        ]
       };
     }
     this.markAsTouched();
@@ -360,12 +366,18 @@ export class GeolocationComponent implements OnInit {
     const newLongitudeValue = isValidNumber(newLongitude)
       ? +newLongitude
       : null;
-    if (!exists(newLongitudeValue) && !exists(this.latitudeValue)) {
+    if (
+      !exists(newLongitudeValue) &&
+      !(exists(this.value) && exists(this._value.coordinates[1]))
+    ) {
       this.value = null;
     } else {
       this.value = {
         type: 'Point',
-        coordinates: [newLongitudeValue, this.latitudeValue]
+        coordinates: [
+          newLongitudeValue,
+          this.value ? this.value.coordinates[1] : undefined
+        ]
       };
     }
     this.markAsTouched();
