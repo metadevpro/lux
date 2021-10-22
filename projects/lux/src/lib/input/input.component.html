@@ -5,6 +5,7 @@
   #input
   *ngIf="type !== 'textarea'"
   [class]="hasPrefix() ? (hasPostfix() ? 'infix' : 'postfix rounded-right') : (hasPostfix() ? 'prefix rounded-left' : 'rounded')"
+  [ngClass]="className"
   placement="top"
   [id]="inputId"
   [type]="domain"
@@ -17,7 +18,6 @@
   [attr.step]="step?.toString() || undefined"
   [attr.pattern]="pattern || undefined"
   [placeholder]="placeholder"
-  [ngClass]="className"
   (keyup)="onKeyUp(input.value)"
   (change)="onChangeValue(input.value)"
   (keypress)="onKeyPress($event)"
@@ -26,6 +26,8 @@
 <textarea
   #textarea
   *ngIf="type === 'textarea'"
+  class="rounded"
+  [ngClass]="className"
   placement="top"
   [id]="inputId"
   [attr.value]="value"
@@ -35,7 +37,6 @@
   [attr.cols]="cols?.toString() || undefined"
   [attr.rows]="rows?.toString() || undefined"
   [placeholder]="placeholder"
-  [ngClass]="className"
   (keyup)="onKeyUp(textarea.value)"
   (change)="onChangeValue(textarea.value)"
   (keypress)="onKeyPress($event)"
