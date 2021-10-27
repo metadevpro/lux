@@ -374,7 +374,13 @@ export class AutocompleteComponent
       this.syncCustomValue(text);
       return;
     }
-    if (this.focusItem && this.focusItem.label) {
+    if (this.showCompletion && this.focusItem && this.focusItem.label) {
+      if (text === this.focusItem.label && this.focusItem.key === this.value) {
+        // do nothing if value does not change & close dropdow
+        this.showCompletion = false;
+        return;
+      }
+      // complete selected using selected item on drowdown
       this.complete(this.focusItem);
       return;
     }
@@ -399,8 +405,7 @@ export class AutocompleteComponent
       this.computeCompletionList(text).subscribe({
         next: (cl) => {
           this.completionList = cl;
-          this.focusItem =
-            this.completionList.length > 0 ? this.completionList[0] : null;
+          this.focusItem = selectElement(this.completionList, text);
           this.showCompletion = true;
           this.spinnerVisibility(useSpinner, false);
         },
@@ -413,6 +418,7 @@ export class AutocompleteComponent
       });
     }, 1);
   }
+
   private spinnerVisibility(useSpinner: boolean, value: boolean): void {
     if (useSpinner) {
       this.showSpinner = value;
@@ -483,4 +489,19 @@ const decorateItem = (
 const findLabelForId = (data: DataSource<any, string>, id: any): string => {
   const found = data.find((it) => it.key === id);
   return found ? found.label : null;
+};
+
+const selectElement = (
+  completionList: DecoratedDataSource,
+  label: string
+): DataSourceItem<any, string> => {
+  label = (label || '').toLowerCase();
+  if (!completionList) {
+    return null;
+  }
+  if (completionList.length === 1) {
+    return completionList[0];
+  }
+  const found = completionList.find((it) => it.label.toLowerCase() === label);
+  return found || completionList[0];
 };
