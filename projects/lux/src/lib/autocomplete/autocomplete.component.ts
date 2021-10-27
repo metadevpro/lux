@@ -491,12 +491,12 @@ const findLabelForId = (data: DataSource<any, string>, id: any): string => {
   return found ? found.label : null;
 };
 
-const selectElement = (
+export const selectElement = (
   completionList: DecoratedDataSource,
   label: string
 ): DataSourceItem<any, string> => {
   label = (label || '').toLowerCase();
-  if (!completionList) {
+  if (!completionList || completionList.length === 0) {
     return null;
   }
   if (completionList.length === 1) {
