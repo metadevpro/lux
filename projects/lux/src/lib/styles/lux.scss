@@ -51,7 +51,7 @@ $icon-dropdown: var(
 input,
 select,
 textarea {
-  border: solid 1px $input-border-color;
+  border: $input-border $input-border-color;
   margin: $input-margin;
   padding: $input-padding;
 }
@@ -67,6 +67,7 @@ textarea {
 }
 
 .symbol {
+  @extend .bordered;
   display: inline-block;
   align-items: baseline;
   padding: 0rem 0.5rem;
@@ -76,13 +77,15 @@ textarea {
   text-align: center;
   white-space: nowrap;
   background: $symbol-background;
-  border: 1px solid $input-border-color;
 
   font-size: $symbol-font-size;
 }
 
+.bordered {
+  border: $input-border $input-border-color;
+}
+
 .rounded {
-  border: $input-border;
   border-radius: $border-radius;
 }
 
