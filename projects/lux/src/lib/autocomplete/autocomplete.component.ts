@@ -57,7 +57,7 @@ export class AutocompleteComponent
   private _dataSource: DataSource<any, string>;
   private _placeholder: string;
   private _value: any;
-  private lostFocusHandled = false;
+  private lostFocusHandled = true;
   private t0 = 0;
 
   showSpinner = false;
@@ -295,8 +295,10 @@ export class AutocompleteComponent
         //   'label:',
         //   label
         // );
-        if (label) {
+        if (label && this.label !== label) {
           this.pickSelectionOrFirstMatch(label);
+        } else {
+          this.lostFocusHandled = true;
         }
         this.toggleCompletion(false, label);
       } else {
@@ -311,21 +313,23 @@ export class AutocompleteComponent
     }, LOST_FOCUS_TIME_WINDOW_MS);
   }
   complete(item: DataSourceItem<Record<string, unknown>, string>): void {
-    this.lostFocusHandled = true; // prevent a previous lostFocus to trigger a side effect
-    const ellapsed = performance.now() - this.t0;
-    if (ellapsed > LOST_FOCUS_TIME_WINDOW_MS) {
-      console.warn(
-        'complete. lostfocus->click timeout of ',
-        LOST_FOCUS_TIME_WINDOW_MS,
-        'ms exceed: ',
-        performance.now() - this.t0,
-        ' ms'
-      );
+    if (!this.lostFocusHandled) {
+      this.lostFocusHandled = true; // prevent a previous lostFocus to trigger a side effect
+      const ellapsed = performance.now() - this.t0;
+      if (ellapsed > LOST_FOCUS_TIME_WINDOW_MS) {
+        console.warn(
+          'complete. lostfocus->click timeout of ',
+          LOST_FOCUS_TIME_WINDOW_MS,
+          'ms exceed: ',
+          performance.now() - this.t0,
+          ' ms'
+        );
+      }
+      // console.log(
+      //   'complete. set to true. CANCELED side effect',
+      //   performance.now() - this.t0
+      // );
     }
-    // console.log(
-    //   'complete. set to true. CANCELED side effect',
-    //   performance.now() - this.t0
-    // );
     if (item !== null) {
       this.value = item.key;
       this.label = item.label;
