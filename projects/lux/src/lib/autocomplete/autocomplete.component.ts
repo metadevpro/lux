@@ -261,10 +261,9 @@ export class AutocompleteComponent
     const index = list.findIndex(
       (it) => this.focusItem && it.key === this.focusItem.key
     );
-    const next =
-      index !== -1 && list.length > index + offset
-        ? list[index + offset]
-        : list[list.length - 1];
+    const indexNext =
+      -1 && list.length > index + offset ? index + offset : list.length - 1;
+    const next = list[indexNext];
     this.focusItem = next;
     this.ensureItemVisible(index);
   }
@@ -273,8 +272,8 @@ export class AutocompleteComponent
     const index = list.findIndex(
       (it) => this.focusItem && it.key === this.focusItem.key
     );
-    const next =
-      index !== -1 && index > offset ? list[index - offset] : list[0];
+    const indexPrevious = index !== -1 && index > offset ? index - offset : 0;
+    const next = list[indexPrevious];
     this.focusItem = next;
     this.ensureItemVisible(index);
   }
@@ -373,12 +372,21 @@ export class AutocompleteComponent
     this.value = text;
     this.label = text;
   }
+  /** Pick selection based on text filtering (ingnores drowdown state) */
   private pickSelectionOrFirstMatch(text: string): void {
     if (this.canAddNewValues) {
       this.syncCustomValue(text);
       return;
     }
-    if (this.showCompletion && this.focusItem && this.focusItem.label) {
+    const focusIndex = this.completionList.findIndex(
+      (it) => this.focusItem && it.key === this.focusItem.key
+    );
+    if (
+      this.showCompletion &&
+      focusIndex > 0 &&
+      this.focusItem &&
+      this.focusItem.label
+    ) {
       if (text === this.focusItem.label && this.focusItem.key === this.value) {
         // do nothing if value does not change & close dropdow
         this.showCompletion = false;
@@ -389,15 +397,19 @@ export class AutocompleteComponent
       return;
     }
     const source = (text || '').trim();
-    if (source === '') {
+    if (!source) {
       this.showCompletion = false;
+      // select null value
+      if (this.value !== null) {
+        this.value = null;
+      }
       return;
     }
     this.completionList = [];
     this.computeCompletionList(source).subscribe((suggestions) => {
-      this.complete(
-        suggestions && suggestions.length > 0 ? suggestions[0] : null
-      );
+      const candidate =
+        suggestions && suggestions.length > 0 ? suggestions[0] : null;
+      this.complete(candidate);
     });
   }
   private showCompletionList(text: string): void {
