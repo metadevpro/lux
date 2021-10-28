@@ -5,6 +5,7 @@
 2021.10.28
 
 - Bug fix: Fix clean value in autocomplete. [#161](https://github.com/metadevpro/lux/issues/161).
+- Bug fix: Rounded corners in textarea. [#159](https://github.com/metadevpro/lux/issues/159).
 
 ## Version 0.16.0
 
