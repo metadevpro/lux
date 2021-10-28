@@ -18,6 +18,7 @@ $disabled-border-color: var(--lux-disabled-border-color, #6d6d6d);
 
 // Borders
 $input-border: var(--lux-input-border, 1px solid);
+$border-radius: var(--lux-border-radius, 0.25rem);
 
 // Margins
 $input-margin: var(--lux-input-margin, 0rem);
@@ -81,8 +82,8 @@ textarea {
 }
 
 .rounded {
-  border-radius: 0.25rem;
   border: $input-border;
+  border-radius: $border-radius;
 }
 
 .rounded-left {
