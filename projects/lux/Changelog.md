@@ -1,6 +1,6 @@
 # Lux Changelog
 
-## Version 0.16.1
+## Version 0.16.2
 
 2021.10.28
 
