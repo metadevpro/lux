@@ -27,6 +27,7 @@
     <ng-template #noLoading>
       <button
         *ngIf="!disabled && i0.value && !showCompletion; else dropdown"
+        type="button"
         class="icon-clear"
         aria-label="Clear"
         (click)="clear()"
