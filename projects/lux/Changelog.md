@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.16.1
+
+2021.10.28
+
+- Bug fix: Fix clean value in autocomplete. [#161](https://github.com/metadevpro/lux/issues/161).
+
 ## Version 0.16.0
 
 2021.10.15
