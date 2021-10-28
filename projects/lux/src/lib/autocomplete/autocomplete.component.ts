@@ -455,10 +455,10 @@ export class AutocompleteComponent
         debounceTime(1),
         first(),
         map((ds) => {
-          ds.filter((it) => ignoreAccentsInclude(it.label, searchText)).sort(
-            (a, b) => a.label.localeCompare(b.label)
-          );
-          return decorateDataSource(ds, searchText);
+          const dsFiltered = ds
+            .filter((it) => ignoreAccentsInclude(it.label, searchText))
+            .sort((a, b) => a.label.localeCompare(b.label));
+          return decorateDataSource(dsFiltered, searchText);
         })
       );
     } else {
