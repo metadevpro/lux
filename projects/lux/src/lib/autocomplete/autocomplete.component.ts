@@ -322,10 +322,10 @@ export class AutocompleteComponent
         ' ms'
       );
     }
-    console.log(
-      'complete. set to true. CANCELED side effect',
-      performance.now() - this.t0
-    );
+    // console.log(
+    //   'complete. set to true. CANCELED side effect',
+    //   performance.now() - this.t0
+    // );
     if (item !== null) {
       this.value = item.key;
       this.label = item.label;
