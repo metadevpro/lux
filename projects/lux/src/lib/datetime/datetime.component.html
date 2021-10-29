@@ -44,6 +44,7 @@
 <button
   #clearButton
   *ngIf="!(disabled || readonly)"
+  type="button"
   class="rounded-right postfix icon-clear"
   [id]="inputId + '$clear'"
   (click)="clear()"

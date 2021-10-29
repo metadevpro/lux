@@ -15,12 +15,14 @@
     [class.hide]="!searchValue"
     aria-label="Clear"
     class="clear-indicator icon icon-clear"
+    type="button"
     (click)="clear()"
   ></button>
   <i *ngIf="1 || searchOnType" class="search-indicator icon icon-search"></i>
   <button
     class="btn-search"
     *ngIf="!searchOnType"
+    type="button"
     [disabled]="disabled"
     (click)="search()"
   >

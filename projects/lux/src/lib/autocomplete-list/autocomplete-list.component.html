@@ -22,6 +22,7 @@
     </lux-autocomplete>
     <button
       *ngIf="canAdd"
+      type="button"
       class="add-item"
       attr.aria-label="addMessage ?? literals[lang].addMessage"
       (click)="addNew(auto)"
