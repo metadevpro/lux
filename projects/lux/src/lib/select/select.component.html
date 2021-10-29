@@ -4,6 +4,7 @@
       <span>{{ item }}</span>
       <button *ngIf="!disabled"
             class="remove"
+            type="button"
             (click)="remove(i)"
             [attr.aria-label]="'Remove ' + item"
             >Remove</button>
@@ -22,7 +23,7 @@
     >
     </lux-input>
     <div *ngIf="canAdd">
-      <button *ngIf="isValidNewEntry" (click)="add(newEntry)">Add</button>
+      <button *ngIf="isValidNewEntry" type="button" (click)="add(newEntry)">Add</button>
     </div>
     <div class="error">
       {{ error }}
