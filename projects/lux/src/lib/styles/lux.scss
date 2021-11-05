@@ -18,6 +18,7 @@ $disabled-border-color: var(--lux-disabled-border-color, #6d6d6d);
 
 // Borders
 $input-border: var(--lux-input-border, 1px solid);
+$border-radius: var(--lux-border-radius, 0.25rem);
 
 // Margins
 $input-margin: var(--lux-input-margin, 0rem);
@@ -50,7 +51,7 @@ $icon-dropdown: var(
 input,
 select,
 textarea {
-  border: solid 1px $input-border-color;
+  border: $input-border $input-border-color;
   margin: $input-margin;
   padding: $input-padding;
 }
@@ -66,6 +67,7 @@ textarea {
 }
 
 .symbol {
+  @extend .bordered;
   display: inline-block;
   align-items: baseline;
   padding: 0rem 0.5rem;
@@ -75,14 +77,16 @@ textarea {
   text-align: center;
   white-space: nowrap;
   background: $symbol-background;
-  border: 1px solid $input-border-color;
 
   font-size: $symbol-font-size;
 }
 
+.bordered {
+  border: $input-border $input-border-color;
+}
+
 .rounded {
-  border-radius: 0.25rem;
-  border: $input-border;
+  border-radius: $border-radius;
 }
 
 .rounded-left {
