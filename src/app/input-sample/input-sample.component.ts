@@ -13,6 +13,7 @@ export class InputSampleComponent implements AfterContentInit {
   disabled = true;
   readonly = true;
   valueEmail: string = null;
+  valueUrl: string = null;
   valueDate: string = null;
   valueTime: string = null;
   valuePassword = '';

@@ -51,6 +51,11 @@
 <div *ngIf="isPermillage()" class="postfix rounded-right symbol" [ngClass]="className">
   <span>‰</span>
 </div>
+<div *ngIf="isUrl()" class="postfix rounded-right symbol clickable" [ngClass]="className">
+  <a href="{{ value }}" target="_blank">
+    <span class="icon-external"></span>
+  </a>
+</div>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
   <div *ngIf="lastErrors.required">

@@ -102,6 +102,22 @@
     Bind value: {{ valueEmail }}
   </div>
 
+  <h3>URL</h3>
+  <pre class="language-html" rel="html">
+        <code class="language-html">
+    &lt;lux-input placeholder="Write text..." <span class="text-underlined">type="url"</span> &gt;&lt;/lux-input&gt;</code>
+    </pre>
+  <div class="sample">
+    <label for="url">URL: </label>
+    <lux-input
+      inputId="url"
+      placeholder="Write text..."
+      type="url"
+      [(ngModel)]="valueUrl"
+    ></lux-input>
+    Bind value: {{ valueUrl }}
+  </div>
+
   <h3>Date</h3>
   <pre class="language-html" rel="html">
         <code class="language-html">

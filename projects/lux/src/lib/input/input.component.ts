@@ -21,6 +21,7 @@ import {
   isInitialAndEmpty,
   isValidEmail,
   isValidNumber,
+  isValidUrl,
   normalizeDate
 } from '../helperFns';
 import { languageDetector } from '../lang';
@@ -253,6 +254,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       result = result || {};
       result.email = { value, reason: 'Invalid email.' };
     }
+    if (this.type === 'url' && hasValue(value) && !isValidUrl(value)) {
+      result = result || {};
+      result.email = { value, reason: 'Invalid URL.' };
+    }
     if (this.type === 'number' && hasValue(value) && !isValidNumber(value)) {
       result = result || {};
       result.numeric = { value, reason: 'Invalid number.' };
@@ -335,6 +340,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     this.keyPress.emit(event);
   }
 
+  isUrl(): boolean {
+    return this.type === 'url';
+  }
   isNumber(): boolean {
     return this.type === 'number';
   }
@@ -349,7 +357,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
   hasPostfix(): boolean {
     return (
-      this.currency === 'EUR' || this.isPercentage() || this.isPermillage()
+      this.currency === 'EUR' ||
+      this.isPercentage() ||
+      this.isPermillage() ||
+      this.isUrl()
     );
   }
 
@@ -367,6 +378,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     switch (type) {
       case 'email':
         this.setEmailPatterns();
+        break;
+      case 'url':
+        this.setUrlPatterns();
         break;
       case 'date':
         this.setDatePatterns();
@@ -395,6 +409,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
 
   setEmailPatterns(): void {}
+
+  setUrlPatterns(): void {}
 
   setDatePatterns(): void {
     this.min = this.min || '1900-01-01';
