@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.17.0
+
+2021.12.01
+
+- Remove tooltip in pagination. [#174](https://github.com/metadevpro/lux/pull/174)
+
 ## Version 0.16.4
 
 2021.10.28
