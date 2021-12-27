@@ -62,6 +62,7 @@
     {{ userErrors[this.lang].required }}
   </div>
   <div *ngIf="lastErrors.email">{{ userErrors[this.lang].email }}</div>
+  <div *ngIf="lastErrors.url">{{ userErrors[this.lang].url }}</div>
   <div *ngIf="lastErrors.min">
     {{ userErrors[this.lang].min.replace('$min', lastErrors.min.min) }}
   </div>

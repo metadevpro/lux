@@ -67,13 +67,15 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       required: 'Required field.',
       min: 'Minimum value is $min.',
       max: 'Maximum value is $max.',
-      email: 'Format should match example@example.com.'
+      email: 'Format should match example@example.com.',
+      url: 'Format should match example.com.'
     },
     es: {
       required: 'El campo es obligatorio.',
       min: 'El valor mínimo es $min.',
       max: 'El valor máximo es $max.',
-      email: 'El campo debe tener un formato como ejemplo@ejemplo.com.'
+      email: 'El campo debe tener un formato como ejemplo@ejemplo.com.',
+      url: 'El campo debe tener un formato como ejemplo.com.'
     }
   };
 
@@ -256,7 +258,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     }
     if (this.type === 'url' && hasValue(value) && !isValidUrl(value)) {
       result = result || {};
-      result.email = { value, reason: 'Invalid URL.' };
+      result.url = { value, reason: 'Invalid URL.' };
     }
     if (this.type === 'number' && hasValue(value) && !isValidNumber(value)) {
       result = result || {};
