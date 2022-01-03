@@ -113,11 +113,16 @@ describe('isValidColor', () => {
     expect(isValidColor('hsl(0,100%,0%)')).toBeTrue();
   });
   it('should return false for invalid colors', () => {
+    expect(isValidColor(null)).toBeFalse();
+    expect(isValidColor(undefined)).toBeFalse();
+    expect(isValidColor('null')).toBeFalse();
     expect(isValidColor('currentcolor')).toBeFalse();
     expect(isValidColor('inherit')).toBeFalse();
     expect(isValidColor('initial')).toBeFalse();
     expect(isValidColor('revert')).toBeFalse();
     expect(isValidColor('unset')).toBeFalse();
+    expect(isValidColor('Initial')).toBeFalse();
+    expect(isValidColor('UNSET')).toBeFalse();
     expect(isValidColor('color')).toBeFalse();
     expect(isValidColor('#0123')).toBeFalse();
     expect(isValidColor('#GGGGGG')).toBeFalse();
