@@ -6,7 +6,6 @@
   *ngIf="type !== 'textarea'"
   [class]="hasPrefix() ? (hasPostfix() ? 'infix' : 'postfix rounded-right') : (hasPostfix() ? 'prefix rounded-left' : 'rounded')"
   [ngClass]="className"
-  [ngStyle]="!disabled ? {'background-color': color} : {}"
   placement="top"
   [id]="inputId"
   [type]="domain"
@@ -56,6 +55,8 @@
   <a href="{{ value }}" target="_blank">
     <span class="icon-external"></span>
   </a>
+</div>
+<div *ngIf="isColor()" class="postfix rounded-right symbol" [ngClass]="className" [ngStyle]="{'background-color': color}">
 </div>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">

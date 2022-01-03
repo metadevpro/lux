@@ -376,7 +376,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       this.currency === 'EUR' ||
       this.isPercentage() ||
       this.isPermillage() ||
-      (this.isUrl() && !!this.value)
+      (this.isUrl() && !!this.value) ||
+      this.isColor()
     );
   }
 
