@@ -14,6 +14,7 @@ export class InputSampleComponent implements AfterContentInit {
   readonly = true;
   valueEmail: string = null;
   valueUrl: string = null;
+  valueColor: string = null;
   valueDate: string = null;
   valueTime: string = null;
   valuePassword = '';

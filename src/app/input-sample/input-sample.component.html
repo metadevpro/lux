@@ -118,6 +118,22 @@
     Bind value: {{ valueUrl }}
   </div>
 
+  <h3>Color</h3>
+  <pre class="language-html" rel="html">
+        <code class="language-html">
+    &lt;lux-input placeholder="Write text..." <span class="text-underlined">type="color"</span> &gt;&lt;/lux-input&gt;</code>
+    </pre>
+  <div class="sample">
+    <label for="color">Color: </label>
+    <lux-input
+      inputId="color"
+      placeholder="Write text..."
+      type="color"
+      [(ngModel)]="valueColor"
+    ></lux-input>
+    Bind value: {{ valueColor }}
+  </div>
+
   <h3>Date</h3>
   <pre class="language-html" rel="html">
         <code class="language-html">

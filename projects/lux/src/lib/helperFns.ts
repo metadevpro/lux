@@ -22,6 +22,21 @@ export const isValidUrl = (value: string): boolean => {
   return re.test(String(value).toLowerCase().trim());
 };
 
+export const isValidColor = (value: string): boolean => {
+  value = value.toLowerCase();
+  // valid values for CSS color property, yet not valid colors by themselves
+  if (
+    value === 'currentcolor' ||
+    value === 'inherit' ||
+    value === 'initial' ||
+    value === 'revert' ||
+    value === 'unset'
+  ) {
+    return false;
+  }
+  return CSS.supports('color', value);
+};
+
 // date functions
 
 export const isValidDate = (date: Date): boolean =>

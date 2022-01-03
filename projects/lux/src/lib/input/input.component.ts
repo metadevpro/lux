@@ -22,6 +22,7 @@ import {
   isValidEmail,
   isValidNumber,
   isValidUrl,
+  isValidColor,
   normalizeDate
 } from '../helperFns';
 import { languageDetector } from '../lang';
@@ -68,14 +69,16 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       min: 'Minimum value is $min.',
       max: 'Maximum value is $max.',
       email: 'Format should match example@example.com.',
-      url: 'Format should match https://example.com.'
+      url: 'Format should match https://example.com.',
+      color: 'Format should match #XXXXXX.'
     },
     es: {
       required: 'El campo es obligatorio.',
       min: 'El valor mínimo es $min.',
       max: 'El valor máximo es $max.',
       email: 'El campo debe tener un formato como ejemplo@ejemplo.com.',
-      url: 'El campo debe tener un formato como https://ejemplo.com.'
+      url: 'El campo debe tener un formato como https://ejemplo.com.',
+      color: 'El campo debe tener un formato como #XXXXXX.'
     }
   };
 
@@ -93,6 +96,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   get className(): string {
     return this.checkClassName();
+  }
+
+  get color(): string {
+    return this.checkColor();
   }
 
   @Input() lang = languageDetector();
@@ -260,6 +267,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       result = result || {};
       result.url = { value, reason: 'Invalid URL.' };
     }
+    if (this.type === 'color' && hasValue(value) && !isValidColor(value)) {
+      result = result || {};
+      result.color = { value, reason: 'Invalid color.' };
+    }
     if (this.type === 'number' && hasValue(value) && !isValidNumber(value)) {
       result = result || {};
       result.numeric = { value, reason: 'Invalid number.' };
@@ -345,6 +356,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   isUrl(): boolean {
     return this.type === 'url';
   }
+  isColor(): boolean {
+    return this.type === 'color';
+  }
   isNumber(): boolean {
     return this.type === 'number';
   }
@@ -376,6 +390,12 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       : '';
   }
 
+  checkColor(): string {
+    return this.type === 'color' && isValidColor(this.value)
+      ? this.value
+      : 'initial';
+  }
+
   checkType(type: string): void {
     switch (type) {
       case 'email':
@@ -383,6 +403,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
         break;
       case 'url':
         this.setUrlPatterns();
+        break;
+      case 'color':
+        this.setColorPatterns();
         break;
       case 'date':
         this.setDatePatterns();
@@ -413,6 +436,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   setEmailPatterns(): void {}
 
   setUrlPatterns(): void {}
+
+  setColorPatterns(): void {}
 
   setDatePatterns(): void {
     this.min = this.min || '1900-01-01';
