@@ -437,7 +437,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   setUrlPatterns(): void {}
 
-  setColorPatterns(): void {}
+  setColorPatterns(): void {
+    this.domain = 'text';
+  }
 
   setDatePatterns(): void {
     this.min = this.min || '1900-01-01';
