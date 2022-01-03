@@ -23,7 +23,7 @@ export const isValidUrl = (value: string): boolean => {
 };
 
 export const isValidColor = (value: string): boolean => {
-  value = value.toLowerCase();
+  value = String(value).toLowerCase();
   // valid values for CSS color property, yet not valid colors by themselves
   if (
     value === 'currentcolor' ||
