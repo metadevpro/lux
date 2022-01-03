@@ -1,5 +1,7 @@
 # Lux Changelog
 
+- Added URL type to lux-input. [#171](https://github.com/metadevpro/lux/pull/171)
+
 ## Version 0.17.0
 
 2021.12.01
