@@ -99,7 +99,6 @@ describe('isValidUrl', () => {
     expect(isValidUrl('a')).toBeFalse();
     expect(isValidUrl('http//www.com')).toBeFalse();
     expect(isValidUrl('http://www com')).toBeFalse();
-    expect(isValidUrl('https://www.com//')).toBeFalse();
   });
 });
 
@@ -110,6 +109,7 @@ describe('isValidColor', () => {
     expect(isValidColor('#000000')).toBeTrue();
     expect(isValidColor('#FFFFFF')).toBeTrue();
     expect(isValidColor('rgb(0,0,255)')).toBeTrue();
+    expect(isValidColor('rgba(0,0,255,0.5)')).toBeTrue();
     expect(isValidColor('hsl(0,100%,0%)')).toBeTrue();
   });
   it('should return false for invalid colors', () => {
@@ -124,9 +124,8 @@ describe('isValidColor', () => {
     expect(isValidColor('Initial')).toBeFalse();
     expect(isValidColor('UNSET')).toBeFalse();
     expect(isValidColor('color')).toBeFalse();
-    expect(isValidColor('#0123')).toBeFalse();
+    expect(isValidColor('#01234')).toBeFalse();
     expect(isValidColor('#GGGGGG')).toBeFalse();
-    expect(isValidColor('#01234567')).toBeFalse();
     expect(isValidColor('colorao')).toBeFalse();
   });
 });
