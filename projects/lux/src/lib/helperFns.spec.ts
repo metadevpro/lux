@@ -126,6 +126,7 @@ describe('isValidColor', () => {
     expect(isValidColor('color')).toBeFalse();
     expect(isValidColor('#01234')).toBeFalse();
     expect(isValidColor('#GGGGGG')).toBeFalse();
+    expect(isValidColor('rgb ( 255 , 255 , 255 )')).toBeFalse();
     expect(isValidColor('colorao')).toBeFalse();
   });
 });
