@@ -352,6 +352,10 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   onKeyPress(event: KeyboardEvent): void {
     this.keyPress.emit(event);
   }
+  onColorPicked(newValue: string): void {
+    this.onChangeValue(newValue);
+    this.setValueInControl(newValue);
+  }
 
   isUrl(): boolean {
     return this.type === 'url';

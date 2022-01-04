@@ -56,7 +56,19 @@
     <span class="icon-external"></span>
   </a>
 </div>
-<div *ngIf="isColor()" class="postfix rounded-right symbol" [ngClass]="className" [ngStyle]="{'background-color': color}">
+<div *ngIf="isColor()" class="postfix rounded-right bordered clickable" [ngClass]="className" [ngStyle]="{'background-color': color}">
+  <input
+    #colorpicker
+    class="invisible"
+    [id]="inputId + '$colorpicker'"
+    type="color"
+    [attr.value]="value"
+    [attr.disabled]="disabled === true ? 'true' : undefined"
+    [attr.readonly]="readonly === true ? 'true' : undefined"
+    (change)="onColorPicked(colorpicker.value)"
+    (keypress)="onKeyPress($event)"
+    (blur)="onLostFocus()"
+  />
 </div>
 
 <div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">

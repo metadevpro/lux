@@ -44,3 +44,8 @@ $icon-external: var(
   background-position-y: 0.1rem;
   height: 100%;
 }
+
+.invisible {
+  /*visibility: hidden;*/
+  opacity: 0;
+}
