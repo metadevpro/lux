@@ -49,6 +49,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   @ViewChild('input', { static: false }) input: ElementRef;
   @ViewChild('textarea', { static: false }) textarea: ElementRef;
+  @ViewChild('colorpicker', { static: false }) colorpicker: ElementRef;
 
   touched = false;
   dirty = false;
@@ -347,6 +348,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   }
   onChangeValue(newValue: string): void {
     this.value = newValue;
+    if (this.isColor()) {
+      this.colorpicker.nativeElement.value = undefined;
+    }
     this.markAsTouched();
   }
   onKeyPress(event: KeyboardEvent): void {
