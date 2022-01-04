@@ -44,3 +44,17 @@ $icon-external: var(
   background-position-y: 0.1rem;
   height: 100%;
 }
+
+.invisible {
+  /*visibility: hidden;*/
+  opacity: 0;
+}
+
+.transparency {
+  background-image: conic-gradient(
+    white 0deg 90deg,
+    lightgray 90deg 180deg,
+    white 180deg 270deg,
+    lightgray 270deg 360deg
+  );
+}

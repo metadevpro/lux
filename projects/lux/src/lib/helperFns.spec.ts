@@ -3,6 +3,8 @@ import {
   hasValue,
   normalizeDate,
   isValidEmail,
+  isValidUrl,
+  isValidColor,
   isValidNumber,
   numberOfDecimalDigits,
   numberOfWholeDigits,
@@ -80,6 +82,52 @@ describe('isValidEmail', () => {
     expect(isValidEmail('a_b@acme.')).toBeFalse();
     expect(isValidEmail('a-b@acme.br.')).toBeFalse();
     expect(isValidEmail('a23@acme.br.com asd')).toBeFalse();
+  });
+});
+
+describe('isValidUrl', () => {
+  it('should return true for valid URLs', () => {
+    expect(isValidUrl('https://a.com')).toBeTrue();
+    expect(isValidUrl('http://www.example.com')).toBeTrue();
+    expect(isValidUrl('ftps://www.example.com/example/example.jsp')).toBeTrue();
+    expect(
+      isValidUrl('https://www.example.com/example/?example=true&ejemplo=false')
+    ).toBeTrue();
+    expect(isValidUrl('https://www.example.com/example123')).toBeTrue();
+  });
+  it('should return false for invalid URLs', () => {
+    expect(isValidUrl('a')).toBeFalse();
+    expect(isValidUrl('http//www.com')).toBeFalse();
+    expect(isValidUrl('http://www com')).toBeFalse();
+  });
+});
+
+describe('isValidColor', () => {
+  it('should return true for valid colors', () => {
+    expect(isValidColor('red')).toBeTrue();
+    expect(isValidColor('aqua')).toBeTrue();
+    expect(isValidColor('#000000')).toBeTrue();
+    expect(isValidColor('#FFFFFF')).toBeTrue();
+    expect(isValidColor('rgb(0,0,255)')).toBeTrue();
+    expect(isValidColor('rgba(0,0,255,0.5)')).toBeTrue();
+    expect(isValidColor('hsl(0,100%,0%)')).toBeTrue();
+  });
+  it('should return false for invalid colors', () => {
+    expect(isValidColor(null)).toBeFalse();
+    expect(isValidColor(undefined)).toBeFalse();
+    expect(isValidColor('null')).toBeFalse();
+    expect(isValidColor('currentcolor')).toBeFalse();
+    expect(isValidColor('inherit')).toBeFalse();
+    expect(isValidColor('initial')).toBeFalse();
+    expect(isValidColor('revert')).toBeFalse();
+    expect(isValidColor('unset')).toBeFalse();
+    expect(isValidColor('Initial')).toBeFalse();
+    expect(isValidColor('UNSET')).toBeFalse();
+    expect(isValidColor('color')).toBeFalse();
+    expect(isValidColor('#01234')).toBeFalse();
+    expect(isValidColor('#GGGGGG')).toBeFalse();
+    expect(isValidColor('rgb ( 255 , 255 , 255 )')).toBeFalse();
+    expect(isValidColor('colorao')).toBeFalse();
   });
 });
 
