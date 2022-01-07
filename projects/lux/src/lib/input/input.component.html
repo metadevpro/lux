@@ -56,11 +56,11 @@
     <span class="icon-external"></span>
   </a>
 </div>
-<div *ngIf="isColor()" class="postfix rounded-right bordered clickable transparency" [ngClass]="className">
-  <div [ngStyle]="{'background-color': color}">
+<div *ngIf="isColor()" class="postfix rounded-right bordered transparency" [ngClass]="className">
+  <div class="rounded-right full-space" [ngStyle]="{'background-color': color}">
     <input
       #colorpicker
-      class="invisible"
+      class="minimal-space clickable invisible rounded-right full-space"
       [id]="inputId + '$colorpicker'"
       type="color"
       [attr.value]="value"
