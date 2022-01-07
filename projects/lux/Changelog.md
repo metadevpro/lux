@@ -1,6 +1,11 @@
 # Lux Changelog
 
+## Version 0.18.0
+
+2022.01.07
+
 - Added URL type to lux-input. [#171](https://github.com/metadevpro/lux/pull/171)
+- Added color type to lux-input. [#175](https://github.com/metadevpro/lux/pull/175)
 
 ## Version 0.17.0
 
