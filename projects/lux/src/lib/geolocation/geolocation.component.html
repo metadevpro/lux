@@ -37,7 +37,7 @@
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
     i18n[lang].cardinalPoints.south
   }}</span>
-  <span *ngIf="!isValidNumber(longitudeValue)">-</span>
+  <span *ngIf="!isValidNumber(latitudeValue)">-</span>
 </div>
 <input
   #longitude
