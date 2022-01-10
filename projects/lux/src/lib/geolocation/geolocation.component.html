@@ -83,7 +83,7 @@
 </div>
 <div
   [class]="
-    disabled || readonly || !(isValidNumber(latitudeValue) || isValidNumber(longitudeValue))
+    disabled || readonly || !isClearable()
       ? 'clickable rounded-right postfix symbol'
       : 'clickable postfix symbol'
   "
@@ -94,7 +94,7 @@
 </div>
 <button
   #clearButton
-  *ngIf="!disabled && !readonly && (isValidNumber(latitudeValue) || isValidNumber(longitudeValue))"
+  *ngIf="!disabled && !readonly && isClearable()"
   class="rounded-right postfix bordered icon icon-clear"
   [id]="inputId + '$clear'"
   type="button"
