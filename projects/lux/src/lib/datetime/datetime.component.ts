@@ -194,6 +194,9 @@ export class DatetimeComponent
     this.setTimeInControl(null);
     this.value = null;
   }
+  isClearable(): boolean {
+    return hasValue(this.value);
+  }
 
   // Validator interface
   registerOnValidatorChange(): void {}

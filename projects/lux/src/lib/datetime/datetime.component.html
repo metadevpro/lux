@@ -16,7 +16,7 @@
 />
 <input
   #timeInput
-  [class]="(disabled || readonly) && localTime ? 'rounded-right' : ''"
+  [class]="(disabled || readonly || !isClearable()) && localTime ? 'rounded-right' : ''"
   [ngClass]="className"
   type="time"
   [id]="inputId + '$time'"
@@ -35,7 +35,7 @@
   *ngIf="!localTime"
 >
   <div
-    [class]="disabled || readonly ? 'rounded-right postfix symbol' : 'postfix symbol'"
+    [class]="disabled || readonly || !isClearable() ? 'rounded-right postfix symbol' : 'postfix symbol'"
     [ngClass]="className"
   >
     <span>{{ localTime ? '' : 'UTC' }}</span>
@@ -43,7 +43,7 @@
 </ng-container>
 <button
   #clearButton
-  *ngIf="!(disabled || readonly)"
+  *ngIf="!disabled && !readonly && isClearable()"
   type="button"
   class="rounded-right postfix bordered icon-clear"
   [id]="inputId + '$clear'"
