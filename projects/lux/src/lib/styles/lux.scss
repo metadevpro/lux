@@ -8,6 +8,7 @@
 $symbol-font-size: var(--lux-symbol-font-size, 1rem);
 
 // Colors
+$font-color: var(--lux-font-color, black);
 $alert-color: var(--lux-alert-color, white);
 $alert-background: var(--lux-alert-background, #fe2e2e);
 $symbol-color: var(--lux-symbol-color, default); // Formerly #495057
@@ -46,6 +47,10 @@ $icon-dropdown: var(
 
 :focus {
   z-index: 1;
+}
+
+* {
+  color: $font-color;
 }
 
 input,
