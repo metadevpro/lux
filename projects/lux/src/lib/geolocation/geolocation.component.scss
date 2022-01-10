@@ -70,5 +70,7 @@ $geolocation-map-width: var(--lux-geolocation-map-width, 90vw);
 }
 .map-container {
   height: $geolocation-map-height;
+  max-height: 80%;
   width: $geolocation-map-width;
+  max-width: 100%;
 }
