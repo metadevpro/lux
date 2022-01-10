@@ -37,7 +37,7 @@
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
     i18n[lang].cardinalPoints.south
   }}</span>
-  <span *ngIf="!isValidNumber(latitudeValue)" class="icon-globe"></span>
+  <span *ngIf="!isValidNumber(longitudeValue)">-</span>
 </div>
 <input
   #longitude
@@ -69,11 +69,7 @@
   (blur)="onLostFocus()"
 />
 <div
-  [class]="
-    disabled || readonly
-      ? 'clickable rounded-right postfix symbol'
-      : 'clickable postfix symbol'
-  "
+  class="infix symbol clickable"
   [ngClass]="className"
   (click)="openModalMap(modalMap)"
 >
@@ -83,11 +79,22 @@
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
     i18n[lang].cardinalPoints.west
   }}</span>
-  <span *ngIf="!isValidNumber(longitudeValue)" class="icon-globe"></span>
+  <span *ngIf="!isValidNumber(longitudeValue)">-</span>
+</div>
+<div
+  [class]="
+    disabled || readonly || !(isValidNumber(latitudeValue) || isValidNumber(longitudeValue))
+      ? 'clickable rounded-right postfix symbol'
+      : 'clickable postfix symbol'
+  "
+  [ngClass]="className"
+  (click)="openModalMap(modalMap)"
+>
+  <span class="icon-globe"></span>
 </div>
 <button
   #clearButton
-  *ngIf="!(disabled || readonly)"
+  *ngIf="!disabled && !readonly && (isValidNumber(latitudeValue) || isValidNumber(longitudeValue))"
   class="rounded-right postfix bordered icon icon-clear"
   [id]="inputId + '$clear'"
   type="button"
