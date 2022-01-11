@@ -28,7 +28,7 @@
   (blur)="onLostFocus()"
 />
 <div
-  class="infix symbol clickable"
+  class="infix symbol monospace clickable"
   [ngClass]="className"
   (click)="openModalMap(modalMap)">
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
@@ -37,7 +37,7 @@
   <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
     i18n[lang].cardinalPoints.south
   }}</span>
-  <span *ngIf="!isValidNumber(latitudeValue)" class="icon-globe"></span>
+  <span *ngIf="!isValidNumber(latitudeValue)">-</span>
 </div>
 <input
   #longitude
@@ -69,11 +69,7 @@
   (blur)="onLostFocus()"
 />
 <div
-  [class]="
-    disabled || readonly
-      ? 'clickable rounded-right postfix symbol'
-      : 'clickable postfix symbol'
-  "
+  class="infix symbol monospace clickable"
   [ngClass]="className"
   (click)="openModalMap(modalMap)"
 >
@@ -83,11 +79,22 @@
   <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
     i18n[lang].cardinalPoints.west
   }}</span>
-  <span *ngIf="!isValidNumber(longitudeValue)" class="icon-globe"></span>
+  <span *ngIf="!isValidNumber(longitudeValue)">-</span>
+</div>
+<div
+  [class]="
+    disabled || readonly || !isClearable()
+      ? 'clickable rounded-right postfix symbol'
+      : 'clickable postfix symbol'
+  "
+  [ngClass]="className"
+  (click)="openModalMap(modalMap)"
+>
+  <span class="icon-globe"></span>
 </div>
 <button
   #clearButton
-  *ngIf="!(disabled || readonly)"
+  *ngIf="!disabled && !readonly && isClearable()"
   class="rounded-right postfix bordered icon icon-clear"
   [id]="inputId + '$clear'"
   type="button"
@@ -135,7 +142,7 @@
 
 <ng-template #modalMap let-modal>
   <div class="lux-modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{ mapTitle }}</h4>
+    <h4 class="modal-title default-font" id="modal-basic-title">{{ mapTitle }}</h4>
     <button
       type="button"
       class="close"

@@ -237,6 +237,11 @@ export class GeolocationComponent implements OnInit {
     this.setLongitudeInControl(null);
     this.value = null;
   }
+  isClearable(): boolean {
+    return (
+      isValidNumber(this.latitudeValue) || isValidNumber(this.longitudeValue)
+    );
+  }
 
   // Validator interface
   registerOnValidatorChange(): void {}
