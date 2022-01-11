@@ -4,7 +4,7 @@
 
 2022.01.11
 
-- Ported to Angular 13. [#177](https://github.com/metadevpro/lux/pull/177)
+- Ported to Angular 13. [#178](https://github.com/metadevpro/lux/pull/178)
 
 ## Version 0.18.0
 
