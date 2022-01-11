@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.19.0
+
+2022.01.11
+
+- Ported to Angular 13. [#177](https://github.com/metadevpro/lux/pull/177)
+
 ## Version 0.18.0
 
 2022.01.07
