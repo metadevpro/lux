@@ -4,10 +4,11 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "cssUrl": "inline",
-    "umdModuleIds": {
-      "angular-resize-event": "angular-resize-event"
-    },
-    "styleIncludePaths": ["./src/lib/styles"]
+    "styleIncludePaths": [
+      "./src/lib/styles"
+    ]
   },
-  "allowedNonPeerDependencies": ["angular-resize-event"]
+  "allowedNonPeerDependencies": [
+    "angular-resize-event"
+  ]
 }

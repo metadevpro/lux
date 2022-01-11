@@ -211,13 +211,13 @@ export class ModalStack {
     windowCmpt: ComponentRef<LuxModalWindowComponent>
   ): void {
     this._windowCmpts.push(windowCmpt);
-    this._activeWindowCmptHasChanged.next();
+    this._activeWindowCmptHasChanged.next(null);
 
     windowCmpt.onDestroy(() => {
       const index = this._windowCmpts.indexOf(windowCmpt);
       if (index > -1) {
         this._windowCmpts.splice(index, 1);
-        this._activeWindowCmptHasChanged.next();
+        this._activeWindowCmptHasChanged.next(null);
       }
     });
   }
