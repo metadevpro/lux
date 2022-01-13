@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.19.1
+
+2022.01.13
+
+- Fix peer dependency for ng 13.
+
 ## Version 0.19.0
 
 2022.01.11
