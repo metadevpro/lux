@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.19.2
+
+2022.01.13
+
+- Upgrade angular-resize-event to 3.1.1
+
 ## Version 0.19.1
 
 2022.01.13
