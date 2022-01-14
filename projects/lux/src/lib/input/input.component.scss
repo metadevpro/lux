@@ -11,6 +11,11 @@ $icon-external: var(
   min-height: 1.5rem;
 }
 
+input[type='color'] {
+  min-height: 100%;
+  height: 0;
+}
+
 .readonly {
   border: none;
 
