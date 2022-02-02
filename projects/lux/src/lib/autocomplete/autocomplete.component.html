@@ -55,9 +55,9 @@
         (click)="complete(item)"
         [attr.aria-label]="item.label"
       >
-        <span>{{ item.labelPrefix }}</span>
-        <span class="bold">{{ item.labelMatch }}</span>
-        <span>{{ item.labelPostfix }}</span>
+        <span class="preserve-white-space">{{ item.labelPrefix }}</span>
+        <span class="preserve-white-space bold">{{ item.labelMatch }}</span>
+        <span class="preserve-white-space">{{ item.labelPostfix }}</span>
       </li>
     </ul>
   </div>
