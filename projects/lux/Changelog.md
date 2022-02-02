@@ -1,5 +1,9 @@
 # Lux Changelog
 
+## Version 0.20.0
+
+2022.02.02 Fix bug on autocomplete feedback completion to show spaces [#183](https://github.com/metadevpro/lux/pull/183).
+
 ## Version 0.19.2
 
 2022.01.13
