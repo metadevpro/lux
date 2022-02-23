@@ -8,7 +8,8 @@ import {
   isValidNumber,
   numberOfDecimalDigits,
   numberOfWholeDigits,
-  roundToMultipleOf
+  roundToMultipleOf,
+  isValidRelativeUrl
 } from './helperFns';
 
 describe('exists', () => {
@@ -93,12 +94,40 @@ describe('isValidUrl', () => {
     expect(
       isValidUrl('https://www.example.com/example/?example=true&ejemplo=false')
     ).toBeTrue();
+    expect(
+      isValidUrl('https://www.example.com/example/;example=true;ejemplo=false')
+    ).toBeTrue();
     expect(isValidUrl('https://www.example.com/example123')).toBeTrue();
+    expect(isValidUrl('https://localhost')).toBeTrue();
+    expect(isValidUrl('https://localhost:4200/')).toBeTrue();
+    expect(isValidUrl('https://1.2.3.4')).toBeTrue();
+    expect(isValidUrl('www.example.com')).toBeTrue();
+    expect(
+      isValidUrl('protocolthatijustinvented://my.server.at.my.domain')
+    ).toBeTrue();
   });
   it('should return false for invalid URLs', () => {
     expect(isValidUrl('a')).toBeFalse();
-    expect(isValidUrl('http//www.com')).toBeFalse();
-    expect(isValidUrl('http://www com')).toBeFalse();
+    expect(isValidUrl('http://no spaces in urls.com')).toBeFalse();
+    expect(isValidUrl('http//missing.a.colon.com')).toBeFalse();
+  });
+});
+
+describe('isValidRelativeUrl', () => {
+  it('should return true for valid relative URLs', () => {
+    expect(isValidRelativeUrl('abc')).toBeTrue();
+    expect(isValidRelativeUrl('abc/')).toBeTrue();
+    expect(isValidRelativeUrl('/abc')).toBeTrue();
+    expect(isValidRelativeUrl('/abc/')).toBeTrue();
+    expect(isValidRelativeUrl('abc/def/ghi/')).toBeTrue();
+    expect(isValidRelativeUrl('/abc?a=0')).toBeTrue();
+    expect(isValidRelativeUrl('/abc#row=4-8')).toBeTrue();
+    expect(isValidRelativeUrl('/abc#row=1-*')).toBeTrue();
+    expect(isValidRelativeUrl('/abc?a=0&b=1#c')).toBeTrue();
+    expect(isValidRelativeUrl('./abc')).toBeTrue();
+    expect(isValidRelativeUrl('../abc')).toBeTrue();
+    expect(isValidRelativeUrl('./../abc')).toBeTrue();
+    expect(isValidRelativeUrl('/.././abc')).toBeTrue();
   });
 });
 

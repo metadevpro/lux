@@ -17,9 +17,17 @@ export const isValidEmail = (value: string): boolean => {
 };
 
 export const isValidUrl = (value: string): boolean => {
-  const re =
-    /^([a-z]+?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(\:\d+)?(\/[-a-z\d%_.~+]*)*(\?[;&a-z\d%_.~+=-]*)?(\#[-a-z\d_]*)?$/i;
-  return re.test(String(value).toLowerCase().trim());
+  const pattern =
+    // eslint-disable-next-line max-len
+    /^((([a-z]+?:\/\/)?(((([a-z0-9]([a-z0-9-]*[a-z0-9])*)\.)+[a-z]{2,})|((([0-9]{1,3}\.){3}[0-9]{1,3}))|(localhost))(\:[0-9]+)?))?((\/[a-zA-Z0-9\-_+=~.,:;%]+)*\/?)((\?|;)[a-zA-Z0-9\-_+~.,:;%]+=[a-zA-Z0-9\-_+~.,:;%]+(((&|;)[a-zA-Z0-9\-_+~.,:;%]+=[a-zA-Z0-9\-_+~.,:;%]+)*))?(#[a-zA-Z0-9\-_+~.,:;%]+(=[a-zA-Z0-9\*\-_+~.,:;%]+)?)?$/;
+  return pattern.test(value);
+};
+
+export const isValidRelativeUrl = (value: string): boolean => {
+  const pattern =
+    // eslint-disable-next-line max-len
+    /^((([a-z]+?:\/\/)?(((([a-z0-9]([a-z0-9-]*[a-z0-9])*)\.)+[a-z]{2,})|((([0-9]{1,3}\.){3}[0-9]{1,3}))|(localhost))(\:[0-9]+)?)|([a-zA-Z0-9\-_+=~.,:;%]+))?((\/[a-zA-Z0-9\-_+=~.,:;%]+)*\/?)((\?|;)[a-zA-Z0-9\-_+~.,:;%]+=[a-zA-Z0-9\-_+~.,:;%]+(((&|;)[a-zA-Z0-9\-_+~.,:;%]+=[a-zA-Z0-9\-_+~.,:;%]+)*))?(#[a-zA-Z0-9\-_+~.,:;%]+(=[a-zA-Z0-9\*\-_+~.,:;%]+)?)?$/;
+  return pattern.test(value);
 };
 
 export const isValidColor = (value: string): boolean => {
