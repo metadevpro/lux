@@ -21,7 +21,7 @@ import {
   isInitialAndEmpty,
   isValidEmail,
   isValidNumber,
-  isValidUrl,
+  isValidRelativeUrl,
   isValidColor,
   normalizeDate
 } from '../helperFns';
@@ -264,7 +264,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       result = result || {};
       result.email = { value, reason: 'Invalid email.' };
     }
-    if (this.type === 'url' && hasValue(value) && !isValidUrl(value)) {
+    if (this.type === 'url' && hasValue(value) && !isValidRelativeUrl(value)) {
       result = result || {};
       result.url = { value, reason: 'Invalid URL.' };
     }
