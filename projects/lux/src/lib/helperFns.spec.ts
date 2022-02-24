@@ -105,6 +105,10 @@ describe('isValidUrl', () => {
     expect(
       isValidUrl('protocolthatijustinvented://my.server.at.my.domain')
     ).toBeTrue();
+    expect(
+      isValidUrl('www.example.com/a+domain-with_weird,characters.html')
+    ).toBeTrue();
+    expect(isValidUrl('http://no%20spaces%20in%20urls.com')).toBeFalse();
   });
   it('should return false for invalid URLs', () => {
     expect(isValidUrl('a')).toBeFalse();
