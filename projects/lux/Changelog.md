@@ -1,8 +1,16 @@
 # Lux Changelog
 
+## Version 0.21.0
+
+2022.02.24
+
+- Improved url regex checker. [#187](https://github.com/metadevpro/lux/pull/187)
+
 ## Version 0.20.0
 
-2022.02.02 Fix bug on autocomplete feedback completion to show spaces [#183](https://github.com/metadevpro/lux/pull/183).
+2022.02.02
+
+- Fix bug on autocomplete feedback completion to show spaces [#183](https://github.com/metadevpro/lux/pull/183).
 
 ## Version 0.19.2
 
