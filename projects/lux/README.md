@@ -19,7 +19,7 @@ npm i @metadev/lux
 
 ## Documentation and samples
 
-[Library and component catalog documentation](https://metadev-lux.herokuapp.com).
+Library and component catalog documentation: [http://lux.metadev.pro](http://lux.metadev.pro).
 
 ## Changelog
 

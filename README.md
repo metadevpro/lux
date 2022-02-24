@@ -16,7 +16,7 @@ From npmjs: [@metadev/lux](https://www.npmjs.com/package/@metadev/lux)
 
 ## Documentation and samples
 
-See [online documentation](https://metadev-lux.herokuapp.com/).
+See documenation at [http://lux.metadev.pro](http://lux.metadev.pro).
 
 ## Local setup
 
