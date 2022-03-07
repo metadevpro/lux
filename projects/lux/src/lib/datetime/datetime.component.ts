@@ -279,10 +279,10 @@ export class DatetimeComponent
     if (this.disabled || this.readonly) {
       return;
     }
-    const newValue = '' + newDate + ' ' + newTime;
-    if (!newValue) {
+    if (!newDate && !newTime) {
       this.value = null;
     } else {
+      const newValue = '' + newDate + ' ' + newTime;
       const datetime = new Date(newValue);
       if (isValidDate(datetime)) {
         let datetimeString;
