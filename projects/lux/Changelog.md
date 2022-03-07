@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.22.0
+
+2022.03.07
+
+- Geolocation to return null when there is an inclomplete value [#188](https://github.com/metadevpro/lux/pull/188)
+
 ## Version 0.21.0
 
 2022.02.24
