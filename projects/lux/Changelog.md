@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.23.0
+
+2022.06.02
+
+- Fix autoclose on autocomplete when loosing focus [#191](https://github.com/metadevpro/lux/pull/191)
+
 ## Version 0.22.0
 
 2022.03.07
