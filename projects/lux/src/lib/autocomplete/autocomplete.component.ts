@@ -341,6 +341,7 @@ export class AutocompleteComponent
   }
   toggleCompletion(show: boolean, label: string): void {
     if (show && !this.disabled) {
+      this.i0.nativeElement.focus();
       this.showCompletionList(label);
     } else {
       this.showCompletion = false;
