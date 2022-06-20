@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.24.0
+
+2022.06.20
+
+- Added support for ng14
+
 ## Version 0.23.0
 
 2022.06.02
