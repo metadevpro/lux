@@ -413,7 +413,7 @@ export class AutocompleteComponent
       this.complete(candidate);
     });
   }
-  private showCompletionList(text: string): void {
+  public showCompletionList(text: string): void {
     this.setSameWidth();
     const useSpinner = this.hasExternalDataSource();
     this.spinnerVisibility(useSpinner, true);
