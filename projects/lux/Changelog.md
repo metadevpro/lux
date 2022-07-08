@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.25.0
+
+2022.07.08
+
+- Changed `showCompletionList()` method of autocomplete component from private to public
+
 ## Version 0.24.0
 
 2022.06.20
