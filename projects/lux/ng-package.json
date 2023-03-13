@@ -4,11 +4,7 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "cssUrl": "inline",
-    "styleIncludePaths": [
-      "./src/lib/styles"
-    ]
+    "styleIncludePaths": ["./src/lib/styles"]
   },
-  "allowedNonPeerDependencies": [
-    "angular-resize-event"
-  ]
+  "allowedNonPeerDependencies": ["ngx-resize"]
 }
