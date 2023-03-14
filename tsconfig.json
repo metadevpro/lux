@@ -11,20 +11,11 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["ES2022", "dom"],
     "paths": {
-      "lux": [
-        "dist/lux"
-      ],
-      "lux/*": [
-        "dist/lux/*"
-      ]
+      "lux": ["dist/lux"],
+      "lux/*": ["dist/lux/*"]
     }
   },
   "angularCompilerOptions": {

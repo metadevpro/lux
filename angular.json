@@ -130,7 +130,7 @@
       "prefix": "lux",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/lux/tsconfig.lib.json",
             "project": "projects/lux/ng-package.json"
