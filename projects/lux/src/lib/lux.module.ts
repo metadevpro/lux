@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AngularResizeEventModule } from 'angular-resize-event';
 import { AutocompleteListComponent } from './autocomplete-list/autocomplete-list.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { LuxBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
@@ -52,7 +51,6 @@ import { WINDOW_PROVIDERS } from './window/window.service';
   ],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
   imports: [
-    AngularResizeEventModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,

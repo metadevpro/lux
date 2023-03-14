@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.26.0
+
+2023.03.14
+
+- Published support for ng15.
+
 ## Version 0.25.0
 
 2022.07.08
