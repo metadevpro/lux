@@ -16,7 +16,7 @@ From npmjs: [@metadev/lux](https://www.npmjs.com/package/@metadev/lux)
 
 ## Documentation and samples
 
-See documenation at [http://lux.metadev.pro](http://lux.metadev.pro).
+See documenation at [https://lux.metadev.pro](https://lux.metadev.pro).
 
 ## Local setup
 
