@@ -1,5 +1,5 @@
-import { ViewRef, ComponentRef } from '@angular/core';
-import { fromEvent, Observable } from 'rxjs';
+import { ComponentRef, ViewRef } from '@angular/core';
+import { Observable, fromEvent } from 'rxjs';
 import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
 
 export const FOCUS = 'focus';
@@ -80,9 +80,9 @@ export const focusTrap = (
   fromEvent<KeyboardEvent>(element, 'keydown')
     .pipe(
       takeUntil(stopFocusTrap$),
-      /* eslint-disable import/no-deprecated */
+
       filter((e) => e.which === Key.Tab),
-      /* eslint-enable import/no-deprecated */
+
       withLatestFrom(lastFocusedElement$)
     )
     .subscribe(([tabEvent, focusedElement]) => {

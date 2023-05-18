@@ -1,29 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 
 import { LuxModule } from 'projects/lux/src/public-api';
-import { AutoCompleteSampleComponent } from './autocomplete-sample/autocomplete-sample.component';
-import { AutoCompleteListSampleComponent } from './autocomplete-list-sample/autocomplete-list-sample.component';
 import { AppComponent } from './app.component';
+import { AutoCompleteListSampleComponent } from './autocomplete-list-sample/autocomplete-list-sample.component';
+import { AutoCompleteSampleComponent } from './autocomplete-sample/autocomplete-sample.component';
 import { BreadcrumbSampleComponent } from './breadcrumb-sample/breadcrumb-sample.component';
 import { CheckboxSampleComponent } from './checkbox-sample/checkbox-sample.component';
-import { DatetimeSampleComponent } from './datetime-sample/datetime-sample.component';
-import { InputSampleComponent } from './input-sample/input-sample.component';
-import { FilterSampleComponent } from './filter-sample/filter-sample.component';
-import { GeolocationSampleComponent } from './geolocation-sample/geolocation-sample.component';
-import { MapSampleComponent } from './map-sample/map-sample.component';
-import { MainComponent } from './main/main.component';
-import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
-import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
 import { CoreModule } from './core/core.module';
 import { PrismService } from './core/services/prism-service.service';
+import { DatetimeSampleComponent } from './datetime-sample/datetime-sample.component';
 import { toString } from './datetime-sample/toString.pipe';
+import { FilterSampleComponent } from './filter-sample/filter-sample.component';
+import { GeolocationSampleComponent } from './geolocation-sample/geolocation-sample.component';
+import { InputSampleComponent } from './input-sample/input-sample.component';
+import { MainComponent } from './main/main.component';
+import { MapSampleComponent } from './map-sample/map-sample.component';
 import { ModalSampleComponent } from './modal-sample/modal-sample.component';
+import { PaginationSampleComponent } from './pagination-sample/pagination-sample.component';
+import { RadiogroupSampleComponent } from './radiogroup-sample/radiogroup-sample.component';
 import { SelectSampleComponent } from './select-sample/select-sample.component';
 import { TooltipComponent } from './tooltip-sample/tooltip';
-import { RadiogroupSampleComponent } from './radiogroup-sample/radiogroup-sample.component';
+import { TooltipSampleComponent } from './tooltip-sample/tooltip-sample.component';
 import { VoicerecognitionSampleComponent } from './voicerecognition-sample/voicerecognition-sample.component';
 
 const appRoutes: Routes = [
@@ -77,7 +77,6 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  entryComponents: [TooltipComponent],
   providers: [PrismService],
   bootstrap: [AppComponent]
 })

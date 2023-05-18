@@ -44,11 +44,6 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     RadiogroupComponent,
     VoiceRecognitionDirective
   ],
-  entryComponents: [
-    LuxModalWindowComponent,
-    LuxModalBackdropComponent,
-    TooltipComponent
-  ],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
   imports: [
     FormsModule,

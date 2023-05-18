@@ -1,10 +1,12 @@
+/* eslint-disable no-self-assign */
+
 import {
+  AfterViewInit,
   Component,
-  Input,
-  Output,
   EventEmitter,
+  Input,
   OnInit,
-  AfterViewInit
+  Output
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { OpenLayerLoaderService } from '../geolocation/openlayer-loader.service';
