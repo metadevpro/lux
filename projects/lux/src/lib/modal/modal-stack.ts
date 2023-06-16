@@ -1,21 +1,21 @@
+import { DOCUMENT } from '@angular/common';
 import {
-  Injectable,
   ApplicationRef,
   ComponentFactoryResolver,
-  TemplateRef,
   ComponentRef,
   Inject,
+  Injectable,
   Injector,
-  RendererFactory2
+  RendererFactory2,
+  TemplateRef
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 
-import { ActiveModal, ModalRef } from './modal-ref';
-import { ContentRef, focusTrap, isDefined } from './util';
-import { LuxModalWindowComponent } from './modal-window';
 import { Subject } from 'rxjs';
 import { LuxModalBackdropComponent } from './modal-backdrop';
-import { LuxModalOptions, LuxModalConfig } from './modal-config';
+import { LuxModalConfig, LuxModalOptions } from './modal-config';
+import { ActiveModal, ModalRef } from './modal-ref';
+import { LuxModalWindowComponent } from './modal-window';
+import { ContentRef, focusTrap, isDefined } from './util';
 
 @Injectable({ providedIn: 'root' })
 export class ModalStack {
@@ -152,11 +152,11 @@ export class ModalStack {
   ): ContentRef {
     const context = {
       $implicit: activeModal,
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+
       close(result): void {
         activeModal.close(result);
       },
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+
       dismiss(reason): void {
         activeModal.dismiss(reason);
       }

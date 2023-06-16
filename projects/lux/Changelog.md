@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.27.0
+
+2023.06.16
+
+- Published support for ng16.
+
 ## Version 0.26.0
 
 2023.03.14

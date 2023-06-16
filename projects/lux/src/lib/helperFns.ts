@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 // undefined and null functions
 
 export const exists = (value: any): boolean =>
