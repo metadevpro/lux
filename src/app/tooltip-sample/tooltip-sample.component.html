@@ -55,21 +55,21 @@
   <h3>Tooltip from Component</h3>
   <pre class="language-typescript" rel="typescript">
     <code class="language-typescript">
-  import &#123; Component } from '@angular/core';
-  @Component(&#123;
+  import &#123; Component &#125; from '&#64;angular/core';
+  &#64;Component(&#123;
       template: `
         &lt;span class="lux-tooltip" style="transition: opacity 200ms"&gt;Top Component&lt;/span&gt;
       `
-  })
+  &#125;)
   export class TooltipComponent &#123;
-      constructor()  &#123; }
-  }</code>
+      constructor()  &#123; &#125;
+  &#125;</code>
   </pre>
   <pre class="language-typescript" rel="typescript">
     <code class="language-typescript">
   getComponentTooltip(): TooltipComponent &#123;
     return TooltipComponent;
-  }</code>
+  &#125;</code>
   </pre>
   <pre class="language-html" rel="html">
     <code class="language-html">
@@ -77,7 +77,9 @@
   </pre>
 
   <div class="sample">
-    <button luxTooltip [content]="getComponentTooltip()" placement="top">Top Component</button>
+    <button luxTooltip [content]="getComponentTooltip()" placement="top">
+      Top Component
+    </button>
   </div>
 
   <h3>Tooltip from TemplateRef</h3>
@@ -91,9 +93,13 @@
 
   <div class="sample">
     <ng-template #contentTop>
-      <span class="lux-tooltip" style="transition: opacity 200ms">Top TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms"
+        >Top TemplateRef</span
+      >
     </ng-template>
-    <button luxTooltip [content]="contentTop" placement="top">Top TemplateRef</button>
+    <button luxTooltip [content]="contentTop" placement="top">
+      Top TemplateRef
+    </button>
   </div>
 
   <pre class="language-html" rel="html">
@@ -106,9 +112,13 @@
 
   <div class="sample">
     <ng-template #contentBottom>
-      <span class="lux-tooltip" style="transition: opacity 200ms">Bottom TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms"
+        >Bottom TemplateRef</span
+      >
     </ng-template>
-    <button luxTooltip [content]="contentBottom" placement="bottom">Bottom TemplateRef</button>
+    <button luxTooltip [content]="contentBottom" placement="bottom">
+      Bottom TemplateRef
+    </button>
   </div>
 
   <pre class="language-html" rel="html">
@@ -121,9 +131,13 @@
 
   <div class="sample">
     <ng-template #contentLeft>
-      <span class="lux-tooltip" style="transition: opacity 200ms">Left TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms"
+        >Left TemplateRef</span
+      >
     </ng-template>
-    <button luxTooltip [content]="contentLeft" placement="left">Left TemplateRef</button>
+    <button luxTooltip [content]="contentLeft" placement="left">
+      Left TemplateRef
+    </button>
   </div>
 
   <pre class="language-html" rel="html">
@@ -136,38 +150,46 @@
 
   <div class="sample">
     <ng-template #contentRight>
-      <span class="lux-tooltip" style="transition: opacity 200ms">Right TemplateRef</span>
+      <span class="lux-tooltip" style="transition: opacity 200ms"
+        >Right TemplateRef</span
+      >
     </ng-template>
-    <button luxTooltip [content]="contentRight" placement="right">Right TemplateRef</button>
+    <button luxTooltip [content]="contentRight" placement="right">
+      Right TemplateRef
+    </button>
   </div>
-
 </div>
 
 <h2>Documentation</h2>
 <h3>Properties</h3>
 <ul class="properties">
   <li>
-      <span class="inline">luxTooltip</span>:<span class="text-acent">Directive</span>
-      <p>Provides the tooltip to be shown.</p>
+    <span class="inline">luxTooltip</span>:<span class="text-acent"
+      >Directive</span
+    >
+    <p>Provides the tooltip to be shown.</p>
   </li>
   <li>
-    <span class="inline">content?</span>: <span class="text-acent">String | Component | TemplateRef</span>
-    <p>Tooltip content. It can be a custom component, a custom TemplateRef or String. If it is a String,
-      it display a default component and the content property is the message to show.
-      If you want display a custom component or custom TemplateRef, the tooltip that you want display must have
+    <span class="inline">content?</span>:
+    <span class="text-acent">String | Component | TemplateRef</span>
+    <p>
+      Tooltip content. It can be a custom component, a custom TemplateRef or
+      String. If it is a String, it display a default component and the content
+      property is the message to show. If you want display a custom component or
+      custom TemplateRef, the tooltip that you want display must have
       <span class="text-acent">lux-tooltip</span> class.
     </p>
     <p><span class="text-acent">Default:</span> 'Tooltip'</p>
-</li>
+  </li>
   <li>
-      <span class="inline">placement?</span>:<span class="text-acent">String</span>
-      <p>Tooltip position</p>
-      <p><span class="text-acent">Values:</span> Top, Bottom, Left or Right</p>
-      <p><span class="text-acent">Default:</span> Top</p>
+    <span class="inline">placement?</span>:<span class="text-acent"
+      >String</span
+    >
+    <p>Tooltip position</p>
+    <p><span class="text-acent">Values:</span> Top, Bottom, Left or Right</p>
+    <p><span class="text-acent">Default:</span> Top</p>
   </li>
 </ul>
 
 <h2>Styles</h2>
-<p>
-  To customize look&amp;fell change the <code>lux-tooltip</code> CSS class.
-</p>
+<p>To customize look&amp;fell change the <code>lux-tooltip</code> CSS class.</p>

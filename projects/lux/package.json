@@ -1,7 +1,7 @@
 {
   "name": "@metadev/lux",
   "description": "Lux: Library with User Interface components for Angular.",
-  "version": "0.27.0",
+  "version": "0.28.0",
   "author": {
     "name": "Metadev S.L.",
     "url": "https://metadev.pro"
@@ -25,11 +25,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^16.0.0",
-    "@angular/core": "^16.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/core": "^17.0.0",
     "ol": "^6.5.0"
   },
   "dependencies": {
-    "ngx-resize": "^1.0.6"
+    "ngx-resize": "^2.0.0"
   }
 }

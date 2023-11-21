@@ -3,18 +3,33 @@
 <h2>Usage samples</h2>
 <div>
   <p>
-    Autocompletion List editor. Provides suggestions for completion as the user types.
-    Allows to build a selection of objects.
+    Autocompletion List editor. Provides suggestions for completion as the user
+    types. Allows to build a selection of objects.
   </p>
-  <p>
-    Main features:
-  </p>
+  <p>Main features:</p>
   <ul>
-    <li>Separation between key (programatic value used) and label (shown on user interface) (relies on Autocomplete component).</li>
-    <li>Good support for keyboard shorcuts:
+    <li>
+      Separation between key (programatic value used) and label (shown on user
+      interface) (relies on Autocomplete component).
+    </li>
+    <li>
+      Good support for keyboard shorcuts:
       <ul>
-        Support for <kbd>Page Down</kbd>, <kbd>Page Up</kbd>, <kbd>Arrow Up</kbd>, <kbd>Arrow Down</kbd>,
-        <kbd>Enter</kbd>, <kbd>Escape</kbd>, <kbd>Tab</kbd>.
+        Support for
+        <kbd>Page Down</kbd
+        >,
+        <kbd>Page Up</kbd
+        >,
+        <kbd>Arrow Up</kbd
+        >,
+        <kbd>Arrow Down</kbd
+        >,
+        <kbd>Enter</kbd
+        >,
+        <kbd>Escape</kbd
+        >,
+        <kbd>Tab</kbd
+        >.
       </ul>
     </li>
     <li>Progessive filtering of completion list.</li>
@@ -22,12 +37,10 @@
   </ul>
 
   <h3>Static Datasource Sample</h3>
-  <p>
-    In this sample, the data is pick from the static datasource: countries.
-  </p>
+  <p>In this sample, the data is pick from the static datasource: countries.</p>
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
-  import &#123; DataSource &#125; from '@lux';
+  import &#123; DataSource &#125; from '&#64;lux';
 
   countries: DataSource&lt;string, string&gt; = [
     &#123; key: 'ES', label: 'Spain' &#125;,
@@ -52,26 +65,27 @@
       name="countries"
       [(ngModel)]="myPlaces"
       [dataSource]="countries"
-      [disabled]="disabled1">
+      [disabled]="disabled1"
+    >
     </lux-autocomplete-list>
-    <p>
-      Current value is: {{ myPlaces | json }}.
-    </p>
+    <p>Current value is: {{ myPlaces | json }}.</p>
     <label>
-      <input type="checkbox" [(ngModel)]="disabled1"> Disabled:  {{ disabled1 }}
+      <input type="checkbox" [(ngModel)]="disabled1" /> Disabled:
+      {{ disabled1 }}
     </label>
   </div>
 
   <h3>API Wired Sample</h3>
   <p>
-    This sample uses a couple of functions to wire an API to retrieve items and complete the labels when needed.
-    Observables are used to support async operations.
-    The search string is passed in lowercase to make it easy insensive matching.a
-    Note the instance property must be set to avoid this dereferencing when calling the functions.
+    This sample uses a couple of functions to wire an API to retrieve items and
+    complete the labels when needed. Observables are used to support async
+    operations. The search string is passed in lowercase to make it easy
+    insensive matching.a Note the instance property must be set to avoid this
+    dereferencing when calling the functions.
   </p>
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
-  import &#123; DataSource &#125; from '@lux';
+  import &#123; DataSource &#125; from '&#64;lux';
 
   export AComponent &#123;
     countries: DataSource&lt;string, string&gt; = [
@@ -121,29 +135,50 @@
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
-      [disabled]="disabled2">
+      [disabled]="disabled2"
+    >
     </lux-autocomplete-list>
-    <p>
-      Current value is: {{ myPlaces2 |json }}.
-    </p>
+    <p>Current value is: {{ myPlaces2 | json }}.</p>
     <label>
-      <input type="checkbox" [(ngModel)]="disabled2"> Disabled: {{ disabled2 }}
+      <input type="checkbox" [(ngModel)]="disabled2" /> Disabled:
+      {{ disabled2 }}
     </label>
   </div>
 </div>
 
 <h2>Documentation</h2>
-<p>The Autocomplete component implements <code>ControlValueAccessor</code>,
-  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
+<p>
+  The Autocomplete component implements <code>ControlValueAccessor</code>,
+  therefore binding using <code>ngModel</code> and <code>name</code> is
+  supported.
+</p>
 <h3>Properties</h3>
 <ul class="properties">
-  <li><span class="inline">datasource</span>A key-value list of data to be used as datasource.</li>
-  <li><span class="inline">disabled</span> If disabled the checkbox is not editable.</li>
+  <li>
+    <span class="inline">datasource</span>A key-value list of data to be used as
+    datasource.
+  </li>
+  <li>
+    <span class="inline">disabled</span> If disabled the checkbox is not
+    editable.
+  </li>
   <li><span class="inline">value</span> Status of checkbox on or off.</li>
-  <li><span class="inline">instance</span> Reference to the object implementing resolveLabels & populate functions.</li>
-  <li><span class="inline">resolveLabelsFunction</span> Function to resolve labels from keys. Returns an observable of a DataSource.</li>
-  <li><span class="inline">populateFunction</span> Function to retrieve data based on a substring query. Returns an observable of a DataSource.</li>
-  <li><span class="inline">deleteLabelTemplate</span> Template for the aria-label for the delete button.</li>
+  <li>
+    <span class="inline">instance</span> Reference to the object implementing
+    resolveLabels & populate functions.
+  </li>
+  <li>
+    <span class="inline">resolveLabelsFunction</span> Function to resolve labels
+    from keys. Returns an observable of a DataSource.
+  </li>
+  <li>
+    <span class="inline">populateFunction</span> Function to retrieve data based
+    on a substring query. Returns an observable of a DataSource.
+  </li>
+  <li>
+    <span class="inline">deleteLabelTemplate</span> Template for the aria-label
+    for the delete button.
+  </li>
   <li><span class="inline">addMessage</span> Add Message aria-label.</li>
 </ul>
 <h3>Events</h3>

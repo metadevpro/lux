@@ -40,7 +40,7 @@
   <p>In this sample, the data is pick from the static datasource: countries.</p>
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
-  import &#123; DataSource &#125; from '@lux';
+  import &#123; DataSource &#125; from '&#64;lux';
 
   countries: DataSource&lt;string, string&gt; = [
     &#123; key: 'ES', label: 'Spain' &#125;,
@@ -91,7 +91,7 @@
   </p>
   <pre class="language-typescript" rel="typescript">
     <code class="typescript">
-  import &#123; DataSource &#125; from '@lux';
+  import &#123; DataSource &#125; from '&#64;lux';
 
   export AComponent &#123;
     get self(): AComponent &#123;
@@ -188,7 +188,7 @@ this use case to work, the component has to be configured to use the same value
 for <b>key</b>and <b>label</b>.
 <pre class="language-typescript" rel="typescript">
   <code class="typescript">
-import &#123; DataSource &#125; from '@lux';
+import &#123; DataSource &#125; from '&#64;lux';
 
 countryCodes: DataSource&lt;string, string&gt; = [
   &#123; key: 'ES', label: 'ES' &#125;,
