@@ -73,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lux-demo:build"
+            "buildTarget": "lux-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "lux-demo:build:production"
+              "buildTarget": "lux-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lux-demo:build"
+            "buildTarget": "lux-demo:build"
           }
         },
         "test": {
