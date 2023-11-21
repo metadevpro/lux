@@ -1,5 +1,12 @@
 # Lux Changelog
 
+## Version 0.28.0
+
+2023.11.21
+
+- Published support for ng17.
+- Removed dependecy ngx-resize@2.0.0 (no longer used).
+
 ## Version 0.27.0
 
 2023.06.16
