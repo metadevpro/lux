@@ -29,7 +29,5 @@
     "@angular/core": "^17.0.0",
     "ol": "^6.5.0"
   },
-  "dependencies": {
-    "ngx-resize": "^2.0.0"
-  }
+  "dependencies": {}
 }
