@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.29.0
+
+2024.06.06
+
+- Published support for ng18.
+
 ## Version 0.28.0
 
 2023.11.21
