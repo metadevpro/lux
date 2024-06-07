@@ -269,7 +269,7 @@ describe('TooltipDirective', () => {
         props: {
           content: TooltipTestComponent
         }
-      }
+      } as any
     );
     const button = spectator.query('button');
 
@@ -288,7 +288,7 @@ describe('TooltipDirective', () => {
         props: {
           content: TooltipTestComponent
         }
-      }
+      } as any
     );
     const button = spectator.query('button');
 
@@ -307,7 +307,7 @@ describe('TooltipDirective', () => {
         props: {
           content: TooltipTestComponent
         }
-      }
+      } as any
     );
     const button = spectator.query('button');
 
@@ -334,7 +334,7 @@ describe('TooltipDirective', () => {
         props: {
           content: TooltipTestComponent
         }
-      }
+      } as any
     );
     const button = spectator.query('button');
 
@@ -358,7 +358,7 @@ describe('TooltipDirective', () => {
         props: {
           content: TooltipTestComponent
         }
-      }
+      } as any
     );
     const button = spectator.query('button');
 
@@ -382,7 +382,7 @@ describe('TooltipDirective', () => {
         props: {
           content: TooltipTestComponent
         }
-      }
+      } as any
     );
     const button = spectator.query('button');
 
