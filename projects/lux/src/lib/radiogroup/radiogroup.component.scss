@@ -1,7 +1,7 @@
-@import '../styles/lux';
+@use '../styles/lux';
 
 $padding: var(--lux-radiogroup-padding, 0rem 0.5rem);
-$font-color: var(--lux-radiogroup-color, initial);
+lux.$font-color: var(--lux-radiogroup-color, initial);
 $font-size: var(--lux-radiogroup-font-size, initial);
 $selected-color: var(--lux-radiogroup-selected-color, white);
 $selected-background-color: var(
@@ -29,7 +29,7 @@ $selected-disabled-background-color: var(
     display: none;
   }
   label {
-    color: $font-color;
+    color: lux.$font-color;
     font-size: $font-size;
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
