@@ -8,6 +8,7 @@ import { TooltipContentRef } from './tooltop-content';
  * Tooltip directive
  */
 @Directive({
+  standalone: false,
   selector: '[luxTooltip]'
 })
 export class LuxTooltipDirective {

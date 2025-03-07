@@ -6,6 +6,8 @@ import { debounceTime } from 'rxjs/operators';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
+  standalone: false,
+
   selector: 'app-autocomplete-sample',
   templateUrl: './autocomplete-sample.component.html'
 })

@@ -1,6 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'toString' })
+@Pipe({
+  standalone: false,
+  name: 'toString'
+})
 export class toString implements PipeTransform {
   transform(input: any): string {
     if (input === null) {

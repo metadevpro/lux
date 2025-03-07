@@ -6,6 +6,7 @@ import { LuxModalWindowComponent } from './modal-window';
 import { ModalService } from './modal.service';
 
 @Component({
+  standalone: false,
   template: `
     <ng-template #modal1 let-modal>
       <div class="lux-modal-header">

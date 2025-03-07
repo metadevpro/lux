@@ -1,6 +1,7 @@
-import {Component, Input, HostBinding} from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'lux-modal-backdrop',
   template: ''
 })

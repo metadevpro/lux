@@ -22,6 +22,7 @@ export interface RadioItem {
 }
 
 @Component({
+  standalone: false,
   selector: 'lux-radiogroup',
   templateUrl: './radiogroup.component.html',
   styleUrls: ['./radiogroup.component.scss'],

@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
+  standalone: false,
+
   selector: 'app-autocomplete-list-sample',
   templateUrl: './autocomplete-list-sample.component.html'
 })

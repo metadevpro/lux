@@ -13,6 +13,7 @@ import { debounceTime } from 'rxjs/operators';
 
 /** Filter component to query for objects. */
 @Component({
+  standalone: false,
   selector: 'lux-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],

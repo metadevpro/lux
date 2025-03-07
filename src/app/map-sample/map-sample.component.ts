@@ -3,6 +3,7 @@ import { GeoPoint } from 'lux/lib/map/geopoint';
 
 import { PrismService } from '../core/services/prism-service.service';
 @Component({
+  standalone: false,
   selector: 'app-map-sample',
   styleUrls: ['map-sample.component.scss'],
   templateUrl: './map-sample.component.html'

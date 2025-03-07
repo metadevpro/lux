@@ -3,33 +3,37 @@ import { RadioItem } from 'projects/lux/src/lib/radiogroup/radiogroup.component'
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
+  standalone: false,
   selector: 'app-radiogroup-sample',
   templateUrl: './radiogroup-sample.component.html'
 })
 export class RadiogroupSampleComponent implements AfterContentInit {
-
-  carBrands: RadioItem[] = [{
-    name: 'radioHonda',
-    label: 'Honda',
-    value: 'HON'
-  }, {
-    label: 'Mazda',
-    value: 'MZD'
-  },{
-    label: 'Mitsubishi',
-    value: 'MIT'
-  },{
-    label: 'Lamborghini',
-    value: 'LAM'
-  }];
+  carBrands: RadioItem[] = [
+    {
+      name: 'radioHonda',
+      label: 'Honda',
+      value: 'HON'
+    },
+    {
+      label: 'Mazda',
+      value: 'MZD'
+    },
+    {
+      label: 'Mitsubishi',
+      value: 'MIT'
+    },
+    {
+      label: 'Lamborghini',
+      value: 'LAM'
+    }
+  ];
 
   selectedValue: string;
   selectedValue2 = 'LAM';
 
-  constructor(private prismService: PrismService) { }
+  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
-
 }

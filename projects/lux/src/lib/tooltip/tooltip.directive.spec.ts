@@ -5,6 +5,7 @@ import { LuxTooltipDirective } from './tooltip.directive';
 import { TooltipService } from './tooltip.service';
 
 @Component({
+  standalone: false,
   template: `
     <span class="lux-tooltip" style="transition: opacity 200ms"
       >Tooltip Component</span

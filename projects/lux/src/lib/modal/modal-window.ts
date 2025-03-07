@@ -17,6 +17,7 @@ import { getFocusableBoundaryElements, FOCUS } from './util';
 import { ModalDismissReasons } from './modal-dismiss-reasons';
 
 @Component({
+  standalone: false,
   selector: 'lux-modal-window',
   template: `
     <div class="modal-dialog" role="document">

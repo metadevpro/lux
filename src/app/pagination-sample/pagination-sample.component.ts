@@ -6,6 +6,7 @@ import { PrismService } from '../core/services/prism-service.service';
 import { PaginationInfo } from 'projects/lux/src/lib/pagination/pagination';
 
 @Component({
+  standalone: false,
   selector: 'app-pagination-sample',
   templateUrl: './pagination-sample.component.html',
   styleUrls: ['pagination-sample.component.scss']

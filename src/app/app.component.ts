@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { VERSION } from 'src/environments/version';
 
 @Component({
+  standalone: false,
+
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

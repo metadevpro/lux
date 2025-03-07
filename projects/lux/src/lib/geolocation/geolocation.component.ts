@@ -30,6 +30,7 @@ import { ModalService } from '../modal/modal.service';
 import { GeolocationService } from './geolocation.service';
 
 @Component({
+  standalone: false,
   selector: 'lux-geolocation',
   templateUrl: './geolocation.component.html',
   styleUrls: ['./geolocation.component.scss'],

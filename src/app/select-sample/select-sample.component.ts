@@ -2,6 +2,7 @@ import { Component, AfterContentInit } from '@angular/core';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
+  standalone: false,
   selector: 'app-select-sample',
   templateUrl: './select-sample.component.html'
 })
@@ -12,9 +13,9 @@ export class SelectSampleComponent implements AfterContentInit {
   placeholder = 'Add new country';
 
   obj = {
-    countries: [ 'Spain', 'Italy', 'Costa Rica', 'Philippines' ]
+    countries: ['Spain', 'Italy', 'Costa Rica', 'Philippines']
   };
-  constructor(private prismService: PrismService) { }
+  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
