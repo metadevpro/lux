@@ -1,7 +1,7 @@
 import { Component, AfterContentInit } from '@angular/core';
-import { GeoPoint } from 'lux/lib/map/geopoint';
-
 import { PrismService } from '../core/services/prism-service.service';
+import { GeoPoint } from 'projects/lux/src/lib/map/geopoint';
+
 @Component({
   standalone: false,
   selector: 'app-geolocation-sample',

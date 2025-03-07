@@ -1,6 +1,5 @@
 import { Component, AfterContentInit } from '@angular/core';
-import { DataSourceItem } from 'lux/public-api';
-import { DataSource } from 'projects/lux/src/lib/datasource';
+import { DataSource, DataSourceItem } from 'projects/lux/src/lib/datasource';
 import { Observable, of } from 'rxjs';
 import { PrismService } from '../core/services/prism-service.service';
 
