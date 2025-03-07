@@ -3,6 +3,7 @@ import { createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator';
 
 import { LuxTooltipDirective } from './tooltip.directive';
 import { TooltipService } from './tooltip.service';
+import { overrideModules } from '@ngneat/spectator/lib/spectator/create-factory';
 
 @Component({
   standalone: false,

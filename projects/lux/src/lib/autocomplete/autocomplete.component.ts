@@ -263,7 +263,9 @@ export class AutocompleteComponent
       (it) => this.focusItem && it.key === this.focusItem.key
     );
     const indexNext =
-      -1 && list.length > index + offset ? index + offset : list.length - 1;
+      index !== -1 && list.length > index + offset
+        ? index + offset
+        : list.length - 1;
     const next = list[indexNext];
     this.focusItem = next;
     this.ensureItemVisible(index);
