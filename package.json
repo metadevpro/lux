@@ -38,7 +38,7 @@
     "tdd": "ng test lux",
     "lint": "ng lint",
     "lint:lux": "ng lint lux",
-    "publish-doc": "git push heroku devel:master",
+    "publish-doc": "cd scripts && ./publish-lux-doc-s3.sh",
     "npm-publish": "npm run lint:lux && npm run test:coverage && ng build lux --configuration production && npm publish ./dist/lux --access public"
   },
   "private": true,
