@@ -30,6 +30,7 @@ import { isInitialAndEmpty } from '../helperFns';
 
 export const LOST_FOCUS_TIME_WINDOW_MS = 200; // ms
 @Component({
+  standalone: false,
   selector: 'lux-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
@@ -262,7 +263,9 @@ export class AutocompleteComponent
       (it) => this.focusItem && it.key === this.focusItem.key
     );
     const indexNext =
-      -1 && list.length > index + offset ? index + offset : list.length - 1;
+      index !== -1 && list.length > index + offset
+        ? index + offset
+        : list.length - 1;
     const next = list[indexNext];
     this.focusItem = next;
     this.ensureItemVisible(index);

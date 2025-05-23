@@ -1,6 +1,6 @@
-@import '../styles/lux';
+@use '../styles/lux';
 
-$icon-clear: var(
+lux.$icon-clear: var(
   --lux-filter-icon-clear,
   url(/assets/img/filter-clear.png) no-repeat center
 );
@@ -8,9 +8,9 @@ $icon-search: var(
   --lux-filter-icon-search,
   url(/assets/img/filter-search.png) no-repeat center
 );
-$icon-bg-size: var(--lux-filter-icon-bg-size, 1rem);
-$icon-height: var(--lux-filter-icon-height, 1rem);
-$icon-width: var(--lux-filter-icon-width, 1rem);
+lux.$icon-bg-size: var(--lux-filter-icon-bg-size, 1rem);
+lux.$icon-height: var(--lux-filter-icon-height, 1rem);
+lux.$icon-width: var(--lux-filter-icon-width, 1rem);
 
 //  align-self: baseline;
 .filter {
@@ -40,13 +40,13 @@ $icon-width: var(--lux-filter-icon-width, 1rem);
   }
   .icon-search {
     background: $icon-search;
-    background-size: $icon-bg-size;
+    background-size: lux.$icon-bg-size;
     background-position: center;
-    width: $icon-width;
+    width: lux.$icon-width;
   }
   .icon-clear {
-    background: $icon-clear;
-    background-size: $icon-bg-size;
+    background: lux.$icon-clear;
+    background-size: lux.$icon-bg-size;
     background-position: center;
   }
 }

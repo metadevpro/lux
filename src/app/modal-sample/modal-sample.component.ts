@@ -3,6 +3,7 @@ import { ModalService } from 'projects/lux/src/lib/modal/modal.service';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
+  standalone: false,
   selector: 'app-modal-sample',
   styleUrls: ['modal-sample.component.scss'],
   templateUrl: './modal-sample.component.html'

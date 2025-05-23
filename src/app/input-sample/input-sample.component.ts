@@ -2,6 +2,7 @@ import { Component, AfterContentInit } from '@angular/core';
 
 import { PrismService } from '../core/services/prism-service.service';
 @Component({
+  standalone: false,
   selector: 'app-input-sample',
   styleUrls: ['input-sample.component.scss'],
   templateUrl: './input-sample.component.html'

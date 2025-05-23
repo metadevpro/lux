@@ -28,6 +28,7 @@ import {
 import { languageDetector } from '../lang';
 import { RegexpService } from './regexp.service';
 @Component({
+  standalone: false,
   selector: 'lux-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],

@@ -1,4 +1,4 @@
-@import '../styles/lux';
+@use '../styles/lux';
 
 :host {
   display: flex;
@@ -15,15 +15,15 @@
 }
 
 .disabled {
-  background-color: $disabled-color;
-  border-color: $disabled-border-color;
+  background-color: lux.$disabled-color;
+  border-color: lux.$disabled-border-color;
 }
 
 .icon-clear {
   grid-row: 1;
   grid-column: 2;
-  width: $icon-width;
-  background: $icon-clear;
-  background-size: $icon-bg-size;
+  width: lux.$icon-width;
+  background: lux.$icon-clear;
+  background-size: lux.$icon-bg-size;
   z-index: 1;
 }

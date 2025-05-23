@@ -17,6 +17,7 @@ import { GeoPoint } from './geopoint';
 declare const ol: any;
 
 @Component({
+  standalone: false,
   selector: 'lux-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']

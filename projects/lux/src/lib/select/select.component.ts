@@ -17,6 +17,7 @@ import {
 let sequencer = 0;
 
 @Component({
+  standalone: false,
   selector: 'lux-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],

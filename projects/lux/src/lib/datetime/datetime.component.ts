@@ -24,6 +24,7 @@ import {
 } from '../helperFns';
 import { languageDetector } from '../lang';
 @Component({
+  standalone: false,
   selector: 'lux-datetime',
   templateUrl: './datetime.component.html',
   styleUrls: ['./datetime.component.scss'],

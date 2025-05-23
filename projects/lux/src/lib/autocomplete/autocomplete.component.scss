@@ -1,4 +1,4 @@
-@import '../styles/lux';
+@use '../styles/lux';
 
 $autocomplete-input-padding: var(
   --lux-autocomplete-input-padding,
@@ -32,22 +32,22 @@ $autocomplete-input-padding: var(
   .icon-clear {
     grid-row: 1;
     grid-column: 2;
-    width: $icon-width;
+    width: lux.$icon-width;
     border: none;
     background-color: transparent;
-    background: $icon-clear;
-    background-size: $icon-bg-size;
+    background: lux.$icon-clear;
+    background-size: lux.$icon-bg-size;
     z-index: 1;
   }
   .icon-dropdown {
     grid-row: 1;
     grid-column: 2;
-    width: $icon-width;
-    height: $icon-height;
+    width: lux.$icon-width;
+    height: lux.$icon-height;
     border: none;
     background-color: transparent;
-    background: $icon-dropdown;
-    background-size: $icon-bg-size;
+    background: lux.$icon-dropdown;
+    background-size: lux.$icon-bg-size;
     z-index: 1;
   }
   .icon-spinner {

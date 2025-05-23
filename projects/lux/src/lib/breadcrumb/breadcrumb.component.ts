@@ -13,6 +13,7 @@ export interface BreadcrumbItem {
   url: string;
 }
 @Component({
+  standalone: false,
   selector: 'lux-breadcrumb',
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss']

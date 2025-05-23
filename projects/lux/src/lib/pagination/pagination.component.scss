@@ -1,4 +1,4 @@
-@import '../styles/lux';
+@use '../styles/lux';
 
 $lightgrey: grey;
 $blue: #325c81;
@@ -14,7 +14,7 @@ $enabled-border-radius: var(--lux-pagination-enabled-border-radius, 10%);
 $enabled-color: var(--lux-pagination-enabled-color, $blue);
 $disabled-border: var(--lux-pagination-disabled-border, 1px solid $blue);
 $disabled-border-radius: var(--lux-pagination-disabled-border-radius, 10%);
-$disabled-color: var(--lux-pagination-disabled-color, white);
+lux.$disabled-color: var(--lux-pagination-disabled-color, white);
 $disabled-background-color: var(
   --lux-pagination-disabled-background-color,
   $blue
@@ -35,7 +35,7 @@ $disabled-background-color: var(
   border-radius: $disabled-border-radius;
   padding: 1% 1%;
   margin: 0 0.7%;
-  color: $disabled-color;
+  color: lux.$disabled-color;
   background-color: $disabled-background-color;
   text-decoration: none;
   pointer-events: none;

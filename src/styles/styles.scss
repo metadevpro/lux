@@ -1,10 +1,11 @@
+@use "sass:meta";
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css?family=Inconsolata|Dosis|PT+Sans+Narrow&display=swap');
 
-@import 'prism';
-@import 'tooltip';
-@import 'modal';
+@include meta.load-css('prism');
+@include meta.load-css('tooltip');
+@include meta.load-css('modal');
 
 $accent-color: #4f447c;
 $second-color: #cea1ee;

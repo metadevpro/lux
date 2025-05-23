@@ -1,11 +1,12 @@
 import { AfterContentInit, Component } from '@angular/core';
-import { DataSourceItem } from 'lux/public-api';
-import { DataSource } from 'projects/lux/src/lib/datasource';
+import { DataSource, DataSourceItem } from 'projects/lux/src/lib/datasource';
 import { Observable, of } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
+  standalone: false,
+
   selector: 'app-autocomplete-sample',
   templateUrl: './autocomplete-sample.component.html'
 })

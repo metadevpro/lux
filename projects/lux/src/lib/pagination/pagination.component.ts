@@ -3,6 +3,7 @@ import { languageDetector } from '../lang';
 import { PaginationInfo } from './pagination';
 
 @Component({
+  standalone: false,
   selector: 'lux-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']

@@ -1,4 +1,4 @@
-@import '../styles/lux';
+@use '../styles/lux';
 
 $icon-external: var(
   --lux-input-icon-external,
@@ -26,8 +26,8 @@ input[type='color'] {
 }
 
 .disabled {
-  background-color: $disabled-color;
-  border-color: $disabled-border-color;
+  background-color: lux.$disabled-color;
+  border-color: lux.$disabled-border-color;
 }
 
 .clickable {
@@ -52,7 +52,7 @@ input[type='color'] {
   background-size: 1rem 1rem;
   background-position: center;
   background-repeat: no-repeat;
-  width: $icon-width;
+  width: lux.$icon-width;
   z-index: 1;
 }
 .icon-external {

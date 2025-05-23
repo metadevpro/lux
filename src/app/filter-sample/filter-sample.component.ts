@@ -12,6 +12,7 @@ import { UserServiceMock } from './user-mock.service';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
+  standalone: false,
   selector: 'app-filter-sample',
   templateUrl: './filter-sample.component.html',
   styleUrls: ['./filter-sample.component.scss'],

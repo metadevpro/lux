@@ -1,5 +1,11 @@
 # Lux Changelog
 
+## Version 0.30.0
+
+2025.03.07
+
+- Published support for ng19.
+
 ## Version 0.29.0
 
 2024.06.06

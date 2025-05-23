@@ -3,6 +3,7 @@ import { Component, AfterContentInit } from '@angular/core';
 import { PrismService } from '../core/services/prism-service.service';
 import { toString } from './toString.pipe';
 @Component({
+  standalone: false,
   selector: 'app-datetime-sample',
   styleUrls: ['datetime-sample.component.scss'],
   templateUrl: './datetime-sample.component.html'
