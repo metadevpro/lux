@@ -16,7 +16,6 @@ import { languageDetector } from '../lang';
 const KEY_SPACE = ' ';
 
 @Component({
-  standalone: true,
   selector: 'lux-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],

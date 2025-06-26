@@ -31,7 +31,6 @@ import { isInitialAndEmpty } from '../helperFns';
 
 export const LOST_FOCUS_TIME_WINDOW_MS = 200; // ms
 @Component({
-  standalone: true,
   selector: 'lux-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],

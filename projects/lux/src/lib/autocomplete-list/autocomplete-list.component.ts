@@ -23,7 +23,6 @@ import { isInitialAndEmpty } from '../helperFns';
 import { languageDetector } from '../lang';
 
 @Component({
-  standalone: true,
   selector: 'lux-autocomplete-list',
   templateUrl: './autocomplete-list.component.html',
   styleUrls: ['./autocomplete-list.component.scss'],
