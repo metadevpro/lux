@@ -1,13 +1,13 @@
 import {
+  AfterViewInit,
   Component,
-  Input,
-  EventEmitter,
-  Output,
-  OnInit,
-  forwardRef,
-  ViewChild,
   ElementRef,
-  AfterViewInit
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isInitialAndEmpty } from '../helperFns';
@@ -16,10 +16,11 @@ import { languageDetector } from '../lang';
 const KEY_SPACE = ' ';
 
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'lux-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
+  imports: [],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

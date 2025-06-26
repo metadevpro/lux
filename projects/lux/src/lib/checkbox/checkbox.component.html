@@ -1,8 +1,11 @@
 <div class="switch">
   <div>
-    <label *ngIf="label" [for]="inputId">{{ label }}</label>
+    @if (label) {
+    <label [for]="inputId">{{ label }}</label>
+    }
   </div>
-  <div *ngIf="!disabled" class="switch-item" (click)="clicked()">
+  @if (!disabled) {
+  <div class="switch-item" (click)="clicked()">
     <input #ck [name]="name" type="checkbox" [id]="inputId" />
     <div
       class="slider round"
@@ -12,12 +15,12 @@
       (keyup)="onKey($event)"
     ></div>
   </div>
+  }
   <div>
-    <span class="checkbox-label" *ngIf="value">{{
-      literals[lang].yesLabel
-    }}</span>
-    <span class="checkbox-label" *ngIf="!value">{{
-      literals[lang].noLabel
-    }}</span>
+    @if (value) {
+    <span class="checkbox-label">{{ literals[lang].yesLabel }}</span>
+    } @if (!value) {
+    <span class="checkbox-label">{{ literals[lang].noLabel }}</span>
+    }
   </div>
 </div>

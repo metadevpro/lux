@@ -13,6 +13,7 @@ import {
 import {
   AbstractControl,
   ControlValueAccessor,
+  FormsModule,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
@@ -30,10 +31,11 @@ import { isInitialAndEmpty } from '../helperFns';
 
 export const LOST_FOCUS_TIME_WINDOW_MS = 200; // ms
 @Component({
-  standalone: false,
+  standalone: true,
   selector: 'lux-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
+  imports: [FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
