@@ -1,37 +1,39 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
   ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
   ViewChild,
   forwardRef
 } from '@angular/core';
 import {
-  NG_VALUE_ACCESSOR,
-  ControlValueAccessor,
   AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validator,
-  NG_VALIDATORS
+  Validator
 } from '@angular/forms';
 import {
   hasValue,
   isInitialAndEmpty,
+  isValidColor,
   isValidEmail,
   isValidNumber,
   isValidRelativeUrl,
-  isValidColor,
   normalizeDate
 } from '../helperFns';
 import { languageDetector } from '../lang';
 import { RegexpService } from './regexp.service';
 @Component({
-  standalone: false,
   selector: 'lux-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
+  imports: [CommonModule, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
