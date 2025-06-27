@@ -26,7 +26,6 @@ import { WINDOW_PROVIDERS } from './window/window.service';
 
 @NgModule({
   declarations: [
-    FilterComponent,
     InputComponent,
     GeolocationComponent,
     LuxTooltipDirective,
@@ -42,11 +41,12 @@ import { WINDOW_PROVIDERS } from './window/window.service';
   ],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
   imports: [
+    FormsModule,
+    FilterComponent,
     AutocompleteListComponent,
     AutocompleteComponent,
-    DatetimeComponent,
-    FormsModule,
     CheckboxComponent,
+    DatetimeComponent,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,

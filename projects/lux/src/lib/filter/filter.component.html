@@ -18,14 +18,16 @@
     type="button"
     (click)="clear()"
   ></button>
-  <i *ngIf="1 || searchOnType" class="search-indicator icon icon-search"></i>
+  @if (searchOnType) {
+  <i class="search-indicator icon icon-search"></i>
+  } @if (!searchOnType) {
   <button
     class="btn-search"
-    *ngIf="!searchOnType"
     type="button"
     [disabled]="disabled"
     (click)="search()"
   >
     Search
   </button>
+  }
 </div>
