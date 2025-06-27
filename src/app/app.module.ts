@@ -52,7 +52,6 @@ const appRoutes: Routes = [
     AutoCompleteSampleComponent,
     AutoCompleteListSampleComponent,
     MainComponent,
-    AppComponent,
     CheckboxSampleComponent,
     DatetimeSampleComponent,
     FilterSampleComponent,
@@ -70,6 +69,7 @@ const appRoutes: Routes = [
     toString
   ],
   imports: [
+    AppComponent,
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
@@ -77,7 +77,6 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [PrismService],
-  bootstrap: [AppComponent]
+  providers: [PrismService]
 })
 export class AppModule {}
