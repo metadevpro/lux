@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "compodoc": "npx compodoc -p projects/lux/tsconfig.lib.json",
-    "postinstall": "ng build lux --configuration production",
+    "postinstall": "npx ng build lux --configuration production",
     "ng": "ng",
     "start": "ng serve",
     "start-heroku": "http-server -p $PORT dist/lux-demo/",
