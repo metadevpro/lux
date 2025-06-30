@@ -1,22 +1,21 @@
-<div class="radiogroup"
-    [class.disabled]="disabled || readonly"
-    >
-  <ng-container *ngFor="let item of items; let first=first; let last=last">
-    <div [class.radio-start]="first"
-         [class.radio-end]="last"
-         class="radio-item"
-         [class.selected]="item.value === value"
-         (click)="setValue($event, item)"
-      >
-      <input [id]="item.name"
-             type="radio"
-             [name]="name"
-             [attr.disabled]="disabled || null"
-             [attr.readonly]="readonly || null"
-             [value]="item.value">
-      <label [for]="item.name"
-             class="unselectable"
-             >{{ item.label }}</label>
+<div class="radiogroup" [class.disabled]="disabled || readonly">
+  @for (item of items; track item.value; let first = $first; let last = $last) {
+  <div
+    [class.radio-start]="first"
+    [class.radio-end]="last"
+    class="radio-item"
+    [class.selected]="item.value === value"
+    (click)="setValue($event, item)"
+  >
+    <input
+      [id]="item.name"
+      type="radio"
+      [name]="name"
+      [attr.disabled]="disabled || null"
+      [attr.readonly]="readonly || null"
+      [value]="item.value"
+    />
+    <label [for]="item.name" class="unselectable">{{ item.label }}</label>
   </div>
-</ng-container>
+  }
 </div>

@@ -1,16 +1,23 @@
 <div class="lux-select">
   <ul class="list">
-    <li *ngFor="let item of value; let i = index">
+    @for (item of value; track i; let i = $index) {
+    <li>
       <span>{{ item }}</span>
-      <button *ngIf="!disabled"
-            class="remove"
-            type="button"
-            (click)="remove(i)"
-            [attr.aria-label]="'Remove ' + item"
-            >Remove</button>
+      @if (!disabled) {
+      <button
+        class="remove"
+        type="button"
+        (click)="remove(i)"
+        [attr.aria-label]="'Remove ' + item"
+      >
+        Remove
+      </button>
+      }
     </li>
+    }
   </ul>
-  <div class="add-new-item" *ngIf="!disabled">
+  @if (!disabled) {
+  <div class="add-new-item">
     <lux-input
       id="{{ id + 'addNew' }}"
       type="string"
@@ -22,11 +29,16 @@
       (valueChange)="onChangeNewEntry($event)"
     >
     </lux-input>
-    <div *ngIf="canAdd">
-      <button *ngIf="isValidNewEntry" type="button" (click)="add(newEntry)">Add</button>
+    @if (canAdd) {
+    <div>
+      @if (isValidNewEntry) {
+      <button type="button" (click)="add(newEntry)">Add</button>
+      }
     </div>
+    }
     <div class="error">
       {{ error }}
     </div>
   </div>
+  }
 </div>

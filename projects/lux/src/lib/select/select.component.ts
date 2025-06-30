@@ -1,7 +1,8 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
-  Input,
   EventEmitter,
+  Input,
   Output,
   forwardRef
 } from '@angular/core';
@@ -13,12 +14,13 @@ import {
   ValidationErrors,
   Validator
 } from '@angular/forms';
+import { InputComponent } from '../input/input.component';
 
 let sequencer = 0;
 
 @Component({
-  standalone: false,
   selector: 'lux-select',
+  imports: [CommonModule, InputComponent],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   providers: [

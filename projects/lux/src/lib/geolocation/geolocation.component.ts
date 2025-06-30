@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -11,11 +12,14 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
+  FormsModule,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
   ValidationErrors
 } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { DataSource } from '../datasource';
 import {
   exists,
@@ -26,12 +30,19 @@ import {
 } from '../helperFns';
 import { languageDetector } from '../lang';
 import { GeoPoint } from '../map/geopoint';
+import { MapComponent } from '../map/map.component';
 import { ModalService } from '../modal/modal.service';
 import { GeolocationService } from './geolocation.service';
 
 @Component({
-  standalone: false,
   selector: 'lux-geolocation',
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AutocompleteComponent,
+    MapComponent
+  ],
   templateUrl: './geolocation.component.html',
   styleUrls: ['./geolocation.component.scss'],
   providers: [

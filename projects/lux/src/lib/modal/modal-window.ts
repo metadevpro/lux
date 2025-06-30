@@ -1,24 +1,24 @@
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
+  HostBinding,
+  HostListener,
   Inject,
   Input,
   OnDestroy,
   OnInit,
-  Output,
-  HostBinding,
-  HostListener
+  Output
 } from '@angular/core';
 
-import { getFocusableBoundaryElements, FOCUS } from './util';
 import { ModalDismissReasons } from './modal-dismiss-reasons';
+import { FOCUS, getFocusableBoundaryElements } from './util';
 
 @Component({
-  standalone: false,
   selector: 'lux-modal-window',
+  imports: [CommonModule],
   template: `
     <div class="modal-dialog" role="document">
       <div class="modal-content"><ng-content></ng-content></div>

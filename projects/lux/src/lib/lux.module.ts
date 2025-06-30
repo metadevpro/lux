@@ -25,32 +25,31 @@ import { VoiceRecognitionDirective } from './voice-recognition/voice-recognition
 import { WINDOW_PROVIDERS } from './window/window.service';
 
 @NgModule({
-  declarations: [
-    GeolocationComponent,
-    LuxTooltipDirective,
-    LuxModalWindowComponent,
-    LuxModalBackdropComponent,
-    LuxBreadcrumbComponent,
-    MapComponent,
-    SelectComponent,
-    TooltipComponent,
-    PaginationComponent,
-    RadiogroupComponent,
-    VoiceRecognitionDirective
-  ],
+  declarations: [],
   providers: [ModalService, TooltipService, WINDOW_PROVIDERS],
   imports: [
     FormsModule,
-    InputComponent,
     FilterComponent,
+    GeolocationComponent,
+    InputComponent,
     AutocompleteListComponent,
     AutocompleteComponent,
     CheckboxComponent,
     DatetimeComponent,
+    LuxBreadcrumbComponent,
+    LuxTooltipDirective,
+    LuxModalWindowComponent,
+    LuxModalBackdropComponent,
+    MapComponent,
+    PaginationComponent,
+    RadiogroupComponent,
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
-    CommonModule
+    SelectComponent,
+    CommonModule,
+    TooltipComponent,
+    VoiceRecognitionDirective
   ],
   exports: [
     AutocompleteComponent,
@@ -61,8 +60,6 @@ import { WINDOW_PROVIDERS } from './window/window.service';
     InputComponent,
     GeolocationComponent,
     LuxTooltipDirective,
-    LuxBreadcrumbComponent,
-    LuxBreadcrumbComponent,
     MapComponent,
     SelectComponent,
     PaginationComponent,

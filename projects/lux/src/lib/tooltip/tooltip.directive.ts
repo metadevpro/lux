@@ -1,14 +1,13 @@
-import { HostListener, Input, Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
-import { TooltipService } from './tooltip.service';
 import { PlacementValue } from './placement';
+import { TooltipService } from './tooltip.service';
 import { TooltipContentRef } from './tooltop-content';
 
 /**
  * Tooltip directive
  */
 @Directive({
-  standalone: false,
   selector: '[luxTooltip]'
 })
 export class LuxTooltipDirective {

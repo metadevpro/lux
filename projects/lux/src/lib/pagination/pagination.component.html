@@ -1,69 +1,67 @@
-<div class="lux-pagination" *ngIf="showPagination">
-  <ng-container *ngIf="!hidePrevious">
-    <a
-      luxTooltip
-      [content]="first"
-      placement="top"
-      delay="500"
-      (click)="onFirst()"
-      [ngClass]="{
-        enabledFirstLast: !hidePrevious
-      }"
-      class="button-pagination icon arrow-left-end"
-    ></a>
-    <a
-      luxTooltip
-      [content]="previous"
-      placement="top"
-      delay="500"
-      (click)="onPrevious()"
-      [ngClass]="{
-        enabledFirstLast: !hidePrevious
-      }"
-      class="button-pagination icon arrow-left"
-    ></a>
-  </ng-container>
-
-  <span class="ellipsis" *ngIf="displayPreviousEllipsis">...</span>
-
-  <ng-container *ngFor="let pageNum of pages">
-    <a
-      placement="top"
-      delay="500"
-      [ngClass]="{
-        disabled: pageNum === paginationInfo.page,
-        enabled: pageNum !== paginationInfo.page
-      }"
-      class="button-pagination"
-      (click)="onPage(pageNum)"
-      >{{ pageNum + 1 }}</a
-    >
-  </ng-container>
-
-  <span class="ellipsis" *ngIf="displayNextEllipsis">...</span>
-
-  <ng-container *ngIf="!lastPage">
-    <a
-      luxTooltip
-      [content]="next"
-      placement="top"
-      delay="500"
-      (click)="onNext()"
-      [ngClass]="{
-        enabledFirstLast: !lastPage
-      }"
-      class="button-pagination icon arrow-right"
-    ></a>
-    <a
-      luxTooltip
-      [content]="last"
-      placement="top"
-      delay="500"
-      (click)="onLast()"
-      [ngClass]="{
-        enabledFirstLast: !lastPage
-      }"
-      class="button-pagination icon arrow-right-end"
-    ></a>
-  </ng-container>
+@if (showPagination) {
+<div class="lux-pagination">
+  @if (!hidePrevious) {
+  <a
+    luxTooltip
+    [content]="first"
+    placement="top"
+    delay="500"
+    (click)="onFirst()"
+    [ngClass]="{
+      enabledFirstLast: !hidePrevious
+    }"
+    class="button-pagination icon arrow-left-end"
+  ></a>
+  <a
+    luxTooltip
+    [content]="previous"
+    placement="top"
+    delay="500"
+    (click)="onPrevious()"
+    [ngClass]="{
+      enabledFirstLast: !hidePrevious
+    }"
+    class="button-pagination icon arrow-left"
+  ></a>
+  } @if (displayPreviousEllipsis) {
+  <span class="ellipsis">...</span>
+  } @for (pageNum of pages; track pageNum) {
+  <a
+    placement="top"
+    delay="500"
+    [ngClass]="{
+      disabled: pageNum === paginationInfo.page,
+      enabled: pageNum !== paginationInfo.page
+    }"
+    class="button-pagination"
+    (click)="onPage(pageNum)"
+    >{{ pageNum + 1 }}</a
+  >
+  } @if (displayNextEllipsis) {
+  <span class="ellipsis">...</span>
+  } @if (!lastPage) {
+  <a
+    luxTooltip
+    [content]="next"
+    placement="top"
+    delay="500"
+    (click)="onNext()"
+    [ngClass]="{
+      enabledFirstLast: !lastPage
+    }"
+    class="button-pagination icon arrow-right"
+  ></a>
+  <a
+    luxTooltip
+    [content]="last"
+    placement="top"
+    delay="500"
+    (click)="onLast()"
+    [ngClass]="{
+      enabledFirstLast: !lastPage
+    }"
+    class="button-pagination icon arrow-right-end"
+  ></a>
+  }
 </div>
+}

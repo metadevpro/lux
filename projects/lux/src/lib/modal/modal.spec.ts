@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, NgModule, ViewChild } from '@angular/core';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { LuxModalBackdropComponent } from './modal-backdrop';
@@ -6,7 +7,6 @@ import { LuxModalWindowComponent } from './modal-window';
 import { ModalService } from './modal.service';
 
 @Component({
-  standalone: false,
   template: `
     <ng-template #modal1 let-modal>
       <div class="lux-modal-header">
@@ -51,11 +51,8 @@ class TestComponent {
 
 @NgModule({
   providers: [ModalService],
-  declarations: [
-    TestComponent,
-    LuxModalWindowComponent,
-    LuxModalBackdropComponent
-  ]
+  imports: [CommonModule, LuxModalWindowComponent, LuxModalBackdropComponent]
+  //declarations: [TestComponent]
 })
 export class ModalTestModule {}
 

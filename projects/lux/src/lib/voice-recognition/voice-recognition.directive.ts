@@ -1,7 +1,6 @@
 import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
-  standalone: false,
   selector: '[luxVoiceRecognition]'
 })
 export class VoiceRecognitionDirective implements OnInit {
