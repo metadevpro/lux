@@ -9,6 +9,13 @@
 last 2 versions
 Firefox ESR
 not dead
-not IE 9-11 # For IE 9-11 support, remove 'not'.
-not kaios 2.5
-not op_mini all
+not IE 9-11       # To support IE 9–11, remove this `not`
+not kaios > 0     # Exclude all KaiOS versions
+not and_qq > 0    # Exclude Tencent QQ Browser
+not and_uc > 0    # Exclude UC Browser on Android
+not android > 0   # Exclude legacy Android WebView
+not op_mini > 0   # Exclude Opera Mini
+not opera > 0     # Exclude Opera (modern Opera covered by "last 2 versions")
+not samsung > 0   # Exclude older Samsung Internet versions
+
+
