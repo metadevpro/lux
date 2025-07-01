@@ -1,17 +1,26 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+  inject
+} from '@angular/core';
 
 @Directive({
-  standalone: false,
   selector: '[luxVoiceRecognition]'
 })
 export class VoiceRecognitionDirective implements OnInit {
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
+
   @Input() language: string;
   // See API at: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
   private recognition: any;
   private isRecognizing = false;
   private mic: any;
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  constructor() {
     const speechRecognition = (window as any).webkitSpeechRecognition;
     if (speechRecognition) {
       this.recognition = new speechRecognition();

@@ -1,7 +1,6 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 
 import { PrismService } from '../core/services/prism-service.service';
-import { toString } from './toString.pipe';
 @Component({
   standalone: false,
   selector: 'app-datetime-sample',
@@ -9,6 +8,8 @@ import { toString } from './toString.pipe';
   templateUrl: './datetime-sample.component.html'
 })
 export class DatetimeSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   name = 'Lux';
   disabled = true;
   readonly = true;
@@ -31,8 +32,6 @@ export class DatetimeSampleComponent implements AfterContentInit {
       field1: null // 'initial@value.com'
     }
   };
-
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

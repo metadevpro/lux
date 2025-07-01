@@ -1,29 +1,32 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
-  Router,
-  NavigationEnd,
   ActivatedRoute,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
+  NavigationEnd,
+  Router,
+  RouterModule
 } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 export interface BreadcrumbItem {
   label: string;
   url: string;
 }
 @Component({
-  standalone: false,
   selector: 'lux-breadcrumb',
+  imports: [CommonModule, RouterModule],
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
+  private route = inject(Router);
+  private activedRoute = inject(ActivatedRoute);
+
   public breadcrumbs: BreadcrumbItem[];
   private subs: Subscription[] = [];
   public imagePath = '../assets/img/arrow-forward.svg';
-
-  constructor(private route: Router, private activedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.subs.push(

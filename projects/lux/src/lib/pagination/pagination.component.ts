@@ -1,10 +1,13 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { languageDetector } from '../lang';
+import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { PaginationInfo } from './pagination';
 
 @Component({
-  standalone: false,
   selector: 'lux-pagination',
+  imports: [CommonModule, FormsModule, LuxTooltipDirective],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })

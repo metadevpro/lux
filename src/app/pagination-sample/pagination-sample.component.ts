@@ -1,9 +1,9 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { PaginationInfo } from 'projects/lux/src/lib/pagination/pagination';
 import { UserMockService } from '../core/services-mock/user-mock.service';
 import { PrismService } from '../core/services/prism-service.service';
-import { PaginationInfo } from 'projects/lux/src/lib/pagination/pagination';
 
 @Component({
   standalone: false,
@@ -12,14 +12,12 @@ import { PaginationInfo } from 'projects/lux/src/lib/pagination/pagination';
   styleUrls: ['pagination-sample.component.scss']
 })
 export class PaginationSampleComponent implements AfterContentInit {
+  private userService = inject(UserMockService);
+  private prismService = inject(PrismService);
+
   users$: Observable<any[]>;
 
   paginationInfo: PaginationInfo;
-
-  constructor(
-    private userService: UserMockService,
-    private prismService: PrismService
-  ) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

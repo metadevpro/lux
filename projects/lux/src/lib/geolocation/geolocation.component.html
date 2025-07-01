@@ -30,14 +30,15 @@
 <div
   class="infix symbol monospace clickable"
   [ngClass]="className"
-  (click)="openModalMap(modalMap)">
-  <span *ngIf="isValidNumber(latitudeValue) && latitudeValue >= 0">{{
-    i18n[lang].cardinalPoints.north
-  }}</span>
-  <span *ngIf="isValidNumber(latitudeValue) && latitudeValue < 0">{{
-    i18n[lang].cardinalPoints.south
-  }}</span>
-  <span *ngIf="!isValidNumber(latitudeValue)">-</span>
+  (click)="openModalMap(modalMap)"
+>
+  @if (isValidNumber(latitudeValue) && latitudeValue >= 0) {
+  <span>{{ i18n[lang].cardinalPoints.north }}</span>
+  } @if (isValidNumber(latitudeValue) && latitudeValue < 0) {
+  <span>{{ i18n[lang].cardinalPoints.south }}</span>
+  } @if (!isValidNumber(latitudeValue)) {
+  <span>-</span>
+  }
 </div>
 <input
   #longitude
@@ -73,13 +74,13 @@
   [ngClass]="className"
   (click)="openModalMap(modalMap)"
 >
-  <span *ngIf="isValidNumber(longitudeValue) && longitudeValue >= 0">{{
-    i18n[lang].cardinalPoints.east
-  }}</span>
-  <span *ngIf="isValidNumber(longitudeValue) && longitudeValue < 0">{{
-    i18n[lang].cardinalPoints.west
-  }}</span>
-  <span *ngIf="!isValidNumber(longitudeValue)">-</span>
+  @if (isValidNumber(longitudeValue) && longitudeValue >= 0) {
+  <span>{{ i18n[lang].cardinalPoints.east }}</span>
+  } @if (isValidNumber(longitudeValue) && longitudeValue < 0) {
+  <span>{{ i18n[lang].cardinalPoints.west }}</span>
+  } @if (!isValidNumber(longitudeValue)) {
+  <span>-</span>
+  }
 </div>
 <div
   [class]="
@@ -92,21 +93,23 @@
 >
   <span class="icon-globe"></span>
 </div>
+@if (!disabled && !readonly && isClearable()) {
 <button
   #clearButton
-  *ngIf="!disabled && !readonly && isClearable()"
   class="rounded-right postfix bordered icon icon-clear"
   [id]="inputId + '$clear'"
   type="button"
   (click)="clear()"
   aria-label="clear"
 ></button>
-
-<div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
-  <div *ngIf="lastErrors.required">
+} @if (inlineErrors && lastErrors && (dirty || touched)) {
+<div class="alert">
+  @if (lastErrors.required) {
+  <div>
     {{ i18n[lang].userErrors.required }}
   </div>
-  <div *ngIf="lastErrors.minLatitude">
+  } @if (lastErrors.minLatitude) {
+  <div>
     {{
       i18n[lang].userErrors.minLatitude.replace(
         '$minLatitude',
@@ -114,7 +117,8 @@
       )
     }}
   </div>
-  <div *ngIf="lastErrors.maxLatitude">
+  } @if (lastErrors.maxLatitude) {
+  <div>
     {{
       i18n[lang].userErrors.maxLatitude.replace(
         '$maxLatitude',
@@ -122,7 +126,8 @@
       )
     }}
   </div>
-  <div *ngIf="lastErrors.minLongitude">
+  } @if (lastErrors.minLongitude) {
+  <div>
     {{
       i18n[lang].userErrors.minLongitude.replace(
         '$minLongitude',
@@ -130,7 +135,8 @@
       )
     }}
   </div>
-  <div *ngIf="lastErrors.maxLongitude">
+  } @if (lastErrors.maxLongitude) {
+  <div>
     {{
       i18n[lang].userErrors.maxLongitude.replace(
         '$maxLongitude',
@@ -138,11 +144,15 @@
       )
     }}
   </div>
+  }
 </div>
+}
 
 <ng-template #modalMap let-modal>
   <div class="lux-modal-header">
-    <h4 class="modal-title default-font" id="modal-basic-title">{{ mapTitle }}</h4>
+    <h4 class="modal-title default-font" id="modal-basic-title">
+      {{ mapTitle }}
+    </h4>
     <button
       type="button"
       class="close"
@@ -153,16 +163,17 @@
     </button>
   </div>
   <div class="lux-modal-body content">
+    @if (!disabled && !readonly) {
     <lux-autocomplete
       #searchBar
       [attr.aria-label]="i18n[lang].typeToSearch"
       [placeholder]="i18n[lang].typeToSearch"
-      *ngIf="!disabled && !readonly"
       [instance]="self"
       [resolveLabelsFunction]="getLabels"
       [populateFunction]="getData"
       (valueChange)="onSearchLocationChanged(searchBar.value, map)"
     ></lux-autocomplete>
+    }
     <div class="map-container">
       <lux-map
         #map
@@ -174,29 +185,30 @@
     </div>
   </div>
   <div class="lux-modal-footer">
+    @if (disabled || readonly) {
     <button
-      *ngIf="disabled || readonly"
       type="button"
       class="btn btn-cancel"
       (click)="modal.close('cancel')"
     >
       {{ i18n[lang].closeAction }}
     </button>
+    } @if (!disabled && !readonly) {
     <button
-      *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-cancel"
       (click)="modal.close('cancel')"
     >
       {{ i18n[lang].cancelAction }}
     </button>
+    } @if (!disabled && !readonly) {
     <button
-      *ngIf="!disabled && !readonly"
       type="button"
       class="btn btn-select"
       (click)="modal.close(map.markerPoint.coordinates)"
     >
       {{ i18n[lang].selectAction }}
     </button>
+    }
   </div>
 </ng-template>

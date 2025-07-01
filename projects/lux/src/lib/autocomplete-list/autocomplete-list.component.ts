@@ -23,10 +23,10 @@ import { isInitialAndEmpty } from '../helperFns';
 import { languageDetector } from '../lang';
 
 @Component({
-  standalone: false,
   selector: 'lux-autocomplete-list',
   templateUrl: './autocomplete-list.component.html',
   styleUrls: ['./autocomplete-list.component.scss'],
+  imports: [AutocompleteComponent],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
   EventEmitter,
   forwardRef,
+  inject,
   Input,
   OnInit,
   Output,
@@ -11,11 +13,14 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
+  FormsModule,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
   ValidationErrors
 } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { DataSource } from '../datasource';
 import {
   exists,
@@ -26,12 +31,19 @@ import {
 } from '../helperFns';
 import { languageDetector } from '../lang';
 import { GeoPoint } from '../map/geopoint';
+import { MapComponent } from '../map/map.component';
 import { ModalService } from '../modal/modal.service';
 import { GeolocationService } from './geolocation.service';
 
 @Component({
-  standalone: false,
   selector: 'lux-geolocation',
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AutocompleteComponent,
+    MapComponent
+  ],
   templateUrl: './geolocation.component.html',
   styleUrls: ['./geolocation.component.scss'],
   providers: [
@@ -48,6 +60,9 @@ import { GeolocationService } from './geolocation.service';
   ]
 })
 export class GeolocationComponent implements OnInit {
+  private modalService = inject(ModalService);
+  locationService = inject(GeolocationService);
+
   static idCounter = 0;
 
   @ViewChild('latitude', { static: true }) latitude: ElementRef;
@@ -194,11 +209,6 @@ export class GeolocationComponent implements OnInit {
 
   onChange = (value: any): void => {};
   onTouched = (): void => {};
-
-  constructor(
-    private modalService: ModalService,
-    public locationService: GeolocationService
-  ) {}
 
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {

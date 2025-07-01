@@ -1,20 +1,22 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
   ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
   ViewChild,
   forwardRef
 } from '@angular/core';
 import {
-  NG_VALUE_ACCESSOR,
-  ControlValueAccessor,
   AbstractControl,
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validator,
-  NG_VALIDATORS
+  Validator
 } from '@angular/forms';
 import {
   addTimezoneOffset,
@@ -24,10 +26,10 @@ import {
 } from '../helperFns';
 import { languageDetector } from '../lang';
 @Component({
-  standalone: false,
   selector: 'lux-datetime',
   templateUrl: './datetime.component.html',
   styleUrls: ['./datetime.component.scss'],
+  imports: [FormsModule, CommonModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

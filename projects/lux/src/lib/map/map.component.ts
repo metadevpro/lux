@@ -6,21 +6,23 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
+  inject
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { OpenLayerLoaderService } from '../geolocation/openlayer-loader.service';
 
+import { CommonModule } from '@angular/common';
 import { GeoPoint } from './geopoint';
 
 // @dynamic
 declare const ol: any;
 
 @Component({
-  standalone: false,
   selector: 'lux-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  imports: [CommonModule]
 })
 export class MapComponent implements OnInit, AfterViewInit {
   static idCounter = 0;
@@ -138,7 +140,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   private _markerSource: any;
   private _markerStyle: any;
 
-  constructor(olLoader: OpenLayerLoaderService) {
+  constructor() {
+    const olLoader = inject(OpenLayerLoaderService);
+
     olLoader.load().subscribe((_) => {
       // Initialize
       this._markerSource = new ol.source.Vector();

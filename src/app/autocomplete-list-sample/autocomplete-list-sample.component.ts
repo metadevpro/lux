@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { DataSource, DataSourceItem } from 'projects/lux/src/lib/datasource';
 import { Observable, of } from 'rxjs';
 import { PrismService } from '../core/services/prism-service.service';
@@ -10,6 +10,8 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './autocomplete-list-sample.component.html'
 })
 export class AutoCompleteListSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   disabled1 = false;
   disabled2 = false;
 
@@ -36,8 +38,6 @@ export class AutoCompleteListSampleComponent implements AfterContentInit {
   ];
   myPlaces = ['ES', 'IT', 'CR'];
   myPlaces2 = ['AM', 'DZ', 'JP'];
-
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

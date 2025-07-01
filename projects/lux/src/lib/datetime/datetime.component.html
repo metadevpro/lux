@@ -16,7 +16,9 @@
 />
 <input
   #timeInput
-  [class]="(disabled || readonly || !isClearable()) && localTime ? 'rounded-right' : ''"
+  [class]="
+    (disabled || readonly || !isClearable()) && localTime ? 'rounded-right' : ''
+  "
   [ngClass]="className"
   type="time"
   [id]="inputId + '$time'"
@@ -31,34 +33,34 @@
   (keypress)="onKeyPress($event)"
   (blur)="onLostFocus()"
 />
-<ng-container
-  *ngIf="!localTime"
+@if (!localTime) {
+<div
+  [class]="
+    disabled || readonly || !isClearable()
+      ? 'rounded-right postfix symbol'
+      : 'postfix symbol'
+  "
+  [ngClass]="className"
 >
-  <div
-    [class]="disabled || readonly || !isClearable() ? 'rounded-right postfix symbol' : 'postfix symbol'"
-    [ngClass]="className"
-  >
-    <span>{{ localTime ? '' : 'UTC' }}</span>
-  </div>
-</ng-container>
+  <span>{{ localTime ? '' : 'UTC' }}</span>
+</div>
+} @if (!disabled && !readonly && isClearable()) {
 <button
   #clearButton
-  *ngIf="!disabled && !readonly && isClearable()"
   type="button"
   class="rounded-right postfix bordered icon-clear"
   [id]="inputId + '$clear'"
   (click)="clear()"
   aria-label="clear"
 ></button>
-
-<div *ngIf="inlineErrors && lastErrors && (dirty || touched)" class="alert">
-  <div *ngIf="lastErrors.required">
-    {{ userErrors[lang].required }}
-  </div>
-  <div *ngIf="lastErrors.min">
-    {{ userErrors[lang].min.replace('$min', lastErrors.min.min) }}
-  </div>
-  <div *ngIf="lastErrors.max">
-    {{ userErrors[lang].max.replace('$max', lastErrors.max.max) }}
-  </div>
+} @if (inlineErrors && lastErrors && (dirty || touched)) {
+<div class="alert">
+  @if (lastErrors.required) {
+  <div>{{ userErrors[lang].required }}</div>
+  } @if (lastErrors.min) {
+  <div>{{ userErrors[lang].min.replace('$min', lastErrors.min.min) }}</div>
+  } @if (lastErrors.max) {
+  <div>{{ userErrors[lang].max.replace('$max', lastErrors.max.max) }}</div>
+  }
 </div>
+}

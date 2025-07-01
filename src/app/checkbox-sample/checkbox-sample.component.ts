@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
@@ -8,12 +8,12 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './checkbox-sample.component.html'
 })
 export class CheckboxSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   model = {
     hasCar: true,
     closed: false
   };
-
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

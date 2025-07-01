@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -22,8 +23,8 @@ export interface RadioItem {
 }
 
 @Component({
-  standalone: false,
   selector: 'lux-radiogroup',
+  imports: [CommonModule],
   templateUrl: './radiogroup.component.html',
   styleUrls: ['./radiogroup.component.scss'],
   providers: [

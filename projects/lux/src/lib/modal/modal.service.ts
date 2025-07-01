@@ -1,21 +1,20 @@
 import {
-  Injectable,
   ComponentFactoryResolver,
+  Injectable,
   TemplateRef,
+  inject
 } from '@angular/core';
-import { ModalStack } from './modal-stack';
-import { ModalRef } from './modal-ref';
 import { LuxModalOptions } from './modal-config';
+import { ModalRef } from './modal-ref';
+import { ModalStack } from './modal-stack';
 
 /**
  * A service that it allow open an close modal components
  */
 @Injectable({ providedIn: 'root' })
 export class ModalService {
-  constructor(
-    private modalStack: ModalStack,
-    private moduleCFR: ComponentFactoryResolver
-  ) {}
+  private modalStack = inject(ModalStack);
+  private moduleCFR = inject(ComponentFactoryResolver);
 
   /**Open a modal component
    * @param content TemplateRef

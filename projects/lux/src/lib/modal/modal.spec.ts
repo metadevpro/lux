@@ -1,4 +1,5 @@
-import { Component, NgModule, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, NgModule, ViewChild, inject } from '@angular/core';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
 import { LuxModalBackdropComponent } from './modal-backdrop';
 import { ModalRef } from './modal-ref';
@@ -6,7 +7,6 @@ import { LuxModalWindowComponent } from './modal-window';
 import { ModalService } from './modal.service';
 
 @Component({
-  standalone: false,
   template: `
     <ng-template #modal1 let-modal>
       <div class="lux-modal-header">
@@ -40,9 +40,9 @@ import { ModalService } from './modal.service';
   `
 })
 class TestComponent {
-  @ViewChild('modal1', { static: false }) modal1: any;
+  modalService = inject(ModalService);
 
-  constructor(public modalService: ModalService) {}
+  @ViewChild('modal1', { static: false }) modal1: any;
 
   openModal1(): ModalRef {
     return this.modalService.open(this.modal1);
@@ -51,11 +51,8 @@ class TestComponent {
 
 @NgModule({
   providers: [ModalService],
-  declarations: [
-    TestComponent,
-    LuxModalWindowComponent,
-    LuxModalBackdropComponent
-  ]
+  imports: [CommonModule, LuxModalWindowComponent, LuxModalBackdropComponent]
+  //declarations: [TestComponent]
 })
 export class ModalTestModule {}
 

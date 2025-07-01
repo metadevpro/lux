@@ -1,5 +1,9 @@
 # Lux Changelog
 
+## Next
+
+- Migration to ng20 + standalone components [PR #222](https://github.com/metadevpro/lux/pull/222)
+
 ## Version 0.31.0
 
 2025.06.06

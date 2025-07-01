@@ -1,24 +1,24 @@
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
-  Inject,
+  HostBinding,
+  HostListener,
   Input,
   OnDestroy,
   OnInit,
   Output,
-  HostBinding,
-  HostListener
+  inject
 } from '@angular/core';
 
-import { getFocusableBoundaryElements, FOCUS } from './util';
 import { ModalDismissReasons } from './modal-dismiss-reasons';
+import { FOCUS, getFocusableBoundaryElements } from './util';
 
 @Component({
-  standalone: false,
   selector: 'lux-modal-window',
+  imports: [CommonModule],
   template: `
     <div class="modal-dialog" role="document">
       <div class="modal-content"><ng-content></ng-content></div>
@@ -28,6 +28,9 @@ import { ModalDismissReasons } from './modal-dismiss-reasons';
 export class LuxModalWindowComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
+  private _document = inject(DOCUMENT);
+  private _elRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
   private _elWithFocus: Element; // element that is focused prior to modal opening
 
   @Input() ariaDescribedBy: string;
@@ -62,11 +65,6 @@ export class LuxModalWindowComponent
       this.dismiss(ModalDismissReasons.Esc);
     }
   }
-
-  constructor(
-    @Inject(DOCUMENT) private _document: any,
-    private _elRef: ElementRef<HTMLElement>
-  ) {}
 
   dismiss(reason): void {
     this.dismissEvent.emit(reason);

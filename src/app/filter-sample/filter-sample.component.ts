@@ -1,15 +1,16 @@
 import {
+  AfterContentInit,
   Component,
+  OnDestroy,
   OnInit,
   ViewChild,
-  AfterContentInit,
-  OnDestroy
+  inject
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
 import { FilterComponent } from 'projects/lux/src/lib/filter/filter.component';
-import { UserServiceMock } from './user-mock.service';
 import { PrismService } from '../core/services/prism-service.service';
+import { UserServiceMock } from './user-mock.service';
 
 @Component({
   standalone: false,
@@ -21,6 +22,9 @@ import { PrismService } from '../core/services/prism-service.service';
 export class FilterSampleComponent
   implements OnInit, AfterContentInit, OnDestroy
 {
+  private userService = inject(UserServiceMock);
+  private prismService = inject(PrismService);
+
   @ViewChild('filter', { static: true }) filter: FilterComponent;
   @ViewChild('filter2', { static: true }) filter2: FilterComponent;
   @ViewChild('filter3', { static: true }) filter3: FilterComponent;
@@ -30,11 +34,6 @@ export class FilterSampleComponent
   users2$: Observable<any[]>;
   users3$: Observable<any[]>;
   users4$: Observable<any[]>;
-
-  constructor(
-    private userService: UserServiceMock,
-    private prismService: PrismService
-  ) {}
 
   ngOnInit(): void {
     this.subs.push(

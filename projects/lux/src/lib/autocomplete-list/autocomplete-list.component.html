@@ -1,16 +1,20 @@
 <div [id]="inputId">
   <ul>
-    <li *ngFor="let label of labels; let index = index">
+    @for (label of labels; track label; let index = $index) {
+    <li>
       <span>{{ label }}</span>
+      @if (!disabled) {
       <button
-        *ngIf="!disabled"
         class="remove-item"
         (click)="removeAt(index)"
         attr.aria-label="{{ getDeleteMessage(label) }}"
       ></button>
+      }
     </li>
+    }
   </ul>
-  <div *ngIf="!disabled" class="new-entry">
+  @if (!disabled) {
+  <div class="new-entry">
     <lux-autocomplete
       #auto
       [dataSource]="internalDataSource"
@@ -20,12 +24,14 @@
       (keypress)="onNewEntryChange($event, auto)"
     >
     </lux-autocomplete>
+    @if (canAdd) {
     <button
-      *ngIf="canAdd"
       type="button"
       class="add-item"
       aria-label="addMessage ?? literals[lang].addMessage"
       (click)="addNew(auto)"
     ></button>
+    }
   </div>
+  }
 </div>

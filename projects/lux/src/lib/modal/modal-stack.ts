@@ -3,11 +3,11 @@ import {
   ApplicationRef,
   ComponentFactoryResolver,
   ComponentRef,
-  Inject,
   Injectable,
   Injector,
   RendererFactory2,
-  TemplateRef
+  TemplateRef,
+  inject
 } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -19,6 +19,12 @@ import { ContentRef, focusTrap, isDefined } from './util';
 
 @Injectable({ providedIn: 'root' })
 export class ModalStack {
+  private _applicationRef = inject(ApplicationRef);
+  private _document = inject(DOCUMENT);
+  private _injector = inject(Injector);
+  private _rendererFactory = inject(RendererFactory2);
+  private modalConfig = inject(LuxModalConfig);
+
   private _activeWindowCmptHasChanged = new Subject();
   private _modalRefs: ModalRef[] = [];
   private _windowCmpts: ComponentRef<LuxModalWindowComponent>[] = [];
@@ -34,13 +40,7 @@ export class ModalStack {
     'windowClass'
   ];
 
-  constructor(
-    private _applicationRef: ApplicationRef,
-    @Inject(DOCUMENT) private _document: any,
-    private _injector: Injector,
-    private _rendererFactory: RendererFactory2,
-    private modalConfig: LuxModalConfig
-  ) {
+  constructor() {
     this._activeWindowCmptHasChanged.subscribe(() => {
       if (this._windowCmpts.length) {
         const activeWindowCmpt =

@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './select-sample.component.html'
 })
 export class SelectSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   multiple = true;
   unique = true;
   disabled = false;
@@ -15,7 +17,6 @@ export class SelectSampleComponent implements AfterContentInit {
   obj = {
     countries: ['Spain', 'Italy', 'Costa Rica', 'Philippines']
   };
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

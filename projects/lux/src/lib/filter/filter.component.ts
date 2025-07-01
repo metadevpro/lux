@@ -1,22 +1,27 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
-  Input,
-  Output,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
+  Output,
   forwardRef
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subject, Observable, Subscription } from 'rxjs';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 /** Filter component to query for objects. */
 @Component({
-  standalone: false,
   selector: 'lux-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
+  imports: [CommonModule, FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
