@@ -5,7 +5,7 @@ describe('AutoCompleteComponent', () => {
   let sut: AutocompleteComponent;
 
   beforeEach(() => {
-    sut = new AutocompleteComponent({} as ChangeDetectorRef);
+    sut = new AutocompleteComponent();
   });
   describe('selectElement()', () => {
     it('should return null if empty', () => {
