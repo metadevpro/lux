@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { PrismService } from '../core/services/prism-service.service';
   styleUrls: ['./breadcrumb-sample.component.scss']
 })
 export class BreadcrumbSampleComponent implements AfterContentInit {
-  constructor(private prismService: PrismService) {}
+  private prismService = inject(PrismService);
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

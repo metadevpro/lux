@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 
 import { PrismService } from '../core/services/prism-service.service';
 @Component({
@@ -8,6 +8,8 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './input-sample.component.html'
 })
 export class InputSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   value = 'Test';
   value1 = 'Test value';
   name = 'Lux';
@@ -36,8 +38,6 @@ export class InputSampleComponent implements AfterContentInit {
       field1: null // 'initial@value.com'
     }
   };
-
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

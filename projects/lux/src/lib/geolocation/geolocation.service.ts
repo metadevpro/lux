@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { DataSource } from '../datasource';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -8,6 +7,7 @@ import {
   map,
   switchMap
 } from 'rxjs/operators';
+import { DataSource } from '../datasource';
 import { GeoPoint } from '../map/geopoint';
 
 interface SearchResult {
@@ -20,6 +20,8 @@ interface SearchResult {
 
 @Injectable({ providedIn: 'root' })
 export class GeolocationService {
+  private http = inject(HttpClient);
+
   private debouncePeriodMs = 300; // ms
   private cacheSize = 20;
   private lastQueriesWithResults = new Map<string, SearchResult[]>();
@@ -27,7 +29,7 @@ export class GeolocationService {
   private currentSearch$: Subject<string>;
   private currentQuery$: Observable<SearchResult[]>;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.currentSearch$ = new Subject<string>();
 
     const typed$ = this.currentSearch$

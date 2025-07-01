@@ -1,26 +1,25 @@
 import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ElementRef,
+  EmbeddedViewRef,
   Injectable,
   Injector,
-  ComponentRef,
-  ComponentFactoryResolver,
-  ApplicationRef,
-  EmbeddedViewRef,
-  ElementRef,
-  TemplateRef
+  TemplateRef,
+  inject
 } from '@angular/core';
 
-import { PlacementValue, Placement } from './placement';
+import { Placement, PlacementValue } from './placement';
 import { LuxTooltipContext } from './tooltip-context';
 import { TooltipComponent } from './tooltip.component';
 import { TooltipContentRef } from './tooltop-content';
 
 @Injectable()
 export class TooltipService {
-  constructor(
-    private _injector: Injector,
-    private _crf: ComponentFactoryResolver,
-    private _applicationRef: ApplicationRef
-  ) {}
+  private _injector = inject(Injector);
+  private _crf = inject(ComponentFactoryResolver);
+  private _applicationRef = inject(ApplicationRef);
 
   appendComponentToBody(
     content: any,

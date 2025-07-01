@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -21,11 +21,12 @@ export interface BreadcrumbItem {
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
+  private route = inject(Router);
+  private activedRoute = inject(ActivatedRoute);
+
   public breadcrumbs: BreadcrumbItem[];
   private subs: Subscription[] = [];
   public imagePath = '../assets/img/arrow-forward.svg';
-
-  constructor(private route: Router, private activedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.subs.push(

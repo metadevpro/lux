@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { ModalService } from 'projects/lux/src/lib/modal/modal.service';
 import { PrismService } from '../core/services/prism-service.service';
 
@@ -9,12 +9,10 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './modal-sample.component.html'
 })
 export class ModalSampleComponent implements AfterContentInit {
-  message: string;
+  private modalService = inject(ModalService);
+  private prismService = inject(PrismService);
 
-  constructor(
-    private modalService: ModalService,
-    private prismService: PrismService
-  ) {}
+  message: string;
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

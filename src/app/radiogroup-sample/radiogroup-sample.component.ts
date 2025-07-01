@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { RadioItem } from 'projects/lux/src/lib/radiogroup/radiogroup.component';
 import { PrismService } from '../core/services/prism-service.service';
 
@@ -8,6 +8,8 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './radiogroup-sample.component.html'
 })
 export class RadiogroupSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   carBrands: RadioItem[] = [
     {
       name: 'radioHonda',
@@ -30,8 +32,6 @@ export class RadiogroupSampleComponent implements AfterContentInit {
 
   selectedValue: string;
   selectedValue2 = 'LAM';
-
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

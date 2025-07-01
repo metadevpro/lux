@@ -1,6 +1,6 @@
-import { Component, AfterContentInit } from '@angular/core';
-import { PrismService } from '../core/services/prism-service.service';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { GeoPoint } from 'projects/lux/src/lib/map/geopoint';
+import { PrismService } from '../core/services/prism-service.service';
 
 @Component({
   standalone: false,
@@ -9,6 +9,8 @@ import { GeoPoint } from 'projects/lux/src/lib/map/geopoint';
   templateUrl: './geolocation-sample.component.html'
 })
 export class GeolocationSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   name = 'Lux';
   disabled = true;
   readonly = true;
@@ -43,8 +45,6 @@ export class GeolocationSampleComponent implements AfterContentInit {
       field1: null // 'initial@value.com'
     }
   };
-
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
+  inject,
   Input,
   OnInit,
   Output,
@@ -59,6 +60,9 @@ import { GeolocationService } from './geolocation.service';
   ]
 })
 export class GeolocationComponent implements OnInit {
+  private modalService = inject(ModalService);
+  locationService = inject(GeolocationService);
+
   static idCounter = 0;
 
   @ViewChild('latitude', { static: true }) latitude: ElementRef;
@@ -205,11 +209,6 @@ export class GeolocationComponent implements OnInit {
 
   onChange = (value: any): void => {};
   onTouched = (): void => {};
-
-  constructor(
-    private modalService: ModalService,
-    public locationService: GeolocationService
-  ) {}
 
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {

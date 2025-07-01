@@ -1,4 +1,10 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  HostListener,
+  Input,
+  inject
+} from '@angular/core';
 
 import { PlacementValue } from './placement';
 import { TooltipService } from './tooltip.service';
@@ -11,6 +17,9 @@ import { TooltipContentRef } from './tooltop-content';
   selector: '[luxTooltip]'
 })
 export class LuxTooltipDirective {
+  private elHost = inject(ElementRef);
+  private tooltipService = inject(TooltipService);
+
   /** Tooltip title */
   @Input() luxTooltip: any;
 
@@ -21,11 +30,6 @@ export class LuxTooltipDirective {
   @Input() placement: PlacementValue;
 
   tooltipRef: TooltipContentRef;
-
-  constructor(
-    private elHost: ElementRef,
-    private tooltipService: TooltipService
-  ) {}
 
   @HostListener('mouseenter') onMouseEnter(): void {
     if (!this.tooltipRef) {

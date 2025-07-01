@@ -7,7 +7,8 @@ import {
   OnInit,
   Output,
   ViewChild,
-  forwardRef
+  forwardRef,
+  inject
 } from '@angular/core';
 import {
   AbstractControl,
@@ -48,6 +49,8 @@ import { RegexpService } from './regexp.service';
   ]
 })
 export class InputComponent implements OnInit, ControlValueAccessor, Validator {
+  regexpService = inject(RegexpService);
+
   static idCounter = 0;
 
   @ViewChild('input', { static: false }) input: ElementRef;
@@ -204,8 +207,6 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   onChange = (value): void => {};
   onTouched = (): void => {};
-
-  constructor(public regexpService: RegexpService) {}
 
   // ControlValueAccessor Interface implementation
   writeValue(value: any): void {

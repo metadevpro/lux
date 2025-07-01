@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { WINDOW } from '../window/window.service';
 
@@ -7,10 +7,14 @@ import { WINDOW } from '../window/window.service';
  */
 @Injectable({ providedIn: 'root' })
 export class VoiceRecognitionService {
+  private window = inject<Window>(WINDOW);
+
   public transcript: string;
   private speechService: any;
 
-  constructor(@Inject(WINDOW) private window: Window) {
+  constructor() {
+    const window = this.window;
+
     const speechServiceClass =
       (window as any).webkitSpeechRecognition ||
       (window as any).SpeechRecognition;

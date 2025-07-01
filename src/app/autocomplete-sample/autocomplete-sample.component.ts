@@ -1,4 +1,4 @@
-import { AfterContentInit, Component } from '@angular/core';
+import { AfterContentInit, Component, inject } from '@angular/core';
 import { DataSource, DataSourceItem } from 'projects/lux/src/lib/datasource';
 import { Observable, of } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -11,6 +11,8 @@ import { PrismService } from '../core/services/prism-service.service';
   templateUrl: './autocomplete-sample.component.html'
 })
 export class AutoCompleteSampleComponent implements AfterContentInit {
+  private prismService = inject(PrismService);
+
   value = 'ES';
   value2 = 'JP';
   value3 = null;
@@ -48,8 +50,6 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
   ];
 
   countryCodes = this.countries.map((it) => ({ key: it.key, label: it.key }));
-
-  constructor(private prismService: PrismService) {}
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
+  inject,
   Input,
   OnInit,
   Output,
@@ -51,6 +52,8 @@ export const LOST_FOCUS_TIME_WINDOW_MS = 200; // ms
 export class AutocompleteComponent
   implements ControlValueAccessor, Validator, OnInit, AfterViewInit
 {
+  private cd = inject(ChangeDetectorRef);
+
   static idCounter = 0;
 
   @ViewChild('i0', { static: true }) i0: ElementRef;
@@ -123,8 +126,6 @@ export class AutocompleteComponent
     search: string
   ) => Observable<DataSource<any, string>> = undefined;
   @Input() instance: any;
-
-  constructor(private cd: ChangeDetectorRef) {}
 
   // ControlValueAccessor Interface
   onChange = (value): void => {};
