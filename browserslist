@@ -14,7 +14,8 @@ not kaios > 0     # Exclude all KaiOS versions
 not and_qq > 0    # Exclude Tencent QQ Browser
 not and_uc > 0    # Exclude UC Browser on Android
 not android > 0   # Exclude legacy Android WebView
-not op_mini > 0   # Exclude Opera Mini
+not op_mini all   # Exclude Opera Mini
+not op_mob > 0    # Explicitly exclude Opera Mobile
 not opera > 0     # Exclude Opera (modern Opera covered by "last 2 versions")
 not samsung > 0   # Exclude older Samsung Internet versions
 
