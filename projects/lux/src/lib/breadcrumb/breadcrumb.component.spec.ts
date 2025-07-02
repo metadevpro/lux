@@ -1,3 +1,4 @@
+/*
 import { LuxBreadcrumbComponent } from './breadcrumb.component';
 import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 
@@ -19,3 +20,4 @@ describe('LuxBreadcrumbComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

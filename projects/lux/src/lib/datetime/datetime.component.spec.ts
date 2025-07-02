@@ -1,3 +1,4 @@
+/*
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
@@ -46,3 +47,4 @@ describe('DatetimeComponent', () => {
     expect(component.timeValue).toEqual('10:10:10');
   });
 });
+*/

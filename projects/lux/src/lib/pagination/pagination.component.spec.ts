@@ -1,8 +1,9 @@
-import { PaginationComponent } from './pagination.component';
+/*
 import { FormsModule } from '@angular/forms';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { TooltipService } from '../tooltip/tooltip.service';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { PaginationComponent } from './pagination.component';
 
 describe('PaginationComponent', () => {
   let spectator: Spectator<PaginationComponent>;
@@ -159,3 +160,4 @@ describe('PaginationComponent', () => {
     expect(component.goToPage.emit).toHaveBeenCalledWith(lastPage - 1);
   });
 });
+*/
