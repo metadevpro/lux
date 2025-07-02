@@ -1,16 +1,15 @@
-/*
 import {
   exists,
   hasValue,
-  normalizeDate,
-  isValidEmail,
-  isValidUrl,
   isValidColor,
+  isValidEmail,
   isValidNumber,
+  isValidRelativeUrl,
+  isValidUrl,
+  normalizeDate,
   numberOfDecimalDigits,
   numberOfWholeDigits,
-  roundToMultipleOf,
-  isValidRelativeUrl
+  roundToMultipleOf
 } from './helperFns';
 
 describe('exists', () => {
@@ -320,4 +319,3 @@ describe('roundToMultipleOf', () => {
     expect(roundToMultipleOf(1.23456789, 0.05)).toEqual(1.25);
   });
 });
-*/

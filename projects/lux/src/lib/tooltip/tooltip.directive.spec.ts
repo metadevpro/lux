@@ -1,6 +1,5 @@
-/*
 import { Component } from '@angular/core';
-import { createDirectiveFactory, SpectatorDirective } from '@ngneat/spectator';
+import { createDirectiveFactory } from '@ngneat/spectator';
 
 import { LuxTooltipDirective } from './tooltip.directive';
 import { TooltipService } from './tooltip.service';
@@ -403,4 +402,3 @@ describe('TooltipDirective', () => {
     expect(tooltip).toBeNull();
   });
 });
-*/

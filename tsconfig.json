@@ -20,6 +20,9 @@
       "dom"
     ],
     "paths": {
+      "src/*": [
+        "src/*"
+      ],
       "lux": [
         "dist/lux"
       ],

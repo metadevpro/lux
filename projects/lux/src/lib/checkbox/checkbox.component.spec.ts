@@ -1,6 +1,5 @@
-/*
 import { FormsModule } from '@angular/forms';
-import { byText, createComponentFactory, Spectator } from '@ngneat/spectator';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 
 import { CheckboxComponent } from './checkbox.component';
 
@@ -220,4 +219,3 @@ describe('CheckboxComponent', () => {
     expect(component.tabindexValue).toBe('0');
   });
 });
-*/

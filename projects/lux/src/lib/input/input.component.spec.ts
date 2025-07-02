@@ -1,10 +1,9 @@
-/*
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { InputComponent } from './input.component';
+import { byLabel, createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { TooltipService } from '../tooltip/tooltip.service';
-import { byLabel, createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { InputComponent } from './input.component';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -151,4 +150,3 @@ describe('InputComponent', () => {
     expect(hostComponent.valueNumber).toBe('0');
   });
 });
-*/

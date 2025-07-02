@@ -1,5 +1,3 @@
-/*
-import { ChangeDetectorRef } from '@angular/core';
 import { AutocompleteComponent, selectElement } from './autocomplete.component';
 
 describe('AutoCompleteComponent', () => {
@@ -64,4 +62,3 @@ describe('AutoCompleteComponent', () => {
     });
   });
 });
-*/

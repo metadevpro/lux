@@ -1,4 +1,3 @@
-/*
 import { FormsModule } from '@angular/forms';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
@@ -160,4 +159,3 @@ describe('PaginationComponent', () => {
     expect(component.goToPage.emit).toHaveBeenCalledWith(lastPage - 1);
   });
 });
-*/

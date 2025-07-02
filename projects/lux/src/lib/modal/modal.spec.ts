@@ -1,4 +1,3 @@
-/*
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, ViewChild, inject } from '@angular/core';
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
@@ -207,4 +206,3 @@ describe('Modal Tests', () => {
     });
   });
 });
-*/
