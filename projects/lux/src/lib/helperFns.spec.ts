@@ -122,13 +122,13 @@ describe('isValidColor', () => {
   });
 });
 
-describe('normalizeDate', () => {
+describe('normalizeDate', (): void => {
   it('should normalize ISO date strings to YYYY-MM-DD', () => {
     expect(normalizeDate('2021-05-01T12:34:56Z')).toBe('2021-05-01');
   });
 });
 
-describe('number functions', () => {
+describe('number functions', (): void => {
   it('should round to closest multiple', () => {
     expect(roundToMultipleOf(1.2345, 0.1)).toEqual(1.2);
   });
