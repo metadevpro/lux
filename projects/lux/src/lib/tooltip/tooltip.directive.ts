@@ -14,7 +14,8 @@ import { TooltipContentRef } from './tooltop-content';
  * Tooltip directive
  */
 @Directive({
-  selector: '[luxTooltip]'
+  selector: '[luxTooltip]',
+  providers: [TooltipService]
 })
 export class LuxTooltipDirective {
   private elHost = inject(ElementRef);

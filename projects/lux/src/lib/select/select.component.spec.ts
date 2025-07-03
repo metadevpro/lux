@@ -1,20 +1,14 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SelectComponent } from './select.component';
 
 describe('SelectComponent', () => {
-  let spectator: Spectator<SelectComponent>;
+  let fixture: ComponentFixture<SelectComponent>;
   let component: SelectComponent;
-  const createComponent = createComponentFactory({
-    component: SelectComponent,
-    imports: [FormsModule],
-    schemas: [NO_ERRORS_SCHEMA]
-  });
 
   beforeEach(() => {
-    spectator = createComponent();
-    component = spectator.component;
+    fixture = TestBed.createComponent(SelectComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {

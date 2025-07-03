@@ -1,20 +1,18 @@
-import { FormsModule } from '@angular/forms';
-import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapComponent } from './map.component';
 
 describe('MapComponent', () => {
+  let fixture: ComponentFixture<MapComponent>;
   let component: MapComponent;
-  let spectator: SpectatorRouting<MapComponent>;
-  const createComponent = createRoutingFactory({
-    component: MapComponent,
-    imports: [FormsModule],
-    params: {},
-    data: {}
-  });
 
-  beforeEach(() => {
-    spectator = createComponent();
-    component = spectator.component;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [MapComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(MapComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {

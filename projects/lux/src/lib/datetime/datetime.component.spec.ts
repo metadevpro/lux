@@ -1,22 +1,18 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DatetimeComponent } from './datetime.component';
 
 describe('DatetimeComponent', () => {
+  let fixture: ComponentFixture<DatetimeComponent>;
   let component: DatetimeComponent;
-  let spectator: SpectatorRouting<DatetimeComponent>;
-  const createComponent = createRoutingFactory({
-    component: DatetimeComponent,
-    imports: [FormsModule, HttpClientModule],
-    providers: [HttpClient],
-    params: {},
-    data: {}
-  });
 
-  beforeEach(() => {
-    spectator = createComponent();
-    component = spectator.component;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DatetimeComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(DatetimeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {

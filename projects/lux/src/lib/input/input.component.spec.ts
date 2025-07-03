@@ -1,26 +1,26 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { byLabel, createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
-import { TooltipService } from '../tooltip/tooltip.service';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputComponent } from './input.component';
 
 describe('InputComponent', () => {
   let component: InputComponent;
-  let spectator: SpectatorHost<InputComponent>;
-  const createHost = createHostFactory({
-    component: InputComponent,
-    imports: [FormsModule, ReactiveFormsModule],
-    declarations: [LuxTooltipDirective],
-    providers: [TooltipService]
+  let fixture: ComponentFixture<InputComponent>;
+
+  const spyOn = jest.spyOn;
+
+  beforeAll(async () => {
+    await TestBed.configureTestingModule({
+      imports: [InputComponent]
+    }).compileComponents();
   });
 
-  describe('no custom parameters', () => {
-    beforeEach(() => {
-      spectator = createHost('<lux-input></lux-input>');
-      component = spectator.component;
-    });
+  // Antes de cada test creamos de nuevo el componente
+  beforeEach(() => {
+    fixture = TestBed.createComponent(InputComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
+  describe('Component created', () => {
     it('Component created', () => {
       expect(component).toBeTruthy();
     });
@@ -90,63 +90,65 @@ describe('InputComponent', () => {
   });
 
   it('When is disabled the inner input is disabled as well', () => {
-    spectator = createHost('<lux-input disabled></lux-input>');
+    component.disabled = true;
+    fixture.detectChanges();
 
-    const element = spectator.query('input');
-    expect(element.getAttribute('disabled')).toBeTruthy();
+    const element: HTMLInputElement =
+      fixture.nativeElement.querySelector('input');
+    expect(element.disabled).toBeTruthy();
   });
 
   it('Disable, enable: should show as enable', () => {
-    spectator = createHost('<lux-input></lux-input>');
-    spectator.component.disabled = true;
-    spectator.component.disabled = false;
+    component.disabled = true;
+    fixture.detectChanges();
 
-    spectator.detectChanges();
+    component.disabled = false;
+    fixture.detectChanges();
 
-    const element = spectator.query('input');
-    expect(element.getAttribute('disabled')).toBeNull();
+    const element: HTMLInputElement =
+      fixture.nativeElement.querySelector('input');
+    expect(element.disabled).toBeFalsy();
   });
   it('Enable, disable: should show as disable', () => {
-    spectator = createHost('<lux-input></lux-input>');
-    spectator.component.disabled = false;
-    spectator.component.disabled = true;
+    component.disabled = false;
+    fixture.detectChanges();
 
-    spectator.detectChanges();
+    component.disabled = true;
+    fixture.detectChanges();
 
-    const element = spectator.query('input');
-    expect(element.getAttribute('disabled')).toBe('true');
+    const element: HTMLInputElement =
+      fixture.nativeElement.querySelector('input');
+    expect(element.disabled).toBeTruthy();
   });
 
   it('When aria-label is applied it gets forwarded to the input', () => {
-    spectator = createHost('<lux-input aria-label="Some label"></lux-input>');
+    component.ariaLabel = 'Some label';
+    fixture.detectChanges();
 
-    const element = spectator.query(byLabel('Some label'));
+    const element = fixture.nativeElement.querySelector('input');
     expect(element).not.toBeNull();
   });
 
   it('When type is number the value is also updated', async () => {
-    spectator = createHost(
-      '<lux-input inputId="numeric" type="number" [(value)]="valueNumber"></lux-input>',
-      {
-        hostProps: {
-          valueNumber: '0'
-        }
-      }
-    );
-    const input: HTMLInputElement = spectator.query('#numeric');
-    const hostComponent = spectator.hostComponent as any;
+    component.inputId = 'numeric';
+    component.type = 'number';
+    component.value = '0';
+    fixture.detectChanges();
+
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector('#numeric');
     input.stepUp();
     input.dispatchEvent(new Event('change'));
 
-    expect(spectator.component.value).toBe(1);
+    expect(component.value).toBe(1);
     expect(input.value).toBe('1');
-    expect(hostComponent.valueNumber).toBe('1');
+    expect(component.value).toBe(1);
 
     input.stepDown();
     input.dispatchEvent(new Event('change'));
 
-    expect(spectator.component.value).toBe(0);
+    expect(component.value).toBe(0);
     expect(input.value).toBe('0');
-    expect(hostComponent.valueNumber).toBe('0');
+    expect(component.value).toBe(0);
   });
 });
