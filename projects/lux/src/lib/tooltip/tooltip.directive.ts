@@ -15,6 +15,7 @@ import { TooltipContentRef } from './tooltop-content';
  */
 @Directive({
   selector: '[luxTooltip]',
+  standalone: true,
   providers: [TooltipService]
 })
 export class LuxTooltipDirective {
@@ -34,7 +35,15 @@ export class LuxTooltipDirective {
 
   @HostListener('mouseenter') onMouseEnter(): void {
     if (!this.tooltipRef) {
-      this.tooltipRef = this.show(this.content, this.elHost, this.placement);
+      // Use luxTooltip if provided, otherwise use content
+      const tooltipContent = this.luxTooltip || this.content;
+      if (tooltipContent) {
+        this.tooltipRef = this.show(
+          tooltipContent,
+          this.elHost,
+          this.placement
+        );
+      }
     }
   }
 
