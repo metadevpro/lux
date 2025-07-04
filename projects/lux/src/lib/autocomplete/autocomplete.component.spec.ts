@@ -1,12 +1,16 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AutocompleteComponent, selectElement } from './autocomplete.component';
 
 describe('AutoCompleteComponent', () => {
-  let sut: AutocompleteComponent;
+  let fixture: ComponentFixture<AutocompleteComponent>;
+  let component: AutocompleteComponent;
 
   beforeEach(() => {
-    sut = new AutocompleteComponent();
+    fixture = TestBed.createComponent(AutocompleteComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
+
   describe('selectElement()', () => {
     it('should return null if empty', () => {
       expect(selectElement([], 'abc')).toEqual(null);

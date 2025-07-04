@@ -1,11 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createComponentFactory } from '@ngneat/spectator';
 
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   const createComponent = createComponentFactory({
     component: AppComponent,
+    imports: [RouterTestingModule],
     schemas: [NO_ERRORS_SCHEMA]
   });
 

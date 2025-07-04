@@ -88,14 +88,11 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles/styles.scss"],
-            "scripts": []
+            "jestConfig": "jest.config.js",
+            "codeCoverage": true,
+            "browsers": ["ChromeHeadlessCI"]
           }
         },
         "lint": {

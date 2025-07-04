@@ -1,16 +1,15 @@
-import { PaginationComponent } from './pagination.component';
 import { FormsModule } from '@angular/forms';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { TooltipService } from '../tooltip/tooltip.service';
-import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { PaginationComponent } from './pagination.component';
 
 describe('PaginationComponent', () => {
   let spectator: Spectator<PaginationComponent>;
   let component: PaginationComponent;
   const createComponent = createComponentFactory({
     component: PaginationComponent,
-    imports: [FormsModule],
-    declarations: [PaginationComponent, LuxTooltipDirective],
+    imports: [FormsModule, LuxTooltipDirective, PaginationComponent],
     providers: [TooltipService]
   });
 
@@ -133,19 +132,19 @@ describe('PaginationComponent', () => {
   });
 
   it('Should emit goToPage 3', () => {
-    spyOn(component.goToPage, 'emit');
+    jest.spyOn(component.goToPage, 'emit');
     component.onPage(3);
     expect(component.goToPage.emit).toHaveBeenCalledWith(3);
   });
 
   it('Should emit goToPage 0', () => {
-    spyOn(component.goToPage, 'emit');
+    jest.spyOn(component.goToPage, 'emit');
     component.onFirst();
     expect(component.goToPage.emit).toHaveBeenCalledWith(0);
   });
 
   it('Should emit go Last Page', () => {
-    spyOn(component.goToPage, 'emit');
+    jest.spyOn(component.goToPage, 'emit');
     component.paginationInfo = {
       total: 20,
       page: 7,

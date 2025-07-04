@@ -1,18 +1,19 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { LuxBreadcrumbComponent } from './breadcrumb.component';
-import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 
 describe('LuxBreadcrumbComponent', () => {
   let component: LuxBreadcrumbComponent;
-  let spectator: SpectatorRouting<LuxBreadcrumbComponent>;
-  const createComponent = createRoutingFactory({
-    component: LuxBreadcrumbComponent,
-    params: {},
-    data: {}
-  });
+  let fixture: ComponentFixture<LuxBreadcrumbComponent>;
 
-  beforeEach(() => {
-    spectator = createComponent();
-    component = spectator.component;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LuxBreadcrumbComponent, RouterTestingModule]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(LuxBreadcrumbComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
