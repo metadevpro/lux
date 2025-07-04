@@ -18,7 +18,7 @@ import { TooltipService } from './tooltip.service';
 class TooltipHostComponent {}
 
 @Component({
-  selector: 'app-tooltip-test',
+  selector: 'lux-tooltip-test',
   standalone: true,
   template: `
     <span class="lux-tooltip" style="transition: opacity 200ms">
@@ -63,6 +63,7 @@ describe('LuxTooltipDirective', () => {
 
   it('should display tooltip with string content', fakeAsync(() => {
     const fixture = setupWithTemplate(
+      // eslint-disable-next-line quotes
       `<button [luxTooltip]="'Custom Tooltip'">Hover me</button>`
     );
     const button = fixture.nativeElement.querySelector('button');
@@ -75,6 +76,7 @@ describe('LuxTooltipDirective', () => {
   }));
 
   it('should not display tooltip when no content is provided', fakeAsync(() => {
+    // eslint-disable-next-line quotes
     const fixture = setupWithTemplate(`<button luxTooltip>Hover me</button>`);
     const button = fixture.nativeElement.querySelector('button');
     button.dispatchEvent(new MouseEvent('mouseenter'));
@@ -87,6 +89,7 @@ describe('LuxTooltipDirective', () => {
   ['top', 'bottom', 'left', 'right'].forEach((placement) => {
     it(`should display tooltip with placement ${placement}`, fakeAsync(() => {
       const fixture = setupWithTemplate(
+        // eslint-disable-next-line quotes
         `<button [luxTooltip]="'Placed Tooltip'" [placement]="'${placement}'">Hover me</button>`
       );
       const button = fixture.nativeElement.querySelector('button');
@@ -134,6 +137,7 @@ describe('LuxTooltipDirective', () => {
 
   it('should hide tooltip on mouseleave', fakeAsync(() => {
     const fixture = setupWithTemplate(
+      // eslint-disable-next-line quotes
       `<button [luxTooltip]="'Will Hide'">Hover me</button>`
     );
     const button = fixture.nativeElement.querySelector('button');
