@@ -215,9 +215,10 @@ export class AutocompleteComponent
       return;
     }
 
-    const container = this.appendTo === 'body'
-      ? this.document.body
-      : this.document.querySelector(this.appendTo);
+    const container =
+      this.appendTo === 'body'
+        ? this.document.body
+        : this.document.querySelector(this.appendTo);
 
     if (container) {
       this.appendToContainer = container as HTMLElement;
@@ -240,12 +241,25 @@ export class AutocompleteComponent
     }
 
     const inputRect = this.i0.nativeElement.getBoundingClientRect();
-    const containerRect = this.appendToContainer.getBoundingClientRect();
     const dropdown = this.completeDiv.nativeElement;
 
+    let top: number;
+    let left: number;
 
-    const top = inputRect.bottom - containerRect.top + this.appendToContainer.scrollTop;
-    const left = inputRect.left - containerRect.left + this.appendToContainer.scrollLeft;
+    if (this.appendToContainer === this.document.body) {
+      // For body, use viewport coordinates + scroll
+      top = inputRect.bottom + window.scrollY;
+      left = inputRect.left + window.scrollX;
+    } else {
+      // For custom containers, calculate relative position
+      const containerRect = this.appendToContainer.getBoundingClientRect();
+      top =
+        inputRect.bottom -
+        containerRect.top +
+        this.appendToContainer.scrollTop;
+      left =
+        inputRect.left - containerRect.left + this.appendToContainer.scrollLeft;
+    }
 
     dropdown.style.top = `${top}px`;
     dropdown.style.left = `${left}px`;
