@@ -179,6 +179,35 @@
       </lux-autocomplete>
     </div>
   </div>
+
+  <div>
+    <h3>AppendTo Sample</h3>
+    <p>
+      Using <code>appendTo="body"</code> to append the dropdown to the body. 
+      Useful when the autocomplete is inside a container with overflow hidden.
+    </p>
+    <pre class="language-html" rel="html">
+      <code class="language-html">
+&lt;lux-autocomplete
+    [dataSource]="countries"
+    [(ngModel)]="value6"
+    appendTo="body"&gt;
+&lt;/lux-autocomplete&gt;
+      </code>
+    </pre>
+    <div class="content p50">
+      <label for="country6">Autocomplete with appendTo body:</label>
+      <lux-autocomplete
+        inputId="country6"
+        name="country6"
+        [(ngModel)]="value6"
+        [dataSource]="countries"
+        appendTo="body"
+      >
+      </lux-autocomplete>
+      <p>Current value is: {{ value6 }} - {{ getLabel(value6) }}.</p>
+    </div>
+  </div>
 </div>
 
 <h3>Adding new items</h3>
@@ -265,6 +294,12 @@ myPlaces = [ 'ES', 'IT', 'CR' ];
         is to pick another one)
       </li>
     </ul>
+  </li>
+  <li>
+    <span class="inline">appendTo</span> Optional container to append the dropdown.
+    When set to 'body', the dropdown will be inserted into the body with position 
+    absolute and auto-calculated positioning. Also accepts any CSS selector. 
+    Useful when the autocomplete is inside a container with overflow hidden.
   </li>
 </ul>
 <h3>Events</h3>

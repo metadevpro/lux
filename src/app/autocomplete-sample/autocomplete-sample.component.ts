@@ -18,6 +18,7 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
   value3 = null;
   value4 = 'JP';
   value5 = 'ES';
+  value6 = 'FR';
   disabled1 = false;
   disabled2 = false;
   countryCode = 'JP';

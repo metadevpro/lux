@@ -70,11 +70,16 @@ $autocomplete-input-padding: var(
   max-height: 10rem;
   overflow: auto;
   z-index: 2;
+  background-color: white;
 
   ul {
     list-style: none;
     margin: 0rem;
     padding: 0rem;
+  }
+
+  &.lux-completion-list-appended {
+    position: absolute;
   }
 }
 .showCompletion {
