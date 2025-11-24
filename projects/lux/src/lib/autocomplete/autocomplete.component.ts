@@ -240,11 +240,12 @@ export class AutocompleteComponent
     }
 
     const inputRect = this.i0.nativeElement.getBoundingClientRect();
+    const containerRect = this.appendToContainer.getBoundingClientRect();
     const dropdown = this.completeDiv.nativeElement;
 
-    // Usar coordenadas absolutas del viewport + scroll
-    const top = inputRect.bottom + window.scrollY;
-    const left = inputRect.left + window.scrollX;
+
+    const top = inputRect.bottom - containerRect.top + this.appendToContainer.scrollTop;
+    const left = inputRect.left - containerRect.left + this.appendToContainer.scrollLeft;
 
     dropdown.style.top = `${top}px`;
     dropdown.style.left = `${left}px`;
