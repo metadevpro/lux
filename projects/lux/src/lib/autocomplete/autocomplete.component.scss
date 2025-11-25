@@ -76,6 +76,10 @@ $autocomplete-input-padding: var(
     margin: 0rem;
     padding: 0rem;
   }
+
+  &.lux-completion-list-appended {
+    position: absolute;
+  }
 }
 .showCompletion {
   visibility: visible;

@@ -7,10 +7,12 @@ import {
   forwardRef,
   inject,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -50,9 +52,11 @@ export const LOST_FOCUS_TIME_WINDOW_MS = 200; // ms
   ]
 })
 export class AutocompleteComponent
-  implements ControlValueAccessor, Validator, OnInit, AfterViewInit
+  implements ControlValueAccessor, Validator, OnInit, AfterViewInit, OnDestroy
 {
   private cd = inject(ChangeDetectorRef);
+  private document = inject(DOCUMENT);
+  private appendToContainer: HTMLElement | null = null;
 
   static idCounter = 0;
 
@@ -85,6 +89,8 @@ export class AutocompleteComponent
    *  true: keep open (when the action most likely is to pick another one).
    */
   @Input() keepOpenAfterDelete = false;
+  /** Append dropdown to body or custom selector. Uses position absolute. */
+  @Input() appendTo?: string;
 
   @Input()
   get value(): any {
@@ -197,13 +203,78 @@ export class AutocompleteComponent
   }
   ngAfterViewInit(): void {
     this.setSameWidth();
+    this.handleAppendTo();
+  }
+
+  ngOnDestroy(): void {
+    this.removeDropdownFromContainer();
+  }
+
+  private handleAppendTo(): void {
+    if (!this.appendTo) {
+      return;
+    }
+
+    const container =
+      this.appendTo === 'body'
+        ? this.document.body
+        : this.document.querySelector(this.appendTo);
+
+    if (container) {
+      this.appendToContainer = container as HTMLElement;
+      this.appendToContainer.appendChild(this.completeDiv.nativeElement);
+    }
+  }
+
+  private removeDropdownFromContainer(): void {
+    if (this.appendToContainer && this.completeDiv) {
+      const dropdown = this.completeDiv.nativeElement;
+      if (dropdown.parentElement === this.appendToContainer) {
+        this.appendToContainer.removeChild(dropdown);
+      }
+    }
+  }
+
+  private updateDropdownPosition(): void {
+    if (!this.appendTo || !this.appendToContainer) {
+      return;
+    }
+
+    const inputRect = this.i0.nativeElement.getBoundingClientRect();
+    const dropdown = this.completeDiv.nativeElement;
+
+    let top: number;
+    let left: number;
+
+    if (this.appendToContainer === this.document.body) {
+      // For body, use viewport coordinates + scroll
+      top = inputRect.bottom + window.scrollY;
+      left = inputRect.left + window.scrollX;
+    } else {
+      // For custom containers, calculate relative position
+      const containerRect = this.appendToContainer.getBoundingClientRect();
+      top =
+        inputRect.bottom -
+        containerRect.top +
+        this.appendToContainer.scrollTop;
+      left =
+        inputRect.left - containerRect.left + this.appendToContainer.scrollLeft;
+    }
+
+    dropdown.style.top = `${top}px`;
+    dropdown.style.left = `${left}px`;
+    dropdown.style.width = `${inputRect.width}px`;
   }
   onInputResized(): void {
     this.setSameWidth();
   }
   private setSameWidth(): void {
-    const width = this.i0.nativeElement.getBoundingClientRect().width;
-    this.completeDiv.nativeElement.style.width = `${width}px`;
+    if (this.appendTo) {
+      this.updateDropdownPosition();
+    } else {
+      const width = this.i0.nativeElement.getBoundingClientRect().width;
+      this.completeDiv.nativeElement.style.width = `${width}px`;
+    }
   }
 
   onKeydown(event: KeyboardEvent, label: string): void {
@@ -347,6 +418,9 @@ export class AutocompleteComponent
   toggleCompletion(show: boolean, label: string): void {
     if (show && !this.disabled) {
       this.i0.nativeElement.focus();
+      if (this.appendTo) {
+        this.updateDropdownPosition();
+      }
       this.showCompletionList(label);
     } else {
       this.showCompletion = false;
