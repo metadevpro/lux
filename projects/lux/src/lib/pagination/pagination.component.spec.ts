@@ -32,12 +32,12 @@ describe('PaginationComponent', () => {
   });
 
   it('With 10 items and 2 items per page, should have 5 pages', () => {
-    component.paginationInfo = {
+    spectator.setInput('paginationInfo', {
       total: 10,
       page: 0,
       pageSize: 2,
       pagesToShow: 10
-    };
+    });
     spectator.detectChanges();
     let numberButtons = spectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons
@@ -77,12 +77,12 @@ describe('PaginationComponent', () => {
   });
 
   it('With 10 items and show 3 items per page, it should be 4 pages', () => {
-    component.paginationInfo = {
+    spectator.setInput('paginationInfo', {
       total: 10,
       page: 0,
       pageSize: 3,
       pagesToShow: 8
-    };
+    });
     spectator.detectChanges();
     let numberButtons = spectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons

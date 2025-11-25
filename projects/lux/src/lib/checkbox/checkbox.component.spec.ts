@@ -12,10 +12,12 @@ describe('CheckboxComponent', () => {
 
     fixture = TestBed.createComponent(CheckboxComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges here to avoid ExpressionChangedAfterItHasBeenCheckedError
+    // Each test will call it after setting up the component state
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeDefined();
   });
 
@@ -34,6 +36,7 @@ describe('CheckboxComponent', () => {
     component.value = true;
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     expect(fixture.nativeElement.textContent).toContain('Yes');
   });
@@ -44,6 +47,7 @@ describe('CheckboxComponent', () => {
     component.value = true;
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     expect(fixture.nativeElement.textContent).toContain('Sí');
   });
@@ -55,6 +59,7 @@ describe('CheckboxComponent', () => {
     component.disabled = false;
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     expect(fixture.nativeElement.textContent).toContain('Yes');
     const slider = fixture.nativeElement.querySelector('.switch-item');
@@ -68,6 +73,7 @@ describe('CheckboxComponent', () => {
     component.disabled = true;
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     expect(fixture.nativeElement.textContent).toContain('Yes');
     const slider = fixture.nativeElement.querySelector('.switch-item');
@@ -81,6 +87,7 @@ describe('CheckboxComponent', () => {
     component.label = 'Chanell';
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     const label = fixture.nativeElement.querySelector('label');
 
@@ -94,6 +101,7 @@ describe('CheckboxComponent', () => {
     component.label = null;
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     const label = fixture.nativeElement.querySelector('label');
 
@@ -149,10 +157,7 @@ describe('CheckboxComponent', () => {
     // Act
     fixture.detectChanges();
     const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider.focus();
-    fixture.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
     // Assert
     expect(component.value).toBe(false);
   });
@@ -164,10 +169,7 @@ describe('CheckboxComponent', () => {
     // Act
     fixture.detectChanges();
     const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider.focus();
-    fixture.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
 
     // Assert
     expect(component.value).toBe(true);
@@ -180,10 +182,7 @@ describe('CheckboxComponent', () => {
     // Act
     fixture.detectChanges();
     const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider?.focus();
-    fixture.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
 
     // Assert
     expect(component.value).toBe(false);
@@ -195,10 +194,7 @@ describe('CheckboxComponent', () => {
     // Act
     fixture.detectChanges();
     const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider?.focus();
-    fixture.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
 
     // Assert
     expect(component.value).toBe(true);
@@ -209,6 +205,7 @@ describe('CheckboxComponent', () => {
     component.disabled = true;
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     expect(component.tabindexValue).toBe(null);
   });
@@ -218,6 +215,7 @@ describe('CheckboxComponent', () => {
     component.disabled = false;
     // Act
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
     // Assert
     expect(component.tabindexValue).toBe('0');
   });

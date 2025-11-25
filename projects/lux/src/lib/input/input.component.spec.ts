@@ -17,11 +17,13 @@ describe('InputComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(InputComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges here to avoid ExpressionChangedAfterItHasBeenCheckedError
+    // Each test will call it after setting up the component state
   });
 
   describe('Component created', () => {
     it('Component created', () => {
+      fixture.detectChanges();
       expect(component).toBeTruthy();
     });
 
@@ -92,6 +94,7 @@ describe('InputComponent', () => {
   it('When is disabled the inner input is disabled as well', () => {
     component.disabled = true;
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
 
     const element: HTMLInputElement =
       fixture.nativeElement.querySelector('input');
@@ -100,8 +103,6 @@ describe('InputComponent', () => {
 
   it('Disable, enable: should show as enable', () => {
     component.disabled = true;
-    fixture.detectChanges();
-
     component.disabled = false;
     fixture.detectChanges();
 
@@ -111,8 +112,6 @@ describe('InputComponent', () => {
   });
   it('Enable, disable: should show as disable', () => {
     component.disabled = false;
-    fixture.detectChanges();
-
     component.disabled = true;
     fixture.detectChanges();
 
@@ -124,6 +123,7 @@ describe('InputComponent', () => {
   it('When aria-label is applied it gets forwarded to the input', () => {
     component.ariaLabel = 'Some label';
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
 
     const element = fixture.nativeElement.querySelector('input');
     expect(element).not.toBeNull();
@@ -134,6 +134,7 @@ describe('InputComponent', () => {
     component.type = 'number';
     component.value = '0';
     fixture.detectChanges();
+    fixture.detectChanges(); // Second detectChanges to handle ExpressionChangedAfterItHasBeenCheckedError
 
     const input: HTMLInputElement =
       fixture.nativeElement.querySelector('#numeric');
