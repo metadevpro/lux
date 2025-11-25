@@ -72,6 +72,7 @@
     "@angular/compiler-cli": "21.0.0",
     "@angular/language-service": "21.0.0",
     "@ngneat/spectator": "^22.1.0",
+    "@standard-schema/spec": "^1.0.0",
     "@types/jasmine": "~5.1.7",
     "@types/jasminewd2": "~2.0.13",
     "@types/jest": "^30.0.0",
