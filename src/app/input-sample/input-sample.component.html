@@ -329,10 +329,12 @@
       #f1Val="ngModel"
     >
     </lux-input>
-    <div *ngIf="!f1Val.valid">
-      Debug: {{ f1Val.errors | json }} touched: {{ f1Val.touched }} dirty:
-      {{ f1Val.dirty }}
-    </div>
+    @if (!f1Val.valid) {
+      <div>
+        Debug: {{ f1Val.errors | json }} touched: {{ f1Val.touched }} dirty:
+        {{ f1Val.dirty }}
+      </div>
+    }
     <button [disabled]="!form.valid">Fake sumbit</button>
     <div>Form values: {{ f1.formValues | json }}</div>
   </form>

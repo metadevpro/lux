@@ -129,10 +129,12 @@
       #field1Val="ngModel"
     >
     </lux-geolocation>
-    <div *ngIf="!field1Val.valid">
-      Debug: {{ field1Val.errors | json }} touched: {{ field1Val.touched }} dirty:
-      {{ field1Val.dirty }}
-    </div>
+    @if (!field1Val.valid) {
+      <div>
+        Debug: {{ field1Val.errors | json }} touched: {{ field1Val.touched }} dirty:
+        {{ field1Val.dirty }}
+      </div>
+    }
     <button [disabled]="!form.valid">Fake sumbit</button>
     <div>Form values: {{ sandboxForm.formValues | json }}</div>
   </form>

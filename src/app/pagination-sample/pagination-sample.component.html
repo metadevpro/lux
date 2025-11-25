@@ -31,19 +31,22 @@
         <th></th>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users$ | async">
-          <td>{{ user.userName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-        </tr>
+        @for (user of users$ | async; track user.userName) {
+          <tr>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+          </tr>
+        }
       </tbody>
     </table>
-    <lux-pagination
-      *ngIf="users$ | async"
-      (goToPage)="goToPage($event)"
-      (pageSizeChange)="reloadPage($event)"
-      [paginationInfo]="paginationInfo"
-    ></lux-pagination>
+    @if (users$ | async) {
+      <lux-pagination
+        (goToPage)="goToPage($event)"
+        (pageSizeChange)="reloadPage($event)"
+        [paginationInfo]="paginationInfo"
+      ></lux-pagination>
+    }
   </div>
 </div>
 
