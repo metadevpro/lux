@@ -2,7 +2,10 @@
 
 ## Next
 
-- Migration to ng20 + standalone components [PR #222](https://github.com/metadevpro/lux/pull/222)
+## Version 0.31.1
+
+- Migration to ng20 + standalone components [#222](https://github.com/metadevpro/lux/pull/222)
+- Allow configuring to which element autocomplete lists are appended to [#230](https://github.com/metadevpro/lux/pull/230)
 
 ## Version 0.31.0
 
