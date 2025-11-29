@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
+  inject,
   Input,
   OnInit,
   Output,
@@ -105,7 +106,7 @@ export class CheckboxComponent
 
   @Output() valueChange = new EventEmitter<boolean>();
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  private cdr = inject(ChangeDetectorRef);
 
   // ControlValueAccessor Interface
   onChange = (value): void => {};
