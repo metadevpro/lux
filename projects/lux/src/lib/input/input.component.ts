@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -50,6 +51,7 @@ import { RegexpService } from './regexp.service';
 })
 export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   regexpService = inject(RegexpService);
+  private cdr = inject(ChangeDetectorRef);
 
   static idCounter = 0;
 
@@ -61,7 +63,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   dirty = false;
   lastErrors: ValidationErrors | null = null;
 
-  private _disabled: string | boolean;
+  private _disabled: string | boolean = false;
   private _value: any = '';
   private _type: string;
   private _placeholder: string;
@@ -119,6 +121,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   set disabled(v: string | boolean) {
     v = typeof v === 'string' ? true : v;
     this._disabled = v;
+    this.cdr.markForCheck();
   }
   get disabled(): string | boolean {
     return this._disabled;

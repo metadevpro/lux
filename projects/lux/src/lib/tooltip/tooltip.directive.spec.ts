@@ -121,9 +121,10 @@ describe('LuxTooltipDirective', () => {
 
   it('should display tooltip using component as content', fakeAsync(() => {
     const componentType = TooltipTestComponent;
-    const fixture = setupWithTemplate(`
-      <button [luxTooltip]="componentType">Hover me</button>
-    `);
+    TestBed.overrideComponent(TooltipHostComponent, {
+      set: { template: `<button [luxTooltip]="componentType">Hover me</button>` }
+    });
+    const fixture = TestBed.createComponent(TooltipHostComponent);
     (fixture.componentInstance as any).componentType = componentType;
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button');
