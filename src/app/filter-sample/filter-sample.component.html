@@ -39,11 +39,13 @@
         <th>Last Name</th>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users$ | async">
+        @for (user of users$ | async; track user.userName) {
+        <tr>
           <td>{{ user.userName }}</td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
         </tr>
+        }
       </tbody>
     </table>
   </div>
@@ -76,11 +78,13 @@
         <th>Last Name</th>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users2$ | async">
+        @for (user of users2$ | async; track user.userName) {
+        <tr>
           <td>{{ user.userName }}</td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
         </tr>
+        }
       </tbody>
     </table>
   </div>
@@ -110,11 +114,13 @@
         <th>Last Name</th>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users3$ | async">
+        @for (user of users3$ | async; track user.userName) {
+        <tr>
           <td>{{ user.userName }}</td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
         </tr>
+        }
       </tbody>
     </table>
   </div>
@@ -144,11 +150,13 @@
       <th>Last Name</th>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users4$ | async">
+      @for (user of users4$ | async; track user.userName) {
+      <tr>
         <td>{{ user.userName }}</td>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
       </tr>
+      }
     </tbody>
   </table>
 </div>

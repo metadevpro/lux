@@ -53,10 +53,9 @@ export class LuxModalWindowComponent
   @HostBinding('attr.aria-describedby') get hostAriaDescribedBy(): string {
     return this.ariaDescribedBy;
   }
-  @HostListener('click', ['$event.target']) backdropClick(
-    btn: HTMLElement
-  ): void {
-    if (this.backdrop === true && this._elRef.nativeElement === btn) {
+  @HostListener('click', ['$event']) backdropClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (this.backdrop === true && this._elRef.nativeElement === target) {
       this.dismiss(ModalDismissReasons.BackdropClick);
     }
   }

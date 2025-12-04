@@ -329,10 +329,12 @@
       #f1Val="ngModel"
     >
     </lux-input>
-    <div *ngIf="!f1Val.valid">
+    @if (!f1Val.valid) {
+    <div>
       Debug: {{ f1Val.errors | json }} touched: {{ f1Val.touched }} dirty:
       {{ f1Val.dirty }}
     </div>
+    }
     <button [disabled]="!form.valid">Fake sumbit</button>
     <div>Form values: {{ f1.formValues | json }}</div>
   </form>
@@ -354,7 +356,10 @@
     <span class="inline">aria-label</span> Custom aria label forwarded to the
     input.
   </li>
-  <li><span class="inline">pattern</span> (Optional) The regular expression that the value must follow.</li>
+  <li>
+    <span class="inline">pattern</span> (Optional) The regular expression that
+    the value must follow.
+  </li>
   <li><span class="inline">cols</span> For textareas: number of columns.</li>
   <li><span class="inline">rows</span> For textareas: number of rows.</li>
   <li>
