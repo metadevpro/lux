@@ -122,11 +122,9 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "karmaConfig": "projects/lux/karma.conf.js",
-            "tsConfig": "projects/lux/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "jestConfig": "jest.config.ts"
           }
         },
         "lint": {
