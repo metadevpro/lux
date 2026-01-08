@@ -122,33 +122,39 @@ describe('InputComponent', () => {
   });
 
   it('When aria-label is applied it gets forwarded to the input', () => {
-    component.ariaLabel = 'Some label';
-    fixture.detectChanges();
+    // Create a fresh fixture for this test to avoid detectChanges in beforeEach
+    const testFixture = TestBed.createComponent(InputComponent);
+    const testComponent = testFixture.componentInstance;
+    testComponent.ariaLabel = 'Some label';
+    testFixture.detectChanges();
 
-    const element = fixture.nativeElement.querySelector('input');
+    const element = testFixture.nativeElement.querySelector('input');
     expect(element).not.toBeNull();
   });
 
   it('When type is number the value is also updated', async () => {
-    component.inputId = 'numeric';
-    component.type = 'number';
-    component.value = '0';
-    fixture.detectChanges();
+    // Create a fresh fixture for this test to avoid detectChanges in beforeEach
+    const testFixture = TestBed.createComponent(InputComponent);
+    const testComponent = testFixture.componentInstance;
+    testComponent.inputId = 'numeric';
+    testComponent.type = 'number';
+    testComponent.value = '0';
+    testFixture.detectChanges();
 
     const input: HTMLInputElement =
-      fixture.nativeElement.querySelector('#numeric');
+      testFixture.nativeElement.querySelector('#numeric');
     input.stepUp();
     input.dispatchEvent(new Event('change'));
 
-    expect(component.value).toBe(1);
+    expect(testComponent.value).toBe(1);
     expect(input.value).toBe('1');
-    expect(component.value).toBe(1);
+    expect(testComponent.value).toBe(1);
 
     input.stepDown();
     input.dispatchEvent(new Event('change'));
 
-    expect(component.value).toBe(0);
+    expect(testComponent.value).toBe(0);
     expect(input.value).toBe('0');
-    expect(component.value).toBe(0);
+    expect(testComponent.value).toBe(0);
   });
 });

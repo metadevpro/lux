@@ -32,18 +32,22 @@ describe('PaginationComponent', () => {
   });
 
   it('With 10 items and 2 items per page, should have 5 pages', () => {
-    component.paginationInfo = {
-      total: 10,
-      page: 0,
-      pageSize: 2,
-      pagesToShow: 10
-    };
-    spectator.detectChanges();
-    let numberButtons = spectator.queryAll('a.button-pagination');
+    const testSpectator = createComponent({
+      props: {
+        paginationInfo: {
+          total: 10,
+          page: 0,
+          pageSize: 2,
+          pagesToShow: 10
+        }
+      }
+    });
+    testSpectator.detectChanges();
+    let numberButtons = testSpectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons
     expect(numberButtons.length).toEqual(3);
-    expect(component.pages.length).toEqual(5);
-    expect(component.totalPages).toEqual(5);
+    expect(testSpectator.component.pages.length).toEqual(5);
+    expect(testSpectator.component.totalPages).toEqual(5);
   });
 
   it('With 10 items, in page 3, and 2 items per page, it should not be last page', () => {
@@ -77,18 +81,22 @@ describe('PaginationComponent', () => {
   });
 
   it('With 10 items and show 3 items per page, it should be 4 pages', () => {
-    component.paginationInfo = {
-      total: 10,
-      page: 0,
-      pageSize: 3,
-      pagesToShow: 8
-    };
-    spectator.detectChanges();
-    let numberButtons = spectator.queryAll('a.button-pagination');
+    const testSpectator = createComponent({
+      props: {
+        paginationInfo: {
+          total: 10,
+          page: 0,
+          pageSize: 3,
+          pagesToShow: 8
+        }
+      }
+    });
+    testSpectator.detectChanges();
+    let numberButtons = testSpectator.queryAll('a.button-pagination');
     numberButtons = numberButtons.slice(2, numberButtons.length - 2); // ignore arrow buttons
     expect(numberButtons.length).toEqual(2);
-    expect(component.pages.length).toEqual(4);
-    expect(component.totalPages).toEqual(4);
+    expect(testSpectator.component.pages.length).toEqual(4);
+    expect(testSpectator.component.totalPages).toEqual(4);
   });
 
   it('With 20 items, in page 1 and 2 items per page, Next ellipsis should be displayed', () => {
