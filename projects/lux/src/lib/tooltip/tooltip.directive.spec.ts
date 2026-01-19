@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { fakeAsync, tick } from '@angular/core/testing';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { TooltipComponent } from './tooltip.component';
 import { LuxTooltipDirective } from './tooltip.directive';
@@ -24,6 +23,14 @@ describe.skip('LuxTooltipDirective', () => {
     providers: [TooltipService]
   });
 
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   function getTooltipFromBody(
     spectator: SpectatorHost<any>
   ): HTMLElement | null {
@@ -32,7 +39,7 @@ describe.skip('LuxTooltipDirective', () => {
     );
   }
 
-  it('should display tooltip with string content', fakeAsync(() => {
+  it('should display tooltip with string content', () => {
     spectator = createHost(
       // eslint-disable-next-line quotes
       `<button [luxTooltip]="'Custom Tooltip'">Hover me</button>`
@@ -41,13 +48,13 @@ describe.skip('LuxTooltipDirective', () => {
     expect(button).toBeTruthy();
     button!.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
-    tick(500);
+    jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
     expect(tooltip).toBeTruthy();
     expect(tooltip?.textContent).toContain('Custom Tooltip');
-  }));
+  });
 
-  it('should not display tooltip when no content is provided', fakeAsync(() => {
+  it('should not display tooltip when no content is provided', () => {
     // eslint-disable-next-line quotes
     spectator = createHost(`<button luxTooltip>Hover me</button>`);
     spectator.detectChanges();
@@ -55,13 +62,13 @@ describe.skip('LuxTooltipDirective', () => {
     expect(button).toBeTruthy();
     button!.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
-    tick(500);
+    jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
     expect(tooltip).toBeNull();
-  }));
+  });
 
   ['top', 'bottom', 'left', 'right'].forEach((placement) => {
-    it(`should display tooltip with placement ${placement}`, fakeAsync(() => {
+    it(`should display tooltip with placement ${placement}`, () => {
       spectator = createHost(
         // eslint-disable-next-line quotes
         `<button [luxTooltip]="'Placed Tooltip'" [placement]="'${placement}'">Hover me</button>`
@@ -71,15 +78,15 @@ describe.skip('LuxTooltipDirective', () => {
       expect(button).toBeTruthy();
       button!.dispatchEvent(new MouseEvent('mouseenter'));
       spectator.detectChanges();
-      tick(500);
+      jest.advanceTimersByTime(500);
       const tooltip = getTooltipFromBody(spectator);
       expect(tooltip).toBeTruthy();
       expect(tooltip?.textContent).toContain('Placed Tooltip');
       expect(tooltip?.classList).toContain(`lux-tooltip-${placement}`);
-    }));
+    });
   });
 
-  it('should display tooltip using TemplateRef', fakeAsync(() => {
+  it('should display tooltip using TemplateRef', () => {
     spectator = createHost(`
       <ng-template #tpl>
         <span class="lux-tooltip">Template Tooltip</span>
@@ -91,13 +98,13 @@ describe.skip('LuxTooltipDirective', () => {
     expect(button).toBeTruthy();
     button!.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
-    tick(500);
+    jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
     expect(tooltip).toBeTruthy();
     expect(tooltip?.textContent).toContain('Template Tooltip');
-  }));
+  });
 
-  it('should display tooltip using component as content', fakeAsync(() => {
+  it('should display tooltip using component as content', () => {
     spectator = createHost(
       '<button [luxTooltip]="componentType">Hover me</button>',
       {
@@ -111,13 +118,13 @@ describe.skip('LuxTooltipDirective', () => {
     expect(button).toBeTruthy();
     button!.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
-    tick(500);
+    jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
     expect(tooltip).toBeTruthy();
     expect(tooltip?.textContent).toContain('Tooltip Component');
-  }));
+  });
 
-  it('should hide tooltip on mouseleave', fakeAsync(() => {
+  it('should hide tooltip on mouseleave', () => {
     spectator = createHost(
       // eslint-disable-next-line quotes
       `<button [luxTooltip]="'Will Hide'">Hover me</button>`
@@ -127,11 +134,11 @@ describe.skip('LuxTooltipDirective', () => {
     expect(button).toBeTruthy();
     button!.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
-    tick(500);
+    jest.advanceTimersByTime(500);
     expect(getTooltipFromBody(spectator)).toBeTruthy();
     button!.dispatchEvent(new MouseEvent('mouseleave'));
     spectator.detectChanges();
-    tick(500);
+    jest.advanceTimersByTime(500);
     expect(getTooltipFromBody(spectator)).toBeNull();
-  }));
+  });
 });

@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { FormsModule } from '@angular/forms';
 import { GeolocationComponent } from './geolocation.component';
@@ -8,7 +7,7 @@ describe('GeolocationComponent', () => {
   let spectator: Spectator<GeolocationComponent>;
   const createComponent = createComponentFactory({
     component: GeolocationComponent,
-    imports: [FormsModule, HttpClientModule]
+    imports: [FormsModule]
   });
 
   beforeEach(() => {
