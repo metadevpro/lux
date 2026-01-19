@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   ActivatedRoute,
@@ -16,7 +16,7 @@ export interface BreadcrumbItem {
 }
 @Component({
   selector: 'lux-breadcrumb',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss']
 })

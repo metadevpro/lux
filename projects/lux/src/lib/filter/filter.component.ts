@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -21,7 +21,7 @@ import { debounceTime } from 'rxjs/operators';
   selector: 'lux-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

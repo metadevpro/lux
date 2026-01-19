@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -18,7 +18,7 @@ import { FOCUS, getFocusableBoundaryElements } from './util';
 
 @Component({
   selector: 'lux-modal-window',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="modal-dialog" role="document">
       <div class="modal-content"><ng-content></ng-content></div>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -20,7 +20,7 @@ let sequencer = 0;
 
 @Component({
   selector: 'lux-select',
-  imports: [CommonModule, InputComponent],
+  imports: [InputComponent],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   providers: [
