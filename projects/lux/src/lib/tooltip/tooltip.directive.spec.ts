@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { TooltipComponent } from './tooltip.component';
 import { LuxTooltipDirective } from './tooltip.directive';
@@ -21,16 +20,13 @@ describe.skip('LuxTooltipDirective', () => {
   let spectator: SpectatorHost<LuxTooltipDirective>;
   const createHost = createHostFactory({
     component: LuxTooltipDirective,
-    imports: [
-      NoopAnimationsModule,
-      TooltipTestComponent,
-      TooltipComponent,
-      LuxTooltipDirective
-    ],
+    imports: [TooltipTestComponent, TooltipComponent, LuxTooltipDirective],
     providers: [TooltipService]
   });
 
-  function getTooltipFromBody(spectator: SpectatorHost<any>): HTMLElement | null {
+  function getTooltipFromBody(
+    spectator: SpectatorHost<any>
+  ): HTMLElement | null {
     return spectator.element.ownerDocument.body.querySelector(
       'span.lux-tooltip'
     );
