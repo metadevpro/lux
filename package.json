@@ -33,14 +33,13 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage lux",
-    "test:coverage2": "echo Skip",
     "test:travis": "ng test lux --watch=false --code-coverage --browsers ChromeHeadlessCI",
     "tdd": "ng test lux",
     "lint": "ng lint",
     "lint:lux": "ng lint lux",
     "publish-doc": "cd scripts && ./publish-lux-doc-s3.sh",
-    "ci": "npm run lint:lux && npm run test:coverage2 && ng build lux --configuration production",
-    "npm-publish": "npm run lint:lux && npm run test:coverage2 && ng build lux --configuration production && npm publish ./dist/lux --access public"
+    "ci": "npm run lint:lux && npm run test:coverage && ng build lux --configuration production",
+    "npm-publish": "npm run lint:lux && npm run test:coverage && ng build lux --configuration production && npm publish ./dist/lux --access public"
   },
   "private": true,
   "dependencies": {
