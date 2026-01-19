@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   forwardRef,
+  inject,
   Input,
   OnInit,
   Output,
@@ -50,7 +52,7 @@ export class CheckboxComponent
   get lang(): string {
     return this._lang;
   }
-  private internalValue: boolean;
+  private internalValue: boolean = false;
   @Input()
   get value(): boolean {
     return this.internalValue;
@@ -66,6 +68,7 @@ export class CheckboxComponent
     if (!initialAndEmpty) {
       this.valueChange.emit(v);
     }
+    this.cdr.markForCheck();
   }
 
   get tabindexValue(): string {
@@ -85,6 +88,7 @@ export class CheckboxComponent
     }
     this._disabled = v;
     this.syncModel();
+    this.cdr.markForCheck();
   }
   @Input() inputId: string;
 
@@ -102,7 +106,7 @@ export class CheckboxComponent
 
   @Output() valueChange = new EventEmitter<boolean>();
 
-  constructor() {}
+  private cdr = inject(ChangeDetectorRef);
 
   // ControlValueAccessor Interface
   onChange = (value): void => {};
@@ -133,7 +137,9 @@ export class CheckboxComponent
       : `${this.name || 'checkbox'}$${CheckboxComponent.idCounter++}`;
   }
   ngAfterViewInit(): void {
-    this.syncModel();
+    setTimeout(() => {
+      this.syncModel();
+    });
   }
 
   clicked(): void {
