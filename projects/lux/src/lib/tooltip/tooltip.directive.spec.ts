@@ -103,7 +103,7 @@ describe.skip('LuxTooltipDirective', () => {
 
   it('should display tooltip using component as content', fakeAsync(() => {
     spectator = createHost(
-      `<button [luxTooltip]="componentType">Hover me</button>`,
+      '<button [luxTooltip]="componentType">Hover me</button>',
       {
         hostProps: {
           componentType: TooltipTestComponent
