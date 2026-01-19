@@ -1,4 +1,3 @@
-import { waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { byLabel, createHostFactory, Spectator } from '@ngneat/spectator';
 
@@ -30,7 +29,7 @@ describe('FilterComponent', () => {
       expect(button).toBeFalsy();
     });
 
-    it('it should launch search after keypress + debounce time', waitForAsync(() => {
+    it('it should launch search after keypress + debounce time', (done) => {
       // Arrange
       component.searchOnType = true;
       component.debounce = 520; // ms
@@ -38,67 +37,68 @@ describe('FilterComponent', () => {
 
       const input = spectator.query('input');
       const t0 = Date.now();
-      let t1 = null;
 
       const sub = component.searchValueChange.subscribe((val) => {
-        t1 = Date.now();
+        const t1 = Date.now();
 
         // Assert
         const delay = t1 - t0;
         expect(delay).toBeGreaterThanOrEqual(component.debounce);
 
         sub.unsubscribe();
+        done();
       });
 
       // Act
       spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
       spectator.detectChanges();
-    }));
-    it('by default debounce time is 300 ms', waitForAsync(() => {
+    });
+
+    it('by default debounce time is 300 ms', (done) => {
       // Arrange
       component.searchOnType = true;
       const input = spectator.query('input');
       const t0 = Date.now();
-      let t1 = null;
 
       const sub = component.searchValueChange.subscribe((val) => {
-        t1 = Date.now();
+        const t1 = Date.now();
 
         // Assert
         const delay = t1 - t0;
         expect(delay).toBeGreaterThanOrEqual(component.debounce);
 
         sub.unsubscribe();
+        done();
       });
 
       // Act
       spectator.detectChanges();
       spectator.dispatchKeyboardEvent(input, 'keyup', 'A');
       spectator.detectChanges();
-    }));
+    });
 
-    it('enter should trigger search immediately', waitForAsync(() => {
+    it('enter should trigger search immediately', (done) => {
       // Arrange
       component.searchOnType = true;
       const input = spectator.query('input');
       const t0 = Date.now();
-      let t1 = null;
 
       const sub = component.searchValueChange.subscribe((val) => {
-        t1 = Date.now();
+        const t1 = Date.now();
 
         // Assert
         const delay = t1 - t0;
         expect(delay).toBeLessThan(10);
 
         sub.unsubscribe();
+        done();
       });
 
       // Act
       spectator.detectChanges();
       component.keyup(new KeyboardEvent('keyup', { key: 'Enter' }), '');
       spectator.detectChanges();
-    }));
+    });
   });
 
   it('should show the search button when searchOntype is false', () => {
@@ -107,27 +107,26 @@ describe('FilterComponent', () => {
     expect(button).toBeTruthy();
   });
 
-  it('clear() should trigger search inmediatly', waitForAsync(() => {
+  it('clear() should trigger search inmediatly', (done) => {
     // Arrange
     spectator = createHost('<lux-filter [searchOnType]="true" [searchValue]="\'ABC\'"></lux-filter>') as any;
     component = spectator.component;
-    const input = spectator.query('input');
     const t0 = Date.now();
-    let t1 = null;
 
     const sub = component.searchValueChange.subscribe((val) => {
-      t1 = Date.now();
+      const t1 = Date.now();
 
       // Assert
       const delay = t1 - t0;
       expect(delay).toBeLessThan(10);
 
       sub.unsubscribe();
+      done();
     });
 
     // Act
     component.clear();
-  }));
+  });
 
   it('sets aria-label in the input correctly', () => {
     spectator = createHost(

@@ -1,14 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { AutocompleteComponent, selectElement } from './autocomplete.component';
 
 describe('AutoCompleteComponent', () => {
-  let fixture: ComponentFixture<AutocompleteComponent>;
+  let spectator: Spectator<AutocompleteComponent>;
   let component: AutocompleteComponent;
+  const createComponent = createComponentFactory({
+    component: AutocompleteComponent
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AutocompleteComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   describe('selectElement()', () => {
@@ -71,7 +73,7 @@ describe('AutoCompleteComponent', () => {
     it('should not append dropdown if appendTo is not set', () => {
       component.appendTo = undefined;
       component.ngAfterViewInit();
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
       expect(dropdown.parentElement).not.toBe(document.body);
@@ -80,7 +82,7 @@ describe('AutoCompleteComponent', () => {
     it('should append dropdown to body when appendTo="body"', () => {
       component.appendTo = 'body';
       component.ngAfterViewInit();
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
       expect(dropdown.parentElement).toBe(document.body);
@@ -88,7 +90,7 @@ describe('AutoCompleteComponent', () => {
 
     it('should apply lux-completion-list-appended class when appendTo is set', () => {
       component.appendTo = 'body';
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
       expect(dropdown.classList.contains('lux-completion-list-appended')).toBe(true);
@@ -96,7 +98,7 @@ describe('AutoCompleteComponent', () => {
 
     it('should not apply lux-completion-list-appended class when appendTo is not set', () => {
       component.appendTo = undefined;
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
       expect(dropdown.classList.contains('lux-completion-list-appended')).toBe(false);
@@ -107,7 +109,7 @@ describe('AutoCompleteComponent', () => {
       component.ngAfterViewInit();
       component.showCompletion = true;
       component.toggleCompletion(true, '');
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
       expect(dropdown.style.top).toBeTruthy();
@@ -118,7 +120,7 @@ describe('AutoCompleteComponent', () => {
     it('should remove dropdown from container on destroy', () => {
       component.appendTo = 'body';
       component.ngAfterViewInit();
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
       expect(dropdown.parentElement).toBe(document.body);

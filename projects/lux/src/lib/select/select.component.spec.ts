@@ -1,14 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { SelectComponent } from './select.component';
 
 describe('SelectComponent', () => {
-  let fixture: ComponentFixture<SelectComponent>;
+  let spectator: Spectator<SelectComponent>;
   let component: SelectComponent;
+  const createComponent = createComponentFactory({
+    component: SelectComponent
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

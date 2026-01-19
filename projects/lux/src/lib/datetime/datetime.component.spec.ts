@@ -1,18 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { DatetimeComponent } from './datetime.component';
 
 describe('DatetimeComponent', () => {
-  let fixture: ComponentFixture<DatetimeComponent>;
+  let spectator: Spectator<DatetimeComponent>;
   let component: DatetimeComponent;
+  const createComponent = createComponentFactory({
+    component: DatetimeComponent
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [DatetimeComponent]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(DatetimeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

@@ -1,18 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { MapComponent } from './map.component';
 
 describe('MapComponent', () => {
-  let fixture: ComponentFixture<MapComponent>;
+  let spectator: Spectator<MapComponent>;
   let component: MapComponent;
+  const createComponent = createComponentFactory({
+    component: MapComponent
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MapComponent]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(MapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

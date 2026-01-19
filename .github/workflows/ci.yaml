@@ -1,8 +1,10 @@
 name: Pull Request Actions
 
 on:
+  push:
+    branches:
+      - dev
   pull_request:
-    branches: [devel]
 
 jobs:
   ci:
@@ -11,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: npm install --force
+        run: npm install
       - name: Lint lux
         run: npm run lint:lux
       - name: Lint app

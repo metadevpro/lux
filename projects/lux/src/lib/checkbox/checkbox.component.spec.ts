@@ -1,18 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { CheckboxComponent } from './checkbox.component';
 
 describe('CheckboxComponent', () => {
   let component: CheckboxComponent;
-  let fixture: ComponentFixture<CheckboxComponent>;
+  let spectator: Spectator<CheckboxComponent>;
+  const createComponent = createComponentFactory({
+    component: CheckboxComponent
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CheckboxComponent]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(CheckboxComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {
@@ -23,9 +21,9 @@ describe('CheckboxComponent', () => {
     // Arrange
     component.value = false;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
-    expect(fixture.nativeElement.textContent).toContain('No');
+    expect(spectator.element.textContent).toContain('No');
   });
 
   it('should render Yes when value = true', () => {
@@ -33,9 +31,9 @@ describe('CheckboxComponent', () => {
     component.lang = 'en';
     component.value = true;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
-    expect(fixture.nativeElement.textContent).toContain('Yes');
+    expect(spectator.element.textContent).toContain('Yes');
   });
 
   it('should render Sí when value = true and lang=es', () => {
@@ -43,9 +41,9 @@ describe('CheckboxComponent', () => {
     component.lang = 'es';
     component.value = true;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
-    expect(fixture.nativeElement.textContent).toContain('Sí');
+    expect(spectator.element.textContent).toContain('Sí');
   });
 
   it('should render slider when enabled', () => {
@@ -54,10 +52,10 @@ describe('CheckboxComponent', () => {
     component.value = true;
     component.disabled = false;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
-    expect(fixture.nativeElement.textContent).toContain('Yes');
-    const slider = fixture.nativeElement.querySelector('.switch-item');
+    expect(spectator.element.textContent).toContain('Yes');
+    const slider = spectator.query('.switch-item');
     expect(slider).toBeTruthy();
   });
 
@@ -67,10 +65,10 @@ describe('CheckboxComponent', () => {
     component.value = true;
     component.disabled = true;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
-    expect(fixture.nativeElement.textContent).toContain('Yes');
-    const slider = fixture.nativeElement.querySelector('.switch-item');
+    expect(spectator.element.textContent).toContain('Yes');
+    const slider = spectator.query('.switch-item');
     expect(slider).toBeNull();
   });
 
@@ -80,22 +78,22 @@ describe('CheckboxComponent', () => {
     component.value = true;
     component.label = 'Chanell';
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
-    const label = fixture.nativeElement.querySelector('label');
+    const label = spectator.query('label');
 
     expect(label).toBeTruthy();
-    expect(label.textContent).toContain('Chanell');
-    expect(fixture.nativeElement.textContent).toContain('Yes');
+    expect(label?.textContent).toContain('Chanell');
+    expect(spectator.element.textContent).toContain('Yes');
   });
 
   it('should render no label if no label property is present', () => {
     // Arrange
     component.label = null;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
-    const label = fixture.nativeElement.querySelector('label');
+    const label = spectator.query('label');
 
     expect(label).toBeFalsy();
   });
@@ -105,10 +103,10 @@ describe('CheckboxComponent', () => {
     component.value = true;
     component.disabled = false;
     // Act
-    fixture.detectChanges();
-    const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider.click();
-    fixture.detectChanges();
+    spectator.detectChanges();
+    const slider = spectator.query('.switch-item');
+    spectator.click(slider!);
+    spectator.detectChanges();
 
     // Assert
     expect(component.value).toBe(false);
@@ -119,10 +117,10 @@ describe('CheckboxComponent', () => {
     component.value = false;
     component.disabled = false;
     // Act
-    fixture.detectChanges();
-    const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider.click();
-    fixture.detectChanges();
+    spectator.detectChanges();
+    const slider = spectator.query('.switch-item');
+    spectator.click(slider!);
+    spectator.detectChanges();
 
     // Assert
     expect(component.value).toBe(true);
@@ -133,9 +131,9 @@ describe('CheckboxComponent', () => {
     component.value = true;
     component.disabled = true;
     // Act
-    fixture.detectChanges();
-    const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider?.click();
+    spectator.detectChanges();
+    const slider = spectator.query('.switch-item');
+    if (slider) spectator.click(slider);
 
     // Assert
     expect(component.value).toBe(true);
@@ -147,12 +145,12 @@ describe('CheckboxComponent', () => {
     component.value = true;
     component.disabled = false;
     // Act
-    fixture.detectChanges();
-    const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider.focus();
-    fixture.detectChanges();
+    spectator.detectChanges();
+    const slider = spectator.query<HTMLElement>('.switch-item');
+    slider?.focus();
+    spectator.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
     expect(component.value).toBe(false);
   });
@@ -162,12 +160,12 @@ describe('CheckboxComponent', () => {
     component.value = false;
     component.disabled = false;
     // Act
-    fixture.detectChanges();
-    const slider = fixture.nativeElement.querySelector('.switch-item');
-    slider.focus();
-    fixture.detectChanges();
+    spectator.detectChanges();
+    const slider = spectator.query<HTMLElement>('.switch-item');
+    slider?.focus();
+    spectator.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     // Assert
     expect(component.value).toBe(true);
@@ -178,12 +176,12 @@ describe('CheckboxComponent', () => {
     component.value = false;
     component.disabled = true;
     // Act
-    fixture.detectChanges();
-    const slider = fixture.nativeElement.querySelector('.switch-item');
+    spectator.detectChanges();
+    const slider = spectator.query<HTMLElement>('.switch-item');
     slider?.focus();
-    fixture.detectChanges();
+    spectator.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     // Assert
     expect(component.value).toBe(false);
@@ -193,12 +191,12 @@ describe('CheckboxComponent', () => {
     component.value = true;
     component.disabled = true;
     // Act
-    fixture.detectChanges();
-    const slider = fixture.nativeElement.querySelector('.switch-item');
+    spectator.detectChanges();
+    const slider = spectator.query<HTMLElement>('.switch-item');
     slider?.focus();
-    fixture.detectChanges();
+    spectator.detectChanges();
     component.onKey({ key: ' ', preventDefault: () => {} } as KeyboardEvent);
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     // Assert
     expect(component.value).toBe(true);
@@ -208,7 +206,7 @@ describe('CheckboxComponent', () => {
     // Arrange
     component.disabled = true;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
     expect(component.tabindexValue).toBe(null);
   });
@@ -217,7 +215,7 @@ describe('CheckboxComponent', () => {
     // Arrange
     component.disabled = false;
     // Act
-    fixture.detectChanges();
+    spectator.detectChanges();
     // Assert
     expect(component.tabindexValue).toBe('0');
   });
