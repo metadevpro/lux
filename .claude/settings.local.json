@@ -5,7 +5,10 @@
       "Bash(npm install:*)",
       "Bash(npm test:*)",
       "Bash(npx jest:*)",
-      "Bash(npm search:*)"
+      "Bash(npm search:*)",
+      "Bash(echo:*)",
+      "Bash(node:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []
