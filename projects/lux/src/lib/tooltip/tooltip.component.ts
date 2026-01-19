@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { LuxTooltipContext } from './tooltip-context';
 
@@ -7,7 +7,7 @@ import { LuxTooltipContext } from './tooltip-context';
  */
 @Component({
   selector: 'lux-tooltip',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <span class="lux-tooltip" style="transition: opacity 200ms">{{
       context.message

@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -18,7 +18,7 @@ import { FOCUS, getFocusableBoundaryElements } from './util';
 
 @Component({
   selector: 'lux-modal-window',
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="modal-dialog" role="document">
       <div class="modal-content"><ng-content></ng-content></div>
@@ -53,9 +53,8 @@ export class LuxModalWindowComponent
   @HostBinding('attr.aria-describedby') get hostAriaDescribedBy(): string {
     return this.ariaDescribedBy;
   }
-  @HostListener('click', ['$event.target']) backdropClick(
-    btn: HTMLElement
-  ): void {
+  @HostListener('click', ['$event']) backdropClick(event): void {
+    const btn: HTMLElement = event.target;
     if (this.backdrop === true && this._elRef.nativeElement === btn) {
       this.dismiss(ModalDismissReasons.BackdropClick);
     }

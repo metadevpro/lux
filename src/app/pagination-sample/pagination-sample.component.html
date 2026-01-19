@@ -6,21 +6,21 @@
 <div>
   <pre class="language-typescript" rel="typescript">
     <code class="language-typescript">
-  const paginationInfo = &#123;
-    pageSize: 2,
-    page: 0,
-    pagesToShow: 3,
-    total: 15
-  &#125;;</code>
+      const paginationInfo = &#123;
+      pageSize: 2,
+      page: 0,
+      pagesToShow: 3,
+      total: 15
+    &#125;;</code>
   </pre>
 
   <pre class="language-html" rel="html">
-      <code class="language-html">
-  &lt;lux-pagination *ngIf="users$ | async"
-                  (goToPage)="goToPage($event)"
-                  (pageSizeChange)="reloadPage($event)"
-                  [paginationInfo]="paginationInfo"&gt;
-  &lt;/lux-pagination&gt;</code>
+    <code class="language-html">
+      &lt;lux-pagination *ngIf="users$ | async"
+      (goToPage)="goToPage($event)"
+      (pageSizeChange)="reloadPage($event)"
+      [paginationInfo]="paginationInfo"&gt;
+    &lt;/lux-pagination&gt;</code>
   </pre>
   <div class="content">
     <table class="all-width">
@@ -31,19 +31,22 @@
         <th></th>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users$ | async">
-          <td>{{ user.userName }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-        </tr>
+        @for (user of users$ | async; track user) {
+          <tr>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+          </tr>
+        }
       </tbody>
     </table>
-    <lux-pagination
-      *ngIf="users$ | async"
-      (goToPage)="goToPage($event)"
-      (pageSizeChange)="reloadPage($event)"
-      [paginationInfo]="paginationInfo"
-    ></lux-pagination>
+    @if (users$ | async) {
+      <lux-pagination
+        (goToPage)="goToPage($event)"
+        (pageSizeChange)="reloadPage($event)"
+        [paginationInfo]="paginationInfo"
+      ></lux-pagination>
+    }
   </div>
 </div>
 

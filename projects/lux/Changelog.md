@@ -2,6 +2,11 @@
 
 ## Next
 
+## Version 1.0.0
+
+- Migrated to ng21.
+- Adopted Semver. Use version 21.0.0 to pair mayor version with Angular.
+
 ## Version 0.32.0
 
 - Migration to ng20 + standalone components [#222](https://github.com/metadevpro/lux/pull/222)

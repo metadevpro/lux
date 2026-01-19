@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
-  imports: [CommonModule],
+  imports: [],
   selector: 'lux-modal-backdrop',
   template: ''
 })

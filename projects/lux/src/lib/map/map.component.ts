@@ -12,7 +12,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { OpenLayerLoaderService } from '../geolocation/openlayer-loader.service';
 
-import { CommonModule } from '@angular/common';
+
 import { GeoPoint } from './geopoint';
 
 // @dynamic
@@ -22,7 +22,7 @@ declare const ol: any;
   selector: 'lux-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  imports: [CommonModule]
+  imports: []
 })
 export class MapComponent implements OnInit, AfterViewInit {
   static idCounter = 0;

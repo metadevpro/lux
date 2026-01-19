@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { VERSION } from 'src/environments/version';
@@ -6,7 +6,7 @@ import { LuxBreadcrumbComponent } from '../../projects/lux/src/lib/breadcrumb/br
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, RouterOutlet, LuxBreadcrumbComponent],
+  imports: [RouterModule, RouterOutlet, LuxBreadcrumbComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
