@@ -3,8 +3,7 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": ["jest", "node"],
-    "typeRoots": ["node_modules/@types", "node_modules"],
-    "moduleResolution": "node"
+    "typeRoots": ["node_modules/@types", "node_modules"]
   },
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "projects/lux/**/*.spec.ts", "projects/lux/**/*.d.ts"]
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "src/**/*.ts", "projects/lux/**/*.spec.ts", "projects/lux/**/*.d.ts", "projects/lux/**/*.ts"]
 }
