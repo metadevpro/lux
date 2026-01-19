@@ -1,23 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { InputComponent } from './input.component';
 
 describe('InputComponent', () => {
   let component: InputComponent;
-  let fixture: ComponentFixture<InputComponent>;
+  let spectator: Spectator<InputComponent>;
 
   const spyOn = jest.spyOn;
-
-  beforeAll(async () => {
-    await TestBed.configureTestingModule({
-      imports: [InputComponent]
-    }).compileComponents();
+  const createComponent = createComponentFactory({
+    component: InputComponent
   });
 
   // Antes de cada test creamos de nuevo el componente
   beforeEach(() => {
-    fixture = TestBed.createComponent(InputComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   describe('Component created', () => {
@@ -91,58 +87,54 @@ describe('InputComponent', () => {
 
   it('When is disabled the inner input is disabled as well', () => {
     component.disabled = true;
-    fixture.detectChanges();
+    spectator.detectChanges();
 
-    const element: HTMLInputElement =
-      fixture.nativeElement.querySelector('input');
+    const element: HTMLInputElement = spectator.query('input');
     expect(element.disabled).toBeTruthy();
   });
 
   it('Disable, enable: should show as enable', () => {
     component.disabled = true;
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     component.disabled = false;
-    fixture.detectChanges();
+    spectator.detectChanges();
 
-    const element: HTMLInputElement =
-      fixture.nativeElement.querySelector('input');
+    const element: HTMLInputElement = spectator.query('input');
     expect(element.disabled).toBeFalsy();
   });
   it('Enable, disable: should show as disable', () => {
     component.disabled = false;
-    fixture.detectChanges();
+    spectator.detectChanges();
 
     component.disabled = true;
-    fixture.detectChanges();
+    spectator.detectChanges();
 
-    const element: HTMLInputElement =
-      fixture.nativeElement.querySelector('input');
+    const element: HTMLInputElement = spectator.query('input');
     expect(element.disabled).toBeTruthy();
   });
 
   it('When aria-label is applied it gets forwarded to the input', () => {
-    // Create a fresh fixture for this test to avoid detectChanges in beforeEach
-    const testFixture = TestBed.createComponent(InputComponent);
-    const testComponent = testFixture.componentInstance;
+    // Create a fresh spectator for this test to avoid detectChanges in beforeEach
+    const testSpectator = createComponent();
+    const testComponent = testSpectator.component;
     testComponent.ariaLabel = 'Some label';
-    testFixture.detectChanges();
+    testSpectator.detectChanges();
 
-    const element = testFixture.nativeElement.querySelector('input');
+    const element = testSpectator.query('input');
     expect(element).not.toBeNull();
   });
 
   it('When type is number the value is also updated', async () => {
-    // Create a fresh fixture for this test to avoid detectChanges in beforeEach
-    const testFixture = TestBed.createComponent(InputComponent);
-    const testComponent = testFixture.componentInstance;
+    // Create a fresh spectator for this test to avoid detectChanges in beforeEach
+    const testSpectator = createComponent();
+    const testComponent = testSpectator.component;
     testComponent.inputId = 'numeric';
     testComponent.type = 'number';
     testComponent.value = '0';
-    testFixture.detectChanges();
+    testSpectator.detectChanges();
 
-    const input: HTMLInputElement =
-      testFixture.nativeElement.querySelector('#numeric');
+    const input: HTMLInputElement = testSpectator.query('#numeric');
     input.stepUp();
     input.dispatchEvent(new Event('change'));
 
