@@ -15,7 +15,7 @@ import { TooltipService } from './tooltip.service';
 })
 class TooltipTestComponent {}
 
-describe.skip('LuxTooltipDirective', () => {
+describe('LuxTooltipDirective', () => {
   let spectator: SpectatorHost<LuxTooltipDirective>;
   const createHost = createHostFactory({
     component: LuxTooltipDirective,
@@ -28,6 +28,9 @@ describe.skip('LuxTooltipDirective', () => {
   });
 
   afterEach(() => {
+    document
+      .querySelectorAll('span.lux-tooltip')
+      .forEach((el) => el.remove());
     jest.useRealTimers();
   });
 
@@ -44,9 +47,9 @@ describe.skip('LuxTooltipDirective', () => {
       // eslint-disable-next-line quotes
       `<button [luxTooltip]="'Custom Tooltip'">Hover me</button>`
     );
-    const button = spectator.query('button');
+    const button = spectator.element;
     expect(button).toBeTruthy();
-    button!.dispatchEvent(new MouseEvent('mouseenter'));
+    button.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
     jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
@@ -58,9 +61,9 @@ describe.skip('LuxTooltipDirective', () => {
     // eslint-disable-next-line quotes
     spectator = createHost(`<button luxTooltip>Hover me</button>`);
     spectator.detectChanges();
-    const button = spectator.query('button');
+    const button = spectator.element;
     expect(button).toBeTruthy();
-    button!.dispatchEvent(new MouseEvent('mouseenter'));
+    button.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
     jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
@@ -73,9 +76,9 @@ describe.skip('LuxTooltipDirective', () => {
         `<button [luxTooltip]="'Placed Tooltip'" [placement]="'${placement}'">Hover me</button>`
       );
       spectator.detectChanges();
-      const button = spectator.query('button');
+      const button = spectator.element;
       expect(button).toBeTruthy();
-      button!.dispatchEvent(new MouseEvent('mouseenter'));
+      button.dispatchEvent(new MouseEvent('mouseenter'));
       spectator.detectChanges();
       jest.advanceTimersByTime(500);
       const tooltip = getTooltipFromBody(spectator);
@@ -93,9 +96,9 @@ describe.skip('LuxTooltipDirective', () => {
       <button [luxTooltip]="tpl">Hover me</button>
     `);
     spectator.detectChanges();
-    const button = spectator.query('button');
+    const button = spectator.element;
     expect(button).toBeTruthy();
-    button!.dispatchEvent(new MouseEvent('mouseenter'));
+    button.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
     jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
@@ -113,9 +116,9 @@ describe.skip('LuxTooltipDirective', () => {
       }
     );
     spectator.detectChanges();
-    const button = spectator.query('button');
+    const button = spectator.element;
     expect(button).toBeTruthy();
-    button!.dispatchEvent(new MouseEvent('mouseenter'));
+    button.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
     jest.advanceTimersByTime(500);
     const tooltip = getTooltipFromBody(spectator);
@@ -129,13 +132,13 @@ describe.skip('LuxTooltipDirective', () => {
       `<button [luxTooltip]="'Will Hide'">Hover me</button>`
     );
     spectator.detectChanges();
-    const button = spectator.query('button');
+    const button = spectator.element;
     expect(button).toBeTruthy();
-    button!.dispatchEvent(new MouseEvent('mouseenter'));
+    button.dispatchEvent(new MouseEvent('mouseenter'));
     spectator.detectChanges();
     jest.advanceTimersByTime(500);
     expect(getTooltipFromBody(spectator)).toBeTruthy();
-    button!.dispatchEvent(new MouseEvent('mouseleave'));
+    button.dispatchEvent(new MouseEvent('mouseleave'));
     spectator.detectChanges();
     jest.advanceTimersByTime(500);
     expect(getTooltipFromBody(spectator)).toBeNull();

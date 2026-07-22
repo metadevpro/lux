@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable, of, shareReplay } from 'rxjs';
 
-let openLayersIsInstalled = false;
+let loading$: Observable<boolean> | null = null;
 
 @Injectable({ providedIn: 'root' })
 export class OpenLayerLoaderService {
@@ -10,19 +10,17 @@ export class OpenLayerLoaderService {
       return of(true);
     }
 
-    const openLayerJsUrl = 'https://openlayers.org/en/v5.3.0/build/ol.js';
-    const openLayerCssUrl = 'https://openlayers.org/en/v5.3.0/css/ol.css';
-
-    if (!openLayersIsInstalled) {
-      openLayersIsInstalled = true; // only try to install it once
+    if (!loading$) {
+      const openLayerJsUrl = 'https://openlayers.org/en/v5.3.0/build/ol.js';
+      const openLayerCssUrl = 'https://openlayers.org/en/v5.3.0/css/ol.css';
       loadCss(openLayerCssUrl, () => {});
-      return from(
+      loading$ = from(
         new Promise<boolean>((resolve, _) => {
           loadScript(openLayerJsUrl, () => resolve(true));
         })
-      );
+      ).pipe(shareReplay(1));
     }
-    return of(true);
+    return loading$;
   }
 }
 

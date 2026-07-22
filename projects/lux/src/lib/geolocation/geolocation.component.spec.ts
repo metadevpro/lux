@@ -2,7 +2,7 @@ import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { FormsModule } from '@angular/forms';
 import { GeolocationComponent } from './geolocation.component';
 
-describe.skip('GeolocationComponent', () => {
+describe('GeolocationComponent', () => {
   let component: GeolocationComponent;
   let spectator: Spectator<GeolocationComponent>;
   const createComponent = createComponentFactory({
@@ -29,9 +29,9 @@ describe.skip('GeolocationComponent', () => {
   it('should clear value and inputs', () => {
     component.value = { type: 'Point', coordinates: [0, 0] };
     component.clear();
-    expect(component.value).toBeNull();
-    expect(component.latitudeValue).toBeNull();
-    expect(component.longitudeValue).toBeNull();
+    expect(component.value).toBeUndefined();
+    expect(component.latitudeValue).toBeUndefined();
+    expect(component.longitudeValue).toBeUndefined();
   });
 
   it('should update latitudeValue and longitudeValue when value set', () => {

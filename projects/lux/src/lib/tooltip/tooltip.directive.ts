@@ -3,6 +3,7 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnDestroy,
   inject
 } from '@angular/core';
 
@@ -18,7 +19,7 @@ import { TooltipContentRef } from './tooltop-content';
   standalone: true,
   providers: [TooltipService]
 })
-export class LuxTooltipDirective {
+export class LuxTooltipDirective implements OnDestroy {
   private elHost = inject(ElementRef);
   private tooltipService = inject(TooltipService);
 
@@ -75,5 +76,12 @@ export class LuxTooltipDirective {
 
   remove(tooltipRef: TooltipContentRef): void {
     this.tooltipService.removeComponentFromBody(tooltipRef);
+  }
+
+  ngOnDestroy(): void {
+    if (this.tooltipRef) {
+      this.remove(this.tooltipRef);
+      this.tooltipRef = null;
+    }
   }
 }
