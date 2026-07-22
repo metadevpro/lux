@@ -126,8 +126,9 @@ describe('InputComponent', () => {
   });
 
   it('When type is number the value is also updated', async () => {
-    // Create a fresh spectator for this test to avoid detectChanges in beforeEach
-    const testSpectator = createComponent();
+    // detectChanges: false so ngOnInit doesn't run (and lock in an auto-generated id)
+    // before the inputs below are assigned
+    const testSpectator = createComponent({ detectChanges: false });
     const testComponent = testSpectator.component;
     testComponent.inputId = 'numeric';
     testComponent.type = 'number';

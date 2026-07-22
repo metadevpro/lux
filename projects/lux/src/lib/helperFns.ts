@@ -31,7 +31,7 @@ export const isValidRelativeUrl = (value: string): boolean => {
   return pattern.test(value);
 };
 
-export const isValidColor = (value: string): boolean => {
+export const isValidColor = (value: string | null | undefined): boolean => {
   value = String(value).toLowerCase();
   // valid values for CSS color property, yet not valid colors by themselves
   if (
