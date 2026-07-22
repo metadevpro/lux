@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -12,23 +13,12 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["ES2022", "dom"],
     "paths": {
-      "src/*": [
-        "src/*"
-      ],
-      "lux": [
-        "dist/lux"
-      ],
-      "lux/*": [
-        "dist/lux/*"
-      ]
+      "src/*": ["src/*"],
+      "lux": ["dist/lux"],
+      "lux/*": ["dist/lux/*"]
     }
   },
   "angularCompilerOptions": {

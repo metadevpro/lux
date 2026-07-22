@@ -35,6 +35,30 @@ import { MapComponent } from '../map/map.component';
 import { ModalService } from '../modal/modal.service';
 import { GeolocationService } from './geolocation.service';
 
+export interface GeoTranslations {
+  lat: string;
+  lon: string;
+  selectLocation: string;
+  location: string;
+  selectAction: string;
+  cancelAction: string;
+  closeAction: string;
+  typeToSearch: string;
+  cardinalPoints: {
+    north: string;
+    south: string;
+    east: string;
+    west: string;
+  };
+  userErrors: {
+    required: string;
+    minLatitude: string;
+    maxLatitude: string;
+    minLongitude: string;
+    maxLongitude: string;
+  };
+}
+
 @Component({
   selector: 'lux-geolocation',
   imports: [
@@ -65,16 +89,16 @@ export class GeolocationComponent implements OnInit {
 
   static idCounter = 0;
 
-  @ViewChild('latitude', { static: true }) latitude: ElementRef;
-  @ViewChild('longitude', { static: true }) longitude: ElementRef;
+  @ViewChild('latitude', { static: true }) latitude!: ElementRef;
+  @ViewChild('longitude', { static: true }) longitude!: ElementRef;
   @ViewChild('map', { static: false }) map?: ElementRef;
 
   touched = false;
   dirty = false;
   lastErrors: ValidationErrors | null = null;
 
-  private _disabled: string | boolean;
-  private _required: boolean;
+  private _disabled: string | boolean = false;
+  private _required = false;
   private _value: any;
 
   latitudeValue?: number = undefined;
@@ -82,7 +106,7 @@ export class GeolocationComponent implements OnInit {
 
   isValidNumber = isValidNumber;
 
-  i18n = {
+  i18n: { [key: string]: GeoTranslations } = {
     en: {
       lat: 'latitude',
       lon: 'longitude',
@@ -132,17 +156,17 @@ export class GeolocationComponent implements OnInit {
   };
 
   @Input()
-  public minLatitude: number;
+  public minLatitude: number | undefined;
   @Input()
-  public maxLatitude: number;
+  public maxLatitude: number | undefined;
   @Input()
-  public minLongitude: number;
+  public minLongitude: number | undefined;
   @Input()
-  public maxLongitude: number;
+  public maxLongitude: number | undefined;
   @Input()
-  public step: number;
+  public step: number | undefined;
   @Input()
-  public zoom: number;
+  public zoom: number | undefined;
 
   get className(): string {
     return this.checkClassName();
@@ -150,8 +174,8 @@ export class GeolocationComponent implements OnInit {
 
   @Input() lang = languageDetector();
   @Input() public inlineErrors = false;
-  @Input() public inputId: string;
-  @Input('aria-label') public ariaLabel: string;
+  @Input() public inputId: string | undefined;
+  @Input('aria-label') public ariaLabel: string | undefined;
   @Input() public readonly: boolean | null = null;
 
   @Input()
@@ -172,7 +196,7 @@ export class GeolocationComponent implements OnInit {
   }
 
   @Input()
-  set value(v: GeoPoint) {
+  set value(v: GeoPoint | undefined) {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
@@ -187,9 +211,9 @@ export class GeolocationComponent implements OnInit {
       this.setLatitudeInControl(v.coordinates[1]);
       this.setLongitudeInControl(v.coordinates[0]);
     } else if (!v) {
-      this._value = null;
-      this.setLatitudeInControl(null);
-      this.setLongitudeInControl(null);
+      this._value = undefined;
+      this.setLatitudeInControl(undefined);
+      this.setLongitudeInControl(undefined);
     } else {
       this._value = v;
       // we don't set value in control if the value is not valid
@@ -200,7 +224,7 @@ export class GeolocationComponent implements OnInit {
       this.valueChange.emit(v);
     }
   }
-  get value(): GeoPoint {
+  get value(): GeoPoint | undefined {
     return this._value;
   }
 
@@ -235,18 +259,18 @@ export class GeolocationComponent implements OnInit {
   }
   // End of ControlValueAccessor Interface implementation
 
-  private setLatitudeInControl(latitude: number): void {
+  private setLatitudeInControl(latitude: number | undefined): void {
     // this.latitude.nativeElement.value = latitude;
     this.latitudeValue = latitude;
   }
-  private setLongitudeInControl(longitude: number): void {
+  private setLongitudeInControl(longitude: number | undefined): void {
     // this.longitude.nativeElement.value = longitude;
     this.longitudeValue = longitude;
   }
   clear(): void {
-    this.setLatitudeInControl(null);
-    this.setLongitudeInControl(null);
-    this.value = null;
+    this.setLatitudeInControl(undefined);
+    this.setLongitudeInControl(undefined);
+    this.value = undefined;
   }
   isClearable(): boolean {
     return (
@@ -284,7 +308,7 @@ export class GeolocationComponent implements OnInit {
         reason: 'Longitude not specified.'
       };
     }
-    if (exists(this.minLatitude) && this.latitudeValue < this.minLatitude) {
+    if (exists(this.minLatitude) && this.latitudeValue! < this.minLatitude!) {
       result = result || {};
       result.minLatitude = {
         value,
@@ -292,7 +316,7 @@ export class GeolocationComponent implements OnInit {
         reason: `Latitude is lower than minimum value: ${this.minLatitude}.`
       };
     }
-    if (exists(this.maxLatitude) && this.latitudeValue > this.maxLatitude) {
+    if (exists(this.maxLatitude) && this.latitudeValue! > this.maxLatitude!) {
       result = result || {};
       result.maxLatitude = {
         value,
@@ -300,7 +324,10 @@ export class GeolocationComponent implements OnInit {
         reason: `Latitude is higher than maximum value: ${this.maxLatitude}.`
       };
     }
-    if (exists(this.minLongitude) && this.longitudeValue < this.minLongitude) {
+    if (
+      exists(this.minLongitude) &&
+      this.longitudeValue! < this.minLongitude!
+    ) {
       result = result || {};
       result.minLongitude = {
         value,
@@ -308,7 +335,10 @@ export class GeolocationComponent implements OnInit {
         reason: `Longitude is lower than minimum value: ${this.minLongitude}.`
       };
     }
-    if (exists(this.maxLongitude) && this.longitudeValue > this.maxLongitude) {
+    if (
+      exists(this.maxLongitude) &&
+      this.longitudeValue! > this.maxLongitude!
+    ) {
       result = result || {};
       result.maxLongitude = {
         value,
@@ -333,17 +363,17 @@ export class GeolocationComponent implements OnInit {
   ): void {
     const newLatitude = roundToMultipleOf(
       newLatitudeAndLongitude[1],
-      this.step
+      this.step ?? 1 // review value 1??
     );
     const newLongitude = roundToMultipleOf(
       newLatitudeAndLongitude[0],
-      this.step
+      this.step ?? 1 // review value 1??
     );
     if (this.disabled || this.readonly) {
       return;
     }
     if (!exists(newLatitudeAndLongitude)) {
-      this.value = null;
+      this.value = undefined;
     }
     this.value = {
       type: 'Point',
@@ -360,16 +390,16 @@ export class GeolocationComponent implements OnInit {
     }
     const newLatitudeValue = isValidNumber(newLatitude) ? +newLatitude : null;
     if (
-      !(exists(this.value) && exists(this.value.coordinates[0])) &&
+      !(exists(this.value) && exists(this.value?.coordinates[0])) &&
       !exists(newLatitudeValue)
     ) {
-      this.value = null;
+      this.value = undefined;
     } else {
       this.value = {
         type: 'Point',
         coordinates: [
-          this.value ? this.value.coordinates[0] : undefined,
-          newLatitudeValue
+          this.value ? this.value?.coordinates[0] : 0,
+          newLatitudeValue ?? 0
         ]
       };
     }
@@ -386,13 +416,13 @@ export class GeolocationComponent implements OnInit {
       !exists(newLongitudeValue) &&
       !(exists(this.value) && exists(this._value.coordinates[1]))
     ) {
-      this.value = null;
+      this.value = undefined;
     } else {
       this.value = {
         type: 'Point',
         coordinates: [
-          newLongitudeValue,
-          this.value ? this.value.coordinates[1] : undefined
+          newLongitudeValue ?? 0,
+          this.value ? this.value.coordinates[1] : 0
         ]
       };
     }
@@ -408,8 +438,8 @@ export class GeolocationComponent implements OnInit {
         ? 'disabled readonly'
         : 'disabled'
       : this.readonly
-      ? 'readonly'
-      : '';
+        ? 'readonly'
+        : '';
   }
 
   openModalMap(modal: TemplateRef<any>): void {
@@ -429,9 +459,10 @@ export class GeolocationComponent implements OnInit {
   }
 
   get mapTitle(): string {
+    const i18n = (this.i18n as any)[this.lang];
     return this._disabled || !!this.readonly
-      ? this.i18n[this.lang].location
-      : this.i18n[this.lang].selectLocation;
+      ? i18n.location
+      : i18n.selectLocation;
   }
 
   get self(): GeolocationComponent {

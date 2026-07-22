@@ -22,6 +22,12 @@ import { DataSource } from '../datasource';
 import { isInitialAndEmpty } from '../helperFns';
 import { languageDetector } from '../lang';
 
+export interface AutocompleteTranslations {
+  placeholder: string;
+  deleteLabelTemplate: string;
+  addMessage: string;
+}
+
 @Component({
   selector: 'lux-autocomplete-list',
   templateUrl: './autocomplete-list.component.html',
@@ -47,7 +53,7 @@ export class AutocompleteListComponent
 
   @ViewChild('auto') auto!: AutocompleteListComponent;
 
-  literals = {
+  literals: { [lang: string]: AutocompleteTranslations } = {
     en: {
       placeholder: 'new item',
       deleteLabelTemplate: 'Delete <<label>>',
@@ -102,7 +108,7 @@ export class AutocompleteListComponent
     }
   }
 
-  @Input() inputId: string;
+  @Input() inputId: string | undefined;
   @Input() dataSource: DataSource<any, any> = [];
   @Input() placeholder?: string;
   @Input() disabled = false;
@@ -123,7 +129,7 @@ export class AutocompleteListComponent
   @Output() valueChange = new EventEmitter<any[]>();
 
   // ControlValueAccessor Interface
-  onChange = (value): void => {};
+  onChange = (value: unknown): void => {};
   onTouched = (): void => {};
 
   writeValue(value: any): void {
@@ -256,8 +262,10 @@ export class AutocompleteListComponent
   }
 
   getDeleteMessage(label: string): string {
-    return (
-      this.deleteLabelTemplate ?? this.literals[this.lang].deleteLabelTemplate
-    ).replace('<<label>>', label);
+    const i18n = (this.literals as any)[this.lang];
+    return (this.deleteLabelTemplate ?? i18n.deleteLabelTemplate).replace(
+      '<<label>>',
+      label
+    );
   }
 }

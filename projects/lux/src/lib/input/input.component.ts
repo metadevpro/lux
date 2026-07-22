@@ -31,6 +31,16 @@ import {
 } from '../helperFns';
 import { languageDetector } from '../lang';
 import { RegexpService } from './regexp.service';
+
+interface UserErrorLiteral {
+  required: string;
+  min: string;
+  max: string;
+  email: string;
+  url: string;
+  color: string;
+}
+
 @Component({
   selector: 'lux-input',
   templateUrl: './input.component.html',
@@ -72,7 +82,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   private _currency: string | undefined;
   private _required: boolean | undefined;
 
-  public userErrors = {
+  public userErrors: { [key: string]: UserErrorLiteral } = {
     en: {
       required: 'Required field.',
       min: 'Minimum value is $min.',

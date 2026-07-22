@@ -25,6 +25,13 @@ import {
   isValidDate
 } from '../helperFns';
 import { languageDetector } from '../lang';
+
+export interface DatetimeTranslations {
+  required: string;
+  min: string;
+  max: string;
+}
+
 @Component({
   selector: 'lux-datetime',
   templateUrl: './datetime.component.html',
@@ -62,7 +69,7 @@ export class DatetimeComponent
   public dateValue?: string = undefined;
   public timeValue?: string = undefined;
 
-  public userErrors = {
+  public userErrors: { [lang: string]: DatetimeTranslations } = {
     en: {
       required: 'Required field.',
       min: 'Minimum value is $min.',

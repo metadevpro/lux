@@ -70,15 +70,15 @@ export class ModalStack {
       }
     };
     const activeModal = new ActiveModal();
-    const contentRef = this.getContentRef(moduleCFR, content, activeModal);
-    const backdropCmptRef: ComponentRef<LuxModalBackdropComponent> =
+    const contentRef = this.getContentRef(moduleCFR, content, activeModal)!;
+    const backdropCmptRef: ComponentRef<LuxModalBackdropComponent> | null =
       config.backdrop ? this._attachBackdrop(moduleCFR, containerEl) : null;
     const windowCmptRef: ComponentRef<LuxModalWindowComponent> =
       this._attachWindowComponent(moduleCFR, containerEl, contentRef);
     const modalRef: ModalRef = new ModalRef(
       windowCmptRef,
       contentRef,
-      backdropCmptRef
+      backdropCmptRef!
     );
     this._registerModalRef(modalRef);
     this._registerWindowCmpt(windowCmptRef);
@@ -108,8 +108,8 @@ export class ModalStack {
     config: LuxModalOptions
   ): void {
     this._windowAttributes.forEach((optionName: string) => {
-      if (isDefined(config[optionName])) {
-        windowInstance[optionName] = config[optionName];
+      if (isDefined((config as any)[optionName])) {
+        (windowInstance as any)[optionName] = (config as any)[optionName];
       }
     });
   }
@@ -119,8 +119,8 @@ export class ModalStack {
     config: LuxModalOptions
   ): void {
     this._backdropAttributes.forEach((optionName: string) => {
-      if (isDefined(config[optionName])) {
-        backgroudInstance[optionName] = config[optionName];
+      if (isDefined((config as any)[optionName])) {
+        (backgroudInstance as any)[optionName] = (config as any)[optionName];
       }
     });
   }
@@ -140,10 +140,11 @@ export class ModalStack {
     moduleCFR: ComponentFactoryResolver,
     content: any,
     activeModal: ActiveModal
-  ): ContentRef {
+  ): ContentRef | undefined {
     if (content instanceof TemplateRef) {
       return this.createFromTemplateRef(content, activeModal);
     }
+    return undefined;
   }
 
   private createFromTemplateRef(
@@ -153,11 +154,11 @@ export class ModalStack {
     const context = {
       $implicit: activeModal,
 
-      close(result): void {
+      close(result: unknown): void {
         activeModal.close(result);
       },
 
-      dismiss(reason): void {
+      dismiss(reason: unknown): void {
         activeModal.dismiss(reason);
       }
     };
@@ -229,7 +230,7 @@ export class ModalStack {
         if (sibling !== element && sibling.nodeName !== 'SCRIPT') {
           this._ariaHiddenValues.set(
             sibling,
-            sibling.getAttribute('aria-hidden')
+            sibling.getAttribute('aria-hidden') ?? ''
           );
           sibling.setAttribute('aria-hidden', 'true');
         }

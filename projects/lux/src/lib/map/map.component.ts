@@ -34,8 +34,8 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   _zoom: number | undefined;
   @Input()
-  set zoom(zoom: number) {
-    if (!isNaN(zoom)) {
+  set zoom(zoom: number | undefined) {
+    if (zoom != null && !isNaN(zoom)) {
       this._zoom = zoom;
       if (this._map) {
         this._map.getView().setZoom(zoom);
@@ -48,7 +48,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   _center: GeoPoint | undefined;
   @Input()
-  set center(center: GeoPoint) {
+  set center(center: GeoPoint | undefined) {
     if (center && center.coordinates && center.coordinates.length === 2) {
       this._center = center;
       if (this._map) {
@@ -114,7 +114,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     return this._markerCoordinates;
   }
   @Input()
-  set markerPoint(markerPoint: GeoPoint) {
+  set markerPoint(markerPoint: GeoPoint | undefined) {
     if (
       !markerPoint ||
       !(markerPoint.coordinates && markerPoint.coordinates.length === 2)

@@ -17,6 +17,11 @@ import { languageDetector } from '../lang';
 
 const KEY_SPACE = ' ';
 
+export interface CheckboxTranslations {
+  yesLabel: string;
+  noLabel: string;
+}
+
 @Component({
   selector: 'lux-checkbox',
   templateUrl: './checkbox.component.html',
@@ -35,7 +40,7 @@ export class CheckboxComponent
 {
   static idCounter = 0;
 
-  @ViewChild('ck', { static: false }) ck: ElementRef;
+  @ViewChild('ck', { static: false }) ck!: ElementRef;
 
   private _lang = languageDetector();
   @Input()
@@ -71,12 +76,12 @@ export class CheckboxComponent
     this.cdr.markForCheck();
   }
 
-  get tabindexValue(): string {
-    return this.disabled ? null : '0';
+  get tabindexValue(): string | undefined {
+    return this.disabled ? undefined : '0';
   }
 
-  @Input() label: string = null;
-  @Input() name: string = null;
+  @Input() label: string | undefined = undefined;
+  @Input() name: string | undefined = undefined;
   private _disabled = false;
   @Input()
   get disabled(): boolean {
@@ -90,9 +95,9 @@ export class CheckboxComponent
     this.syncModel();
     this.cdr.markForCheck();
   }
-  @Input() inputId: string;
+  @Input() inputId: string | undefined;
 
-  literals = {
+  literals: { [lang: string]: CheckboxTranslations } = {
     en: {
       yesLabel: 'Yes',
       noLabel: 'No'
@@ -109,7 +114,7 @@ export class CheckboxComponent
   private cdr = inject(ChangeDetectorRef);
 
   // ControlValueAccessor Interface
-  onChange = (value): void => {};
+  onChange = (value: any): void => {};
   onTouched = (): void => {};
   writeValue(value: any): void {
     this.value = !!value;

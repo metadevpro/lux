@@ -9,8 +9,8 @@ export class ActiveModal {
 }
 
 export class ModalRef {
-  private _resolve: (result?: any) => void;
-  private _reject: (reason?: any) => void;
+  private _resolve: ((result?: any) => void) | undefined = undefined;
+  private _reject: ((reason?: any) => void) | undefined = undefined;
 
   /**
    * The instance of a component used for the modal content.
@@ -79,7 +79,7 @@ export class ModalRef {
         const dismiss = this._beforeDismiss();
         if (dismiss && dismiss.then) {
           dismiss.then(
-            (result) => {
+            (result: unknown) => {
               if (result !== false) {
                 this._dismiss(reason);
               }
@@ -108,8 +108,8 @@ export class ModalRef {
       this._contentRef.viewRef.destroy();
     }
 
-    this._windowCmptRef = null;
-    this._backdropCmptRef = null;
-    this._contentRef = null;
+    (this._windowCmptRef as any) = undefined;
+    (this._backdropCmptRef as any) = undefined;
+    (this._contentRef as any) = undefined;
   }
 }

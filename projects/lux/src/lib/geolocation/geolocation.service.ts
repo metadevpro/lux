@@ -74,9 +74,9 @@ export class GeolocationService {
     instance: GeolocationService,
     keys: GeoPoint[]
   ): Observable<DataSource<GeoPoint, string>> {
-    const searchResults = instance.lastQueriesWithResults
-      .get(instance.getLatestQuery())
-      .filter((searchResult) => samePosition(searchResult, keys));
+    const searchResults = (
+      instance.lastQueriesWithResults.get(instance.getLatestQuery() ?? '') ?? []
+    ).filter((searchResult) => samePosition(searchResult, keys));
     return of(
       searchResults.map((searchResult) => {
         const key: GeoPoint = {
@@ -110,7 +110,7 @@ export class GeolocationService {
   }
 
   // Cache implemementation ---
-  private getFromCache(query: string): SearchResult[] {
+  private getFromCache(query: string): SearchResult[] | undefined {
     if (this.lastQueriesWithResults.has(query)) {
       return this.lastQueriesWithResults.get(query);
     }

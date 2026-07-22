@@ -1,112 +1,127 @@
 @if (currency && currency === 'USD') {
-<div class="prefix rounded-left symbol" [ngClass]="className">
-  <span>$</span>
-</div>
-} @if (type !== 'textarea') {
-<input
-  #input
-  [class]="
-    hasPrefix()
-      ? hasPostfix()
-        ? 'infix'
-        : 'postfix rounded-right'
-      : hasPostfix()
-      ? 'prefix rounded-left'
-      : 'rounded'
-  "
-  [ngClass]="className"
-  placement="top"
-  [id]="inputId"
-  [type]="domain"
-  [attr.value]="value"
-  [attr.aria-label]="ariaLabel"
-  [disabled]="disabled === true"
-  [readonly]="readonly === true"
-  [attr.min]="min?.toString() || undefined"
-  [attr.max]="max?.toString() || undefined"
-  [attr.step]="step?.toString() || undefined"
-  [attr.pattern]="pattern || undefined"
-  [placeholder]="placeholder"
-  (keyup)="onKeyUp(input.value)"
-  (change)="onChangeValue(input.value)"
-  (keypress)="onKeyPress($event)"
-  (blur)="onLostFocus()"
-/>
-} @if (type === 'textarea') {
-<textarea
-  #textarea
-  class="rounded"
-  [ngClass]="className"
-  placement="top"
-  [id]="inputId"
-  [attr.value]="value"
-  [attr.aria-label]="ariaLabel"
-  [disabled]="disabled === true"
-  [readonly]="readonly === true"
-  [attr.cols]="cols?.toString() || undefined"
-  [attr.rows]="rows?.toString() || undefined"
-  [placeholder]="placeholder"
-  (keyup)="onKeyUp(textarea.value)"
-  (change)="onChangeValue(textarea.value)"
-  (keypress)="onKeyPress($event)"
-  (blur)="onLostFocus()"
-></textarea>
-} @if (currency && currency === 'EUR') {
-<div class="postfix rounded-right symbol" [ngClass]="className">
-  <span>€</span>
-</div>
-} @if (isPercentage()) {
-<div class="postfix rounded-right symbol" [ngClass]="className">
-  <span>%</span>
-</div>
-} @if (isPermillage()) {
-<div class="postfix rounded-right symbol" [ngClass]="className">
-  <span>‰</span>
-</div>
-} @if (isUrl() && !!value) {
-<div class="postfix rounded-right symbol clickable" [ngClass]="className">
-  <a href="{{ value }}" target="_blank">
-    <span class="icon-external"></span>
-  </a>
-</div>
-} @if (isColor()) {
-<div class="postfix rounded-right bordered transparency" [ngClass]="className">
+  <div class="prefix rounded-left symbol" [ngClass]="className">
+    <span>$</span>
+  </div>
+}
+@if (type !== 'textarea') {
+  <input
+    #input
+    [class]="
+      hasPrefix()
+        ? hasPostfix()
+          ? 'infix'
+          : 'postfix rounded-right'
+        : hasPostfix()
+          ? 'prefix rounded-left'
+          : 'rounded'
+    "
+    [ngClass]="className"
+    placement="top"
+    [id]="inputId"
+    [type]="domain"
+    [attr.value]="value"
+    [attr.aria-label]="ariaLabel"
+    [disabled]="disabled === true"
+    [readonly]="readonly === true"
+    [attr.min]="min?.toString() || undefined"
+    [attr.max]="max?.toString() || undefined"
+    [attr.step]="step?.toString() || undefined"
+    [attr.pattern]="pattern || undefined"
+    [placeholder]="placeholder"
+    (keyup)="onKeyUp(input.value)"
+    (change)="onChangeValue(input.value)"
+    (keypress)="onKeyPress($event)"
+    (blur)="onLostFocus()"
+  />
+}
+@if (type === 'textarea') {
+  <textarea
+    #textarea
+    class="rounded"
+    [ngClass]="className"
+    placement="top"
+    [id]="inputId"
+    [attr.value]="value"
+    [attr.aria-label]="ariaLabel"
+    [disabled]="disabled === true"
+    [readonly]="readonly === true"
+    [attr.cols]="cols?.toString() || undefined"
+    [attr.rows]="rows?.toString() || undefined"
+    [placeholder]="placeholder"
+    (keyup)="onKeyUp(textarea.value)"
+    (change)="onChangeValue(textarea.value)"
+    (keypress)="onKeyPress($event)"
+    (blur)="onLostFocus()"
+  ></textarea>
+}
+@if (currency && currency === 'EUR') {
+  <div class="postfix rounded-right symbol" [ngClass]="className">
+    <span>€</span>
+  </div>
+}
+@if (isPercentage()) {
+  <div class="postfix rounded-right symbol" [ngClass]="className">
+    <span>%</span>
+  </div>
+}
+@if (isPermillage()) {
+  <div class="postfix rounded-right symbol" [ngClass]="className">
+    <span>‰</span>
+  </div>
+}
+@if (isUrl() && !!value) {
+  <div class="postfix rounded-right symbol clickable" [ngClass]="className">
+    <a href="{{ value }}" target="_blank">
+      <span class="icon-external"></span>
+    </a>
+  </div>
+}
+@if (isColor()) {
   <div
-    class="rounded-right full-space"
-    [ngStyle]="{ 'background-color': color }"
+    class="postfix rounded-right bordered transparency"
+    [ngClass]="className"
   >
-    <input
-      #colorpicker
-      class="minimal-space clickable invisible rounded-right full-space"
-      [id]="inputId + '$colorpicker'"
-      type="color"
-      [attr.value]="value"
-      [attr.disabled]="disabled === true ? 'true' : undefined"
-      [attr.readonly]="readonly === true ? 'true' : undefined"
-      (change)="onColorPicked(colorpicker.value)"
-      (keypress)="onKeyPress($event)"
-      (blur)="onLostFocus()"
-    />
+    <div
+      class="rounded-right full-space"
+      [ngStyle]="{ 'background-color': color }"
+    >
+      <input
+        #colorpicker
+        class="minimal-space clickable invisible rounded-right full-space"
+        [id]="inputId + '$colorpicker'"
+        type="color"
+        [attr.value]="value"
+        [attr.disabled]="disabled === true ? 'true' : undefined"
+        [attr.readonly]="readonly === true ? 'true' : undefined"
+        (change)="onColorPicked(colorpicker.value)"
+        (keypress)="onKeyPress($event)"
+        (blur)="onLostFocus()"
+      />
+    </div>
   </div>
-</div>
-} @if (inlineErrors && lastErrors && (dirty || touched)) {
-<div class="alert">
-  @if (lastErrors.required) {
-  <div>
-    {{ userErrors[this.lang].required }}
+}
+@if (inlineErrors && lastErrors && (dirty || touched)) {
+  <div class="alert">
+    @if (lastErrors.required) {
+      <div>
+        {{ userErrors[this.lang].required }}
+      </div>
+    }
+    @if (lastErrors.email) {
+      <div>{{ userErrors[this.lang].email }}</div>
+    }
+    @if (lastErrors.url) {
+      <div>{{ userErrors[this.lang].url }}</div>
+    }
+    @if (lastErrors.min) {
+      <div>
+        {{ userErrors[this.lang].min.replace('$min', lastErrors.min.min) }}
+      </div>
+    }
+    @if (lastErrors.max) {
+      <div>
+        {{ userErrors[this.lang].max.replace('$max', lastErrors.max.max) }}
+      </div>
+    }
   </div>
-  } @if (lastErrors.email) {
-  <div>{{ userErrors[this.lang].email }}</div>
-  } @if (lastErrors.url) {
-  <div>{{ userErrors[this.lang].url }}</div>
-  } @if (lastErrors.min) {
-  <div>
-    {{ userErrors[this.lang].min.replace('$min', lastErrors.min.min) }}
-  </div>
-  } @if (lastErrors.max) {
-  <div>
-    {{ userErrors[this.lang].max.replace('$max', lastErrors.max.max) }}
-  </div>
-  }
-</div>
 }
