@@ -1,12 +1,13 @@
 import {
   ApplicationRef,
-  ComponentFactoryResolver,
   ComponentRef,
   ElementRef,
   EmbeddedViewRef,
+  EnvironmentInjector,
   Injectable,
   Injector,
   TemplateRef,
+  createComponent,
   inject
 } from '@angular/core';
 
@@ -18,7 +19,7 @@ import { TooltipContentRef } from './tooltop-content';
 @Injectable()
 export class TooltipService {
   private _injector = inject(Injector);
-  private _crf = inject(ComponentFactoryResolver);
+  private _environmentInjector = inject(EnvironmentInjector);
   private _applicationRef = inject(ApplicationRef);
 
   appendComponentToBody(
@@ -73,9 +74,10 @@ export class TooltipService {
     component: any,
     context?: LuxTooltipContext
   ): TooltipContentRef {
-    const componentRef: ComponentRef<any> = (this._crf as any)
-      .resolveComponentFactory(component)
-      .create(this._injector);
+    const componentRef: ComponentRef<any> = createComponent(component, {
+      environmentInjector: this._environmentInjector,
+      elementInjector: this._injector
+    });
     if (context) {
       componentRef.instance.context = context;
     }

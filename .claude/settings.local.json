@@ -12,7 +12,8 @@
       "Bash(npm run test:coverage:*)",
       "Bash(npm ls *)",
       "Bash(npx ng *)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Bash(npm run *)"
     ],
     "deny": [],
     "ask": []
