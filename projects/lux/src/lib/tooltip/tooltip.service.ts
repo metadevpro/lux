@@ -25,7 +25,7 @@ export class TooltipService {
     content: any,
     elHost: ElementRef,
     placement: PlacementValue
-  ): TooltipContentRef {
+  ): TooltipContentRef | null {
     const tooltipContentRef = this.getTooltipContentRef(content);
     if (tooltipContentRef) {
       let domElem = (tooltipContentRef.viewRef as EmbeddedViewRef<any>)
@@ -42,15 +42,18 @@ export class TooltipService {
   }
 
   removeComponentFromBody(tooltipContentRef: TooltipContentRef): void {
-    this._applicationRef.detachView(tooltipContentRef.viewRef);
+    if (tooltipContentRef.viewRef) {
+      this._applicationRef.detachView(tooltipContentRef.viewRef);
+    }
     if (tooltipContentRef.componentRef) {
       tooltipContentRef.componentRef.destroy();
     }
   }
 
-  private getTooltipContentRef(content: any): TooltipContentRef {
+  private getTooltipContentRef(content: any): TooltipContentRef | null {
     if (!content) {
       // nothing to show
+      return null;
     } else if (content instanceof TemplateRef) {
       return this.createFromTemplateRef(content);
     } else if (typeof content === 'string') {
@@ -70,7 +73,7 @@ export class TooltipService {
     component: any,
     context?: LuxTooltipContext
   ): TooltipContentRef {
-    const componentRef: ComponentRef<any> = this._crf
+    const componentRef: ComponentRef<any> = (this._crf as any)
       .resolveComponentFactory(component)
       .create(this._injector);
     if (context) {

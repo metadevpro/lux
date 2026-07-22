@@ -55,9 +55,9 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   static idCounter = 0;
 
-  @ViewChild('input', { static: false }) input: ElementRef;
-  @ViewChild('textarea', { static: false }) textarea: ElementRef;
-  @ViewChild('colorpicker', { static: false }) colorpicker: ElementRef;
+  @ViewChild('input', { static: false }) input!: ElementRef;
+  @ViewChild('textarea', { static: false }) textarea!: ElementRef;
+  @ViewChild('colorpicker', { static: false }) colorpicker!: ElementRef;
 
   touched = false;
   dirty = false;
@@ -65,12 +65,12 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   private _disabled: string | boolean = false;
   private _value: any = '';
-  private _type: string;
-  private _placeholder: string;
+  private _type: string | undefined;
+  private _placeholder: string | undefined;
   private _pattern?: string = undefined;
   private _regexp?: RegExp = undefined;
-  private _currency: string;
-  private _required: boolean;
+  private _currency: string | undefined;
+  private _required: boolean | undefined;
 
   public userErrors = {
     en: {
@@ -91,7 +91,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     }
   };
 
-  public domain: string;
+  public domain: string | undefined;
   @Input()
   public rows?: number | string;
   @Input()
@@ -113,8 +113,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
 
   @Input() lang = languageDetector();
   @Input() public inlineErrors = false;
-  @Input() public inputId: string;
-  @Input('aria-label') public ariaLabel: string;
+  @Input() public inputId: string | undefined;
+  @Input('aria-label') public ariaLabel: string | undefined;
   @Input() public readonly: boolean | null = null;
 
   @Input()
@@ -149,7 +149,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   set currency(v: string) {
     this._currency = v.toUpperCase();
   }
-  get currency(): string {
+  get currency(): string | undefined {
     return this._currency;
   }
 
@@ -166,7 +166,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
     this._required = v;
   }
   get required(): boolean {
-    return this._required;
+    return !!this._required;
   }
 
   @Input()
@@ -208,7 +208,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
   @Output() valueChange = new EventEmitter<any>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
-  onChange = (value): void => {};
+  onChange = (value: any): void => {};
   onTouched = (): void => {};
 
   // ControlValueAccessor Interface implementation
@@ -320,7 +320,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
       this.type === 'number' ||
       this.type === 'currency'
     ) {
-      if (hasValue(this.min) && hasValue(value) && value < +this.min) {
+      if (hasValue(this.min) && hasValue(value) && value < +this.min!) {
         result = result || {};
         result.min = {
           value,
@@ -328,7 +328,7 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
           reason: `Value is lower than minimum value: ${this.min}.`
         };
       }
-      if (hasValue(this.max) && hasValue(value) && value > +this.max) {
+      if (hasValue(this.max) && hasValue(value) && value > +this.max!) {
         result = result || {};
         result.max = {
           value,
@@ -402,8 +402,8 @@ export class InputComponent implements OnInit, ControlValueAccessor, Validator {
         ? 'disabled readonly'
         : 'disabled'
       : this.readonly
-      ? 'readonly'
-      : '';
+        ? 'readonly'
+        : '';
   }
 
   checkColor(): string {

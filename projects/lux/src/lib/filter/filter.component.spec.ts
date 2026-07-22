@@ -102,14 +102,18 @@ describe('FilterComponent', () => {
   });
 
   it('should show the search button when searchOntype is false', () => {
-    spectator = createHost('<lux-filter [searchOnType]="false"></lux-filter>') as any;
+    spectator = createHost(
+      '<lux-filter [searchOnType]="false"></lux-filter>'
+    ) as any;
     const button = spectator.query('button.btn-search');
     expect(button).toBeTruthy();
   });
 
   it('clear() should trigger search inmediatly', (done) => {
     // Arrange
-    spectator = createHost('<lux-filter [searchOnType]="true" [searchValue]="\'ABC\'"></lux-filter>') as any;
+    spectator = createHost(
+      '<lux-filter [searchOnType]="true" [searchValue]="\'ABC\'"></lux-filter>'
+    ) as any;
     component = spectator.component;
     const t0 = Date.now();
 
