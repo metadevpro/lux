@@ -25,15 +25,15 @@ export class FilterSampleComponent
   private userService = inject(UserServiceMock);
   private prismService = inject(PrismService);
 
-  @ViewChild('filter', { static: true }) filter: FilterComponent;
-  @ViewChild('filter2', { static: true }) filter2: FilterComponent;
-  @ViewChild('filter3', { static: true }) filter3: FilterComponent;
-  @ViewChild('filter4', { static: true }) filter4: FilterComponent;
+  @ViewChild('filter', { static: true }) filter!: FilterComponent;
+  @ViewChild('filter2', { static: true }) filter2!: FilterComponent;
+  @ViewChild('filter3', { static: true }) filter3!: FilterComponent;
+  @ViewChild('filter4', { static: true }) filter4!: FilterComponent;
   private subs: Subscription[] = [];
-  users$: Observable<any[]>;
-  users2$: Observable<any[]>;
-  users3$: Observable<any[]>;
-  users4$: Observable<any[]>;
+  users$!: Observable<any[]>;
+  users2$!: Observable<any[]>;
+  users3$!: Observable<any[]>;
+  users4$!: Observable<any[]>;
 
   ngOnInit(): void {
     this.subs.push(

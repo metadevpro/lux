@@ -65,7 +65,7 @@ export class LuxTooltipDirective {
     component: any,
     elHost: ElementRef,
     placement: PlacementValue
-  ): TooltipContentRef {
+  ): TooltipContentRef | null {
     return this.tooltipService.appendComponentToBody(
       component,
       elHost,

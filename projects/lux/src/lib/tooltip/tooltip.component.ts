@@ -1,4 +1,3 @@
-
 import { Component, Input } from '@angular/core';
 import { LuxTooltipContext } from './tooltip-context';
 
@@ -10,12 +9,11 @@ import { LuxTooltipContext } from './tooltip-context';
   imports: [],
   template: `
     <span class="lux-tooltip" style="transition: opacity 200ms">{{
-      context.message
+      context?.message
     }}</span>
   `
 })
 export class TooltipComponent {
-  @Input() context: LuxTooltipContext;
-
+  @Input() context: LuxTooltipContext | undefined;
   constructor() {}
 }

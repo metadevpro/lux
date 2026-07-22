@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -83,7 +82,7 @@ export class RadiogroupComponent implements ControlValueAccessor, Validator {
   constructor() {}
 
   // ControlValueAccessor Interface
-  onChange = (value): void => {};
+  onChange = (value: any): void => {};
   onTouched = (): void => {};
   writeValue(value: any): void {
     this.value = value;

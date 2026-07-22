@@ -12,7 +12,6 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { OpenLayerLoaderService } from '../geolocation/openlayer-loader.service';
 
-
 import { GeoPoint } from './geopoint';
 
 // @dynamic
@@ -31,9 +30,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   private _map: any;
 
-  @Input() mapId;
+  @Input() mapId: string | undefined;
 
-  _zoom: number;
+  _zoom: number | undefined;
   @Input()
   set zoom(zoom: number) {
     if (!isNaN(zoom)) {
@@ -43,11 +42,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  get zoom(): number {
+  get zoom(): number | undefined {
     return this._zoom;
   }
 
-  _center: GeoPoint;
+  _center: GeoPoint | undefined;
   @Input()
   set center(center: GeoPoint) {
     if (center && center.coordinates && center.coordinates.length === 2) {
@@ -57,11 +56,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  get center(): GeoPoint {
+  get center(): GeoPoint | undefined {
     return this._center;
   }
 
-  _readonly: boolean;
+  _readonly: boolean | undefined;
   @Input()
   set readonly(readonly: boolean) {
     if (!readonly) {
@@ -91,14 +90,14 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.markerCoordinates = this.markerCoordinates;
   }
   get readonly(): boolean {
-    return this._readonly;
+    return !!this._readonly;
   }
 
   private _marker: any;
   private _markerInteraction: any;
-  private _markerCoordinates: number[];
+  private _markerCoordinates: number[] | undefined;
   @Input()
-  private set markerCoordinates(markerCoordinates: number[]) {
+  private set markerCoordinates(markerCoordinates: number[] | undefined) {
     if (markerCoordinates && markerCoordinates.length === 2) {
       this._markerCoordinates = markerCoordinates;
       if (this._map) {
@@ -111,7 +110,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  private get markerCoordinates(): number[] {
+  private get markerCoordinates(): number[] | undefined {
     return this._markerCoordinates;
   }
   @Input()
@@ -132,7 +131,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   get markerPoint(): GeoPoint {
     return {
       type: 'Point',
-      coordinates: this.markerCoordinates
+      coordinates: this.markerCoordinates ?? [0, 0]
     };
   }
   @Output() valueChange = new EventEmitter<GeoPoint>();
@@ -258,7 +257,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         )
       });
       this._markerSource.addFeature(this._marker);
-      this._markerCoordinates = this.getMarkerCoordinates();
+      this._markerCoordinates = this.getMarkerCoordinates() ?? undefined;
 
       if (!this.readonly) {
         const dragInteraction = new ol.interaction.Modify({
@@ -292,7 +291,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private getMarkerCoordinates(): number[] | null {
+  private getMarkerCoordinates(): number[] | undefined {
     if (this._marker === undefined || this._marker == null) {
       return this._marker;
     }

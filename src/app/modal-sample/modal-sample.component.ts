@@ -12,7 +12,7 @@ export class ModalSampleComponent implements AfterContentInit {
   private modalService = inject(ModalService);
   private prismService = inject(PrismService);
 
-  message: string;
+  message: string = '';
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

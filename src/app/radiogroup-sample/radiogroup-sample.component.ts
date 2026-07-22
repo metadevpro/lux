@@ -30,7 +30,7 @@ export class RadiogroupSampleComponent implements AfterContentInit {
     }
   ];
 
-  selectedValue: string;
+  selectedValue: string | undefined;
   selectedValue2 = 'LAM';
 
   ngAfterContentInit(): void {
