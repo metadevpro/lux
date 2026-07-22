@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -48,10 +47,10 @@ export class SelectComponent implements ControlValueAccessor, Validator {
   /** If set, check there is no duplicates in the data. */
   @Input() unique = true;
   /** Validation function for new items. Returns error or null if valid */
-  @Input() validateItem: (item: string) => string = (_) => null;
+  @Input() validateItem: (item: string) => string | null = (_) => null;
 
   newEntry = '';
-  error = null;
+  error: string | null = null;
   isValidNewEntry = false;
 
   private touched = false;
@@ -59,7 +58,7 @@ export class SelectComponent implements ControlValueAccessor, Validator {
   constructor() {}
 
   // ControlValueAccessor Interface
-  onChange = (value): void => {};
+  onChange = (value: any): void => {};
   onTouched = (): void => {};
   writeValue(value: any): void {
     this.value = value;

@@ -51,9 +51,9 @@ export const isValidColor = (value: string): boolean => {
 export const isValidDate = (date: Date): boolean =>
   exists(date) ? !isNaN(date.getTime()) : false;
 
-export const normalizeDate = (value: any): string => {
+export const normalizeDate = (value: any): string | null => {
   if (typeof value === 'string' && value.length > 10) {
-    return value.substr(0, 10);
+    return value.substring(0, 10);
   }
   return value ? value.toString() : null;
 };
@@ -128,8 +128,8 @@ export const roundToMultipleOf = (x: number, modulo: number): number => {
   const approximationString = String(approximation);
   // remove useless decimals
   const uselessDecimalsInApproximation =
-    numberOfDecimalDigits(approximationString) -
-    numberOfDecimalDigits(moduloString);
+    (numberOfDecimalDigits(approximationString) ?? 1) -
+    (numberOfDecimalDigits(moduloString) ?? 0);
   const resultString = approximationString.slice(
     0,
     approximationString.length - uselessDecimalsInApproximation

@@ -1,4 +1,3 @@
-
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   ActivatedRoute,
@@ -24,7 +23,7 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
   private route = inject(Router);
   private activedRoute = inject(ActivatedRoute);
 
-  public breadcrumbs: BreadcrumbItem[];
+  public breadcrumbs: BreadcrumbItem[] = [];
   private subs: Subscription[] = [];
   public imagePath = '../assets/img/arrow-forward.svg';
 
@@ -47,7 +46,7 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
   private addBreadcrumbs(
     activedRouteSnapshot: ActivatedRouteSnapshot,
     isRoot: boolean,
-    urlPrefix: string
+    urlPrefix: string | null
   ): void {
     const routeConfig = activedRouteSnapshot.routeConfig;
     let url = urlPrefix || '';
@@ -55,8 +54,8 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
     const label = routeConfig
       ? this.getLabel(activedRouteSnapshot)
       : isRoot
-      ? 'Home'
-      : '';
+        ? 'Home'
+        : '';
     if (label && url !== '/') {
       const breadcrumb = { label, url };
       this.breadcrumbs.push(breadcrumb);
@@ -73,10 +72,12 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
     const id = activedRouteSnapshot.params.id;
     return id
       ? `${activedRouteSnapshot.url[0]}/${id}`
-      : activedRouteSnapshot.routeConfig.path || '';
+      : activedRouteSnapshot.routeConfig?.path || '';
   }
 
-  private getLabel(activedRouteSnapshot: ActivatedRouteSnapshot): string {
+  private getLabel(
+    activedRouteSnapshot: ActivatedRouteSnapshot
+  ): string | null {
     const routeConfig = activedRouteSnapshot.routeConfig;
     if (!routeConfig) {
       return null;

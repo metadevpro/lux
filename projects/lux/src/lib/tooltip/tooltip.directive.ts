@@ -29,9 +29,9 @@ export class LuxTooltipDirective {
   @Input() content: any;
 
   /** Placement */
-  @Input() placement: PlacementValue;
+  @Input() placement!: PlacementValue;
 
-  tooltipRef: TooltipContentRef;
+  tooltipRef!: TooltipContentRef | null;
 
   @HostListener('mouseenter') onMouseEnter(): void {
     if (!this.tooltipRef) {
