@@ -9,7 +9,10 @@
       "Bash(echo:*)",
       "Bash(node:*)",
       "Bash(ls:*)",
-      "Bash(npm run test:coverage:*)"
+      "Bash(npm run test:coverage:*)",
+      "Bash(npm ls *)",
+      "Bash(npx ng *)",
+      "Bash(git stash *)"
     ],
     "deny": [],
     "ask": []

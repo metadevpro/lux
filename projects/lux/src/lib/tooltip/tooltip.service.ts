@@ -35,7 +35,7 @@ export class TooltipService {
         tooltipContentRef.componentRef.changeDetectorRef.detectChanges();
       }
       domElem = this.setStyle(domElem, placement);
-      domElem = this.setPosition(domElem, elHost, placement);
+      this.setPosition(domElem, elHost, placement);
       return tooltipContentRef;
     }
     return null;
@@ -132,8 +132,8 @@ export class TooltipService {
       document.documentElement.scrollTop ||
       document.body.scrollTop ||
       0;
-    let top = 0;
-    let left = 0;
+    let top: number;
+    let left: number;
     const offset = 10;
 
     switch (placement) {

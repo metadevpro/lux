@@ -70,7 +70,6 @@ describe.skip('LuxTooltipDirective', () => {
   ['top', 'bottom', 'left', 'right'].forEach((placement) => {
     it(`should display tooltip with placement ${placement}`, () => {
       spectator = createHost(
-        // eslint-disable-next-line quotes
         `<button [luxTooltip]="'Placed Tooltip'" [placement]="'${placement}'">Hover me</button>`
       );
       spectator.detectChanges();
