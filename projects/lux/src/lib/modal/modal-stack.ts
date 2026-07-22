@@ -1,12 +1,13 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ApplicationRef,
-  ComponentFactoryResolver,
   ComponentRef,
+  EnvironmentInjector,
   Injectable,
   Injector,
   RendererFactory2,
   TemplateRef,
+  createComponent,
   inject
 } from '@angular/core';
 
@@ -21,6 +22,7 @@ import { ContentRef, focusTrap, isDefined } from './util';
 export class ModalStack {
   private _applicationRef = inject(ApplicationRef);
   private _document = inject(DOCUMENT);
+  private _environmentInjector = inject(EnvironmentInjector);
   private _injector = inject(Injector);
   private _rendererFactory = inject(RendererFactory2);
   private modalConfig = inject(LuxModalConfig);
@@ -55,11 +57,7 @@ export class ModalStack {
     });
   }
 
-  open(
-    moduleCFR: ComponentFactoryResolver,
-    content: any,
-    options: LuxModalOptions
-  ): ModalRef {
+  open(content: any, options: LuxModalOptions): ModalRef {
     const config = Object.assign({}, this.modalConfig, options);
     const containerEl = this._document.body;
     const renderer = this._rendererFactory.createRenderer(null, null);
@@ -70,15 +68,15 @@ export class ModalStack {
       }
     };
     const activeModal = new ActiveModal();
-    const contentRef = this.getContentRef(moduleCFR, content, activeModal);
-    const backdropCmptRef: ComponentRef<LuxModalBackdropComponent> =
-      config.backdrop ? this._attachBackdrop(moduleCFR, containerEl) : null;
+    const contentRef = this.getContentRef(content, activeModal)!;
+    const backdropCmptRef: ComponentRef<LuxModalBackdropComponent> | null =
+      config.backdrop ? this._attachBackdrop(containerEl) : null;
     const windowCmptRef: ComponentRef<LuxModalWindowComponent> =
-      this._attachWindowComponent(moduleCFR, containerEl, contentRef);
+      this._attachWindowComponent(containerEl, contentRef);
     const modalRef: ModalRef = new ModalRef(
       windowCmptRef,
       contentRef,
-      backdropCmptRef
+      backdropCmptRef!
     );
     this._registerModalRef(modalRef);
     this._registerWindowCmpt(windowCmptRef);
@@ -108,8 +106,8 @@ export class ModalStack {
     config: LuxModalOptions
   ): void {
     this._windowAttributes.forEach((optionName: string) => {
-      if (isDefined(config[optionName])) {
-        windowInstance[optionName] = config[optionName];
+      if (isDefined((config as any)[optionName])) {
+        (windowInstance as any)[optionName] = (config as any)[optionName];
       }
     });
   }
@@ -119,8 +117,8 @@ export class ModalStack {
     config: LuxModalOptions
   ): void {
     this._backdropAttributes.forEach((optionName: string) => {
-      if (isDefined(config[optionName])) {
-        backgroudInstance[optionName] = config[optionName];
+      if (isDefined((config as any)[optionName])) {
+        (backgroudInstance as any)[optionName] = (config as any)[optionName];
       }
     });
   }
@@ -137,13 +135,13 @@ export class ModalStack {
   }
 
   private getContentRef(
-    moduleCFR: ComponentFactoryResolver,
     content: any,
     activeModal: ActiveModal
-  ): ContentRef {
+  ): ContentRef | undefined {
     if (content instanceof TemplateRef) {
       return this.createFromTemplateRef(content, activeModal);
     }
+    return undefined;
   }
 
   private createFromTemplateRef(
@@ -153,11 +151,11 @@ export class ModalStack {
     const context = {
       $implicit: activeModal,
 
-      close(result): void {
+      close(result: unknown): void {
         activeModal.close(result);
       },
 
-      dismiss(reason): void {
+      dismiss(reason: unknown): void {
         activeModal.dismiss(reason);
       }
     };
@@ -167,30 +165,26 @@ export class ModalStack {
   }
 
   private _attachBackdrop(
-    moduleCFR: ComponentFactoryResolver,
     containerEl: any
   ): ComponentRef<LuxModalBackdropComponent> {
-    const backdropFactory = moduleCFR.resolveComponentFactory(
-      LuxModalBackdropComponent
-    );
-    const backdropCmptRef = backdropFactory.create(this._injector);
+    const backdropCmptRef = createComponent(LuxModalBackdropComponent, {
+      environmentInjector: this._environmentInjector,
+      elementInjector: this._injector
+    });
     this._applicationRef.attachView(backdropCmptRef.hostView);
     containerEl.appendChild(backdropCmptRef.location.nativeElement);
     return backdropCmptRef;
   }
 
   private _attachWindowComponent(
-    moduleCFR: ComponentFactoryResolver,
     containerEl: any,
     contentRef: any
   ): ComponentRef<LuxModalWindowComponent> {
-    const windowFactory = moduleCFR.resolveComponentFactory(
-      LuxModalWindowComponent
-    );
-    const windowCmptRef = windowFactory.create(
-      this._injector,
-      contentRef.nodes
-    );
+    const windowCmptRef = createComponent(LuxModalWindowComponent, {
+      environmentInjector: this._environmentInjector,
+      elementInjector: this._injector,
+      projectableNodes: contentRef.nodes
+    });
     this._applicationRef.attachView(windowCmptRef.hostView);
     containerEl.appendChild(windowCmptRef.location.nativeElement);
     return windowCmptRef;
@@ -229,7 +223,7 @@ export class ModalStack {
         if (sibling !== element && sibling.nodeName !== 'SCRIPT') {
           this._ariaHiddenValues.set(
             sibling,
-            sibling.getAttribute('aria-hidden')
+            sibling.getAttribute('aria-hidden') ?? ''
           );
           sibling.setAttribute('aria-hidden', 'true');
         }

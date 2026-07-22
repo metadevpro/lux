@@ -9,7 +9,18 @@
       "Bash(echo:*)",
       "Bash(node:*)",
       "Bash(ls:*)",
-      "Bash(npm run test:coverage:*)"
+      "Bash(npm run test:coverage:*)",
+      "Bash(npm ls *)",
+      "Bash(npx ng *)",
+      "Bash(git stash *)",
+      "Bash(npm run *)",
+      "Bash(npx browserslist *)",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\({dev:p.devDependencies},null,2\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(command -v npx)",
+      "Bash(npx depcheck *)",
+      "Read(//tmp/**)"
     ],
     "deny": [],
     "ask": []

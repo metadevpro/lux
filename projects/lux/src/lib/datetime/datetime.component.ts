@@ -25,6 +25,13 @@ import {
   isValidDate
 } from '../helperFns';
 import { languageDetector } from '../lang';
+
+export interface DatetimeTranslations {
+  required: string;
+  min: string;
+  max: string;
+}
+
 @Component({
   selector: 'lux-datetime',
   templateUrl: './datetime.component.html',
@@ -48,21 +55,21 @@ export class DatetimeComponent
 {
   static idCounter = 0;
 
-  @ViewChild('dateInput', { static: true }) dateInput: ElementRef;
-  @ViewChild('timeInput', { static: true }) timeInput: ElementRef;
+  @ViewChild('dateInput', { static: true }) dateInput!: ElementRef;
+  @ViewChild('timeInput', { static: true }) timeInput!: ElementRef;
 
   touched = false;
   dirty = false;
   lastErrors: ValidationErrors | null = null;
 
-  private _disabled: string | boolean;
-  private _required: boolean;
-  private _value: string;
+  private _disabled: string | boolean | undefined = undefined;
+  private _required: boolean | undefined = undefined;
+  private _value: string | undefined = undefined;
 
   public dateValue?: string = undefined;
   public timeValue?: string = undefined;
 
-  public userErrors = {
+  public userErrors: { [lang: string]: DatetimeTranslations } = {
     en: {
       required: 'Required field.',
       min: 'Minimum value is $min.',
@@ -90,8 +97,8 @@ export class DatetimeComponent
 
   @Input() lang = languageDetector();
   @Input() public inlineErrors = false;
-  @Input() public inputId: string;
-  @Input('aria-label') public ariaLabel: string;
+  @Input() public inputId: string | undefined;
+  @Input('aria-label') public ariaLabel: string | undefined;
   @Input() public readonly: boolean | null = null;
 
   @Input()
@@ -99,8 +106,8 @@ export class DatetimeComponent
     v = typeof v === 'string' && v !== 'false' ? true : v;
     this._disabled = v;
   }
-  get disabled(): string | boolean {
-    return this._disabled;
+  get disabled(): boolean {
+    return !!this._disabled;
   }
 
   @Input()
@@ -108,20 +115,20 @@ export class DatetimeComponent
     this._required = v;
   }
   get required(): boolean {
-    return this._required;
+    return !!this._required;
   }
 
   @Input()
-  set value(v: string) {
+  set value(v: string | undefined) {
     if (v === this._value) {
       return; // prevent events when there is no changes
     }
     const initialAndEmpty = isInitialAndEmpty(this._value, v);
-    const datetime = new Date(v);
+    const datetime = new Date(v ?? '');
     if (!v) {
-      this._value = null;
-      this.setDateInControl(null);
-      this.setTimeInControl(null);
+      this._value = undefined;
+      this.setDateInControl(undefined);
+      this.setTimeInControl(undefined);
     } else if (!isValidDate(datetime)) {
       this._value = v;
       // we don't set value in control if the value is not valid
@@ -135,14 +142,14 @@ export class DatetimeComponent
       this.valueChange.emit(v);
     }
   }
-  get value(): string {
+  get value(): string | undefined {
     return this._value;
   }
 
   @Output() valueChange = new EventEmitter<any>();
   @Output() keyPress = new EventEmitter<KeyboardEvent>();
 
-  onChange = (_value): void => {};
+  onChange = (_value: any): void => {};
   onTouched = (): void => {};
 
   constructor() {}
@@ -172,11 +179,11 @@ export class DatetimeComponent
   }
   // End of ControlValueAccessor Interface implementation
 
-  private setDateInControl(date: string): void {
+  private setDateInControl(date: string | undefined): void {
     // this.dateInput.nativeElement.value = date;
     this.dateValue = date;
   }
-  private setTimeInControl(time: string): void {
+  private setTimeInControl(time: string | undefined): void {
     // this.timeInput.nativeElement.value = time;
     this.timeValue = time;
   }
@@ -193,9 +200,9 @@ export class DatetimeComponent
     }
   }
   clear(): void {
-    this.setDateInControl(null);
-    this.setTimeInControl(null);
-    this.value = null;
+    this.setDateInControl(undefined);
+    this.setTimeInControl(undefined);
+    this.value = undefined;
   }
   isClearable(): boolean {
     return hasValue(this.value);
@@ -236,7 +243,7 @@ export class DatetimeComponent
       hasValue(value) &&
       hasValue(this.dateValue) &&
       hasValue(this.timeValue) &&
-      String(value).localeCompare(this.min) === -1
+      String(value).localeCompare(this.min!) === -1
     ) {
       result = result || {};
       result.min = {
@@ -250,7 +257,7 @@ export class DatetimeComponent
       hasValue(value) &&
       hasValue(this.dateValue) &&
       hasValue(this.timeValue) &&
-      String(value).localeCompare(this.max) !== -1
+      String(value).localeCompare(this.max!) !== -1
     ) {
       result = result || {};
       result.max = {
@@ -283,7 +290,7 @@ export class DatetimeComponent
       return;
     }
     if (!newDate || !newTime) {
-      this.value = null;
+      this.value = undefined;
     } else {
       const newValue = `${newDate}T${newTime}`;
       const datetime = new Date(newValue);
@@ -311,8 +318,8 @@ export class DatetimeComponent
         ? 'disabled readonly'
         : 'disabled'
       : this.readonly
-      ? 'readonly'
-      : '';
+        ? 'readonly'
+        : '';
   }
 
   setPatterns(): void {

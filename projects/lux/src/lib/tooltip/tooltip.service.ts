@@ -1,12 +1,13 @@
 import {
   ApplicationRef,
-  ComponentFactoryResolver,
   ComponentRef,
   ElementRef,
   EmbeddedViewRef,
+  EnvironmentInjector,
   Injectable,
   Injector,
   TemplateRef,
+  createComponent,
   inject
 } from '@angular/core';
 
@@ -18,14 +19,14 @@ import { TooltipContentRef } from './tooltop-content';
 @Injectable()
 export class TooltipService {
   private _injector = inject(Injector);
-  private _crf = inject(ComponentFactoryResolver);
+  private _environmentInjector = inject(EnvironmentInjector);
   private _applicationRef = inject(ApplicationRef);
 
   appendComponentToBody(
     content: any,
     elHost: ElementRef,
     placement: PlacementValue
-  ): TooltipContentRef {
+  ): TooltipContentRef | null {
     const tooltipContentRef = this.getTooltipContentRef(content);
     if (tooltipContentRef) {
       let domElem = (tooltipContentRef.viewRef as EmbeddedViewRef<any>)
@@ -35,22 +36,25 @@ export class TooltipService {
         tooltipContentRef.componentRef.changeDetectorRef.detectChanges();
       }
       domElem = this.setStyle(domElem, placement);
-      domElem = this.setPosition(domElem, elHost, placement);
+      this.setPosition(domElem, elHost, placement);
       return tooltipContentRef;
     }
     return null;
   }
 
   removeComponentFromBody(tooltipContentRef: TooltipContentRef): void {
-    this._applicationRef.detachView(tooltipContentRef.viewRef);
+    if (tooltipContentRef.viewRef) {
+      this._applicationRef.detachView(tooltipContentRef.viewRef);
+    }
     if (tooltipContentRef.componentRef) {
       tooltipContentRef.componentRef.destroy();
     }
   }
 
-  private getTooltipContentRef(content: any): TooltipContentRef {
+  private getTooltipContentRef(content: any): TooltipContentRef | null {
     if (!content) {
       // nothing to show
+      return null;
     } else if (content instanceof TemplateRef) {
       return this.createFromTemplateRef(content);
     } else if (typeof content === 'string') {
@@ -70,9 +74,10 @@ export class TooltipService {
     component: any,
     context?: LuxTooltipContext
   ): TooltipContentRef {
-    const componentRef: ComponentRef<any> = this._crf
-      .resolveComponentFactory(component)
-      .create(this._injector);
+    const componentRef: ComponentRef<any> = createComponent(component, {
+      environmentInjector: this._environmentInjector,
+      elementInjector: this._injector
+    });
     if (context) {
       componentRef.instance.context = context;
     }
@@ -132,8 +137,8 @@ export class TooltipService {
       document.documentElement.scrollTop ||
       document.body.scrollTop ||
       0;
-    let top = 0;
-    let left = 0;
+    let top: number;
+    let left: number;
     const offset = 10;
 
     switch (placement) {

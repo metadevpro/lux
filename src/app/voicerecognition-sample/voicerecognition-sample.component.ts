@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./voicerecognition-sample.component.scss']
 })
 export class VoicerecognitionSampleComponent implements OnInit {
-  langValue: string;
+  langValue: string = 'en-US';
 
   ngOnInit(): void {
     this.langValue = window.navigator.language || 'en-US';

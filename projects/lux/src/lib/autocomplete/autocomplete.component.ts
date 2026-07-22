@@ -60,11 +60,11 @@ export class AutocompleteComponent
 
   static idCounter = 0;
 
-  @ViewChild('i0', { static: true }) i0: ElementRef;
-  @ViewChild('completeDiv', { static: true }) completeDiv: ElementRef;
+  @ViewChild('i0', { static: true }) i0!: ElementRef;
+  @ViewChild('completeDiv', { static: true }) completeDiv!: ElementRef;
 
-  private _dataSource: DataSource<any, string>;
-  private _placeholder: string;
+  private _dataSource!: DataSource<any, string>;
+  private _placeholder!: string;
   private _value: any;
   private lostFocusHandled = true;
   private t0 = 0;
@@ -73,12 +73,12 @@ export class AutocompleteComponent
   touched = false;
   completionList: DecoratedDataSource = [];
   showCompletion = false;
-  focusItem: DataSourceItem<any, string>;
+  focusItem: DataSourceItem<any, string> | null = null;
 
   @Output() valueChange = new EventEmitter<any>();
   @Output() dataSourceChange = new EventEmitter<DataSource<any, string>>();
 
-  @Input() public inputId: string;
+  @Input() public inputId!: string;
   @Input() public disabled: boolean | null = null;
   @Input() public readonly: boolean | null = null;
   @Input() label = '';
@@ -134,7 +134,7 @@ export class AutocompleteComponent
   @Input() instance: any;
 
   // ControlValueAccessor Interface
-  onChange = (value): void => {};
+  onChange = (value: any): void => {};
   onTouched = (): void => {};
 
   writeValue(value: any): void {
@@ -254,9 +254,7 @@ export class AutocompleteComponent
       // For custom containers, calculate relative position
       const containerRect = this.appendToContainer.getBoundingClientRect();
       top =
-        inputRect.bottom -
-        containerRect.top +
-        this.appendToContainer.scrollTop;
+        inputRect.bottom - containerRect.top + this.appendToContainer.scrollTop;
       left =
         inputRect.left - containerRect.left + this.appendToContainer.scrollLeft;
     }
@@ -387,7 +385,7 @@ export class AutocompleteComponent
       }
     }, LOST_FOCUS_TIME_WINDOW_MS);
   }
-  complete(item: DataSourceItem<Record<string, unknown>, string>): void {
+  complete(item: DataSourceItem<Record<string, unknown>, string> | null): void {
     if (!this.lostFocusHandled) {
       this.lostFocusHandled = true; // prevent a previous lostFocus to trigger a side effect
       const ellapsed = performance.now() - this.t0;
@@ -415,13 +413,13 @@ export class AutocompleteComponent
     this.toggleCompletion(false, null);
     this.markAsTouched();
   }
-  toggleCompletion(show: boolean, label: string): void {
+  toggleCompletion(show: boolean, label: string | null): void {
     if (show && !this.disabled) {
       this.i0.nativeElement.focus();
       if (this.appendTo) {
         this.updateDropdownPosition();
       }
-      this.showCompletionList(label);
+      this.showCompletionList(label ?? '');
     } else {
       this.showCompletion = false;
       if (this.canAddNewValues) {
@@ -432,9 +430,9 @@ export class AutocompleteComponent
     this.cd.markForCheck();
   }
 
-  get selectedOption(): string {
+  get selectedOption(): string | null {
     const index = this.completionList.findIndex(
-      (i) => i.key === this.focusItem.key
+      (i) => i.key === this.focusItem?.key
     );
     if (index === -1 || !this.focusItem) {
       return null;
@@ -501,7 +499,8 @@ export class AutocompleteComponent
       this.computeCompletionList(text).subscribe({
         next: (cl) => {
           this.completionList = cl;
-          this.focusItem = selectElement(this.completionList, text);
+          const selected = selectElement(this.completionList, text);
+          this.focusItem = selected;
           this.showCompletion = true;
           this.spinnerVisibility(useSpinner, false);
         },
@@ -582,7 +581,10 @@ const decorateItem = (
   return newItem;
 };
 
-const findLabelForId = (data: DataSource<any, string>, id: any): string => {
+const findLabelForId = (
+  data: DataSource<any, string>,
+  id: any
+): string | null => {
   const found = data.find((it) => it.key === id);
   return found ? found.label : null;
 };
@@ -590,7 +592,7 @@ const findLabelForId = (data: DataSource<any, string>, id: any): string => {
 export const selectElement = (
   completionList: DecoratedDataSource,
   label: string
-): DataSourceItem<any, string> => {
+): DataSourceItem<any, string> | null => {
   label = (label || '').toLowerCase();
   if (!completionList || completionList.length === 0) {
     return null;

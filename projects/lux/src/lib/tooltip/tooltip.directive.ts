@@ -3,6 +3,7 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnDestroy,
   inject
 } from '@angular/core';
 
@@ -18,7 +19,7 @@ import { TooltipContentRef } from './tooltop-content';
   standalone: true,
   providers: [TooltipService]
 })
-export class LuxTooltipDirective {
+export class LuxTooltipDirective implements OnDestroy {
   private elHost = inject(ElementRef);
   private tooltipService = inject(TooltipService);
 
@@ -29,9 +30,9 @@ export class LuxTooltipDirective {
   @Input() content: any;
 
   /** Placement */
-  @Input() placement: PlacementValue;
+  @Input() placement!: PlacementValue;
 
-  tooltipRef: TooltipContentRef;
+  tooltipRef!: TooltipContentRef | null;
 
   @HostListener('mouseenter') onMouseEnter(): void {
     if (!this.tooltipRef) {
@@ -65,7 +66,7 @@ export class LuxTooltipDirective {
     component: any,
     elHost: ElementRef,
     placement: PlacementValue
-  ): TooltipContentRef {
+  ): TooltipContentRef | null {
     return this.tooltipService.appendComponentToBody(
       component,
       elHost,
@@ -75,5 +76,12 @@ export class LuxTooltipDirective {
 
   remove(tooltipRef: TooltipContentRef): void {
     this.tooltipService.removeComponentFromBody(tooltipRef);
+  }
+
+  ngOnDestroy(): void {
+    if (this.tooltipRef) {
+      this.remove(this.tooltipRef);
+      this.tooltipRef = null;
+    }
   }
 }

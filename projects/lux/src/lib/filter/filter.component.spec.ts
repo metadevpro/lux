@@ -1,5 +1,10 @@
 import { FormsModule } from '@angular/forms';
-import { byLabel, createHostFactory, Spectator } from '@ngneat/spectator';
+import {
+  byLabel,
+  createHostFactory,
+  Spectator,
+  SpectatorElement
+} from '@ngneat/spectator';
 
 import { FilterComponent } from './filter.component';
 
@@ -29,13 +34,13 @@ describe('FilterComponent', () => {
       expect(button).toBeFalsy();
     });
 
-    it('it should launch search after keypress + debounce time', (done) => {
+    it('it should launch search after keypress + debounce time', (done: () => void) => {
       // Arrange
       component.searchOnType = true;
       component.debounce = 520; // ms
       spectator.detectChanges();
 
-      const input = spectator.query('input');
+      const input = spectator.query('input') as SpectatorElement;
       const t0 = Date.now();
 
       const sub = component.searchValueChange.subscribe((val) => {
@@ -54,10 +59,10 @@ describe('FilterComponent', () => {
       spectator.detectChanges();
     });
 
-    it('by default debounce time is 300 ms', (done) => {
+    it('by default debounce time is 300 ms', (done: () => void) => {
       // Arrange
       component.searchOnType = true;
-      const input = spectator.query('input');
+      const input = spectator.query('input') as SpectatorElement;
       const t0 = Date.now();
 
       const sub = component.searchValueChange.subscribe((val) => {
@@ -77,7 +82,7 @@ describe('FilterComponent', () => {
       spectator.detectChanges();
     });
 
-    it('enter should trigger search immediately', (done) => {
+    it('enter should trigger search immediately', (done: () => void) => {
       // Arrange
       component.searchOnType = true;
       const input = spectator.query('input');
@@ -102,14 +107,18 @@ describe('FilterComponent', () => {
   });
 
   it('should show the search button when searchOntype is false', () => {
-    spectator = createHost('<lux-filter [searchOnType]="false"></lux-filter>') as any;
+    spectator = createHost(
+      '<lux-filter [searchOnType]="false"></lux-filter>'
+    ) as any;
     const button = spectator.query('button.btn-search');
     expect(button).toBeTruthy();
   });
 
-  it('clear() should trigger search inmediatly', (done) => {
+  it('clear() should trigger search inmediatly', (done: () => void) => {
     // Arrange
-    spectator = createHost('<lux-filter [searchOnType]="true" [searchValue]="\'ABC\'"></lux-filter>') as any;
+    spectator = createHost(
+      '<lux-filter [searchOnType]="true" [searchValue]="\'ABC\'"></lux-filter>'
+    ) as any;
     component = spectator.component;
     const t0 = Date.now();
 

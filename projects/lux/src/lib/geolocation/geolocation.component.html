@@ -32,12 +32,14 @@
   [ngClass]="className"
   (click)="openModalMap(modalMap)"
 >
-  @if (isValidNumber(latitudeValue) && latitudeValue >= 0) {
-  <span>{{ i18n[lang].cardinalPoints.north }}</span>
-  } @if (isValidNumber(latitudeValue) && latitudeValue < 0) {
-  <span>{{ i18n[lang].cardinalPoints.south }}</span>
-  } @if (!isValidNumber(latitudeValue)) {
-  <span>-</span>
+  @if (isValidNumber(latitudeValue) && latitudeValue! >= 0) {
+    <span>{{ i18n[lang].cardinalPoints.north }}</span>
+  }
+  @if (isValidNumber(latitudeValue) && latitudeValue! < 0) {
+    <span>{{ i18n[lang].cardinalPoints.south }}</span>
+  }
+  @if (!isValidNumber(latitudeValue)) {
+    <span>-</span>
   }
 </div>
 <input
@@ -74,12 +76,14 @@
   [ngClass]="className"
   (click)="openModalMap(modalMap)"
 >
-  @if (isValidNumber(longitudeValue) && longitudeValue >= 0) {
-  <span>{{ i18n[lang].cardinalPoints.east }}</span>
-  } @if (isValidNumber(longitudeValue) && longitudeValue < 0) {
-  <span>{{ i18n[lang].cardinalPoints.west }}</span>
-  } @if (!isValidNumber(longitudeValue)) {
-  <span>-</span>
+  @if (isValidNumber(longitudeValue) && longitudeValue! >= 0) {
+    <span>{{ i18n[lang].cardinalPoints.east }}</span>
+  }
+  @if (isValidNumber(longitudeValue) && longitudeValue! < 0) {
+    <span>{{ i18n[lang].cardinalPoints.west }}</span>
+  }
+  @if (!isValidNumber(longitudeValue)) {
+    <span>-</span>
   }
 </div>
 <div
@@ -94,58 +98,63 @@
   <span class="icon-globe"></span>
 </div>
 @if (!disabled && !readonly && isClearable()) {
-<button
-  #clearButton
-  class="rounded-right postfix bordered icon icon-clear"
-  [id]="inputId + '$clear'"
-  type="button"
-  (click)="clear()"
-  aria-label="clear"
-></button>
-} @if (inlineErrors && lastErrors && (dirty || touched)) {
-<div class="alert">
-  @if (lastErrors.required) {
-  <div>
-    {{ i18n[lang].userErrors.required }}
+  <button
+    #clearButton
+    class="rounded-right postfix bordered icon icon-clear"
+    [id]="inputId + '$clear'"
+    type="button"
+    (click)="clear()"
+    aria-label="clear"
+  ></button>
+}
+@if (inlineErrors && lastErrors && (dirty || touched)) {
+  <div class="alert">
+    @if (lastErrors.required) {
+      <div>
+        {{ i18n[lang].userErrors.required }}
+      </div>
+    }
+    @if (lastErrors.minLatitude) {
+      <div>
+        {{
+          i18n[lang].userErrors.minLatitude.replace(
+            '$minLatitude',
+            lastErrors.minLatitude.min
+          )
+        }}
+      </div>
+    }
+    @if (lastErrors.maxLatitude) {
+      <div>
+        {{
+          i18n[lang].userErrors.maxLatitude.replace(
+            '$maxLatitude',
+            lastErrors.maxLatitude.max
+          )
+        }}
+      </div>
+    }
+    @if (lastErrors.minLongitude) {
+      <div>
+        {{
+          i18n[lang].userErrors.minLongitude.replace(
+            '$minLongitude',
+            lastErrors.minLongitude.min
+          )
+        }}
+      </div>
+    }
+    @if (lastErrors.maxLongitude) {
+      <div>
+        {{
+          i18n[lang].userErrors.maxLongitude.replace(
+            '$maxLongitude',
+            lastErrors.maxLongitude.max
+          )
+        }}
+      </div>
+    }
   </div>
-  } @if (lastErrors.minLatitude) {
-  <div>
-    {{
-      i18n[lang].userErrors.minLatitude.replace(
-        '$minLatitude',
-        lastErrors.minLatitude.min
-      )
-    }}
-  </div>
-  } @if (lastErrors.maxLatitude) {
-  <div>
-    {{
-      i18n[lang].userErrors.maxLatitude.replace(
-        '$maxLatitude',
-        lastErrors.maxLatitude.max
-      )
-    }}
-  </div>
-  } @if (lastErrors.minLongitude) {
-  <div>
-    {{
-      i18n[lang].userErrors.minLongitude.replace(
-        '$minLongitude',
-        lastErrors.minLongitude.min
-      )
-    }}
-  </div>
-  } @if (lastErrors.maxLongitude) {
-  <div>
-    {{
-      i18n[lang].userErrors.maxLongitude.replace(
-        '$maxLongitude',
-        lastErrors.maxLongitude.max
-      )
-    }}
-  </div>
-  }
-</div>
 }
 
 <ng-template #modalMap let-modal>
@@ -164,15 +173,15 @@
   </div>
   <div class="lux-modal-body content">
     @if (!disabled && !readonly) {
-    <lux-autocomplete
-      #searchBar
-      [attr.aria-label]="i18n[lang].typeToSearch"
-      [placeholder]="i18n[lang].typeToSearch"
-      [instance]="self"
-      [resolveLabelsFunction]="getLabels"
-      [populateFunction]="getData"
-      (valueChange)="onSearchLocationChanged(searchBar.value, map)"
-    ></lux-autocomplete>
+      <lux-autocomplete
+        #searchBar
+        [attr.aria-label]="i18n[lang].typeToSearch"
+        [placeholder]="i18n[lang].typeToSearch"
+        [instance]="self"
+        [resolveLabelsFunction]="getLabels"
+        [populateFunction]="getData"
+        (valueChange)="onSearchLocationChanged(searchBar.value, map)"
+      ></lux-autocomplete>
     }
     <div class="map-container">
       <lux-map
@@ -186,29 +195,31 @@
   </div>
   <div class="lux-modal-footer">
     @if (disabled || readonly) {
-    <button
-      type="button"
-      class="btn btn-cancel"
-      (click)="modal.close('cancel')"
-    >
-      {{ i18n[lang].closeAction }}
-    </button>
-    } @if (!disabled && !readonly) {
-    <button
-      type="button"
-      class="btn btn-cancel"
-      (click)="modal.close('cancel')"
-    >
-      {{ i18n[lang].cancelAction }}
-    </button>
-    } @if (!disabled && !readonly) {
-    <button
-      type="button"
-      class="btn btn-select"
-      (click)="modal.close(map.markerPoint.coordinates)"
-    >
-      {{ i18n[lang].selectAction }}
-    </button>
+      <button
+        type="button"
+        class="btn btn-cancel"
+        (click)="modal.close('cancel')"
+      >
+        {{ i18n[lang].closeAction }}
+      </button>
+    }
+    @if (!disabled && !readonly) {
+      <button
+        type="button"
+        class="btn btn-cancel"
+        (click)="modal.close('cancel')"
+      >
+        {{ i18n[lang].cancelAction }}
+      </button>
+    }
+    @if (!disabled && !readonly) {
+      <button
+        type="button"
+        class="btn btn-select"
+        (click)="modal.close(map.markerPoint.coordinates)"
+      >
+        {{ i18n[lang].selectAction }}
+      </button>
     }
   </div>
 </ng-template>

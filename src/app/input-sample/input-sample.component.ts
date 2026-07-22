@@ -15,11 +15,11 @@ export class InputSampleComponent implements AfterContentInit {
   name = 'Lux';
   disabled = true;
   readonly = true;
-  valueEmail: string = null;
-  valueUrl: string = null;
-  valueColor: string = null;
-  valueDate: string = null;
-  valueTime: string = null;
+  valueEmail: string | null = null;
+  valueUrl: string | null = null;
+  valueColor: string | null = null;
+  valueDate: string | null = null;
+  valueTime: string | null = null;
   valuePassword = '';
   valueTextarea = '';
   valueNumber = 7;
@@ -35,7 +35,7 @@ export class InputSampleComponent implements AfterContentInit {
     inlineErrors: false,
     value: 'a',
     formValues: {
-      field1: null // 'initial@value.com'
+      field1: '' // 'initial@value.com'
     }
   };
 

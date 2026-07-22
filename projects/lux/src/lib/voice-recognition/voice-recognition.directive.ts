@@ -14,7 +14,7 @@ export class VoiceRecognitionDirective implements OnInit {
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
 
-  @Input() language: string;
+  @Input() language: string = 'en-US';
   // See API at: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition
   private recognition: any;
   private isRecognizing = false;
@@ -43,7 +43,8 @@ export class VoiceRecognitionDirective implements OnInit {
 
       // Add event handlers
       this.mic.onclick = (): void => this.microphoneClick();
-      this.recognition.onresult = (event): void => this.onRecognized(event);
+      this.recognition.onresult = (event: any): void =>
+        this.onRecognized(event);
     }
   }
 

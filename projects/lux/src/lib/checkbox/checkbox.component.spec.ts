@@ -89,7 +89,7 @@ describe('CheckboxComponent', () => {
 
   it('should render no label if no label property is present', () => {
     // Arrange
-    component.label = null;
+    component.label = undefined;
     // Act
     spectator.detectChanges();
     // Assert
@@ -202,13 +202,13 @@ describe('CheckboxComponent', () => {
     expect(component.value).toBe(true);
   });
 
-  it('should tabindexValue null when disabled is true', () => {
+  it('should tabindexValue undefined when disabled is true', () => {
     // Arrange
     component.disabled = true;
     // Act
     spectator.detectChanges();
     // Assert
-    expect(component.tabindexValue).toBe(null);
+    expect(component.tabindexValue).toBe(undefined);
   });
 
   it('should tabindexValue 0 when disabled is false', () => {

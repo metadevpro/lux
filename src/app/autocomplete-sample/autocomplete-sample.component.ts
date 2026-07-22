@@ -55,7 +55,7 @@ export class AutoCompleteSampleComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     this.prismService.highlightAll();
   }
-  getLabel(isoCode: string): string {
+  getLabel(isoCode: string): string | null {
     const found = this.countries.find((c) => c.key === isoCode);
     return found ? found.label : null;
   }

@@ -25,7 +25,7 @@ Each component in `projects/lux/src/lib/` follows a consistent structure:
 - Contains: component TypeScript, template, styles, spec files, and supporting files
 - All public exports defined in `projects/lux/src/public-api.ts`
 
-The library uses **standalone components** imported and re-exported through `LuxModule` (at `projects/lux/src/lib/lux.module.ts`), providing both standalone and module-based consumption patterns.
+The library uses **standalone components** imported and re-exported through `LuxModule` (at `projects/lux/src/lib/lux.module.ts`), providing both standalone and module-based consumption patterns. `LuxModule`'s `declarations` array is empty by design — every component/directive is standalone, so the module only `imports` them and re-`exports` them for consumers who prefer the NgModule style. All public exports (components, directives, services, and supporting types like `DataSource`) are declared in `projects/lux/src/public-api.ts`; add new symbols there when creating a component, or consumers won't be able to import them.
 
 ### Key Components
 
@@ -78,9 +78,16 @@ npm run compodoc               # Generate component documentation
 
 ## Testing
 
-Uses **Jest** (not Karma) with `jest-preset-angular` and `@ngneat/spectator` for component testing. Configuration in `jest.config.ts` with setup in `setup-jest.ts`.
+Uses **Jest** (not Karma) with `jest-preset-angular` and `@ngneat/spectator` for component testing. Configuration in `jest.config.js` (root) with setup in `setup-jest.ts`. `npm test` runs Jest directly (not through `ng test`), so it covers both `projects/lux` and `src/` in one pass.
 
-Test files use `.spec.ts` extension and are colocated with components.
+Test files use `.spec.ts` extension and are colocated with components. The standard pattern uses Spectator's `createComponentFactory`/`Spectator<T>` rather than raw TestBed:
+
+```ts
+const createComponent = createComponentFactory({ component: CheckboxComponent });
+spectator = createComponent();
+```
+
+To run a single test file: `npx jest path/to/component.spec.ts`. To run tests matching a name: `npx jest -t "test name"`.
 
 ## Local Library Development
 
@@ -91,6 +98,14 @@ To test library changes in a consuming application:
 3. Create tarball: `npm pack`
 4. Install in target app: `npm install /path/to/lux/dist/lux/metadev-lux-<version>.tgz`
 
+## Lint Conventions (eslint.config.js)
+
+A few non-default rules matter when adding code:
+- Single quotes, explicit function return types are required (`@typescript-eslint/explicit-function-return-type`).
+- `max-len` is 180, not the ESLint default.
+- Component selectors: element, kebab-case, **no prefix** (e.g. `checkbox`, not `lux-checkbox`). Directive selectors: attribute, camelCase, no prefix.
+- `no-explicit-any`, `no-unused-vars`, and `no-empty-function` are turned off.
+
 ## Git Workflow
 
 - Main development branch: `devel`
@@ -98,7 +113,7 @@ To test library changes in a consuming application:
 
 ## Angular Version
 
-Currently on Angular 21.x. When updating Angular:
+Currently on Angular 22.x. When updating Angular:
 - Run migrations in both demo app and library project
 - Test library build and demo app thoroughly
 - Update peer dependencies in `projects/lux/package.json` if needed

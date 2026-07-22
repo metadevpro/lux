@@ -5,6 +5,13 @@ import { languageDetector } from '../lang';
 import { LuxTooltipDirective } from '../tooltip/tooltip.directive';
 import { PaginationInfo } from './pagination';
 
+interface PaginationLiterals {
+  first: string;
+  previous: string;
+  next: string;
+  last: string;
+}
+
 @Component({
   selector: 'lux-pagination',
   imports: [CommonModule, FormsModule, LuxTooltipDirective],
@@ -12,7 +19,7 @@ import { PaginationInfo } from './pagination';
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnInit {
-  literals = {
+  literals: { [key: string]: PaginationLiterals } = {
     en: {
       first: 'First',
       previous: 'Previous',
@@ -27,10 +34,10 @@ export class PaginationComponent implements OnInit {
     }
   };
 
-  public first: string;
-  public previous: string;
-  public next: string;
-  public last: string;
+  public first: string | undefined;
+  public previous: string | undefined;
+  public next: string | undefined;
+  public last: string | undefined;
 
   public showPagination = false;
   public hidePrevious = false;
@@ -45,9 +52,9 @@ export class PaginationComponent implements OnInit {
   @Output() pageSizeChange = new EventEmitter<number>();
 
   /** Current page, total items and items to show per page */
-  private paginationInfoValue: PaginationInfo;
+  private paginationInfoValue!: PaginationInfo;
 
-  private _lang: string;
+  private _lang = 'en';
   @Input()
   set lang(l: string) {
     if (l === this._lang) {

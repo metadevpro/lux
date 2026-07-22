@@ -15,9 +15,9 @@ export class PaginationSampleComponent implements AfterContentInit {
   private userService = inject(UserMockService);
   private prismService = inject(PrismService);
 
-  users$: Observable<any[]>;
+  users$!: Observable<any[]>;
 
-  paginationInfo: PaginationInfo;
+  paginationInfo!: PaginationInfo;
 
   ngAfterContentInit(): void {
     this.prismService.highlightAll();

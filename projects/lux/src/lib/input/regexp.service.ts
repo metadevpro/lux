@@ -50,7 +50,7 @@ export class RegexpService {
 
   private sliceRegexByOr(regularExpressionString: string): string[] {
     const result = [];
-    let slicedRegex = '';
+    let slicedRegex: string;
     let lastSliceIndex = 0;
     let roundBracketCount = 0;
     let squareBracketCount = 0;

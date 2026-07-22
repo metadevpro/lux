@@ -20,9 +20,9 @@ describe('DatetimeComponent', () => {
   it('should clear', () => {
     component.value = new Date().toISOString();
     component.clear();
-    expect(component.value).toBeNull();
-    expect(component.dateValue).toBeNull();
-    expect(component.timeValue).toBeNull();
+    expect(component.value).toBeUndefined();
+    expect(component.dateValue).toBeUndefined();
+    expect(component.timeValue).toBeUndefined();
   });
 
   it('should update date and time', () => {
