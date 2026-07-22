@@ -1,5 +1,5 @@
 #!/bin/sh
-SOURCE="../dist/lux-demo"
+SOURCE="../dist/lux-demo/browser/"
 TARGET="lux.metadev.pro"
 REGION=eu-south-2
 
