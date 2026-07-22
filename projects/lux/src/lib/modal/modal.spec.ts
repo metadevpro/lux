@@ -76,7 +76,7 @@ describe('Modal Tests', () => {
     spectator.detectChanges();
     // Assert
     let modals = document
-      .querySelector('body')
+      .querySelector('body')!
       .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(1);
 
@@ -85,7 +85,9 @@ describe('Modal Tests', () => {
     // Act
     spectator.detectChanges();
     // Assert
-    modals = document.querySelector('body').querySelectorAll('.lux-modal-body');
+    modals = document
+      .querySelector('body')!
+      .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(0);
   });
 
@@ -96,7 +98,7 @@ describe('Modal Tests', () => {
     spectator.detectChanges();
     // Assert
     const modals = document
-      .querySelector('body')
+      .querySelector('body')!
       .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(1);
 
@@ -117,7 +119,7 @@ describe('Modal Tests', () => {
     spectator.detectChanges();
     // Assert
     const modals = document
-      .querySelector('body')
+      .querySelector('body')!
       .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(1);
 
@@ -144,7 +146,7 @@ describe('Modal Tests', () => {
     spectator.detectChanges();
     // Assert
     const modals = document
-      .querySelector('body')
+      .querySelector('body')!
       .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(0);
   });
@@ -159,14 +161,14 @@ describe('Modal Tests', () => {
     spectator.detectChanges();
     // Assert
     const modals = document
-      .querySelector('body')
+      .querySelector('body')!
       .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(0);
   });
 
   it('should resolve result promise on close', () => {
     // Arrange
-    let resolvedResult;
+    let resolvedResult: any;
     component.openModal1().result.then((result) => {
       resolvedResult = result;
     });
@@ -177,7 +179,7 @@ describe('Modal Tests', () => {
     spectator.detectChanges();
     // Assert
     const modals = document
-      .querySelector('body')
+      .querySelector('body')!
       .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(0);
     spectator.fixture.whenStable().then(() => {
@@ -187,7 +189,7 @@ describe('Modal Tests', () => {
 
   it('should reject result promise on close', () => {
     // Arrange
-    let rejectedResult;
+    let rejectedResult: any;
     component.openModal1().result.catch((result) => {
       rejectedResult = result;
     });
@@ -198,7 +200,7 @@ describe('Modal Tests', () => {
     spectator.detectChanges();
     // Assert
     const modals = document
-      .querySelector('body')
+      .querySelector('body')!
       .querySelectorAll('.lux-modal-body');
     expect(modals.length).toBe(0);
     spectator.fixture.whenStable().then(() => {

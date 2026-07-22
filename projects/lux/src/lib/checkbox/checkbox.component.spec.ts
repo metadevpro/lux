@@ -89,7 +89,7 @@ describe('CheckboxComponent', () => {
 
   it('should render no label if no label property is present', () => {
     // Arrange
-    component.label = null;
+    component.label = undefined;
     // Act
     spectator.detectChanges();
     // Assert

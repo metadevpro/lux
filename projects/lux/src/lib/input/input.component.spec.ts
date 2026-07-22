@@ -89,7 +89,7 @@ describe('InputComponent', () => {
     component.disabled = true;
     spectator.detectChanges();
 
-    const element: HTMLInputElement = spectator.query('input');
+    const element: HTMLInputElement = spectator.query('input')!;
     expect(element.disabled).toBeTruthy();
   });
 
@@ -100,7 +100,7 @@ describe('InputComponent', () => {
     component.disabled = false;
     spectator.detectChanges();
 
-    const element: HTMLInputElement = spectator.query('input');
+    const element: HTMLInputElement = spectator.query('input')!;
     expect(element.disabled).toBeFalsy();
   });
   it('Enable, disable: should show as disable', () => {
@@ -110,7 +110,7 @@ describe('InputComponent', () => {
     component.disabled = true;
     spectator.detectChanges();
 
-    const element: HTMLInputElement = spectator.query('input');
+    const element: HTMLInputElement = spectator.query('input')!;
     expect(element.disabled).toBeTruthy();
   });
 
@@ -134,7 +134,7 @@ describe('InputComponent', () => {
     testComponent.value = '0';
     testSpectator.detectChanges();
 
-    const input: HTMLInputElement = testSpectator.query('#numeric');
+    const input: HTMLInputElement = testSpectator.query('#numeric')!;
     input.stepUp();
     input.dispatchEvent(new Event('change'));
 
