@@ -26,8 +26,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": ">= 22 < 24",
-    "@angular/core": ">= 22 < 24",
-    "ol": "^6.5.0"
+    "@angular/core": ">= 22 < 24"
   },
   "dependencies": {}
 }
