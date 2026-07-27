@@ -20,7 +20,8 @@
       "Bash(echo \"EXIT:$?\")",
       "Bash(command -v npx)",
       "Bash(npx depcheck *)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(xargs grep -l \"ts-jest\")"
     ],
     "deny": [],
     "ask": []
