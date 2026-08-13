@@ -29,13 +29,7 @@ const config = {
   moduleDirectories: ['node_modules', 'src'],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: [
-    'js',
-    'mjs',
-    'ts',
-    'json',
-    'html'
-  ],
+  moduleFileExtensions: ['js', 'mjs', 'ts', 'json', 'html'],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {

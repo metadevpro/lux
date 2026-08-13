@@ -1,13 +1,17 @@
 <ul class="lux-breadcrumb">
-  @for (breadcrumb of breadcrumbs; track breadcrumb.url; let isLast = $last; let
-  isFirst = $first) {
-  <li class="lux-breadcrumb-item">
-    <a [class.first]="isFirst" routerLink="{{ breadcrumb.url }}">{{
-      breadcrumb.label
-    }}</a>
-    @if (!isLast) {
-    <div class="lux-breadcrumb-separator"></div>
-    }
-  </li>
+  @for (
+    breadcrumb of breadcrumbs;
+    track breadcrumb.url;
+    let isLast = $last;
+    let isFirst = $first
+  ) {
+    <li class="lux-breadcrumb-item">
+      <a [class.first]="isFirst" routerLink="{{ breadcrumb.url }}">{{
+        breadcrumb.label
+      }}</a>
+      @if (!isLast) {
+        <div class="lux-breadcrumb-separator"></div>
+      }
+    </li>
   }
 </ul>

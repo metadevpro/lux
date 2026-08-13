@@ -34,33 +34,37 @@
   (blur)="onLostFocus()"
 />
 @if (!localTime) {
-<div
-  [class]="
-    disabled || readonly || !isClearable()
-      ? 'rounded-right postfix symbol'
-      : 'postfix symbol'
-  "
-  [ngClass]="className"
->
-  <span>{{ localTime ? '' : 'UTC' }}</span>
-</div>
-} @if (!disabled && !readonly && isClearable()) {
-<button
-  #clearButton
-  type="button"
-  class="rounded-right postfix bordered icon-clear"
-  [id]="inputId + '$clear'"
-  (click)="clear()"
-  aria-label="clear"
-></button>
-} @if (inlineErrors && lastErrors && (dirty || touched)) {
-<div class="alert">
-  @if (lastErrors.required) {
-  <div>{{ userErrors[lang].required }}</div>
-  } @if (lastErrors.min) {
-  <div>{{ userErrors[lang].min.replace('$min', lastErrors.min.min) }}</div>
-  } @if (lastErrors.max) {
-  <div>{{ userErrors[lang].max.replace('$max', lastErrors.max.max) }}</div>
-  }
-</div>
+  <div
+    [class]="
+      disabled || readonly || !isClearable()
+        ? 'rounded-right postfix symbol'
+        : 'postfix symbol'
+    "
+    [ngClass]="className"
+  >
+    <span>{{ localTime ? '' : 'UTC' }}</span>
+  </div>
+}
+@if (!disabled && !readonly && isClearable()) {
+  <button
+    #clearButton
+    type="button"
+    class="rounded-right postfix bordered icon-clear"
+    [id]="inputId + '$clear'"
+    (click)="clear()"
+    aria-label="clear"
+  ></button>
+}
+@if (inlineErrors && lastErrors && (dirty || touched)) {
+  <div class="alert">
+    @if (lastErrors.required) {
+      <div>{{ userErrors[lang].required }}</div>
+    }
+    @if (lastErrors.min) {
+      <div>{{ userErrors[lang].min.replace('$min', lastErrors.min.min) }}</div>
+    }
+    @if (lastErrors.max) {
+      <div>{{ userErrors[lang].max.replace('$max', lastErrors.max.max) }}</div>
+    }
+  </div>
 }

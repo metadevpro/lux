@@ -1,13 +1,13 @@
 .lux-select {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 
- .list {
-  margin: 1em;
-  padding-bottom: .2em;
-  list-style-type: square;
+  .list {
+    margin: 1em;
+    padding-bottom: 0.2em;
+    list-style-type: square;
 
     span {
-      margin-bottom: .3em;
+      margin-bottom: 0.3em;
     }
   }
 }
@@ -16,7 +16,7 @@
   font-size: 0.65em;
   color: firebrick;
   background: transparent;
-  border: 2px solid #BBB;
+  border: 2px solid #bbb;
 }
 .add-new-item {
   display: inline-flex;
@@ -24,6 +24,6 @@
   height: 1.6em;
 }
 .error {
-  margin: .5em 0em;
+  margin: 0.5em 0em;
   color: firebrick;
 }

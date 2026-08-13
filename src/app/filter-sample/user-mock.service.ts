@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { User } from './user';
 
-
 const mockUsers: User[] = [
   {
     userName: 'csalas',
@@ -44,17 +43,13 @@ export class UserServiceMock {
   private list: User[] = mockUsers;
   private seq = 0;
 
-  constructor() { }
+  constructor() {}
   getAll(criteria: string): Observable<User[]> {
-    return of(this.list.filter(
-      it => filterByCriteria(it, criteria))
-    );
+    return of(this.list.filter((it) => filterByCriteria(it, criteria)));
   }
   getById(id: string): Observable<User> {
-    const found = this.list.find(u => u.id === id);
-    return found
-      ? of(found)
-      : throwError(new Error('Not found'));
+    const found = this.list.find((u) => u.id === id);
+    return found ? of(found) : throwError(new Error('Not found'));
   }
   create(user: User): Observable<User> {
     user.id = 'e' + (this.seq++).toString();
@@ -62,7 +57,7 @@ export class UserServiceMock {
     return of(user);
   }
   update(user: User): Observable<User> {
-    const foundIndex = this.list.findIndex(u => u.id === user.id);
+    const foundIndex = this.list.findIndex((u) => u.id === user.id);
     if (foundIndex === -1) {
       return throwError(new Error('Not found'));
     } else {
@@ -71,7 +66,7 @@ export class UserServiceMock {
     }
   }
   delete(user: User): Observable<boolean> {
-    const foundIndex = this.list.findIndex(u => u.id === user.id);
+    const foundIndex = this.list.findIndex((u) => u.id === user.id);
     if (foundIndex === -1) {
       return throwError(new Error('Not found'));
     } else {

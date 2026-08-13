@@ -1,26 +1,27 @@
 <div class="switch">
   <div>
     @if (label) {
-    <label [for]="inputId">{{ label }}</label>
+      <label [for]="inputId">{{ label }}</label>
     }
   </div>
   @if (!disabled) {
-  <div class="switch-item" (click)="clicked()">
-    <input #ck [name]="name" type="checkbox" [id]="inputId" />
-    <div
-      class="slider round"
-      [class.on]="value"
-      [class.disabled]="disabled"
-      [tabindex]="tabindexValue"
-      (keyup)="onKey($event)"
-    ></div>
-  </div>
+    <div class="switch-item" (click)="clicked()">
+      <input #ck [name]="name" type="checkbox" [id]="inputId" />
+      <div
+        class="slider round"
+        [class.on]="value"
+        [class.disabled]="disabled"
+        [tabindex]="tabindexValue"
+        (keyup)="onKey($event)"
+      ></div>
+    </div>
   }
   <div>
     @if (value) {
-    <span class="checkbox-label">{{ literals[lang].yesLabel }}</span>
-    } @if (!value) {
-    <span class="checkbox-label">{{ literals[lang].noLabel }}</span>
+      <span class="checkbox-label">{{ literals[lang].yesLabel }}</span>
+    }
+    @if (!value) {
+      <span class="checkbox-label">{{ literals[lang].noLabel }}</span>
     }
   </div>
 </div>

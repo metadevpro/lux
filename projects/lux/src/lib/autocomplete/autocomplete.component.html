@@ -23,21 +23,23 @@
       [attr.aria-activedescendant]="selectedOption"
     />
     @if (canAddNewValues) {
-    <div class="icon-suggestions"></div>
-    } @if (showSpinner) {
-    <div class="icon-spinner"></div>
-    } @if (!disabled && i0.value && !showCompletion) {
-    <button
-      type="button"
-      class="icon-clear"
-      aria-label="Clear"
-      (click)="clear()"
-    ></button>
+      <div class="icon-suggestions"></div>
+    }
+    @if (showSpinner) {
+      <div class="icon-spinner"></div>
+    }
+    @if (!disabled && i0.value && !showCompletion) {
+      <button
+        type="button"
+        class="icon-clear"
+        aria-label="Clear"
+        (click)="clear()"
+      ></button>
     } @else {
-    <div
-      class="icon-dropdown"
-      (click)="toggleCompletion(!showCompletion, i0.value)"
-    ></div>
+      <div
+        class="icon-dropdown"
+        (click)="toggleCompletion(!showCompletion, i0.value)"
+      ></div>
     }
   </div>
   <div
@@ -49,17 +51,17 @@
   >
     <ul>
       @for (item of completionList; track item.key; let index = $index) {
-      <li
-        id="{{ inputId + '_' + index }}"
-        class="lux-completion-item"
-        [class.selected]="focusItem && item.key === focusItem.key"
-        (click)="complete(item)"
-        [attr.aria-label]="item.label"
-      >
-        <span class="preserve-white-space">{{ item.labelPrefix }}</span>
-        <span class="preserve-white-space bold">{{ item.labelMatch }}</span>
-        <span class="preserve-white-space">{{ item.labelPostfix }}</span>
-      </li>
+        <li
+          id="{{ inputId + '_' + index }}"
+          class="lux-completion-item"
+          [class.selected]="focusItem && item.key === focusItem.key"
+          (click)="complete(item)"
+          [attr.aria-label]="item.label"
+        >
+          <span class="preserve-white-space">{{ item.labelPrefix }}</span>
+          <span class="preserve-white-space bold">{{ item.labelMatch }}</span>
+          <span class="preserve-white-space">{{ item.labelPostfix }}</span>
+        </li>
       }
     </ul>
   </div>

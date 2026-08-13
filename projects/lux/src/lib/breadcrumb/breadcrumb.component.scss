@@ -1,25 +1,25 @@
 .lux-breadcrumb {
-    padding: 10px 12px;
-    list-style: none;
-    list-style-type: none;
+  padding: 10px 12px;
+  list-style: none;
+  list-style-type: none;
 }
 
 .lux-breadcrumb li {
-    display: inline;
-    font-size: .8em;
+  display: inline;
+  font-size: 0.8em;
 }
 .lux-breadcrumb li a.first {
   font-weight: bold;
 }
-.lux-breadcrumb li+li:before {
-    padding: 8px;
-    color: black;
+.lux-breadcrumb li + li:before {
+  padding: 8px;
+  color: black;
 }
 .lux-breadcrumb li a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 ol.lux-breadcrumb li a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .lux-breadcrumb a {

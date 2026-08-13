@@ -10,5 +10,4 @@ export interface User {
   role: string;
   urlImage?: string;
   email?: string;
-
 }

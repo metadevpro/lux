@@ -93,7 +93,9 @@ describe('AutoCompleteComponent', () => {
       spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
-      expect(dropdown.classList.contains('lux-completion-list-appended')).toBe(true);
+      expect(dropdown.classList.contains('lux-completion-list-appended')).toBe(
+        true
+      );
     });
 
     it('should not apply lux-completion-list-appended class when appendTo is not set', () => {
@@ -101,7 +103,9 @@ describe('AutoCompleteComponent', () => {
       spectator.detectChanges();
 
       const dropdown = component.completeDiv.nativeElement;
-      expect(dropdown.classList.contains('lux-completion-list-appended')).toBe(false);
+      expect(dropdown.classList.contains('lux-completion-list-appended')).toBe(
+        false
+      );
     });
 
     it('should set dropdown position when appendTo is used', () => {

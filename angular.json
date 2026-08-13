@@ -25,9 +25,7 @@
               "base": "dist/lux-demo"
             },
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
@@ -87,14 +85,6 @@
             "buildTarget": "lux-demo:build"
           }
         },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "jestConfig": "jest.config.js",
-            "codeCoverage": true,
-            "browsers": ["ChromeHeadlessCI"]
-          }
-        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
@@ -119,12 +109,6 @@
             "production": {
               "tsConfig": "projects/lux/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "jestConfig": "jest.config.ts"
           }
         },
         "lint": {

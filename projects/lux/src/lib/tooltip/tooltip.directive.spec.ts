@@ -28,9 +28,7 @@ describe('LuxTooltipDirective', () => {
   });
 
   afterEach(() => {
-    document
-      .querySelectorAll('span.lux-tooltip')
-      .forEach((el) => el.remove());
+    document.querySelectorAll('span.lux-tooltip').forEach((el) => el.remove());
     jest.useRealTimers();
   });
 

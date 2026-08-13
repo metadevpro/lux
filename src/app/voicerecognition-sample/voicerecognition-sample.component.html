@@ -1,11 +1,13 @@
 <h1>Voice Recognition</h1>
 
 <h2>Usage samples</h2>
-<p>Voice Recognition is implemented as a directive. Therefore, it can extend any input or textarea to allow voice input whenever text is accepted.</p>
+<p>
+  Voice Recognition is implemented as a directive. Therefore, it can extend any
+  input or textarea to allow voice input whenever text is accepted.
+</p>
 <p>To use it click on the mic icon and talk.</p>
 <p>Language must be configured to improve recognition accuracy.</p>
 <div>
-
   <pre class="language-html" rel="html">
     <code class="language-html">
       &lt;label for="searchField"&gt;Click the mic to talk:&lt;/label&gt;
@@ -13,8 +15,8 @@
     </code>
   </pre>
 
-  <br/>
-  <br/>
+  <br />
+  <br />
 
   <label for="lang">Pick a language for voice recognition:</label>
   <select id="lang" [(ngModel)]="langValue">
@@ -31,10 +33,15 @@
     <option value="jp-JP">Japanise (Japan)</option>
     <option value="cn-CMN">Mandarin (China)</option>
   </select>
-  <br/>
+  <br />
 
   <label for="searchField">Click the mic to talk:</label>
-  <input id="searchField" size="100" luxVoiceRecognition [language]="langValue">
+  <input
+    id="searchField"
+    size="100"
+    luxVoiceRecognition
+    [language]="langValue"
+  />
 </div>
 
 <h2>Documentation</h2>
