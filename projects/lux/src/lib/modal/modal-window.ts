@@ -48,13 +48,11 @@ export class LuxModalWindowComponent
   @HostBinding('tabindex') tabindex = '-1';
   @HostBinding('attr.aria-modal') ariamodal = true;
   @HostBinding('attr.aria-labelledby') get hostAriaLabelledBy():
-    | string
-    | undefined {
+    string | undefined {
     return this.ariaLabelledBy;
   }
   @HostBinding('attr.aria-describedby') get hostAriaDescribedBy():
-    | string
-    | undefined {
+    string | undefined {
     return this.ariaDescribedBy;
   }
   @HostListener('click', ['$event']) backdropClick(event: any): void {

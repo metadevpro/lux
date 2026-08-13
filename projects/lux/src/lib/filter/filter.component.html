@@ -19,15 +19,16 @@
     (click)="clear()"
   ></button>
   @if (searchOnType) {
-  <i class="search-indicator icon icon-search"></i>
-  } @if (!searchOnType) {
-  <button
-    class="btn-search"
-    type="button"
-    [disabled]="disabled"
-    (click)="search()"
-  >
-    Search
-  </button>
+    <i class="search-indicator icon icon-search"></i>
+  }
+  @if (!searchOnType) {
+    <button
+      class="btn-search"
+      type="button"
+      [disabled]="disabled"
+      (click)="search()"
+    >
+      Search
+    </button>
   }
 </div>

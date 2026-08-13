@@ -30,350 +30,353 @@
     <code class="language-html">
       &lt;lux-input aria-label="Disabled example" [(ngModel)]="value" <span class="text-underlined">disabled</span>&gt;&lt;/lux-input&gt;</code>
     </pre>
-    <div class="sample">
-      <lux-input
-        aria-label="Disabled example"
-        [(ngModel)]="value"
-        disabled
-      ></lux-input>
-    </div>
+  <div class="sample">
+    <lux-input
+      aria-label="Disabled example"
+      [(ngModel)]="value"
+      disabled
+    ></lux-input>
+  </div>
 
-    <h3>Readonly</h3>
-    <pre class="language-html" rel="html">
+  <h3>Readonly</h3>
+  <pre class="language-html" rel="html">
       <code class="language-html">
         &lt;lux-input aria-label="Readonly example" [(ngModel)]="value" <span class="text-underlined">[readonly]="true"</span>&gt;&lt;/lux-input&gt;</code>
       </pre>
-      <div class="sample">
-        <lux-input
-          aria-label="Readonly example"
-          [(ngModel)]="value"
-          [readonly]="true"
-        ></lux-input>
-      </div>
+  <div class="sample">
+    <lux-input
+      aria-label="Readonly example"
+      [(ngModel)]="value"
+      [readonly]="true"
+    ></lux-input>
+  </div>
 
-      <h3>Placeholder</h3>
-      <pre class="language-html" rel="html">
+  <h3>Placeholder</h3>
+  <pre class="language-html" rel="html">
         <code class="language-html">
           &lt;lux-input aria-label="Placeholder example" <span class="text-underlined">[placeholder]="placeholder"</span>&gt;&lt;/lux-input&gt;</code>
         </pre>
-        <div class="sample">
-          <lux-input
-            aria-label="Placeholder example"
-            [placeholder]="'Write text...'"
-          ></lux-input>
-        </div>
-        <pre class="language-html" rel="html">
+  <div class="sample">
+    <lux-input
+      aria-label="Placeholder example"
+      [placeholder]="'Write text...'"
+    ></lux-input>
+  </div>
+  <pre class="language-html" rel="html">
           <code class="language-html">
             &lt;lux-input aria-label="Placeholder example 2" <span class="text-underlined">placeholder="Write text..."</span>&gt;&lt;/lux-input&gt;</code>
           </pre>
-          <div class="sample">
-            <lux-input
-              aria-label="Placeholder example 2"
-              placeholder="Write text..."
-            ></lux-input>
-          </div>
+  <div class="sample">
+    <lux-input
+      aria-label="Placeholder example 2"
+      placeholder="Write text..."
+    ></lux-input>
+  </div>
 
-          <h3>Required</h3>
-          <pre class="language-html" rel="html">
+  <h3>Required</h3>
+  <pre class="language-html" rel="html">
             <code class="language-html">
               &lt;lux-input aria-label="Required example" <span class="text-underlined">required</span>&gt;&lt;/lux-input&gt;</code>
             </pre>
-            <div class="sample">
-              <lux-input aria-label="Required example" [required]="true"></lux-input>
-            </div>
-          </div>
+  <div class="sample">
+    <lux-input aria-label="Required example" [required]="true"></lux-input>
+  </div>
+</div>
 
-          <h2>Types</h2>
+<h2>Types</h2>
 
-          <div>
-            <h3>Email</h3>
-            <pre class="language-html" rel="html">
+<div>
+  <h3>Email</h3>
+  <pre class="language-html" rel="html">
               <code class="language-html">
                 &lt;lux-input placeholder="Write text..." <span class="text-underlined">type="email"</span> &gt;&lt;/lux-input&gt;</code>
               </pre>
-              <div class="sample">
-                <label for="email">Email: </label>
-                <lux-input
-                  inputId="email"
-                  placeholder="Write text..."
-                  type="email"
-                  [(ngModel)]="valueEmail"
-                ></lux-input>
-                Bind value: {{ valueEmail }}
-              </div>
+  <div class="sample">
+    <label for="email">Email: </label>
+    <lux-input
+      inputId="email"
+      placeholder="Write text..."
+      type="email"
+      [(ngModel)]="valueEmail"
+    ></lux-input>
+    Bind value: {{ valueEmail }}
+  </div>
 
-              <h3>URL</h3>
-              <pre class="language-html" rel="html">
+  <h3>URL</h3>
+  <pre class="language-html" rel="html">
                 <code class="language-html">
                   &lt;lux-input placeholder="Write text..." <span class="text-underlined">type="url"</span> &gt;&lt;/lux-input&gt;</code>
                 </pre>
-                <div class="sample">
-                  <label for="url">URL: </label>
-                  <lux-input
-                    inputId="url"
-                    placeholder="Write text..."
-                    type="url"
-                    [(ngModel)]="valueUrl"
-                  ></lux-input>
-                  Bind value: {{ valueUrl }}
-                </div>
+  <div class="sample">
+    <label for="url">URL: </label>
+    <lux-input
+      inputId="url"
+      placeholder="Write text..."
+      type="url"
+      [(ngModel)]="valueUrl"
+    ></lux-input>
+    Bind value: {{ valueUrl }}
+  </div>
 
-                <h3>Color</h3>
-                <pre class="language-html" rel="html">
+  <h3>Color</h3>
+  <pre class="language-html" rel="html">
                   <code class="language-html">
                     &lt;lux-input placeholder="Write text..." <span class="text-underlined">type="color"</span> &gt;&lt;/lux-input&gt;</code>
                   </pre>
-                  <div class="sample">
-                    <label for="color">Color: </label>
-                    <lux-input
-                      inputId="color"
-                      placeholder="Write text..."
-                      type="color"
-                      [(ngModel)]="valueColor"
-                    ></lux-input>
-                    Bind value: {{ valueColor }}
-                  </div>
+  <div class="sample">
+    <label for="color">Color: </label>
+    <lux-input
+      inputId="color"
+      placeholder="Write text..."
+      type="color"
+      [(ngModel)]="valueColor"
+    ></lux-input>
+    Bind value: {{ valueColor }}
+  </div>
 
-                  <h3>Date</h3>
-                  <pre class="language-html" rel="html">
+  <h3>Date</h3>
+  <pre class="language-html" rel="html">
                     <code class="language-html">
                       &lt;lux-input <span class="text-underlined">type="date"</span>&gt;&lt;/lux-input&gt;</code>
                     </pre>
-                    <div class="sample">
-                      <label for="date">Date: </label>
-                      <lux-input inputId="date" type="date" [(ngModel)]="valueDate"></lux-input>
-                      Bind value: {{ valueDate }}
-                    </div>
+  <div class="sample">
+    <label for="date">Date: </label>
+    <lux-input inputId="date" type="date" [(ngModel)]="valueDate"></lux-input>
+    Bind value: {{ valueDate }}
+  </div>
 
-                    <h3>Time</h3>
-                    <pre class="language-html" rel="html">
+  <h3>Time</h3>
+  <pre class="language-html" rel="html">
                       <code class="language-html">
                         &lt;lux-input <span class="text-underlined">type="time"</span>&gt;&lt;/lux-input&gt;</code>
                       </pre>
-                      <div class="sample">
-                        <label for="time">Time: </label>
-                        <lux-input inputId="time" type="time" [(ngModel)]="valueTime"></lux-input>
-                        Bind value: {{ valueTime }}
-                      </div>
+  <div class="sample">
+    <label for="time">Time: </label>
+    <lux-input inputId="time" type="time" [(ngModel)]="valueTime"></lux-input>
+    Bind value: {{ valueTime }}
+  </div>
 
-                      <h3>Password</h3>
-                      <pre class="language-html" rel="html">
+  <h3>Password</h3>
+  <pre class="language-html" rel="html">
                         <code class="language-html">
                           &lt;lux-input <span class="text-underlined">type="password"</span>&gt;&lt;/lux-input&gt;</code>
                         </pre>
-                        <div class="sample">
-                          <label for="password">Password: </label>
-                          <lux-input
-                            inputId="password"
-                            type="password"
-                            [(ngModel)]="valuePassword"
-                          ></lux-input>
-                          Bind value: {{ valuePassword }}
-                        </div>
+  <div class="sample">
+    <label for="password">Password: </label>
+    <lux-input
+      inputId="password"
+      type="password"
+      [(ngModel)]="valuePassword"
+    ></lux-input>
+    Bind value: {{ valuePassword }}
+  </div>
 
-                        <h3>Textarea</h3>
-                        <pre class="language-html" rel="html">
+  <h3>Textarea</h3>
+  <pre class="language-html" rel="html">
                           <code class="language-html">
                             &lt;lux-input <span class="text-underlined">type="textarea"</span> <span class="text-underlined">cols="32"</span> <span class="text-underlined">rows="4"</span>&gt;&lt;/lux-input&gt;</code>
                           </pre>
-                          <div class="sample">
-                            <label for="textarea">Textarea contents: </label>
-                            <lux-input
-                              inputId="textarea"
-                              type="textarea"
-                              cols="32"
-                              rows="4"
-                              [(ngModel)]="valueTextarea"
-                            ></lux-input>
-                            Bind value: {{ valueTextarea }}
-                          </div>
+  <div class="sample">
+    <label for="textarea">Textarea contents: </label>
+    <lux-input
+      inputId="textarea"
+      type="textarea"
+      cols="32"
+      rows="4"
+      [(ngModel)]="valueTextarea"
+    ></lux-input>
+    Bind value: {{ valueTextarea }}
+  </div>
 
-                          <h3>Number</h3>
-                          <pre class="language-html" rel="html">
+  <h3>Number</h3>
+  <pre class="language-html" rel="html">
                             <code class="language-html">
                               &lt;lux-input <span class="text-underlined">type="number"</span>&gt;&lt;/lux-input&gt;</code>
                             </pre>
-                            <div class="sample">
-                              <label for="numeric">Numeric value: </label>
-                              <lux-input
-                                inputId="numeric"
-                                type="number"
-                                [(ngModel)]="valueNumber"
-                              ></lux-input>
-                              Bind value: {{ valueNumber }}
-                            </div>
+  <div class="sample">
+    <label for="numeric">Numeric value: </label>
+    <lux-input
+      inputId="numeric"
+      type="number"
+      [(ngModel)]="valueNumber"
+    ></lux-input>
+    Bind value: {{ valueNumber }}
+  </div>
 
-                            <h3>Currency</h3>
-                            <pre class="language-html" rel="html">
+  <h3>Currency</h3>
+  <pre class="language-html" rel="html">
                               <code class="language-html">
                                 &lt;lux-input <span class="text-underlined">type="currency" currency="USD"</span>&gt;&lt;/lux-input&gt;</code>
                               </pre>
-                              <div class="sample">
-                                <label for="currency1">Currency value: </label>
-                                <lux-input
-                                  inputId="currency1"
-                                  type="currency"
-                                  currency="USD"
-                                  [(ngModel)]="valueCurrencyUsd"
-                                ></lux-input>
-                                Bind value: {{ valueCurrencyUsd }} USD
-                              </div>
-                              <pre class="language-html" rel="html">
+  <div class="sample">
+    <label for="currency1">Currency value: </label>
+    <lux-input
+      inputId="currency1"
+      type="currency"
+      currency="USD"
+      [(ngModel)]="valueCurrencyUsd"
+    ></lux-input>
+    Bind value: {{ valueCurrencyUsd }} USD
+  </div>
+  <pre class="language-html" rel="html">
                                 <code class="language-html">
                                   &lt;lux-input <span class="text-underlined">type="currency" currency="EUR"</span>&gt;&lt;/lux-input&gt;</code>
                                 </pre>
-                                <div class="sample">
-                                  <label for="currency2">Currency value: </label>
-                                  <lux-input
-                                    inputId="currency2"
-                                    type="currency"
-                                    currency="EUR"
-                                    [(ngModel)]="valueCurrencyEur"
-                                  ></lux-input>
-                                  Bind value: {{ valueCurrencyEur }} EUR
-                                </div>
+  <div class="sample">
+    <label for="currency2">Currency value: </label>
+    <lux-input
+      inputId="currency2"
+      type="currency"
+      currency="EUR"
+      [(ngModel)]="valueCurrencyEur"
+    ></lux-input>
+    Bind value: {{ valueCurrencyEur }} EUR
+  </div>
 
-                                <h3>Percentage</h3>
-                                <pre class="language-html" rel="html">
+  <h3>Percentage</h3>
+  <pre class="language-html" rel="html">
                                   <code class="language-html">
                                     &lt;lux-input <span class="text-underlined">type="percentage"</span>&gt;&lt;/lux-input&gt;</code>
                                   </pre>
-                                  <div class="sample">
-                                    <label for="percentage">Percentage value: </label>
-                                    <lux-input
-                                      inputId="percentage"
-                                      type="percentage"
-                                      [(ngModel)]="valuePercentage"
-                                    ></lux-input>
-                                    Bind value: {{ valuePercentage }}
-                                  </div>
+  <div class="sample">
+    <label for="percentage">Percentage value: </label>
+    <lux-input
+      inputId="percentage"
+      type="percentage"
+      [(ngModel)]="valuePercentage"
+    ></lux-input>
+    Bind value: {{ valuePercentage }}
+  </div>
 
-                                  <h3>Permillage</h3>
-                                  <pre class="language-html" rel="html">
+  <h3>Permillage</h3>
+  <pre class="language-html" rel="html">
                                     <code class="language-html">
                                       &lt;lux-input <span class="text-underlined">type="permillage"</span>&gt;&lt;/lux-input&gt;</code>
                                     </pre>
-                                    <div class="sample">
-                                      <label for="permillage">Permillage value: </label>
-                                      <lux-input
-                                        inputId="permillage"
-                                        type="permillage"
-                                        [(ngModel)]="valuePermillage"
-                                      ></lux-input>
-                                      Bind value: {{ valuePermillage }}
-                                    </div>
-                                  </div>
+  <div class="sample">
+    <label for="permillage">Permillage value: </label>
+    <lux-input
+      inputId="permillage"
+      type="permillage"
+      [(ngModel)]="valuePermillage"
+    ></lux-input>
+    Bind value: {{ valuePermillage }}
+  </div>
+</div>
 
-                                  <h2>Sandbox. Form Simulator</h2>
-                                  <div>
-                                    <div>
-                                      <label for="t1">Change type:</label>
-                                      <select name="t1" [(ngModel)]="f1.type">
-                                        <option value="string">string</option>
-                                        <option value="email">email</option>
-                                        <option value="url">url</option>
-                                        <option value="color">color</option>
-                                        <option value="textarea">textarea</option>
-                                        <option value="date">date</option>
-                                        <option value="time">time</option>
-                                        <option value="currency">currency</option>
-                                        <option value="percentage">percentage</option>
-                                        <option value="permillage">permillage</option>
-                                        <option value="number">number</option>
-                                      </select>
-                                    </div>
-                                    <div>
-                                      <label for="v1">Value: </label>
-                                      <input type="string" name="v1" [(ngModel)]="f1.formValues.field1" />
-                                    </div>
-                                    <div>
-                                      <label for="t1">
-                                        <input
-                                          type="checkbox"
-                                          name="t1"
-                                          [(ngModel)]="f1.required"
-                                          />Required</label
-                                          >
-                                        </div>
-                                        <div>
-                                          <label for="t1">
-                                            <input
-                                              type="checkbox"
-                                              name="t1"
-                                              [(ngModel)]="f1.disabled"
-                                              />Disabled</label
-                                              >
-                                            </div>
-                                            <div>
-                                              <label for="inlineErrors">
-                                                <input
-                                                  type="checkbox"
-                                                  name="inlineErrors"
-                                                  [(ngModel)]="f1.inlineErrors"
-                                                  />Show inline errors</label
-                                                  >
-                                                </div>
-                                                <hr />
+<h2>Sandbox. Form Simulator</h2>
+<div>
+  <div>
+    <label for="t1">Change type:</label>
+    <select name="t1" [(ngModel)]="f1.type">
+      <option value="string">string</option>
+      <option value="email">email</option>
+      <option value="url">url</option>
+      <option value="color">color</option>
+      <option value="textarea">textarea</option>
+      <option value="date">date</option>
+      <option value="time">time</option>
+      <option value="currency">currency</option>
+      <option value="percentage">percentage</option>
+      <option value="permillage">permillage</option>
+      <option value="number">number</option>
+    </select>
+  </div>
+  <div>
+    <label for="v1">Value: </label>
+    <input type="string" name="v1" [(ngModel)]="f1.formValues.field1" />
+  </div>
+  <div>
+    <label for="t1">
+      <input
+        type="checkbox"
+        name="t1"
+        [(ngModel)]="f1.required"
+      />Required</label
+    >
+  </div>
+  <div>
+    <label for="t1">
+      <input
+        type="checkbox"
+        name="t1"
+        [(ngModel)]="f1.disabled"
+      />Disabled</label
+    >
+  </div>
+  <div>
+    <label for="inlineErrors">
+      <input
+        type="checkbox"
+        name="inlineErrors"
+        [(ngModel)]="f1.inlineErrors"
+      />Show inline errors</label
+    >
+  </div>
+  <hr />
 
-                                                <h3>Form</h3>
-                                                <form #form="ngForm">
-                                                  <label for="field1">Field 1:</label>
-                                                  <lux-input
-                                                    name="field1"
-                                                    inputId="field1"
-                                                    [type]="f1.type"
-                                                    [required]="f1.required"
-                                                    [disabled]="f1.disabled"
-                                                    [inlineErrors]="f1.inlineErrors"
-                                                    [(ngModel)]="f1.formValues.field1"
-                                                    #f1Val="ngModel"
-                                                    >
-                                                  </lux-input>
-                                                  @if (!f1Val.valid) {
-                                                    <div>
-                                                      Debug: {{ f1Val.errors | json }} touched: {{ f1Val.touched }} dirty:
-                                                      {{ f1Val.dirty }}
-                                                    </div>
-                                                  }
-                                                  <button [disabled]="!form.valid">Fake sumbit</button>
-                                                  <div>Form values: {{ f1.formValues | json }}</div>
-                                                </form>
-                                                <button (click)="setEmpty()">Set to empty</button>
-                                              </div>
+  <h3>Form</h3>
+  <form #form="ngForm">
+    <label for="field1">Field 1:</label>
+    <lux-input
+      name="field1"
+      inputId="field1"
+      [type]="f1.type"
+      [required]="f1.required"
+      [disabled]="f1.disabled"
+      [inlineErrors]="f1.inlineErrors"
+      [(ngModel)]="f1.formValues.field1"
+      #f1Val="ngModel"
+    >
+    </lux-input>
+    @if (!f1Val.valid) {
+      <div>
+        Debug: {{ f1Val.errors | json }} touched: {{ f1Val.touched }} dirty:
+        {{ f1Val.dirty }}
+      </div>
+    }
+    <button [disabled]="!form.valid">Fake sumbit</button>
+    <div>Form values: {{ f1.formValues | json }}</div>
+  </form>
+  <button (click)="setEmpty()">Set to empty</button>
+</div>
 
-                                              <h2>Documentation</h2>
-                                              <p>
-                                                The LuxInput component implements <code>ControlValueAccessor</code>, therefore
-                                                binding using <code>ngModel</code> and <code>name</code> is supported.
-                                              </p>
-                                              <h3>Properties</h3>
-                                              <ul class="properties">
-                                                <li>
-                                                  <span class="inline">inputId</span> id for the input. If left blank, it is
-                                                  autogenerated.
-                                                </li>
-                                                <li>
-                                                  <span class="inline">aria-label</span> Custom aria label forwarded to the
-                                                  input.
-                                                </li>
-                                                <li><span class="inline">pattern</span> (Optional) The regular expression that the value must follow.</li>
-                                                <li><span class="inline">cols</span> For textareas: number of columns.</li>
-                                                <li><span class="inline">rows</span> For textareas: number of rows.</li>
-                                                <li>
-                                                  <span class="inline">step</span> For numeric types: the discrete
-                                                  increment/decrement when using the arrows.
-                                                </li>
-                                                <li><span class="inline">min</span> For numeric types: maximum value.</li>
-                                                <li><span class="inline">max</span> For numeric types: minimum value.</li>
-                                              </ul>
-                                              <h3>Events</h3>
-                                              <ul class="properties">
-                                                <li>
-                                                  <span class="inline">valueChange</span>Triggered whenever the value changes.
-                                                  Pass the newValue as payload.
-                                                </li>
-                                                <li>
-                                                  <span class="inline">keyPress</span>Triggered when a key is pressed. Pass
-                                                  the Keyboard event directly.
-                                                </li>
-                                              </ul>
+<h2>Documentation</h2>
+<p>
+  The LuxInput component implements <code>ControlValueAccessor</code>, therefore
+  binding using <code>ngModel</code> and <code>name</code> is supported.
+</p>
+<h3>Properties</h3>
+<ul class="properties">
+  <li>
+    <span class="inline">inputId</span> id for the input. If left blank, it is
+    autogenerated.
+  </li>
+  <li>
+    <span class="inline">aria-label</span> Custom aria label forwarded to the
+    input.
+  </li>
+  <li>
+    <span class="inline">pattern</span> (Optional) The regular expression that
+    the value must follow.
+  </li>
+  <li><span class="inline">cols</span> For textareas: number of columns.</li>
+  <li><span class="inline">rows</span> For textareas: number of rows.</li>
+  <li>
+    <span class="inline">step</span> For numeric types: the discrete
+    increment/decrement when using the arrows.
+  </li>
+  <li><span class="inline">min</span> For numeric types: maximum value.</li>
+  <li><span class="inline">max</span> For numeric types: minimum value.</li>
+</ul>
+<h3>Events</h3>
+<ul class="properties">
+  <li>
+    <span class="inline">valueChange</span>Triggered whenever the value changes.
+    Pass the newValue as payload.
+  </li>
+  <li>
+    <span class="inline">keyPress</span>Triggered when a key is pressed. Pass
+    the Keyboard event directly.
+  </li>
+</ul>

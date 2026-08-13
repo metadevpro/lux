@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { VERSION } from 'src/environments/version';

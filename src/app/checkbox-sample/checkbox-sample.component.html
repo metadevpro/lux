@@ -13,12 +13,14 @@
 &lt;/lux-checkbox&gt;</code>
   </pre>
   <div class="content">
-    <lux-checkbox name="closed" label="Is closed?" [(ngModel)]="model.closed"> </lux-checkbox>
+    <lux-checkbox name="closed" label="Is closed?" [(ngModel)]="model.closed">
+    </lux-checkbox>
     <span>Closed? Binded value: {{ model.closed }}</span>
-    <br/>
-    <lux-checkbox name="hasCar" label="Has car?" [(ngModel)]="model.hasCar"> </lux-checkbox>
+    <br />
+    <lux-checkbox name="hasCar" label="Has car?" [(ngModel)]="model.hasCar">
+    </lux-checkbox>
     <span>Has car? Binded value: {{ model.hasCar }}</span>
-    <br/>
+    <br />
     {{ model | json }}
   </div>
 
@@ -34,7 +36,12 @@
 </code>
   </pre>
   <div class="content">
-    <lux-checkbox name="closed2" label="Is closed?" [disabled]="true" [ngModel]="model.closed">
+    <lux-checkbox
+      name="closed2"
+      label="Is closed?"
+      [disabled]="true"
+      [ngModel]="model.closed"
+    >
     </lux-checkbox>
     <span>Binded value: {{ model.closed }}</span>
     <lux-checkbox
@@ -45,13 +52,14 @@
     >
     </lux-checkbox>
     <span>Binded value: {{ model.hasCar }}</span>
-
   </div>
 </div>
 
 <h2>Documentation</h2>
-<p>The Checkbox component implements <code>ControlValueAccessor</code>,
-  therefore binding using <code>ngModel</code> and <code>name</code> is supported.</p>
+<p>
+  The Checkbox component implements <code>ControlValueAccessor</code>, therefore
+  binding using <code>ngModel</code> and <code>name</code> is supported.
+</p>
 <h3>Properties</h3>
 <ul class="properties">
   <li>

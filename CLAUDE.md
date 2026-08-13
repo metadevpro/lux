@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 Lux is an Angular library providing UI components published as `@metadev/lux` on npm. The repository contains:
+
 - **Library source**: `projects/lux/` - The actual Lux library components
 - **Demo application**: `src/` - Angular application showcasing library components with sample pages
 
@@ -13,6 +14,7 @@ Lux is an Angular library providing UI components published as `@metadev/lux` on
 ### Dual Project Structure
 
 This is an Angular workspace with two projects defined in `angular.json`:
+
 1. **lux** (library) - The publishable Angular library at `projects/lux/`
 2. **lux-demo** (application) - The demo app that consumes and demonstrates the library
 
@@ -21,6 +23,7 @@ The demo app references the library through TypeScript path mappings (`tsconfig.
 ### Component Organization
 
 Each component in `projects/lux/src/lib/` follows a consistent structure:
+
 - Component folder named after the feature (e.g., `autocomplete/`, `checkbox/`, `modal/`)
 - Contains: component TypeScript, template, styles, spec files, and supporting files
 - All public exports defined in `projects/lux/src/public-api.ts`
@@ -40,6 +43,7 @@ Modal and Tooltip use service-based architecture with dynamic component creation
 ## Development Commands
 
 ### Build Commands
+
 ```bash
 npm run build:lux              # Build library only (outputs to dist/lux/)
 npm run build                  # Build demo app (production)
@@ -47,6 +51,7 @@ npm run build-start            # Build library then serve demo app
 ```
 
 ### Test Commands
+
 ```bash
 npm test                       # Run all tests with Jest
 npm run test:watch             # Run tests in watch mode
@@ -54,24 +59,28 @@ npm run test:coverage          # Run tests with coverage for lux library
 ```
 
 ### Lint Commands
+
 ```bash
 npm run lint                   # Lint demo app
 npm run lint:lux               # Lint library (use this for library changes)
 ```
 
 ### Development Server
+
 ```bash
 npm start                      # Serve demo app at http://localhost:4200
 ng serve                       # Alternative command for dev server
 ```
 
 ### CI/Publishing
+
 ```bash
 npm run ci                     # Run lint, tests, and build (CI pipeline)
 npm run npm-publish            # Full CI + publish to npm
 ```
 
 ### Documentation
+
 ```bash
 npm run compodoc               # Generate component documentation
 ```
@@ -101,6 +110,7 @@ To test library changes in a consuming application:
 ## Lint Conventions (eslint.config.js)
 
 A few non-default rules matter when adding code:
+
 - Single quotes, explicit function return types are required (`@typescript-eslint/explicit-function-return-type`).
 - `max-len` is 180, not the ESLint default.
 - Component selectors: element, kebab-case, **no prefix** (e.g. `checkbox`, not `lux-checkbox`). Directive selectors: attribute, camelCase, no prefix.
@@ -114,6 +124,7 @@ A few non-default rules matter when adding code:
 ## Angular Version
 
 Currently on Angular 22.x. When updating Angular:
+
 - Run migrations in both demo app and library project
 - Test library build and demo app thoroughly
 - Update peer dependencies in `projects/lux/package.json` if needed
