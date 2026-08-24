@@ -42,9 +42,9 @@ describe('AutocompleteListComponent', () => {
       local.component.populateWith('al');
       await new Promise((resolve) => setTimeout(resolve, 30));
 
-      expect(
-        local.component.internalDataSource().map((i) => i.key)
-      ).toEqual(['a']);
+      expect(local.component.internalDataSource().map((i) => i.key)).toEqual([
+        'a'
+      ]);
     });
 
     it('resolves labels for the current value once resolveLabelsFunction resolves', async () => {
