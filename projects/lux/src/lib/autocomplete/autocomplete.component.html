@@ -17,7 +17,7 @@
       (window:resize)="onInputResized()"
       role="combobox"
       aria-autocomplete="list"
-      [attr.aria-expanded]="showCompletion"
+      [attr.aria-expanded]="showCompletion()"
       aria-haspopup="true"
       attr.aria-owns="{{ inputId + '_list' }}"
       [attr.aria-activedescendant]="selectedOption"
@@ -25,10 +25,10 @@
     @if (canAddNewValues) {
       <div class="icon-suggestions"></div>
     }
-    @if (showSpinner) {
+    @if (showSpinner()) {
       <div class="icon-spinner"></div>
     }
-    @if (!disabled && i0.value && !showCompletion) {
+    @if (!disabled && i0.value && !showCompletion()) {
       <button
         type="button"
         class="icon-clear"
@@ -38,23 +38,23 @@
     } @else {
       <div
         class="icon-dropdown"
-        (click)="toggleCompletion(!showCompletion, i0.value)"
+        (click)="toggleCompletion(!showCompletion(), i0.value)"
       ></div>
     }
   </div>
   <div
     #completeDiv
-    [class.showCompletion]="showCompletion"
+    [class.showCompletion]="showCompletion()"
     [class.lux-completion-list-appended]="appendTo"
     class="lux-completion-list"
     id="{{ inputId + '_list' }}"
   >
     <ul>
-      @for (item of completionList; track item.key; let index = $index) {
+      @for (item of completionList(); track item.key; let index = $index) {
         <li
           id="{{ inputId + '_' + index }}"
           class="lux-completion-item"
-          [class.selected]="focusItem && item.key === focusItem.key"
+          [class.selected]="focusItem()?.key === item.key"
           (click)="complete(item)"
           [attr.aria-label]="item.label"
         >

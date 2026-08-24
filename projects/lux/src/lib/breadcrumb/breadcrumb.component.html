@@ -1,6 +1,6 @@
 <ul class="lux-breadcrumb">
   @for (
-    breadcrumb of breadcrumbs;
+    breadcrumb of breadcrumbs();
     track breadcrumb.url;
     let isLast = $last;
     let isFirst = $first

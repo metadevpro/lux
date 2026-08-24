@@ -10,6 +10,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  signal,
   ViewChild
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -69,11 +70,16 @@ export class AutocompleteComponent
   private lostFocusHandled = true;
   private t0 = 0;
 
-  showSpinner = false;
+  // Signals, not plain fields: every one of these is written from inside an
+  // async callback (RxJS subscribe, setTimeout) - a plain field mutated there
+  // has no way to tell a zoneless host to repaint (no zone.js patching the
+  // callback, and no markForCheck() called at the moment the value actually
+  // changes). Signals notify the view directly, without either.
+  showSpinner = signal(false);
   touched = false;
-  completionList: DecoratedDataSource = [];
-  showCompletion = false;
-  focusItem: DataSourceItem<any, string> | null = null;
+  completionList = signal<DecoratedDataSource>([]);
+  showCompletion = signal(false);
+  focusItem = signal<DataSourceItem<any, string> | null>(null);
 
   @Output() valueChange = new EventEmitter<any>();
   @Output() dataSourceChange = new EventEmitter<DataSource<any, string>>();
@@ -188,6 +194,11 @@ export class AutocompleteComponent
           .pipe(debounceTime(1), first())
           .subscribe((data) => {
             this.label = findLabelForId(data, this.value) || '';
+            // `label` stays a plain @Input (bound with [(ngModel)], which
+            // signals don't plug into directly) - it is the one write in this
+            // file not covered by a signal, so it still needs an explicit
+            // markForCheck() to reach the view in a zoneless host.
+            this.cd.markForCheck();
           });
       }
     } else {
@@ -281,7 +292,7 @@ export class AutocompleteComponent
         if (label) {
           this.pickSelectionOrFirstMatch(label);
         }
-        this.showCompletion = false;
+        this.showCompletion.set(false);
         break;
     }
     this.markAsTouched();
@@ -329,26 +340,26 @@ export class AutocompleteComponent
     this.markAsTouched();
   }
   private focusOnNext(offset: number): void {
-    const list = this.completionList || [];
+    const list = this.completionList() || [];
+    const currentFocus = this.focusItem();
     const index = list.findIndex(
-      (it) => this.focusItem && it.key === this.focusItem.key
+      (it) => currentFocus && it.key === currentFocus.key
     );
     const indexNext =
       index !== -1 && list.length > index + offset
         ? index + offset
         : list.length - 1;
-    const next = list[indexNext];
-    this.focusItem = next;
+    this.focusItem.set(list[indexNext]);
     this.ensureItemVisible(index);
   }
   private focusOnPrevious(offset: number): void {
-    const list = this.completionList || [];
+    const list = this.completionList() || [];
+    const currentFocus = this.focusItem();
     const index = list.findIndex(
-      (it) => this.focusItem && it.key === this.focusItem.key
+      (it) => currentFocus && it.key === currentFocus.key
     );
     const indexPrevious = index !== -1 && index > offset ? index - offset : 0;
-    const next = list[indexPrevious];
-    this.focusItem = next;
+    this.focusItem.set(list[indexPrevious]);
     this.ensureItemVisible(index);
   }
   onLostFocus(label: string): void {
@@ -414,6 +425,9 @@ export class AutocompleteComponent
     this.markAsTouched();
   }
   toggleCompletion(show: boolean, label: string | null): void {
+    // No trailing markForCheck(): every branch below either sets a signal
+    // (self-notifying) or is reached from a template event binding, which
+    // Angular schedules a check for on its own regardless of zone.js.
     if (show && !this.disabled) {
       this.i0.nativeElement.focus();
       if (this.appendTo) {
@@ -421,20 +435,20 @@ export class AutocompleteComponent
       }
       this.showCompletionList(label ?? '');
     } else {
-      this.showCompletion = false;
+      this.showCompletion.set(false);
       if (this.canAddNewValues) {
         this.syncCustomValue(this.label);
         return;
       }
     }
-    this.cd.markForCheck();
   }
 
   get selectedOption(): string | null {
-    const index = this.completionList.findIndex(
-      (i) => i.key === this.focusItem?.key
+    const currentFocus = this.focusItem();
+    const index = this.completionList().findIndex(
+      (i) => i.key === currentFocus?.key
     );
-    if (index === -1 || !this.focusItem) {
+    if (index === -1 || !currentFocus) {
       return null;
     }
     return `${this.inputId}_${index}`;
@@ -456,34 +470,30 @@ export class AutocompleteComponent
       this.syncCustomValue(text);
       return;
     }
-    const focusIndex = this.completionList.findIndex(
-      (it) => this.focusItem && it.key === this.focusItem.key
+    const currentFocus = this.focusItem();
+    const focusIndex = this.completionList().findIndex(
+      (it) => currentFocus && it.key === currentFocus.key
     );
-    if (
-      this.showCompletion &&
-      focusIndex > 0 &&
-      this.focusItem &&
-      this.focusItem.label
-    ) {
-      if (text === this.focusItem.label && this.focusItem.key === this.value) {
+    if (this.showCompletion() && focusIndex > 0 && currentFocus?.label) {
+      if (text === currentFocus.label && currentFocus.key === this.value) {
         // do nothing if value does not change & close dropdow
-        this.showCompletion = false;
+        this.showCompletion.set(false);
         return;
       }
       // complete selected using selected item on drowdown
-      this.complete(this.focusItem);
+      this.complete(currentFocus);
       return;
     }
     const source = (text || '').trim();
     if (!source) {
-      this.showCompletion = false;
+      this.showCompletion.set(false);
       // select null value
       if (this.value !== null) {
         this.value = null;
       }
       return;
     }
-    this.completionList = [];
+    this.completionList.set([]);
     this.computeCompletionList(source).subscribe((suggestions) => {
       const candidate =
         suggestions && suggestions.length > 0 ? suggestions[0] : null;
@@ -498,10 +508,9 @@ export class AutocompleteComponent
       // for spinner to be shown
       this.computeCompletionList(text).subscribe({
         next: (cl) => {
-          this.completionList = cl;
-          const selected = selectElement(this.completionList, text);
-          this.focusItem = selected;
-          this.showCompletion = true;
+          this.completionList.set(cl);
+          this.focusItem.set(selectElement(cl, text));
+          this.showCompletion.set(true);
           this.spinnerVisibility(useSpinner, false);
         },
         error: () => {
@@ -516,7 +525,7 @@ export class AutocompleteComponent
 
   private spinnerVisibility(useSpinner: boolean, value: boolean): void {
     if (useSpinner) {
-      this.showSpinner = value;
+      this.showSpinner.set(value);
     }
   }
   private hasExternalDataSource(): boolean {

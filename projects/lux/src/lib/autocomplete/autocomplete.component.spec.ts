@@ -1,4 +1,7 @@
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { DataSource } from '../datasource';
 import { AutocompleteComponent, selectElement } from './autocomplete.component';
 
 describe('AutoCompleteComponent', () => {
@@ -111,7 +114,7 @@ describe('AutoCompleteComponent', () => {
     it('should set dropdown position when appendTo is used', () => {
       component.appendTo = 'body';
       component.ngAfterViewInit();
-      component.showCompletion = true;
+      component.showCompletion.set(true);
       component.toggleCompletion(true, '');
       spectator.detectChanges();
 
@@ -131,6 +134,42 @@ describe('AutoCompleteComponent', () => {
 
       component.ngOnDestroy();
       expect(dropdown.parentElement).not.toBe(document.body);
+    });
+  });
+
+  // Regression coverage for the zoneless bug: completionList/showCompletion/
+  // focusItem/label are all written from inside an async subscribe (setTimeout
+  // + RxJS), not synchronously from a template event. Prior to the Signals
+  // migration these were plain fields with no markForCheck() call at the point
+  // they actually changed, so a zoneless host (no zone.js) never repainted -
+  // see docs/reqs (metadev-auth) for the live repro. Asserting the signals'
+  // own values after the async round-trip (rather than only asserting the
+  // rendered DOM, which this zone.js-backed test harness would repaint
+  // regardless) is what actually exercises the fix.
+  describe('async state updates (populateFunction / resolveLabelsFunction)', () => {
+    it('populates completionList and opens the panel once populateFunction resolves', async () => {
+      component.instance = {};
+      component.populateFunction = (): Observable<DataSource<any, string>> =>
+        of([{ key: 'a', label: 'Alpha' }]).pipe(delay(5));
+      spectator.detectChanges();
+
+      component.showCompletionList('al');
+      await new Promise((resolve) => setTimeout(resolve, 30));
+
+      expect(component.showCompletion()).toBe(true);
+      expect(component.completionList().map((i) => i.key)).toEqual(['a']);
+    });
+
+    it('resolves label via resolveLabelsFunction once the value is set', async () => {
+      component.instance = {};
+      component.resolveLabelsFunction = (): Observable<
+        DataSource<any, string>
+      > => of([{ key: 'a', label: 'Alpha' }]).pipe(delay(5));
+
+      component.value = 'a';
+      await new Promise((resolve) => setTimeout(resolve, 30));
+
+      expect(component.label).toBe('Alpha');
     });
   });
 });
