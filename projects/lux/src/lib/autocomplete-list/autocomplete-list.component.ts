@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   Output,
+  signal,
   ViewChild
 } from '@angular/core';
 import {
@@ -66,7 +67,11 @@ export class AutocompleteListComponent
     }
   };
 
-  public internalDataSource: DataSource<any, string> = [];
+  // Signals: both are written inside async subscribe callbacks
+  // (ensureLabelsForIds/populateWith's resolveLabelsFunction/populateFunction
+  // paths) - see autocomplete.component.ts's identical rationale.
+  internalDataSource = signal<DataSource<any, string>>([]);
+  labels = signal<string[]>([]);
   private autoPopulate = false;
 
   private _value: any[] = [];
@@ -87,7 +92,6 @@ export class AutocompleteListComponent
   get value(): any[] {
     return this._value;
   }
-  labels: string[] = [];
   newEntry: any;
   canAdd = false;
   touched = false;
@@ -190,7 +194,7 @@ export class AutocompleteListComponent
               res.push('(unset)');
             }
           });
-          this.labels = res;
+          this.labels.set(res);
         });
     } else if (this.dataSource) {
       const res: string[] = [];
@@ -202,16 +206,22 @@ export class AutocompleteListComponent
           res.push('(unset)');
         }
       });
-      this.labels = res;
+      this.labels.set(res);
     } else {
-      this.labels = this._value.map((it) => (it ? it.toString() : '(unset)'));
+      this.labels.set(
+        this._value.map((it) => (it ? it.toString() : '(unset)'))
+      );
     }
   }
   removeAt(index: number): void {
     if (this._value.length > index) {
       const key = this._value.splice(index, 1)[0];
-      const label = this.labels.splice(index, 1)[0];
-      this.internalDataSource.push({ key, label });
+      const currentLabels = this.labels();
+      const label = currentLabels[index];
+      // Signals are immutable-update: unlike the plain array this replaced,
+      // splicing/pushing in place would never notify a reader of this signal.
+      this.labels.set(currentLabels.filter((_, i) => i !== index));
+      this.internalDataSource.update((ds) => [...ds, { key, label }]);
     }
     this.markAsTouched();
   }
@@ -233,13 +243,13 @@ export class AutocompleteListComponent
       this.populateFunction(this.instance, searchText)
         .pipe(first())
         .subscribe((data) => {
-          this.internalDataSource = data.filter(
-            (it) => !(this._value || []).includes(it.key)
+          this.internalDataSource.set(
+            data.filter((it) => !(this._value || []).includes(it.key))
           );
         });
     } else if (this.dataSource) {
-      this.internalDataSource = this.dataSource.filter(
-        (it) => !(this._value || []).includes(it.key)
+      this.internalDataSource.set(
+        this.dataSource.filter((it) => !(this._value || []).includes(it.key))
       );
     }
   }
@@ -255,8 +265,8 @@ export class AutocompleteListComponent
     this.value.push(auto.value);
     this.ensureLabelsForIds();
     this.newEntry = '';
-    this.internalDataSource = this.internalDataSource.filter(
-      (it) => !this._value.includes(it.key)
+    this.internalDataSource.update((ds) =>
+      ds.filter((it) => !this._value.includes(it.key))
     );
     this.markAsTouched();
   }

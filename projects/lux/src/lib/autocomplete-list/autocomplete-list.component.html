@@ -1,6 +1,6 @@
 <div [id]="inputId">
   <ul>
-    @for (label of labels; track label; let index = $index) {
+    @for (label of labels(); track label; let index = $index) {
       <li>
         <span>{{ label }}</span>
         @if (!disabled) {
@@ -17,7 +17,7 @@
     <div class="new-entry">
       <lux-autocomplete
         #auto
-        [dataSource]="internalDataSource"
+        [dataSource]="internalDataSource()"
         [placeholder]="placeholder ?? literals[lang].placeholder"
         [(value)]="newEntry"
         (valueChange)="onValueChange()"

@@ -28,6 +28,14 @@ const config = {
   // An array of directory names to be searched recursively up from the requiring module's location
   moduleDirectories: ['node_modules', 'src'],
 
+  // dist/ holds a built copy of @metadev/lux (npm run build:lux) whose
+  // package.json shares its name with projects/lux/package.json - left
+  // unignored, Jest's haste module map sees two modules named "@metadev/lux"
+  // and can misresolve dependencies of whichever one it happens to pick,
+  // intermittently breaking unrelated module resolution (e.g.
+  // @angular/platform-browser-dynamic/testing) the first time the map is built.
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+
   // An array of file extensions your modules use
   moduleFileExtensions: ['js', 'mjs', 'ts', 'json', 'html'],
 

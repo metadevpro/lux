@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -23,7 +23,9 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
   private route = inject(Router);
   private activedRoute = inject(ActivatedRoute);
 
-  public breadcrumbs: BreadcrumbItem[] = [];
+  // Signal: written from inside the router-events subscribe below (async -
+  // see autocomplete.component.ts's identical rationale).
+  breadcrumbs = signal<BreadcrumbItem[]>([]);
   private subs: Subscription[] = [];
   public imagePath = '../assets/img/arrow-forward.svg';
 
@@ -32,8 +34,9 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
       this.route.events
         .pipe(filter((event) => event instanceof NavigationEnd))
         .subscribe((_) => {
-          this.breadcrumbs = [];
-          this.addBreadcrumbs(this.activedRoute.snapshot.root, true, null);
+          const acc: BreadcrumbItem[] = [];
+          this.addBreadcrumbs(this.activedRoute.snapshot.root, true, null, acc);
+          this.breadcrumbs.set(acc);
         })
     );
   }
@@ -46,7 +49,8 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
   private addBreadcrumbs(
     activedRouteSnapshot: ActivatedRouteSnapshot,
     isRoot: boolean,
-    urlPrefix: string | null
+    urlPrefix: string | null,
+    acc: BreadcrumbItem[]
   ): void {
     const routeConfig = activedRouteSnapshot.routeConfig;
     let url = urlPrefix || '';
@@ -57,11 +61,10 @@ export class LuxBreadcrumbComponent implements OnInit, OnDestroy {
         ? 'Home'
         : '';
     if (label && url !== '/') {
-      const breadcrumb = { label, url };
-      this.breadcrumbs.push(breadcrumb);
+      acc.push({ label, url });
     }
     if (activedRouteSnapshot.children.length) {
-      this.addBreadcrumbs(activedRouteSnapshot.children[0], false, url);
+      this.addBreadcrumbs(activedRouteSnapshot.children[0], false, url, acc);
     }
   }
 
